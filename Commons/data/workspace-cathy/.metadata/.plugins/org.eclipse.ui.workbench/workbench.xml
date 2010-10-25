@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench version="2.0">
 <workbenchAdvisor/>
-<window height="746" minimized="true" width="1024" x="0" y="0">
+<window height="746" maximized="true" width="1024" x="0" y="0">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar/>
 <coolbarLayout locked="1">
 <coolItem id="org.xmind.ui.group.file" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="107" y="22"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="108" y="22"/>
 <coolItem id="org.xmind.ui.group.undo" itemType="typeGroupMarker"/>
-<coolItem id="org.xmind.ui.org.xmind.ui.workbench.undo" itemType="typeToolBarContribution" x="61" y="22"/>
+<coolItem id="org.xmind.ui.org.xmind.ui.workbench.undo" itemType="typeToolBarContribution" x="62" y="22"/>
 <coolItem id="org.xmind.ui.group.edit" itemType="typeGroupMarker"/>
-<coolItem id="org.xmind.ui.org.xmind.ui.workbench.edit" itemType="typeToolBarContribution" x="107" y="22"/>
+<coolItem id="org.xmind.ui.org.xmind.ui.workbench.edit" itemType="typeToolBarContribution" x="108" y="22"/>
 <coolItem id="additions" itemType="typeGroupMarker"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="org.xmind.ui.browser.editor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.xmind.ui.MindMapEditor" itemType="typePlaceholder" x="597" y="28"/>
+<coolItem id="org.xmind.ui.MindMapEditor" itemType="typePlaceholder" x="598" y="30"/>
 </coolbarLayout>
 <page focus="true" label="&lt;未知标签&gt; － Meggy Perspective">
 <editors>
@@ -27,7 +27,9 @@
 </editorArea>
 </editors>
 <views>
-<view id="org.xmind.ui.OverviewBiew" partName="浏览"/>
+<view id="org.xmind.ui.OverviewBiew" partName="浏览">
+<viewState/>
+</view>
 <view id="org.eclipse.ui.views.PropertySheet" partName="特性">
 <viewState/>
 </view>
@@ -122,6 +124,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.xmind.ui.WorkbookEditorInputFactory" id="org.xmind.ui.MindMapEditor" name="事务管理.xmind" tooltip="F:\arch\我的DBank\web\spring\事务管理.xmind">
+<persistable path="F:\arch\我的DBank\web\spring\事务管理.xmind"/>
+</file>
 <file factoryID="org.xmind.ui.browser.elementFactory" id="org.xmind.ui.browser.editor" name="网页浏览器" tooltip="http://www.xmind.net/xmind/go?r=http%3A%2F%2Fwww.xmind.net%2Fsignup%2F&amp;u=&amp;t=&amp;distrib=cathy.portable">
 <persistable clientId="net.xmind.browser.commmon-4" url="http://www.xmind.net/xmind/go?r=http%3A%2F%2Fwww.xmind.net%2Fsignup%2F&amp;u=&amp;t=&amp;distrib=cathy.portable"/>
 </file>
