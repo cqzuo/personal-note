@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Map State="1" MTime="" MAddr="" MMemo="">
+    <NodeSet>
+        <Node Name="JSP基础" Code="" Hgap="0" Vshift="0" Type="1" Color="#8B0000" Edge="#C0C0C0" Border="#C0C0C0" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+            <Node Name="指令" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="&lt;%..指令..%&gt;" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="page" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="taglib" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="include" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="XML兼容语法" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="&lt;jsp:directive.taglib&gt;" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="模版数据" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="静态文本" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="动作" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="&lt;jsp:useBean/&gt;" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="&lt;jsp:getProperty/&gt;" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="&lt;jsp:setProperty/&gt;" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="&lt;jsp:include/&gt;" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="脚步元素" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            <Node Name="表单提交" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="post" Code="N1284456119" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="发送参数的长度不受限" Code="N1284456127" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+                <Node Name="get" Code="N1284456122" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="用于发送任意重发而不会对系统带来改变数据" Code="N1284456186" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+            </Node>
+            <Node Name="个性化" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            <Node Name="参数的传递" Code="N1284519917" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="页面A" Code="N1284519925" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="在form里设置要转向的页面B" Code="N1284519963" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    <Node Name="input设置name" Code="N1284520006" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+                <Node Name="页面B" Code="N1284519938" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="接收参数" Code="N1284520061" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                        <Node Name="${param.页面A中的name}" Code="N1284520070" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    </Node>
+                    <Node Name="发送参数" Code="N1284520141" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                        <Node Name='&lt;jsp:param name=&quot;&quot; value=&quot;&quot;&gt;' Code="N1284520147" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    </Node>
+                </Node>
+                <Node Name="页面C" Code="N1284520112" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="接收参数" Code="N1284520116" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                        <Node Name="${param.页面B中的name}" Code="N1284520210" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    </Node>
+                </Node>
+            </Node>
+        </Node>
+        <Node Name="JSP基础" Code="" Hgap="0" Vshift="0" Type="1" Color="#8B0000" Edge="#C0C0C0" Border="#C0C0C0" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="0" Unit="0" />
+    </NodeSet>
+    <LinkSet />
+    <CurvSet />
+    <FloatSet />
+    <ImageSet />
+    <Digest1>
+        <Digest Text="" />
+    </Digest1>
+    <Digest2>
+        <Digest Text='&lt;HTML&gt;&lt;HEAD&gt;&#x0D;&#x0A;&lt;META http-equiv=MSThemeCompatible content=yes&gt;&#x0D;&#x0A;&lt;META content=&quot;MSHTML 6.00.2900.6003&quot; name=GENERATOR&gt;&lt;/HEAD&gt;&#x0D;&#x0A;&lt;BODY&gt;&#x0D;&#x0A;&lt;DIV&gt;&lt;/DIV&gt;&lt;/BODY&gt;&lt;/HTML&gt;' />
+    </Digest2>
+    <SoundSet />
+</Map>

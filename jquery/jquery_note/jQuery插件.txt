@@ -1,0 +1,124 @@
+15.1 表单插件
+15.1.1 获取表单数据
+下载后为jquery.form.js文件,提供获取表单数据,重置表单项目,使用ajax提交数据等功能
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript" src="jquery.form.js"></script>
+<script language="javascript">
+function checkFiledValue(){
+	var aFieldValue = $("#myForm *").fieldValue();
+	//获取整个表单有用元素的值
+	alert(aFieldValue.join());
+}
+</script>
+</head>
+<body>
+<form id="myForm" name="myForm">
+<table cellspacing="0" id="formTable">
+<input type="hidden" name="Hidden" value="secret">  
+<tr><td>用户</td><td><input name="Name" type="text"></td></tr>
+<tr><td>密码</td><td><input name="Password" type="password"></td></tr>
+<tr><td>性别</td>
+<td><label><input type="radio" name="Radio" value="male">男</label> 
+<label><input type="radio" name="Radio" value="female">女</label></td>
+</tr>
+<tr><td>多选</td><td>
+<select name="Multiple" multiple="multiple">
+	<option>One</option>
+	<option>Two</option>
+	<option>Three</option>
+</select>
+</td></tr>
+<tr><td>单选</td><td>
+<select name="Single">
+	<option>One</option>
+	<option>Two</option>
+	<option>Three</option>
+</select>
+</td></tr>
+<tr><td>爱好</td>
+<td><label><input type="checkbox" name="Check" value="roaming">逛街</label>
+<label><input type="checkbox" name="Check" value="balls">打球</label>
+<label><input type="checkbox" name="Check" value="TV">看电视</label></td></tr>
+<tr><td>收入</td>
+<td><label><input type="checkbox" name="Check2" value="below5k">5000以下(不含)</label>
+<label><input type="checkbox" name="Check2" value="above5k">大于5000</label></td>
+</tr>
+<tr><td>留言</td><td><textarea name="Text" rows="2" cols="20"></textarea></td></tr>  
+<tr><td colspan="2" align="center"><input type="submit" name="sub" value="Submit">
+<input type="reset" name="resetButton" value="Reset">
+<input type="button" name="btn" value="FieldValue" onclick="checkFiledValue()"></td></tr>
+</table>
+</form>
+</body>
+15.1.2 表单的清除与重置
+$("指定表单").clearForm()
+$("指定表单").resetForm()
+15.1.3 ajax提交表单
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript" src="jquery.form.js"></script>
+<script language="javascript">
+$(function(){
+	$("input[type=button]:eq(0)").click(function(){
+		var options = {
+			target: "#myTargetDiv"
+		};
+		//ajax一步上传表单
+		$("#myForm").ajaxSubmit(options);
+	});
+});
+</script>
+</head>
+<body>
+<form id="myForm" name="myForm" action="15-4.aspx">
+<table cellspacing="0" id="formTable">
+<tr><td>用户</td><td><input name="Name" type="text"></td></tr>
+<tr><td>密码</td><td><input name="Password" type="password"></td></tr>
+<tr><td colspan="2" align="center"><input type="button" name="ajaxSub" value="AjaxSubmit">
+<input type="submit" name="Sub" value="NormalSubmit">
+</td></tr>
+</table>
+</form>
+<div id="myTargetDiv"></div>
+</body>
+15.2 UI插件
+轻松实现各种特效
+15.2.1 鼠标拖曳
+<script language="javascript" src="jquery.ui/jquery-1.2.4a.js"></script>
+<script language="javascript" src="jquery.ui/ui.base.min.js"></script>
+<script language="javascript" src="jquery.ui/ui.draggable.min.js"></script>
+<script language="javascript">
+$(function(){
+	for(var i=0;i<3;i++){
+		//添加三个透明的<div>块
+		$(document.body).append($("<div class='block'>Div"+i.toString()+"</div>").css("opacity",0.6));
+	}
+	//直接调用拖拽方法
+	$(".block").draggable();
+});
+</script>
+15.2.2 拖入购物车
+droppable()
+<script language="javascript" src="jquery.ui/jquery-1.2.4a.js"></script>
+<script language="javascript" src="jquery.ui/ui.base.min.js"></script>
+<script language="javascript" src="jquery.ui/ui.draggable.min.js"></script>
+<script language="javascript" src="jquery.ui/ui.droppable.min.js"></script>
+<script language="javascript">
+$(function(){
+	$(".draggable").draggable({helper:"clone"});
+	$("#droppable-accept").droppable({
+		accept: function(draggable){
+			//接收类别为green的
+			return $(draggable).hasClass("green");
+		},
+		drop: function(){
+			$(this).append($("<div></div>").html("drop!"));
+		}
+	});
+});
+</script>
+</head>
+<body>
+<div class="draggable red">draggable red</div>
+<div class="draggable green">draggable green</div>
+<div id="droppable-accept" class="droppable">droppable<br></div>
+</body>

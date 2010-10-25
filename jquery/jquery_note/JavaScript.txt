@@ -1,0 +1,92 @@
+1. JavaScript与可编程
+1.1 JavaScript使网页具备了可编程的特性
+ JavaScript解释器: HTML---->DHTML
+2. 为什么JavaScript越来越重要
+2.1 面向机器的编程--->面向虚拟机的编程
+2.2 ECMAScript的广泛应用
+ JavaScript/Flash/Silverlight/...
+3. 知识框架
+4. 学习方法建议
+
+1.1 JavaScript的起源
+1.2 JavaScript的实现
+	ECMAScript DOM BOM
+1.3 web标准
+	结构Structure
+	表示Presentation
+	行为Behavior
+
+2 JavaScript基础
+2.1 JavaScript的语法
+2.1.1 区分大小写
+2.1.2 弱类型变量
+var age = 23; var myName="zhangsan"; var male=true;
+2.1.3 每行结尾的分号可有可无
+2.1.4 括号用于代码块
+if(myName=="isaac")
+{
+	var age=25;alert(age);
+}
+2.2 变量
+ var申明 var boy="isaac";
+2.2.1 首字符必须是字母下划线或美元符号
+2.2.2 余下字符可以是字母数字下划线美元符号
+2.2.3 不用保留字
+2.3 数据类型
+2.3.1 字符串
+<script language="javascript">
+	var sMyString = "this is cake ~";
+//从第一个字符串取到第三个字符串之前
+	document.write(sMyString.slice(1,3)+"<br>");
+	document.write(sMyString.substring(1,3)+"<br>");
+	document.write(sMyString.slice(4)+"<br>");
+	document.write(sMyString+"<br>");
+</script>
+2.3.2 数值
+2.3.3 布尔
+2.3.4 数组
+2.4 条件语句
+2.5 循环语句
+2.6 函数
+2.7 例子
+ <script language="javascript">
+ 
+	var number = Number(prompt("请输入一个数进行累加!"));
+	var i=sum=0;
+		while(i<=number)
+		{
+			sum+=i;
+			i++;
+		}
+	alert("从1加到"+number+"的值是"+sum);
+	var number  = Number(prompt("输入一个10到100之间的数"));
+	if(isNaN(number))
+		document.write("你输入正确!");
+	else if(number>100||number<10)
+		document.write("你输入的数小于10或大于100!");
+	else
+		document.write("你输入的数在10与100之间,是"+number);
+    
+	var sMyString = "this is cake ~";
+	document.write(sMyString.slice(1,3)+"<br>");
+	document.write(sMyString.substring(1,3)+"<br>");
+	document.write(sMyString.slice(4)+"<br>");
+	document.write(sMyString+"<br>");
+	
+	var number1 = 123;
+	var number2 = 234;
+	var number3 = 23.3;
+	var number4 = -13.34;
+	alert(number1+""+number2+""+number3+""+number4);
+	
+	var v1 = true;
+	var v2 = "true";
+	alert("1."+typeof(v1));
+	alert("2."+typeof(v2));
+</script>
+
+3 css基础
+3.1 css的概念
+ Cascading Style Sheet 层叠样式表 
+3.2 使用css控制页面
+3.3 css选择器

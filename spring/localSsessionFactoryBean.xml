@@ -1,0 +1,14 @@
+<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"/>
+	<property name="mappingResources">
+		<list>
+			<value>hmb.xml配置文件的路径</value>
+			...
+		</list>
+	</property>
+	<property name="hibernateProperties">
+		<pros>
+			<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+		</pros>
+	</propery>
+</bean>

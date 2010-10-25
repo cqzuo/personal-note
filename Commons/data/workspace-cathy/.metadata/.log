@@ -1,0 +1,872 @@
+!SESSION 2010-10-22 10:30:22.343 -----------------------------------------------
+eclipse.buildId=M20090917-0800
+java.version=1.6.0_21
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  F:\arch\我的DBank\web\spring\事务管理.xmind
+Command-line arguments:  -os win32 -ws win32 -arch x86 F:\arch\我的DBank\web\spring\事务管理.xmind
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.843
+!MESSAGE NLS unused message: AutoSaveJob_errorOccurred in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.843
+!MESSAGE NLS unused message: AutoSaveJob_finished in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.843
+!MESSAGE NLS unused message: AutoSaveJob_name in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.843
+!MESSAGE NLS unused message: Feedback_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.843
+!MESSAGE NLS unused message: Feedback_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.843
+!MESSAGE NLS unused message: Invite_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.859
+!MESSAGE NLS unused message: Invite_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.859
+!MESSAGE NLS unused message: ProChecker_CheckPro_jobName in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.859
+!MESSAGE NLS unused message: ShowAccount_pattern in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.859
+!MESSAGE NLS unused message: ShowAccount_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.859
+!MESSAGE NLS unused message: ShowAccount_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.859
+!MESSAGE NLS unused message: ShowAccount_toolTip_pattern in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.875
+!MESSAGE NLS unused message: SignIn_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.890
+!MESSAGE NLS unused message: SignOut_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.890
+!MESSAGE NLS unused message: Update_jobName in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.890
+!MESSAGE NLS unused message: Welcome_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:29.890
+!MESSAGE NLS unused message: Welcome_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.062
+!MESSAGE NLS unused message: FindUpdate_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.062
+!MESSAGE NLS unused message: NotesView_RedoTyping_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.062
+!MESSAGE NLS unused message: NotesView_RedoTyping_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.062
+!MESSAGE NLS unused message: NotesView_UndoTyping_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.062
+!MESSAGE NLS unused message: NotesView_UndoTyping_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.062
+!MESSAGE NLS unused message: SortAsAlpha_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.062
+!MESSAGE NLS unused message: SortAsAlpha_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.062
+!MESSAGE NLS unused message: SortAsModifyDate_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.078
+!MESSAGE NLS unused message: SortAsModifyDate_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.078
+!MESSAGE NLS unused message: SortAsPriority_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.078
+!MESSAGE NLS unused message: SortAsPriority_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.078
+!MESSAGE NLS unused message: TryPro_ErrorDialog_message in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.078
+!MESSAGE NLS unused message: TryPro_ErrorDialog_title in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.078
+!MESSAGE NLS unused message: TryPro_InstallDialog_title in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.078
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_LocalFile in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.078
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_Online in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.078
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_jobName in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.078
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_label in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:30.093
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_title in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.859
+!MESSAGE NLS unused message: Cancel_Button_Label in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.890
+!MESSAGE NLS unused message: CheckJob_Text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.890
+!MESSAGE NLS unused message: CheckResultMessage_Text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.890
+!MESSAGE NLS unused message: CheckResultMessage_Title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.890
+!MESSAGE NLS unused message: CheckUpdateDialog_Text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.890
+!MESSAGE NLS unused message: CheckUpdateDialog_Title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.890
+!MESSAGE NLS unused message: Update_Button_Label in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.890
+!MESSAGE NLS unused message: UpgradeSourceDialog_LocalFile in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.890
+!MESSAGE NLS unused message: UpgradeSourceDialog_Online in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.906
+!MESSAGE NLS unused message: UpgradeSourceDialog_label in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.906
+!MESSAGE NLS unused message: UpgradeSourceDialog_title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.906
+!MESSAGE NLS unused message: Upgrade_ErrorDialog_message in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.906
+!MESSAGE NLS unused message: Upgrade_ErrorDialog_title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.906
+!MESSAGE NLS unused message: Upgrade_InstallDialog_title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.906
+!MESSAGE NLS unused message: Upgrade_jobName in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.906
+!MESSAGE NLS unused message: Upgrade_text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:32.921
+!MESSAGE NLS unused message: Upgrade_toolTip in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:34.796
+!MESSAGE NLS unused message: ShowAllAction_name in: org.xmind.ui.internal.mindmap.filtering.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:39.859
+!MESSAGE NLS unused message: actionJob_name in: net.xmind.verify.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:39.859
+!MESSAGE NLS unused message: cancel_text in: net.xmind.verify.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:30:39.875
+!MESSAGE NLS unused message: close_text in: net.xmind.verify.internal.messages
+!SESSION 2010-10-22 10:35:12.156 -----------------------------------------------
+eclipse.buildId=M20090917-0800
+java.version=1.6.0_21
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  F:\arch\我的DBank\web\spring\事务管理.xmind
+Command-line arguments:  -os win32 -ws win32 -arch x86 F:\arch\我的DBank\web\spring\事务管理.xmind
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.062
+!MESSAGE NLS unused message: AutoSaveJob_errorOccurred in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.062
+!MESSAGE NLS unused message: AutoSaveJob_finished in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.062
+!MESSAGE NLS unused message: AutoSaveJob_name in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.062
+!MESSAGE NLS unused message: Feedback_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.062
+!MESSAGE NLS unused message: Feedback_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.062
+!MESSAGE NLS unused message: Invite_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.062
+!MESSAGE NLS unused message: Invite_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.078
+!MESSAGE NLS unused message: ProChecker_CheckPro_jobName in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.078
+!MESSAGE NLS unused message: ShowAccount_pattern in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.078
+!MESSAGE NLS unused message: ShowAccount_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.078
+!MESSAGE NLS unused message: ShowAccount_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.078
+!MESSAGE NLS unused message: ShowAccount_toolTip_pattern in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.078
+!MESSAGE NLS unused message: SignIn_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.078
+!MESSAGE NLS unused message: SignOut_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.078
+!MESSAGE NLS unused message: Update_jobName in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.078
+!MESSAGE NLS unused message: Welcome_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.109
+!MESSAGE NLS unused message: Welcome_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.187
+!MESSAGE NLS unused message: FindUpdate_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.187
+!MESSAGE NLS unused message: NotesView_RedoTyping_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.187
+!MESSAGE NLS unused message: NotesView_RedoTyping_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.187
+!MESSAGE NLS unused message: NotesView_UndoTyping_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.187
+!MESSAGE NLS unused message: NotesView_UndoTyping_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.187
+!MESSAGE NLS unused message: SortAsAlpha_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.187
+!MESSAGE NLS unused message: SortAsAlpha_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.203
+!MESSAGE NLS unused message: SortAsModifyDate_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.203
+!MESSAGE NLS unused message: SortAsModifyDate_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.203
+!MESSAGE NLS unused message: SortAsPriority_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.234
+!MESSAGE NLS unused message: SortAsPriority_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.234
+!MESSAGE NLS unused message: TryPro_ErrorDialog_message in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.234
+!MESSAGE NLS unused message: TryPro_ErrorDialog_title in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.234
+!MESSAGE NLS unused message: TryPro_InstallDialog_title in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.234
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_LocalFile in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.234
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_Online in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.234
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_jobName in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.234
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_label in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:15.234
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_title in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.562
+!MESSAGE NLS unused message: ShowAllAction_name in: org.xmind.ui.internal.mindmap.filtering.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.734
+!MESSAGE NLS unused message: Cancel_Button_Label in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.734
+!MESSAGE NLS unused message: CheckJob_Text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.734
+!MESSAGE NLS unused message: CheckResultMessage_Text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.734
+!MESSAGE NLS unused message: CheckResultMessage_Title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.750
+!MESSAGE NLS unused message: CheckUpdateDialog_Text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.750
+!MESSAGE NLS unused message: CheckUpdateDialog_Title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.750
+!MESSAGE NLS unused message: Update_Button_Label in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.750
+!MESSAGE NLS unused message: UpgradeSourceDialog_LocalFile in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.750
+!MESSAGE NLS unused message: UpgradeSourceDialog_Online in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.750
+!MESSAGE NLS unused message: UpgradeSourceDialog_label in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.750
+!MESSAGE NLS unused message: UpgradeSourceDialog_title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.750
+!MESSAGE NLS unused message: Upgrade_ErrorDialog_message in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.750
+!MESSAGE NLS unused message: Upgrade_ErrorDialog_title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.765
+!MESSAGE NLS unused message: Upgrade_InstallDialog_title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.765
+!MESSAGE NLS unused message: Upgrade_jobName in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.765
+!MESSAGE NLS unused message: Upgrade_text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:17.765
+!MESSAGE NLS unused message: Upgrade_toolTip in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:18.859
+!MESSAGE NLS unused message: actionJob_name in: net.xmind.verify.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:18.859
+!MESSAGE NLS unused message: cancel_text in: net.xmind.verify.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:18.921
+!MESSAGE NLS unused message: close_text in: net.xmind.verify.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:27.296
+!MESSAGE NLS unused message: Command_SortAsAlpha in: org.xmind.ui.commands.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:27.296
+!MESSAGE NLS unused message: Command_SortAsModifyDate in: org.xmind.ui.commands.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-22 10:35:27.296
+!MESSAGE NLS unused message: Command_SortAsPriority in: org.xmind.ui.commands.messages
+!SESSION 2010-10-23 14:53:05.171 -----------------------------------------------
+eclipse.buildId=M20090917-0800
+java.version=1.6.0_21
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  F:\arch\我的DBank\web\spring\事务管理.xmind
+Command-line arguments:  -os win32 -ws win32 -arch x86 F:\arch\我的DBank\web\spring\事务管理.xmind
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:16.937
+!MESSAGE NLS unused message: AutoSaveJob_errorOccurred in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.234
+!MESSAGE NLS unused message: AutoSaveJob_finished in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.234
+!MESSAGE NLS unused message: AutoSaveJob_name in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.234
+!MESSAGE NLS unused message: Feedback_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.234
+!MESSAGE NLS unused message: Feedback_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.234
+!MESSAGE NLS unused message: Invite_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.234
+!MESSAGE NLS unused message: Invite_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.234
+!MESSAGE NLS unused message: ProChecker_CheckPro_jobName in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.250
+!MESSAGE NLS unused message: ShowAccount_pattern in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.250
+!MESSAGE NLS unused message: ShowAccount_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.250
+!MESSAGE NLS unused message: ShowAccount_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.250
+!MESSAGE NLS unused message: ShowAccount_toolTip_pattern in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.265
+!MESSAGE NLS unused message: SignIn_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.265
+!MESSAGE NLS unused message: SignOut_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.265
+!MESSAGE NLS unused message: Update_jobName in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.265
+!MESSAGE NLS unused message: Welcome_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.265
+!MESSAGE NLS unused message: Welcome_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.515
+!MESSAGE NLS unused message: FindUpdate_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.515
+!MESSAGE NLS unused message: NotesView_RedoTyping_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.515
+!MESSAGE NLS unused message: NotesView_RedoTyping_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.515
+!MESSAGE NLS unused message: NotesView_UndoTyping_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.515
+!MESSAGE NLS unused message: NotesView_UndoTyping_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.531
+!MESSAGE NLS unused message: SortAsAlpha_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.531
+!MESSAGE NLS unused message: SortAsAlpha_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.531
+!MESSAGE NLS unused message: SortAsModifyDate_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.531
+!MESSAGE NLS unused message: SortAsModifyDate_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.531
+!MESSAGE NLS unused message: SortAsPriority_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.531
+!MESSAGE NLS unused message: SortAsPriority_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.531
+!MESSAGE NLS unused message: TryPro_ErrorDialog_message in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.531
+!MESSAGE NLS unused message: TryPro_ErrorDialog_title in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.531
+!MESSAGE NLS unused message: TryPro_InstallDialog_title in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.531
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_LocalFile in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.546
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_Online in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.546
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_jobName in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.546
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_label in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:17.546
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_title in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.765
+!MESSAGE NLS unused message: Cancel_Button_Label in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.765
+!MESSAGE NLS unused message: CheckJob_Text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.781
+!MESSAGE NLS unused message: CheckResultMessage_Text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.781
+!MESSAGE NLS unused message: CheckResultMessage_Title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.781
+!MESSAGE NLS unused message: CheckUpdateDialog_Text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.781
+!MESSAGE NLS unused message: CheckUpdateDialog_Title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.781
+!MESSAGE NLS unused message: Update_Button_Label in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.781
+!MESSAGE NLS unused message: UpgradeSourceDialog_LocalFile in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.796
+!MESSAGE NLS unused message: UpgradeSourceDialog_Online in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.796
+!MESSAGE NLS unused message: UpgradeSourceDialog_label in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.796
+!MESSAGE NLS unused message: UpgradeSourceDialog_title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.796
+!MESSAGE NLS unused message: Upgrade_ErrorDialog_message in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.796
+!MESSAGE NLS unused message: Upgrade_ErrorDialog_title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.812
+!MESSAGE NLS unused message: Upgrade_InstallDialog_title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.812
+!MESSAGE NLS unused message: Upgrade_jobName in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.812
+!MESSAGE NLS unused message: Upgrade_text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:20.812
+!MESSAGE NLS unused message: Upgrade_toolTip in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:23.625
+!MESSAGE NLS unused message: ShowAllAction_name in: org.xmind.ui.internal.mindmap.filtering.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:30.843
+!MESSAGE NLS unused message: actionJob_name in: net.xmind.verify.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:30.921
+!MESSAGE NLS unused message: cancel_text in: net.xmind.verify.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 14:53:30.921
+!MESSAGE NLS unused message: close_text in: net.xmind.verify.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 15:02:12.703
+!MESSAGE NLS unused message: Command_SortAsAlpha in: org.xmind.ui.commands.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 15:02:12.703
+!MESSAGE NLS unused message: Command_SortAsModifyDate in: org.xmind.ui.commands.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 15:02:12.703
+!MESSAGE NLS unused message: Command_SortAsPriority in: org.xmind.ui.commands.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 15:02:32.875
+!MESSAGE NLS unused message: HyperlinkDialog2_FailCreatePage_message in: org.xmind.ui.internal.dialogs.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 15:02:32.875
+!MESSAGE NLS unused message: HyperlinkDialog_message in: org.xmind.ui.internal.dialogs.messages
+!SESSION 2010-10-23 20:07:33.762 -----------------------------------------------
+eclipse.buildId=M20090917-0800
+java.version=1.6.0_21
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  E:\note\我的DBank\web\spring\事务管理.xmind
+Command-line arguments:  -os win32 -ws win32 -arch x86 E:\note\我的DBank\web\spring\事务管理.xmind
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.507
+!MESSAGE NLS unused message: AutoSaveJob_errorOccurred in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.517
+!MESSAGE NLS unused message: AutoSaveJob_finished in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.517
+!MESSAGE NLS unused message: AutoSaveJob_name in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.517
+!MESSAGE NLS unused message: Feedback_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.517
+!MESSAGE NLS unused message: Feedback_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.517
+!MESSAGE NLS unused message: Invite_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.517
+!MESSAGE NLS unused message: Invite_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.517
+!MESSAGE NLS unused message: ProChecker_CheckPro_jobName in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.527
+!MESSAGE NLS unused message: ShowAccount_pattern in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.527
+!MESSAGE NLS unused message: ShowAccount_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.527
+!MESSAGE NLS unused message: ShowAccount_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.537
+!MESSAGE NLS unused message: ShowAccount_toolTip_pattern in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.537
+!MESSAGE NLS unused message: SignIn_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.537
+!MESSAGE NLS unused message: SignOut_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.537
+!MESSAGE NLS unused message: Update_jobName in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.537
+!MESSAGE NLS unused message: Welcome_text in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.537
+!MESSAGE NLS unused message: Welcome_toolTip in: org.xmind.cathy.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.807
+!MESSAGE NLS unused message: FindUpdate_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.807
+!MESSAGE NLS unused message: NotesView_RedoTyping_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.807
+!MESSAGE NLS unused message: NotesView_RedoTyping_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.807
+!MESSAGE NLS unused message: NotesView_UndoTyping_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.807
+!MESSAGE NLS unused message: NotesView_UndoTyping_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.817
+!MESSAGE NLS unused message: SortAsAlpha_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.817
+!MESSAGE NLS unused message: SortAsAlpha_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.817
+!MESSAGE NLS unused message: SortAsModifyDate_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.817
+!MESSAGE NLS unused message: SortAsModifyDate_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.817
+!MESSAGE NLS unused message: SortAsPriority_text in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.817
+!MESSAGE NLS unused message: SortAsPriority_toolTip in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.827
+!MESSAGE NLS unused message: TryPro_ErrorDialog_message in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.827
+!MESSAGE NLS unused message: TryPro_ErrorDialog_title in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.827
+!MESSAGE NLS unused message: TryPro_InstallDialog_title in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.827
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_LocalFile in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.827
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_Online in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.827
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_jobName in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.827
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_label in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:44.827
+!MESSAGE NLS unused message: TryPro_UpdateSourceDialog_title in: org.xmind.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.274
+!MESSAGE NLS unused message: Cancel_Button_Label in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.284
+!MESSAGE NLS unused message: CheckJob_Text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.284
+!MESSAGE NLS unused message: CheckResultMessage_Text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.284
+!MESSAGE NLS unused message: CheckResultMessage_Title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.294
+!MESSAGE NLS unused message: CheckUpdateDialog_Text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.294
+!MESSAGE NLS unused message: CheckUpdateDialog_Title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.294
+!MESSAGE NLS unused message: Update_Button_Label in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.294
+!MESSAGE NLS unused message: UpgradeSourceDialog_LocalFile in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.294
+!MESSAGE NLS unused message: UpgradeSourceDialog_Online in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.294
+!MESSAGE NLS unused message: UpgradeSourceDialog_label in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.324
+!MESSAGE NLS unused message: UpgradeSourceDialog_title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.324
+!MESSAGE NLS unused message: Upgrade_ErrorDialog_message in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.324
+!MESSAGE NLS unused message: Upgrade_ErrorDialog_title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.324
+!MESSAGE NLS unused message: Upgrade_InstallDialog_title in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.354
+!MESSAGE NLS unused message: Upgrade_jobName in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.354
+!MESSAGE NLS unused message: Upgrade_text in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:49.354
+!MESSAGE NLS unused message: Upgrade_toolTip in: net.xmind.signin.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:07:53.109
+!MESSAGE NLS unused message: ShowAllAction_name in: org.xmind.ui.internal.mindmap.filtering.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:08:00.730
+!MESSAGE NLS unused message: actionJob_name in: net.xmind.verify.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:08:00.730
+!MESSAGE NLS unused message: cancel_text in: net.xmind.verify.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:08:00.730
+!MESSAGE NLS unused message: close_text in: net.xmind.verify.internal.messages
+
+!ENTRY net.xmind.login 2 400 2010-10-23 20:08:15.111
+!MESSAGE XMind ID/email和密码不匹配.
+
+!ENTRY net.xmind.login 2 403 2010-10-23 20:08:30.743
+!MESSAGE XMind ID/email和密码不匹配.
+
+!ENTRY net.xmind.login 2 404 2010-10-23 20:08:37.914
+!MESSAGE XMind ID/email和密码不匹配.
+
+!ENTRY net.xmind.login 2 404 2010-10-23 20:08:44.884
+!MESSAGE XMind ID/email和密码不匹配.
+
+!ENTRY net.xmind.login 2 403 2010-10-23 20:08:59.965
+!MESSAGE XMind ID/email和密码不匹配.
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:09:18.853
+!MESSAGE NLS unused message: ExportMSOffice_Check_jobName in: org.xmind.ui.internal.exports.msoffice.messages
+
+!ENTRY org.eclipse.ui 4 0 2010-10-23 20:09:28.757
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Widget is disposed
+	at org.eclipse.swt.SWT.error(SWT.java:3884)
+	at org.eclipse.swt.SWT.error(SWT.java:3799)
+	at org.eclipse.swt.SWT.error(SWT.java:3770)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:463)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:336)
+	at org.eclipse.swt.widgets.Control.setForeground(Control.java:3013)
+	at net.xmind.signin.internal.SignInDialog2$7.handleEvent(SignInDialog2.java:356)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1003)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3880)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3473)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:825)
+	at org.eclipse.jface.window.Window.open(Window.java:801)
+	at net.xmind.signin.internal.SignInJob$1.run(SignInJob.java:97)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3855)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3476)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:825)
+	at org.eclipse.jface.window.Window.open(Window.java:801)
+	at org.eclipse.ui.internal.handlers.WizardHandler$Export.executeHandler(WizardHandler.java:97)
+	at org.eclipse.ui.internal.handlers.WizardHandler.execute(WizardHandler.java:273)
+	at org.eclipse.ui.internal.handlers.HandlerProxy.execute(HandlerProxy.java:294)
+	at org.eclipse.core.commands.Command.executeWithChecks(Command.java:476)
+	at org.eclipse.core.commands.ParameterizedCommand.executeWithChecks(ParameterizedCommand.java:508)
+	at org.eclipse.ui.internal.handlers.HandlerService.executeCommand(HandlerService.java:169)
+	at org.eclipse.ui.internal.handlers.SlaveHandlerService.executeCommand(SlaveHandlerService.java:241)
+	at org.eclipse.ui.internal.actions.CommandAction.runWithEvent(CommandAction.java:157)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:584)
+	at org.eclipse.jface.action.ActionContributionItem.access$2(ActionContributionItem.java:501)
+	at org.eclipse.jface.action.ActionContributionItem$5.handleEvent(ActionContributionItem.java:411)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1003)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3880)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3473)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2405)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2369)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2221)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:500)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:493)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.xmind.cathy.internal.CathyApplication.start(CathyApplication.java:46)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:194)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:368)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:559)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:514)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1311)
+
+!ENTRY org.eclipse.ui 4 0 2010-10-23 20:10:30.345
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Widget is disposed
+	at org.eclipse.swt.SWT.error(SWT.java:3884)
+	at org.eclipse.swt.SWT.error(SWT.java:3799)
+	at org.eclipse.swt.SWT.error(SWT.java:3770)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:463)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:336)
+	at org.eclipse.swt.widgets.Control.setForeground(Control.java:3013)
+	at net.xmind.signin.internal.SignInDialog2$7.handleEvent(SignInDialog2.java:356)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1003)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3880)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3473)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:825)
+	at org.eclipse.jface.window.Window.open(Window.java:801)
+	at net.xmind.signin.internal.SignInJob$1.run(SignInJob.java:97)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3855)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3476)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2405)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2369)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2221)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:500)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:493)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.xmind.cathy.internal.CathyApplication.start(CathyApplication.java:46)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:194)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:368)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:559)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:514)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1311)
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:13:43.673
+!MESSAGE NLS unused message: Command_SortAsAlpha in: org.xmind.ui.commands.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:13:43.673
+!MESSAGE NLS unused message: Command_SortAsModifyDate in: org.xmind.ui.commands.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:13:43.673
+!MESSAGE NLS unused message: Command_SortAsPriority in: org.xmind.ui.commands.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:26:03.267
+!MESSAGE NLS unused message: HyperlinkDialog2_FailCreatePage_message in: org.xmind.ui.internal.dialogs.messages
+
+!ENTRY org.eclipse.osgi 2 1 2010-10-23 20:26:03.277
+!MESSAGE NLS unused message: HyperlinkDialog_message in: org.xmind.ui.internal.dialogs.messages

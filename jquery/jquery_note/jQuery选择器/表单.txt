@@ -1,0 +1,108 @@
+jQuery选择器 – 表单(Forms)
+
+七月 8th, 2009
+Leave a comment
+
+本文是jQuery选择器系列之表单(Forms).
+
+这组表单(Forms)选择器内容稍稍多了点,有十一个,其实也就是input的那些type啦,但是熟悉html的童鞋快速的掌握这些一点问题都没有!
+
+其包括以下几个选择器:
+:input
+:text
+:password
+:radio
+:checkbox
+:submit
+:image
+:reset
+:button
+:file
+:hidden
+
+:input
+用法: $(“:input”) ;
+说明: 这个自然就是选择所有的input类型了,不管type等于何值(首先得是符合游戏规则的).
+
+:text
+用法: $(“:text”) ;
+说明: 匹配所有的单行文本框.
+
+:password
+用法: $(“:password”) ;
+说明: 匹配所有密码框.
+
+:radio
+用法: $(“:radio”) ;
+说明: 匹配所有单选按钮.
+
+:checkbox
+用法: $(“:checkbox”) ;
+说明: 匹配所有复选框
+
+:submit
+用法: $(“:submit”) ;
+说明: 匹配所有提交按钮.
+
+:image
+用法: $(“:image”) ;
+说明: 匹配所有图像域.
+
+:reset
+用法: $(“:reset”) ;
+说明: 匹配所有重置按钮.
+
+:button
+用法: $(“:button”) ;
+说明: 匹配所有按钮.这个包括直接写的元素button.
+
+:file
+用法: $(“:file”) ;
+说明: 匹配所有文件域.
+
+:hidden
+用法: $(“input:hidden”) ;
+说明: 匹配所有不可见元素，或者type为hidden的元素.这个选择器就不仅限于表单了,除了匹配input中的hidden外,那些style为hidden的也会被匹配.
+注意: 要选取input中为hidden值的方法就是上面例子的用法,但是直接使用 “:hidden” 的话就是匹配页面中所有的不可见元素,包括宽度或高度为0的,看个例子:
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+                    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+ 
+  <script>
+  $(document).ready(function(){
+ 
+    // in some browsers :hidden includes head, title, script, etc... so limit to body
+    $("span:first").text("Found " + $(":hidden", document.body).length + 
+                         " hidden elements total.");
+    $("div:hidden").show(3000);
+    $("span:last").text("Found " + $("input:hidden").length + " hidden inputs.");
+ 
+  });
+  </script>
+  <style>
+  div { width:70px; height:40px; background:#ee77ff; margin:5px; float:left; }
+  span { display:block; clear:left; color:red; }
+  .starthidden { display:none; }
+  </style>
+</head>
+<body>
+  <span></span>
+  <div></div>
+  <div style="display:none;">Hider!</div>
+  <div></div>
+  <div class="starthidden">Hider!</div>
+  <div></div>
+  <form>
+    <input type="hidden" />
+    <input type="hidden" />
+    <input type="hidden" />
+  </form>
+  <span>
+  </span>
+</body>
+</html>
+
+在这里,大家需要仔细数一数那个个数.这个改变是从1.3.2开始的.
+

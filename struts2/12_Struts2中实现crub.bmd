@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<map name="12_Struts2中实现crub" document_type="BLUMIND" editor_version="1.2.0.30808">
+  <!--Create by Blumind, you can download it free from http://www.hyfree.net/download-->
+  <info />
+  <layout>LOGIC_RIGHT</layout>
+  <style>
+    <back_color>White</back_color>
+    <fore_color>Black</fore_color>
+    <line_color>LightSlateGray</line_color>
+    <border_color>SlateGray</border_color>
+    <node_back_color>White</node_back_color>
+    <node_fore_color>Black</node_fore_color>
+    <select_color>RoyalBlue</select_color>
+    <hover_color>MediumSlateBlue</hover_color>
+    <link_line_color>Green</link_line_color>
+  </style>
+  <nodes>
+    <node text="Struts2中实现CURD">
+      <style>
+        <back_color>Red</back_color>
+        <fore_color>Black</fore_color>
+        <border_color>Black</border_color>
+        <padding>12</padding>
+      </style>
+      <nodes>
+        <node text="前台">
+          <style>
+            <back_color>#FF8080</back_color>
+          </style>
+          <nodes>
+            <node text="数据提交">
+              <style>
+                <back_color>#FFC0C0</back_color>
+              </style>
+              <nodes>
+                <node text="edit.jsp">
+                  <nodes>
+                    <node text=" &lt;s:form action=&quot;Store&quot; /&gt;">
+                      <style>
+                        <shape>3</shape>
+                      </style>
+                    </node>
+                  </nodes>
+                </node>
+              </nodes>
+            </node>
+            <node text="数据显示">
+              <style>
+                <back_color>#FFC0C0</back_color>
+              </style>
+              <nodes>
+                <node text="list.jsp">
+                  <nodes>
+                    <node text="&lt;s:iterator value=&quot;books&quot;&gt;&#xD;&#xA;  &lt;s:property value=&quot;&quot; /&gt;&#xD;&#xA;&lt;/s:iterator&gt;">
+                      <style>
+                        <shape>3</shape>
+                      </style>
+                    </node>
+                  </nodes>
+                </node>
+              </nodes>
+            </node>
+          </nodes>
+        </node>
+        <node text="后台">
+          <style>
+            <back_color>#FF8080</back_color>
+          </style>
+          <nodes>
+            <node text="数据存储">
+              <style>
+                <back_color>#FFC0C0</back_color>
+              </style>
+              <nodes>
+                <node text="BookDao">
+                  <nodes>
+                    <node text="模拟数据库操作">
+                      <nodes>
+                        <node text="HashMap对象存储数据" />
+                        <node text="对数据的CRUD操作方法" />
+                      </nodes>
+                    </node>
+                  </nodes>
+                </node>
+              </nodes>
+            </node>
+            <node text="action">
+              <style>
+                <back_color>#FFC0C0</back_color>
+              </style>
+              <nodes>
+                <node text="套接在Dao上的CRUD操作方法" />
+              </nodes>
+            </node>
+            <node text="配置文件">
+              <style>
+                <back_color>#FFC0C0</back_color>
+              </style>
+              <nodes>
+                <node text="struts.xml">
+                  <nodes>
+                    <node text="包">
+                      <nodes>
+                        <node text="命名空间" />
+                      </nodes>
+                    </node>
+                    <node text="action">
+                      <nodes>
+                        <node text="链接到前台的action">
+                          <nodes>
+                            <node text="&lt;result&gt;前台jsp页面&lt;/result&gt;" />
+                          </nodes>
+                        </node>
+                        <node text="链接到其它action">
+                          <nodes>
+                            <node text="&lt;result&gt;其他Action&lt;/result&gt;">
+                              <style>
+                                <shape>3</shape>
+                              </style>
+                            </node>
+                          </nodes>
+                        </node>
+                      </nodes>
+                    </node>
+                  </nodes>
+                </node>
+              </nodes>
+            </node>
+          </nodes>
+        </node>
+      </nodes>
+    </node>
+  </nodes>
+</map>

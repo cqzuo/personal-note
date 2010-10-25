@@ -1,0 +1,18 @@
+1. 对开发spring应用的支持
+ applicationContext.xml
+2. 开发spring应用的步骤
+ 新建工程
+ 增加spring支持
+ 设置数据源对象
+  myeclise可自动生成dataSource和HibernateSessionFactory,自定义的Bean
+ 设置HibernateSessionFactory
+ 设置Spring Bean
+ 编写测试恩及,测试使用Spring的效果
+ 测试代码:
+ ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/applicationContext.xml");
+ Message message = (Message)context.getBean("msgBean");
+ message.setContent("Test string");
+ System.out.println(message.getContent());
+ 3. spring与hibernate的组合
+ 添加对spring和hibernate的支持
+ pojo类等配置文件的生成

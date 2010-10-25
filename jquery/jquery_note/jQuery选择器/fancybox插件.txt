@@ -1,0 +1,75 @@
+jQuery插件:fancybox
+
+八月 10th, 2009
+Leave a comment
+它是什么?
+
+fancybox 是一个 MAC 风格的用来在 web 页面显示图片, html 内容和多媒体的 “lightbox(灯箱)” 工具,是一个比较轻量的 jQuery 插件,所以使用 jQuery library ,遵守 MIT License.
+
+特点:
+增加了一个漂亮的阴影背景
+增加了一个相关列表的导航功能,也就是可以展示一组图片或 html 内容
+可以显示图片, 内嵌多媒体, AJAX 以及 iframe 内容
+通过设置 CSS 样式实现可定制化
+支持使用这个 easing plugin 插件
+下载
+
+当前版本: v.1.2.1
+
+地址: Google code
+
+在 FireFox, Safari,  Opera,   IE6 & IE7 浏览器上测试成功通过.
+效果
+
+点击查看
+使用方法
+
+首先,要确保你添加了 DOCTYPE,  这是用来确保CSS样式可以正常显示.
+
+1. 包含需要的 JS 文件
+<script src="path-to-file/jquery.js" type="text/javascript"><!--mce:0--></script>
+<script src="path-to-file/jquery.fancybox.js" type="text/javascript"><!--mce:1--></script>
+
+选择性的添加 easing 插件所需的 js 文件, 如果不使用该插件就不添加.
+<script src="path-to-file/jquery.easing.js" type="text/javascript"><!--mce:2--></script>
+
+2. 添加 FancyBox CSS 文件
+如果 FancyBox CSS 文件没有和 images 目录在同一目录内, 应该改变图片路径
+
+3. 创建一个链接
+加载图片使用:
+<a id="single_image" href="image_big.jpg"><img src="image_small.jpg" alt="" /></a>
+
+加载同一页面中的 element:
+<a id="inline" href="#data">This shows content of element who has id="data"</a>
+
+Iframe方式:
+<a href="http://www.example?iframe">This goes to iframe</a>
+ or
+<a class="iframe" href="http://www.example">This goes to iframe</a>
+
+Ajax:
+<a href="http://www.example/data.php">This takes content using ajax</a>
+
+可选参数:使用title属性可以增加图片说明文字.
+注意:你或许想要删除点击图片关闭展示这个功能,此时你必须使用 Iframe 或者 inline 方式去加载.
+
+4. 使用 jQuery 选择器, 让插件炫起来 
+$(document).ready(function() { 
+    /* This is basic - uses default settings */ 
+ 
+    $("a#single_image").fancybox(); 
+ 
+    /* Using custom settings */ 
+ 
+    $("a#inline").fancybox({ 
+        'hideOnContentClick': true 
+    }); 
+ 
+    $("a.group").fancybox({ 
+        'zoomSpeedIn': 300, 
+        'zoomSpeedOut': 300, 
+        'overlayShow': false 
+    }); 
+});
+

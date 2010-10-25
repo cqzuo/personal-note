@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Map State="1" MTime="" MAddr="" MMemo="">
+    <NodeSet>
+        <Node Name="文件上传" Code="" Hgap="0" Vshift="0" Type="1" Color="#8B0000" Edge="#C0C0C0" Border="#C0C0C0" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+            <Node Name="原理" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="通过Commons FileUpload上传" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="jar包" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="common-logging.jar" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="ognl.jar" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="freemarker.jar" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="struts-core.jar" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="xwork.jar" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="commons-io.jar" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="commons-fileupload.jar" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="上传页面" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name='&lt;s:form action=&quot;fileUpload&quot; method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;&gt; &#x0A;        &lt;s:file name=&quot;myFile&quot; label=&quot;Image File&quot;/&gt; &#x0A;        &lt;s:textfield name=&quot;caption&quot; label=&quot;Caption&quot;/&gt;        &#x0A;        &lt;s:submit/&gt; &#x0A;&lt;/s:form &gt; ' Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="上传Action" Code="N1286078366" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+        </Node>
+        <Node Name="文件上传" Code="" Hgap="0" Vshift="0" Type="1" Color="#8B0000" Edge="#C0C0C0" Border="#C0C0C0" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="0" Unit="0" />
+    </NodeSet>
+    <LinkSet />
+    <CurvSet />
+    <FloatSet />
+    <ImageSet />
+    <Digest1>
+        <Digest Text="" />
+    </Digest1>
+    <Digest2>
+        <Digest Text='&lt;HTML&gt;&lt;HEAD&gt;&#x0D;&#x0A;&lt;META content=yes http-equiv=MSThemeCompatible&gt;&#x0D;&#x0A;&lt;META name=GENERATOR content=&quot;MSHTML 8.00.6001.18928&quot;&gt;&lt;/HEAD&gt;&#x0D;&#x0A;&lt;BODY&gt;&#x0D;&#x0A;&lt;DIV&gt;&lt;/DIV&gt;&lt;/BODY&gt;&lt;/HTML&gt;' />
+    </Digest2>
+    <SoundSet />
+</Map>

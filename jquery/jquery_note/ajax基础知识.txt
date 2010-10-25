@@ -1,0 +1,111 @@
+9.1 认识ajax
+9.1.1 ajax的组成 
+javaScript css dom XMLHttpRequest
+9.2 XMLHttpRequest对象
+9.2.1 异步对象连接服务器
+9.2.1.1 创建
+vat xmlHttp;
+function createXMLHttpRequest()
+{
+	if(window.ActiveXObject)
+		xmlHttp = new ActionObject("Microsoft.XMLHTTP");
+	else  if(window.XMLHttpRequest)
+		xmlHttp = new XMLHttpRequest();
+}
+9.2.1.2 建立请求
+xmlHttp.open("GET","test.jsp","true");
+9.2.1.3 onreadystatechange事件
+xmlHttp.onreadystatechange = function()
+{
+	if(xmlHttp.readyState==4&&xmlHttp.status==200) //表明异步交互成功
+	//do something..
+}
+9.2.1.4 send()发送
+xmlHttp.send(null);
+9.2.2 异步测试
+<html>
+<head>
+<title>XMLHttpRequest</title>
+<script language="javascript">
+var xmlHttp;
+function createXMLHttpRequest(){
+	if(window.ActiveXObject)
+		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+	else if(window.XMLHttpRequest)
+		xmlHttp = new XMLHttpRequest();
+}
+function startRequest(){
+	createXMLHttpRequest();
+	xmlHttp.open("GET","9-1.aspx",true);
+	xmlHttp.onreadystatechange = function(){
+		if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
+			alert("服务器返回: " + xmlHttp.responseText);
+	}
+	xmlHttp.send(null);
+}
+</script>
+</head>
+<body>
+<input type="button" value="测试异步通讯" onClick="startRequest()">
+</body>
+</html>
+<head>
+<script language="javascript">
+9.2.3 GET 和POST
+//建立XMLHttpRequest对象
+var xmlHttp;
+function createXMLHttpRequest(){
+	if(window.ActiveXObject)
+		xmlHttp = new ActiveXObject("Microsoft.XMLHttp");
+	else if(window.XMLHttpRequest)
+		xmlHttp = new XMLHttpRequest();
+}
+//获取表单输入的值,放入一个字符串中并加密
+function createQueryString(){
+	var firstName = document.getElementById("firstName").value;
+	var birthday = document.getElementById("birthday").value;	
+	var queryString = "firstName=" + firstName + "&birthday=" + birthday;
+	return encodeURI(encodeURI(queryString));	//两次编码解决中文乱码问题
+}
+//用get方法建立连接
+function doRequestUsingGET(){
+	createXMLHttpRequest();
+	var queryString = "9-3.aspx?";
+	queryString += createQueryString() + "&timestamp=" + new Date().getTime();
+	xmlHttp.onreadystatechange = handleStateChange;
+	xmlHttp.open("GET",queryString);
+	xmlHttp.send(null);
+}
+//用post方法连接连接
+function doRequestUsingPOST(){
+	createXMLHttpRequest();
+	var url = "9-3.aspx?timestamp=" + new Date().getTime();
+	var queryString = createQueryString();
+	xmlHttp.open("POST",url);
+	xmlHttp.onreadystatechange = handleStateChange;
+	xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	xmlHttp.send(queryString);
+}
+//当状态发生改变时将responseText返回信息解码后输出到指定的元素上
+function handleStateChange(){
+	if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+		var responseDiv = document.getElementById("serverResponse");
+		responseDiv.innerHTML = decodeURI(xmlHttp.responseText);	//解码
+	}
+}
+</script>
+</head>
+
+<body>
+<h2>输入姓名和生日</h2>
+<form>
+	<input type="text" id="firstName" /><br>
+	<input type="text" id="birthday" />
+</form>
+<form>
+	<input type="button" value="GET" onclick="doRequestUsingGET();" /><br>
+	<input type="button" value="POST" onclick="doRequestUsingPOST();" />
+</form>
+<div id="serverResponse"></div>
+</body>
+

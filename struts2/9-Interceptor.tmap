@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Map State="0" MTime="" MAddr="" MMemo="">
+    <NodeSet>
+        <Node Name="拦截器" Code="N1285384217" Hgap="0" Vshift="0" Type="1" Color="#8B0000" Edge="#C0C0C0" Border="#C0C0C0" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+            <Node Name="作用" Code="N1285385219" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="在某个方法或字段被访问之前，进行拦截然后在之前或之后加入某些操作" Code="N1285385226" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="原理" Code="N1285385262" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="当请求到达Struts 2的ServletDispatcher时，Struts 2会查找配置文件" Code="N1285385271" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="根据其配置实例化相对的拦截器对象，然后串成一个列表（list）" Code="N1285385282" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="一个一个地调用列表中的拦截器" Code="N1285385298" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="配置与使用" Code="N1285385445" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="struts.xml" Code="N1285399903" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name='&lt;include file=&quot;struts-default.xml&quot; /&gt;' Code="N1285399920" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+                <Node Name="定义Action" Code="N1285400214" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name='&lt;interceptor-ref name=&quot;xx&quot; /&gt;' Code="N1285400220" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+            </Node>
+            <Node Name="例子" Code="N1285405507" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="Action" Code="N1285405615" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="public String execute() {&#x0A;        try {&#x0A;           Thread.sleep( 500 );&#x0A;       } catch (Exception e) {&#x0A;           e.printStackTrace();&#x0A;       } &#x0A;        return SUCCESS;&#x0A;   } " Code="N1285405621" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+                <Node Name="配置拦截器" Code="N1285405707" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="struts.xml" Code="N1285405725" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                        <Node Name='&lt; struts &gt; &#x0A;    &lt; include file =&quot;struts-default.xml&quot; /&gt;    &#x0A;    &lt; package name =&quot;InterceptorDemo&quot; extends =&quot;struts-default&quot; &gt; &#x0A;        &lt; action name =&quot;Timer&quot; class =&quot;tutorial.TimerInterceptorAction&quot; &gt; &#x0A;            &lt; interceptor-ref name =&quot;timer&quot; /&gt; &#x0A;            &lt; result &gt; /Timer.jsp &lt;/ result &gt; &#x0A;        &lt;/ action &gt; &#x0A;    &lt;/ package &gt; &#x0A;&lt;/ struts &gt; ' Code="N1285405732" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    </Node>
+                </Node>
+            </Node>
+            <Node Name="自定义拦截器" Code="N1285405815" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="拦截器都直接或间接实现接口com.opensymphony.xwork2.interceptor.Interceptor" Code="N1285405986" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="继承类com.opensymphony.xwork2.interceptor.AbstractInterceptor" Code="N1285405999" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="例子" Code="N1285406116" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="Interceptor" Code="N1285406268" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                        <Node Name='public String intercept(ActionInvocation ai) throws Exception {&#x0A;       Map session = ai.getInvocationContext().getSession();&#x0A;       String role = (String) session.get( &quot; ROLE &quot; );&#x0A;        if ( null != role) {&#x0A;           Object o = ai.getAction();&#x0A;            if (o instanceof RoleAware) {&#x0A;               RoleAware action = (RoleAware) o;&#x0A;               action.setRole(role);&#x0A;           } &#x0A;            return ai.invoke();&#x0A;       } else {&#x0A;            return Action.LOGIN;&#x0A;       }        ' Code="N1285406281" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    </Node>
+                    <Node Name="Action配置" Code="N1285406978" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                        <Node Name='&lt;interceptors &gt; &#x0A;    &lt; interceptor name =&quot;auth&quot; class =&quot;tutorial.AuthorizationInterceptor&quot; /&gt; &#x0A;&lt;/ interceptors &gt;' Code="N1285406984" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                        <Node Name='&lt; action name =&quot;AuthorizatedAccess&quot; class =&quot;tutorial.AuthorizatedAccess&quot; &gt; &#x0A;      &lt; interceptor-ref name =&quot;auth&quot; /&gt; &#x0A;      &lt; result name =&quot;login&quot; &gt; /Login.jsp &lt;/ result &gt; &#x0A;      &lt; result name =&quot;success&quot; &gt; /ShowRole.jsp &lt;/ result &gt; &#x0A;&lt;/ action &gt; ' Code="N1285406998" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    </Node>
+                </Node>
+            </Node>
+        </Node>
+        <Node Name="拦截器" Code="N1285384216" Hgap="0" Vshift="0" Type="1" Color="#8B0000" Edge="#C0C0C0" Border="#C0C0C0" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="0" Unit="0" />
+    </NodeSet>
+    <LinkSet />
+    <CurvSet />
+    <FloatSet />
+    <ImageSet />
+    <Digest1>
+        <Digest Text="" />
+    </Digest1>
+    <Digest2>
+        <Digest Text='&lt;HTML&gt;&lt;HEAD&gt;&#x0D;&#x0A;&lt;META content=yes http-equiv=MSThemeCompatible&gt;&#x0D;&#x0A;&lt;META name=GENERATOR content=&quot;MSHTML 8.00.6001.18928&quot;&gt;&lt;/HEAD&gt;&#x0D;&#x0A;&lt;BODY&gt;&#x0D;&#x0A;&lt;DIV&gt;&lt;/DIV&gt;&lt;/BODY&gt;&lt;/HTML&gt;' />
+    </Digest2>
+    <SoundSet />
+</Map>

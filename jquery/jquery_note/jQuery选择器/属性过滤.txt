@@ -1,0 +1,48 @@
+jQuery选择器 – 属性过滤(Attribute Filters)
+
+六月 30th, 2009
+Leave a comment
+
+本文是jQuery选择器系列之属性过滤(Attribute Filters).
+
+属性过滤(Attribute Filters)的内容就是html元素中的属性,例如 name, id, class, 但是不是指的其值,是指属性本身.我在每篇文章里面都讲一下自己对这个选择器系列的理解,原因其一是方便理解其含义并记忆,其二就是”混个脸熟”,即便记不住,在以后用到的时候也可以很快的查找api并应用上.
+
+其包括以下几个选择器:
+[attribute]
+[attribute=value]
+[attribute!=value]
+[attribute^=value]
+[attribute$=value]
+[attribute*=value]
+[attributeFilter1][attributeFilter2][attributeFilterN]
+
+[attribute]
+用法: $(“div[id]“) ;
+说明: 匹配包含给定属性的元素.注意,在jQuery 1.3中,前导的@符号已经被废除!如果想要兼容最新版本,只需要简单去掉@符号即可.是的,新版必须去掉@符号,这个改变相信使用老版本的童鞋会习惯的.例子中是选取了所有带”id”属性的div标签.
+
+[attribute=value]
+用法: $(“input[name='newsletter']“).attr(“checked”, true); 
+说明: 匹配给定的属性是某个特定值的元素.例子中选取了所有 name 属性是 newsletter 的 input 元素.
+
+[attribute!=value]
+用法: $(“input[name!='newsletter']“).attr(“checked”, true); 
+说明: 匹配所有不含有指定的属性，或者属性不等于特定值的元素.此选择器等价于:not([attr=value]),要匹配含有特定属性但不等于特定值的元素,请使用[attr]:not([attr=value]).嗯,之前看到的 :not 派上了用场.
+
+[attribute^=value]
+用法: $(“input[name^='news']“) ;
+说明: 匹配给定的属性是以某些值开始的元素.嗯,我们又见到了这几个类似于正则匹配的符号.现在想忘都忘不掉了吧?!
+
+[attribute$=value]
+用法: $(“input[name$='letter']“) ;
+说明: 匹配给定的属性是以某些值结尾的元素.
+
+[attribute*=value]
+用法: $(“input[name*='man']“) ;
+说明: 匹配给定的属性是以包含某些值的元素.
+
+[attributeFilter1][attributeFilter2][attributeFilterN]
+用法: $(“input[id][name$='man']“) ;
+说明: 复合属性选择器,需要同时满足多个条件时使用.又是一个组合,这种情况我们实际使用的时候很常用.这个例子中选择的是所有含有 id 属性,并且它的 name 属性是以 man 结尾的元素.
+
+通过属性过滤(Attribute Filters)的学习,可以看出来,jQuery的选择器用法是微妙的,得细致而为之.让我想起来了那个因为一个小数点导致什么宇宙飞船爆炸还是什么的事了.有点耸人听闻,但是等我们使用的非常非常多了以后,自然就很容易分开区别了.
+

@@ -1,0 +1,31 @@
+jQuery选择器 – 后代过滤(Child Filters)
+
+七月 5th, 2009
+Leave a comment
+
+本文是jQuery选择器系列之后代过滤(Child Filters).
+
+后代过滤(Child Filters)的意思就是利用其他jQuery选择器选择到了一组dom,而其都具有相同的属性与特征,无法再细化选择的时候,Child Filters 此时就派上了用场了.它就是用来选择此组元素中的第几个.
+
+其包括以下几个选择器:
+:nth-child(index/even/odd/equation)
+:first-child
+:last-child
+: only-child
+
+:nth-child(index/even/odd/equation)
+用法: $(“ul li:nth-child(2)”) ;
+说明: 匹配其父元素下的第N个子或奇偶元素.这个选择器和之前说的基础过滤(Basic Filters)中的 eq() 有些类似,不同的地方就是前者是从0开始,后者是从1开始.
+
+:first-child
+用法: $(“ul li:first-child”) ;
+说明: 匹配第一个子元素.’:first’ 只匹配一个元素,而此选择符将为每个父元素匹配一个子元素.这里需要特别点的记忆下区别.
+
+:last-child
+用法: $(“ul li:last-child”) ;
+说明: 匹配最后一个子元素.’:last’只匹配一个元素,而此选择符将为每个父元素匹配一个子元素.
+
+: only-child
+用法: $(“ul li:only-child”) ;
+说明: 如果某个元素是父元素中唯一的子元素,那将会被匹配.如果父元素中含有其他元素,那将不会被匹配.意思就是:只有一个子元素的才会被匹配!
+

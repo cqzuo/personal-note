@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Map State="1" MTime="" MAddr="" MMemo="">
+    <NodeSet>
+        <Node Name="Hibernate" Code="N1285541716" Hgap="0" Vshift="0" Type="1" Color="#8B0000" Edge="#C0C0C0" Border="#C0C0C0" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+            <Node Name="基本知识" Code="N1285542725" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="介绍" Code="N1285542751" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="体系结构" Code="N1285542755" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="配置" Code="N1285542764" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="高级" Code="N1285542775" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="持久化类" Code="N1285542783" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="对象/关系数据库映射" Code="N1285542790" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="映射" Code="N1285542811" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="集合类映射" Code="N1285542822" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    <Node Name="关联关系映射" Code="N1285542828" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    <Node Name="组件映射" Code="N1285542836" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    <Node Name="继承映射" Code="N1285542842" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+                <Node Name="与对象共享" Code="N1285542863" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="事务与并发" Code="N1285542872" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="拦截器与事件" Code="N1285542879" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="批量处理" Code="N1285542890" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="过滤数据" Code="N1285542947" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="XML映射" Code="N1285542958" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="提升性能" Code="N1285542963" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="查询" Code="N1285542902" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="HQL查询" Code="N1285542907" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="条件查询" Code="N1285542913" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="native sql查询" Code="N1285542918" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+        </Node>
+        <Node Name="Hibernate" Code="N1285541715" Hgap="0" Vshift="0" Type="1" Color="#8B0000" Edge="#C0C0C0" Border="#C0C0C0" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="0" Unit="0" />
+    </NodeSet>
+    <LinkSet />
+    <CurvSet />
+    <FloatSet />
+    <ImageSet />
+    <Digest1>
+        <Digest Text="" />
+    </Digest1>
+    <Digest2>
+        <Digest Text='&lt;HTML&gt;&lt;HEAD&gt;&#x0D;&#x0A;&lt;META content=yes http-equiv=MSThemeCompatible&gt;&#x0D;&#x0A;&lt;META name=GENERATOR content=&quot;MSHTML 8.00.6001.18939&quot;&gt;&lt;/HEAD&gt;&#x0D;&#x0A;&lt;BODY&gt;&#x0D;&#x0A;&lt;DIV&gt;&lt;/DIV&gt;&lt;/BODY&gt;&lt;/HTML&gt;' />
+    </Digest2>
+    <SoundSet />
+</Map>

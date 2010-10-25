@@ -1,0 +1,19 @@
+jQuery选择器 – 可见度过滤(Visibility Filters)
+
+六月 29th, 2009
+Leave a comment
+
+本文是jQuery选择器系列之可见度过滤(Visibility Filters).
+
+可见度过滤(Visibility Filters),无非就是能看见和不能看见.所以Visibility Filters只包括了两部分:
+:hidden
+:visible
+
+:hidden
+用法: $(“tr:hidden”) 
+说明: 匹配所有的不可见元素，input 元素的 type 属性为 “hidden” 的话也会被匹配到.意思是css中display:none和input type=”hidden”的都会被匹配到.同样,要在脑海中彻底分清楚冒号”:”, 点号”.”和逗号”,”的区别.
+
+:visible
+用法: $(“tr:visible”) 
+说明: 匹配所有的可见元素.
+

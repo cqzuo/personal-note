@@ -1,0 +1,92 @@
+jQuery选择器 – 基础过滤(Basic Filters)
+
+六月 26th, 2009
+Leave a comment
+
+本文是jQuery选择器系列之基础过滤(Basic Filters).
+
+基础过滤(Basic Filters)是相对于以后要学习的其他的过滤方法而言的,基础过滤(我小学没毕业,不知道是不是这样翻译)所过滤的内容都是利用jQuery获得到的DOM元素,我的理解就是像一个大筛子,把利用那些基本选择器获得到的集合进行按规则剔除.
+Basic Filters包括了十部分,稍稍有点多:
+:first
+:last
+:not(selector)
+:even
+:odd
+:eq(index)
+:gt(index)
+:lt(index)
+:header
+:animated
+
+:first
+用法: $(“tr:first”) ;
+说明: 匹配找到的第一个元素.我以前就遇到了取第一个和最后一个的情况.
+
+:last
+用法: $(“tr:last”) ;
+说明: 匹配找到的最后一个元素.与 :first 相对应.
+
+:not(selector)
+用法: $(“input:not(:checked)”) ;
+说明: 去除所有与给定选择器匹配的元素.有点类似于”非”,意思是没有被选中的input(当input的type=”checkbox”).
+
+:even
+用法: $(“tr:even”) ;
+说明: 匹配所有索引值为偶数的元素，从 0 开始计数.js的数组都是从0开始计数的.例如要选择table中的行,因为是从0开始计数,所以table中的第一个tr就为偶数0.
+
+: odd
+用法: $(“tr:odd”) ;
+说明: 匹配所有索引值为奇数的元素,和:even对应,从 0 开始计数.
+
+:eq(index)
+用法: $(“tr:eq(0)”) ;
+说明: 匹配一个给定索引值的元素.eq(0)就是获取第一个tr元素.括号里面的是索引值,不是元素排列数.
+
+:gt(index)
+用法: $(“tr:gt(0)”) ;
+说明: 匹配所有大于给定索引值的元素.
+
+:lt(index)
+用法: $(“tr:lt(2)”) ;
+说明: 匹配所有小于给定索引值的元素.
+
+:header
+用法: $(“:header”).css(“background”, “#EEE”) ;
+说明: 匹配如 h1, h2, h3之类的标题元素.这个是专门用来获取h1,h2这样的标题元素.
+
+:animated
+例子:
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+                    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+ 
+  <script>
+  $(document).ready(function(){
+ 
+    $("#run").click(function(){
+      $("div:animated").toggleClass("colored");
+    });
+    function animateIt() {
+      $("#mover").slideToggle("slow", animateIt);
+    }
+    animateIt();
+ 
+  });
+  </script>
+  <style>
+  div { background:yellow; border:1px solid #AAA; width:80px; height:80px; margin:5px; float:left; }
+  div.colored { background:green; }
+  </style>
+</head>
+<body>
+  <button id="run">Run</button>
+  <div></div>
+  <div id="mover"></div>
+  <div></div>
+</body>
+</html>
+
+说明: 匹配所有正在执行动画效果的元素.这个需要好好理解下,因为看起来比之前的理解上都难一点.其中,toggleClass是添加/移除class;slideToggle是收缩/伸展块级元素.也就是说slideToggle让其中的一个div在不断的执行动画(收缩/伸展),当点击button时,就用div:animated匹配到了这个元素上,所以改变了颜色.
+

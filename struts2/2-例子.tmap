@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Map State="1" MTime="" MAddr="" MMemo="">
+    <NodeSet>
+        <Node Name="例子" Code="" Hgap="0" Vshift="0" Type="1" Color="#8B0000" Edge="#C0C0C0" Border="#C0C0C0" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+            <Node Name="Struts 2的下载和安装" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="下载" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="必需类库复制到Web应用的WEB-INF/lib路径" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="编辑Web应用的web.xml配置文件,添加Filter" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="纯手工创建一个Web应用" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="建立web应用的目录" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="目录下建立web-inf文件夹" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="复制并修改web.xml文件" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="web-inf下建立classes和lib目录" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="纯手工创建一个Struts 2应用" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="修改web.xml,配置filter" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="将Struts 2框架的类库复制到Web应用的WEB-INF/lib路径下" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="在WEB-INF/classes下增加struts.xml配置文件" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="实现Struts 2的Action" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="Struts 2的Action就是一个包含execute方法的普通Java类" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="提供属性及其setter/getter方法" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="配置Struts 2的Action" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="修改struts.xml文件" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="改进控制器" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#8080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="实现Action接口" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#8080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="execute()直接返回字符串常量" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#8080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+            </Node>
+            <Node Name="在Action中访问HttpSession" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name='ActionContext.getContext().getSession().put(&quot;键&quot; , 值);' Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="取得session的中的值" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="${sessionScope.键}" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+            </Node>
+            <Node Name="在JSP中输出Action的返回值" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="Struts 2将属性值全部封装在一个叫做struts.valueStack的请求属性里" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="获取封装输出信息的ValueStack对象" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name='request.getAttribute(&quot;struts.valueStack&quot;);' Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    <Node Name="调用ValueStack的fineValue方法获取Action中的books属性值" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+            </Node>
+            <Node Name="使用Struts 2的表单标签" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="if/else" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="iterator" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="property" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="其他ui标签" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0000FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="程序国际化" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="WEB-INF/classes路径下建立文件" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="messageResouce_zh_CN.properties" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    <Node Name="messageResouce_en_ US.properties" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+                <Node Name="编辑struts.properties文件" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="struts.custom.i18n.resources=messageResource" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+                <Node Name="输出国际化信息" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="使用s:text标签" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                        <Node Name='&lt;s:text name=&quot;messageKey&quot;/&gt;' Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    </Node>
+                    <Node Name="使用表达式方式" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                        <Node Name='&lt;s:property value=&quot;%{getText(&quot;messageKey&quot;)}&quot;/&gt;' Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    </Node>
+                </Node>
+            </Node>
+            <Node Name="数据校验" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#804000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="继承ActionSupport" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#804000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="重写validate()" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#804000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    <Node Name="表单校验错误" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#804000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                        <Node Name='addFieldError(&quot;username&quot;, &quot;user.required&quot;)' Code="N1284429106" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#804000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                        <Node Name="提醒信息国际化" Code="N1284429173" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#804000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                            <Node Name='addFieldError(&quot;username&quot;, getText(&quot;user.required&quot;))' Code="N1284429181" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#804000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                        </Node>
+                    </Node>
+                </Node>
+                <Node Name="Struts 2的校验框架是基于XWork的validator" Code="N1284429486" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#804000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="定义校验规则文件" Code="N1284429561" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#804000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                        <Node Name="ActionName-validation.xml" Code="N1284429639" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#804000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                        <Node Name="该文件应该与Action类的class文件位于同一个路径" Code="N1284429654" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#804000" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    </Node>
+                </Node>
+            </Node>
+        </Node>
+        <Node Name="例子" Code="" Hgap="0" Vshift="0" Type="1" Color="#8B0000" Edge="#C0C0C0" Border="#C0C0C0" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="0" Unit="0" />
+    </NodeSet>
+    <LinkSet />
+    <CurvSet />
+    <FloatSet />
+    <ImageSet />
+    <Digest1>
+        <Digest Text="" />
+    </Digest1>
+    <Digest2>
+        <Digest Text='&lt;HTML&gt;&lt;HEAD&gt;&#x0D;&#x0A;&lt;META http-equiv=MSThemeCompatible content=yes&gt;&#x0D;&#x0A;&lt;META content=&quot;MSHTML 6.00.2900.6003&quot; name=GENERATOR&gt;&lt;/HEAD&gt;&#x0D;&#x0A;&lt;BODY&gt;&#x0D;&#x0A;&lt;DIV&gt;&lt;/DIV&gt;&lt;/BODY&gt;&lt;/HTML&gt;' />
+    </Digest2>
+    <SoundSet />
+</Map>

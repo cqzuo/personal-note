@@ -1,0 +1,134 @@
+﻿3 css基础
+3.1 css的概念
+ 控制网页样式并允许将样式信息与网页内容分离的一种标记性语言
+3.1.1 传统方式
+<html>
+ <head>
+	<title>传统页面表现</title>
+ </head>
+ <body>
+	 <h2><font color="#0033cc" face="楷体">标记文字</font></h2>
+ </body>
+</html>
+3.1.2 css的引入
+3.2 用css控制页面
+3.2.1 行内样式
+<html>
+	<head><title>行内样式</title></head>
+	<body>
+		<p style="color:#00FF00; font-size:39px;font-weight:bold">测试字体</p>
+	</body>
+</html>
+3.2.2 页内样式
+<html>
+	<head>
+		<title>css使用01</title>
+		<style>
+			h2{
+				font-family:宋体;
+				color:#0033cc;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>测试字体</h2>
+		<P>标记正文</P>
+	</body>
+</html>
+3.2.3 链接样式
+<html>
+	<head><title>链接样式css</title>
+		<link href="css04.css" type="text/css" rel="stylesheet"/>
+	</head>
+	<body>
+		<h2>测试用字</h2>
+	</body>
+</html>
+
+3.2.4 导入样式
+<html>
+	<head><title>css链接</title>
+		<style type="text/css">
+			<!--
+			@import url(css04.css);
+			-->
+		</style>
+	</head>
+	<body>
+		<h2>测试用字</h2>
+		<p>看看这边的字</p>
+	</body>
+
+</html>
+3.3 css选择器
+3.3.1 标记选择器
+<style>
+	css名称
+	{
+		选项:值;
+		....	
+	}
+</style>
+3.3.2 类别选择器
+<style>
+	.名称
+	{
+		选项:值;
+		....	
+	}
+</style>
+<p class="名称"></p>
+3.3.3 id选择器
+<style>
+	#名称
+	{
+		选项:值;
+		....	
+	}
+</style>
+<p id="名称"></p>
+3.3.4 选择器的集体声明
+名称1,名称2....{
+	属性:值
+}
+3.3.5 选择器的嵌套
+<style>
+ 名称1 名称2
+	{
+		选项:值;
+		....	
+	}
+</style>
+<名称1>字符1<名称2>字符2</名称2></名称1>
+嵌套之外的不生效
+3.3.6 css的子选择器
+名称1 .名称2 ... >标签1>标签2 名称
+{
+	属性:值;
+	...
+}
+4. css进阶
+4.1 div与span标记
+<div>是一个区块容器标记,不同行
+<span> 同行
+4.2 盒子模型
+一个盒子由content border padding margin组成
+4.3 元素的定位
+float定位
+float:left 左浮动
+position 定位
+ position:absolute 绝对定位
+z-index空间位置
+4.4 css排版观念
+将页面用div分块
+container-->banner-->content-->links-->footer
+<div id="container">
+	<div id="banner"></div>
+	<div id="content"></div>
+	<div id="links"></div>
+	<div id="footer"></div>
+</div>
+设计各个块的位置
+用css定位
+5. DOM模型
+

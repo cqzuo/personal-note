@@ -1,0 +1,74 @@
+12.1 元素的显示与隐藏
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+$(function(){
+	$("input:first").click(function(){
+		$("p").hide();	//隐藏
+	});
+	$("input:last").click(function(){
+		$("p").show();	//显示
+	});
+});
+</script>
+</head>
+<body>
+	<input type="button" value="Hide">
+	<input type="button" value="Show">
+	<p>点击按钮，看看效果</p>
+    <span>一段其它的文字</span>
+</body>
+12.2 渐入渐出的变化
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+$(function(){
+	$("input:eq(0)").click(function(){
+		$("img").fadeOut(3000);	//逐渐fadeOut
+	});
+	$("input:eq(1)").click(function(){
+		$("img").fadeIn(1000);	//逐渐fadeIn
+	});
+	$("input:eq(2)").click(function(){
+		$("img").hide(3000);	//逐渐隐藏
+	});
+	$("input:eq(3)").click(function(){
+		$("img").show(1000);	//逐渐显示
+	});
+});
+</script>
+</head>
+<body>
+<input type="button" value="FadeOut">
+<input type="button" value="FadeIn">
+<input type="button" value="Hide">
+<input type="button" value="Show">
+	<p><img src="02.jpg"></p>
+</body>
+12.3 幻灯片效果
+实现拉窗帘的特性 
+slideUp()
+slideDown()
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+$(function(){
+	$("input:eq(0)").click(function(){
+		$("div").add("img").slideUp(1000);
+	});
+	$("input:eq(1)").click(function(){
+		$("div").add("img").slideDown(1000);
+	});
+	$("input:eq(2)").click(function(){
+		$("div").add("img").hide(1000);
+	});
+	$("input:eq(3)").click(function(){
+		$("div").add("img").show(1000);
+	});
+});
+</script>
+</head>
+<body>
+	<input type="button" value="SlideUp">
+	<input type="button" value="SlideDown">
+	<input type="button" value="Hide">
+	<input type="button" value="Show"><br>
+	<div></div><img src="04.jpg">
+</body>

@@ -1,0 +1,96 @@
+1.需要的Jar包?
+  7个
+  common-logging
+  freemarker
+  ognl
+  struts2-api
+  struts2-core
+  struts2-extras
+  xwork
+  
+2.建立struts2项目的流程
+  建立空白项目
+  添加jar包
+  添加并配置web.xml
+  添加并配置struts.xml
+  添加action
+  添加jsp
+  
+3.几个配置文件的位置
+  web.xml
+    WEB-INF/
+  struts.xml
+    src/package-name/
+ 
+4.action与配置
+    jsp中
+      直接设置action=""
+    struts.xml
+      package 
+        name extends
+      action
+5.struts标签
+6.几个接口所在包名
+  ActionSupport  
+    com.opensymphony.xwork2.ActionSupport
+7.相对路径问题
+8.execute()调用action中的数据域
+  getXXXX()
+9. 将信息存储在session中
+  ActoinContext.getContext().getSession().put("keyname",getXXXX());
+10.将存储在session中的信息在jsp页面中显示
+  <%=session.getAttribute("keyname")%>
+    先将属性值从session中读出,转换后存进request中
+      request.setAttribute("key",对象)
+    再由struts的标签读出
+      <s:iterator value="#request.属性名" status="参数">
+    显示
+      <s:property/>
+11.国际化的步骤
+    classes目录下的资源文件
+12. 验证的方法
+  Action继承ActionSupport,重写validate()
+  struts2验证,添加ActionName-validate.xml(Action目录下)
+13. 取得Servlet接口的2中方法
+  非IOC方式
+	ActionContext.getContext().getSession()
+  IOC方式
+	实现SessionAware, ServletRequestAware, ServletResponseAware接口
+	及属性的setter/getter方法
+14. 参数国际化的方法
+  资源文件中使用OGNL
+	****=${A}####
+  在jsp页面设置参数值
+	<s:set name="A" value0="Value"></s:set>
+	<s:text name="A">
+		<s:param value="Value"/>
+	</s:text>
+15. 转换器的配置
+  转换器类的编写
+  转换器配置
+16. 拦截器的配置
+17. 自定义拦截器的配置
+  编写自定义拦截器
+    继承AbstractInterceptor
+ 	重写intercept方法
+  struts.xml中配置拦截器
+    <package>
+    此处定义
+	<interceptors>
+		<interceptor name="" class=""/>
+	</interceptors>
+	<action name="" class="">
+	此处配置
+	<interceptor-ref name=""/>
+	</action>
+    </package>
+18. 使用拦截器控制页面转向
+   在自定义拦截器的intercept(ActionInvocation ai)方法中
+	if(拦截条件)
+	  取得action
+		ActionInvocation类对象ai的getInvocationContext().getSession()方法
+	  操作action
+		action对象中的setter方法
+ 	  return Action.转向字符
+    		return Action.SUCCESS;
+ 

@@ -1,0 +1,84 @@
+13.1 浏览器的检测
+13.1.1 $.browser对象
+mise ie
+mozilla firefox
+safari safari
+opera opera
+verson 版本号
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+function detect(){
+	if($.browser.msie)
+		return "IE";
+	if($.browser.mozilla)
+		return "Mozilla";
+	if($.browser.safari)
+		return "Safari";
+	if($.browser.opera)
+		return "Opera";
+}
+var sBrowser = detect();
+document.write("您的浏览器是："+sBrowser+"<br>版本为："+$.browser.version)
+</script>
+13.2 盒子模型
+$.boxModel对象
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+var sBox = $.boxModel ? "标准W3C":"IE";
+document.write("您的页面目前支持："+sBox+"盒子模型");
+</script>
+13.3 处理javaScript对象
+13.3.1 $.each遍历
+$.each(object,fn);
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+var aArray = ["one", "two", "three", "four", "five"];
+$.each(aArray,function(iNum,value){
+	//针对数组
+	document.write("序号:" + iNum + " 值:" + value + "<br>");
+});
+var oObj = {one:1, two:2, three:3, four:4, five:5};
+$.each(oObj, function(property,value) {
+	//针对对象
+	document.write("属性:" + property + " 值:" + value + "<br>");
+});
+</script>
+13.3.2 获取未知对象的值
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+$.each($.browser, function(property,value) {
+	//遍历对象$.browser
+	document.write("属性:" + property + " 值:" + value + "<br>");
+});
+</script>
+13.3.3 数据过滤
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+var aArray = [2, 9, 3, 8, 6, 1, 5, 9, 4, 7, 3, 8, 6, 9, 1];
+var aResult = $.grep(aArray,function(value){
+	return value > 4;//过滤小于4的值
+});
+document.write("aArray: " + aArray.join() + "<br>");
+document.write("aResult: " + aResult.join());
+</script>
+13.3.4 数组的转化
+//$.map(数组1，数组2) 将数组1转化到数组2
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+$(function(){
+	var aArr = ["a", "b", "c", "d", "e"];
+	$("p:eq(0)").text(aArr.join());
+
+	aArr = $.map(aArr,function(value,index){
+		//将数组转化为大写并添加序号
+		return (value.toUpperCase() + index);
+	});
+	$("p:eq(1)").text(aArr.join());
+
+	aArr = $.map(aArr,function(value){
+		//将数组元素的值双份处理
+		return value + value;
+	});
+	$("p:eq(2)").text(aArr.join());
+});
+</script>

@@ -1,0 +1,175 @@
+5.1 DOM模型框架
+ DOM定义了用户操作文档对象的接口
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=gb2312">
+		<title>DOM Page</title>
+	</head>
+	<body>
+		<h2><a href="#isaac">标题1</a></h2>
+		<p>段落1</p>
+		<ul id="myUI">
+			<li>JavaScript</li>
+			<li>DOM</li>
+			<li>CSS</li>
+		</ul>
+	</body>
+</html>
+5.2 DOM模型中的节点
+ 元素节点 例如:<a>
+ 属性节点 例如:href="中间的内容为属性节点"
+ 文本节点 例如:<a>中间的内容为文本节点</a>
+5.3 使用DOM
+ 访问节点
+5.3.1 getElementByTagName
+<html>
+<head>
+<title>getElementsByTagName()</title>
+<script language="javascript">
+function searchDOM(){
+	//放在函数内，页面加载完成后才用<body>的onload加载
+	var oLi = document.getElementsByTagName("li");
+	//输出长度、标签名称以及某项的文本节点值
+	alert(oLi.length + " " +oLi[0].tagName + " " + oLi[3].childNodes[0].nodeValue);
+	
+	var oUl = document.getElementsByTagName("ul");
+	var oLi2 = oUl[1].getElementsByTagName("li");
+	alert(oLi2.length + " " +oLi2[0].tagName + " " + oLi2[1].childNodes[0].nodeValue);
+}
+</script>
+</head>
+<body onload="searchDOM()">
+	<ul>客户端语言
+		<li>HTML</li>
+		<li>JavaScript</li>
+		<li>CSS</li>
+
+	</ul>
+    <ul>服务器端语言
+		<li>ASP.NET</li>
+		<li>JSP</li>
+		<li>PHP</li>
+    </ul>
+</body>
+</html>
+5.3.2 getElementById
+<html>
+<head>
+<title>getElementById()</title>
+<script language="javascript">
+function searchDOM(){
+	var oLi = document.getElementById("cssLi");
+	//输出标签名称以及文本节点值
+	alert(oLi.tagName + " " + oLi.childNodes[0].nodeValue);
+}
+</script>
+</head>
+<body onload="searchDOM()">
+	<ul>客户端语言
+		<li>HTML</li>
+		<li>JavaScript</li>
+		<li id="cssLi">CSS</li>
+
+	</ul>
+    <ul>服务器端语言
+		<li>ASP.NET</li>
+		<li>JSP</li>
+		<li>PHP</li>
+    </ul>
+</body>
+</html>
+5.3.3 父子关系
+ <html> 
+<head> 
+<title>childNodes</title> 
+<script language="javascript"> 
+function myDOMInspector(){
+	var oUl = document.getElementById("myList");	//获取<ul>标记
+	var DOMString = "";
+	if(oUl.hasChildNodes()){			//判断是否有子节点
+		var oCh = oUl.childNodes;
+		for(var i=0;i<oCh.length;i++)		//逐一查找
+			DOMString += oCh[i].nodeName + "\n";
+	}
+	alert(DOMString);
+}
+</script> 
+</head> 
+<body onload="myDOMInspector()"> 
+	<ul id="myList"> 
+		<li>糖醋排骨</li> 
+		<li>圆笼粉蒸肉</li> 
+		<li>泡菜鱼</li> 
+        <li>板栗烧鸡</li> 
+        <li>麻婆豆腐</li> 
+	</ul> 
+</body> 
+</html>
+5.3.4 节点的属性
+<html> 
+<head> 
+<title>getAttribute()</title> 
+<script language="javascript"> 
+function myDOMInspector(){
+	//获取图片
+	var myImg = document.getElementsByTagName("img")[0];
+	//获取图片title属性
+	alert(myImg.getAttribute("title"));
+}
+</script> 
+</head> 
+<body onload="myDOMInspector()"> 
+<img src="01.jpg" title="情人坡" /> 
+</body> 
+</html>
+5.3.4 创建新节点
+<html> 
+<head> 
+<title>创建新节点</title> 
+<script language="javascript"> 
+function createP(){
+	var oP = document.createElement("p");
+	var oText = document.createTextNode("这是一段感人的故事");
+	oP.appendChild(oText);
+	document.body.appendChild(oP);
+}
+</script> 
+</head> 
+<body onload="createP()"> 
+<p>事先写一行文字在这里，测试appendChild()方法的添加位置</p> 
+</body> 
+</html>
+5.3.5 document的几个方法
+ createElement("节点名称")
+ createTextNode("节点上要加入的属性值")
+ getElementsByTagName("属性名称")
+ getElementsById("属性id")
+5.3.6 节点的方法
+ appendChild("子节点名称")
+ hasChildNodes()
+5.3.7 节点的属性
+ length
+ childNodes
+ nodeName
+ nodeValue
+5.4 innerHTML
+ 表示某个标记之间的所有内容(包括代码本身)
+<html> 
+<head> 
+<title>innerHTML</title> 
+<script language="javascript"> 
+function myDOMInnerHTML(){
+	var myDiv = document.getElementById("myTest");
+	alert(myDiv.innerHTML);		//直接显示innerHTML的内容
+	//修改innerHTML，可直接添加代码
+	myDiv.innerHTML = "<img src='01.jpg' title='情人坡'>";
+}
+</script> 
+</head> 
+<body onload="myDOMInnerHTML()"> 
+<div id="myTest"> 
+	<span>图库</span> 
+	<p>这是一行用于测试的文字</p> 
+</div> 
+</body> 
+</html>

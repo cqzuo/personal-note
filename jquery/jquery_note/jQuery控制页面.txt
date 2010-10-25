@@ -1,0 +1,179 @@
+11.1 标记的属性
+11.1.1 获取属性的值
+<head>
+<title>attr(name)方法</title>
+<style type="text/css">
+<!--
+em{
+color:#002eb2;
+}
+p{
+	font-size:14px;
+margin:0px; padding:5px;
+       font-family:Arial, Helvetica, sans-serif;
+}
+-->
+</style>
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+$(function(){
+		//var sTitle = $("em").attr("title");	//获取第一个<em>元素的title属性值
+		var sTitle = $("em:eq(1)").attr("title");	//获取第二个<em>元素的title属性值
+		$("span").text(sTitle);
+		});
+</script>
+</head>
+<body>
+<p>从前有一只大<em title="huge, gigantic">恐龙</em>...</p>
+<p>在树林里面<em title="running">跑啊跑</em>...</p>
+<p>title属性的值是：<span></span></p>
+</body>
+11.1.2 设置属性的值
+<head>
+<title>attr(name,value)方法</title>
+<style type="text/css">
+<!--
+button{
+border:1px solid #950074;
+}
+-->
+</style>
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+function DisableBack(){
+	$("button:gt(0)").attr("disabled","disabled");//更改指定元素的属性为disabled
+}
+</script>
+</head>
+<body>
+<button onclick="DisableBack()">第一个Button</button>&nbsp;
+<button>第二个Button</button>&nbsp;
+<button>第三个Button</button>&nbsp;
+</body>
+11.2 元素的样式
+11.2.1 添加css类
+<head>
+<title>addClass()方法</title>
+<style type="text/css">
+<!--
+.myClass1{
+border:1px solid #750037;
+width:120px; height:80px;
+}
+.myClass2{
+	background-color:#ffcdfc;
+}
+-->
+</style>
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+$(function(){
+		//同时添加多个CSS类别
+		$("div").addClass("myClass1 myClass2");
+		});
+</script>
+</head>
+<body>
+<div></div>
+</body>
+11.2.2 动态切换
+<head>
+<title>toggleClass()方法</title>
+<style type="text/css">
+<!--
+p{
+color:blue; cursor:help;
+      font-size:13px;
+margin:0px; padding:5px;
+}
+.highlight{
+	background-color:#FFFF00;
+}
+-->
+</style>
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+$(function(){
+		$("p").click(function(){
+			//点击的时候不断切换
+			$(this).toggleClass("highlight");
+			});
+		});
+</script>
+</head>
+<body>
+<p>高亮？</p>
+</body>
+11.3 页面的元素
+11.3.1 直接获取和编辑内容
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+$(function(){
+		var sString = $("p:first").text();	//获取纯文本
+		$("p:last").html(sString);
+		});
+</script>
+</head>
+<body>
+<p><b>文本</b>段 落<em>示</em>例</p>
+<p></p>
+</body>
+11.3.2 克隆元素
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+$(function(){
+		//直接修改例题11.16
+		$("img:eq(0)").clone().appendTo($("p"));
+		$("img:eq(1)").clone().appendTo($("p:eq(0)"));
+		});
+</script>
+</head>
+<body>
+<img src="08.jpg"> <img src="09.jpg">
+<hr>
+<p><img src="10.jpg"></p>
+<p><img src="10.jpg"></p>
+<p><img src="10.jpg"></p>
+</body>
+11.4 jQuery处理事件
+11.4.1 添加事件监听
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+$(function(){
+		$("img")
+		.bind("click",function(){
+			$("#show").append("<div>点击事件1</div>");
+			})
+		.bind("click",function(){
+			$("#show").append("<div>点击事件2</div>");
+			})
+		.bind("click",function(){
+			$("#show").append("<div>点击事件3</div>");
+			});
+		});
+</script>
+</head>
+<body>
+<img src="11.jpg">
+<div id="show"></div>
+</body>
+11.4.2 移除事件监听
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+$(function(){
+		var fnMyFunc1;	//函数变量
+		$("img")
+		.bind("click",fnMyFunc1 = function(){	//赋给函数变量
+			$("#show").append("<div>点击事件1</div>");
+			})
+		.bind("click",function(){
+			$("#show").append("<div>点击事件2</div>");
+			})
+		.bind("click",function(){
+			$("#show").append("<div>点击事件3</div>");
+			});
+		$("input[type=button]").click(function(){
+			$("img").unbind("click",fnMyFunc1);	//移除事件监听myFunc1
+			});
+		});
+</script>

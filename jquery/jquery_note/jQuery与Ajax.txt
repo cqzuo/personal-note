@@ -1,0 +1,176 @@
+14.1 获取异步数据
+14.1.1 传统方法
+<script language="javascript">
+var xmlHttp;
+function createXMLHttpRequest(){
+	if(window.ActiveXObject)
+		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+	else if(window.XMLHttpRequest)
+		xmlHttp = new XMLHttpRequest();
+}
+function startRequest(){
+	createXMLHttpRequest();
+	xmlHttp.open("GET","14-1.aspx",true);
+	xmlHttp.onreadystatechange = function(){
+		if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
+			document.getElementById("target").innerHTML = xmlHttp.responseText;
+	}
+	xmlHttp.send(null);
+}
+</script>
+</head>
+<body>
+<input type="button" value="测试异步通讯" onClick="startRequest()">
+<br><br>
+<div id="target"></div>
+</body>
+14.1.2 jQuery方法
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+function startRequest(){
+	$("#target").load("14-1.aspx");
+}
+</script>
+</head>
+<body>
+<input type="button" value="测试异步通讯" onClick="startRequest()">
+<br><br>
+<div id="target"></div>
+</body>
+14.2 GET VS POST
+14.2.1 $.get(url,[data],[callback])
+14.2.2 $.post(url,[data],[callback],[type])
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+function createQueryString(){
+	var firstName = encodeURI($("#firstName").val());
+	var birthday = encodeURI($("#birthday").val());
+	//组合成对象的形式
+	var queryString = {firstName:firstName,birthday:birthday};
+	return queryString;
+}
+function doRequestUsingGET(){
+	$.get("14-5.aspx",createQueryString(),
+		//发送GET请求
+		function(data){
+			$("#serverResponse").html(decodeURI(data));
+		}
+	);
+}
+function doRequestUsingPOST(){
+	$.post("14-5.aspx",createQueryString(),
+		//发送POST请求
+		function(data){
+			$("#serverResponse").html(decodeURI(data));
+		}
+	);
+}
+</script>
+</head>
+
+<body>
+<h2>输入姓名和生日</h2>
+<form>
+	<input type="text" id="firstName" /><br>
+	<input type="text" id="birthday" />
+</form>
+<form>
+	<input type="button" value="GET" onclick="doRequestUsingGET();" /><br>
+	<input type="button" value="POST" onclick="doRequestUsingPOST();" />
+</form>
+<div id="serverResponse"></div>
+</body>
+14.3 控制ajax
+14.3.1 设置ajax细节
+14.3.1.1 $.ajax(options)
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+function createQueryString(){
+	//必须两次编码才能解决中文问题
+	var firstName = encodeURI(encodeURI($("#firstName").val()));
+	var birthday = encodeURI(encodeURI($("#birthday").val()));
+	//组合成对象的形式
+	var queryString = "firstName="+firstName+"&birthday="+birthday;
+	return queryString;
+}
+function doRequestUsingGET(){
+	$.ajax({
+		type: "GET",
+		url: "14-5.aspx",
+		data: createQueryString(),
+		success: function(data){
+			$("#serverResponse").html(decodeURI(data));
+		}
+	});
+}
+function doRequestUsingPOST(){
+	$.ajax({
+		type: "POST",
+		url: "14-5.aspx",
+		data: createQueryString(),
+		success: function(data){
+			$("#serverResponse").html(decodeURI(data));
+		}
+	});
+}
+</script>
+</head>
+
+<body>
+<h2>输入姓名和生日</h2>
+<form>
+	<input type="text" id="firstName" /><br>
+	<input type="text" id="birthday" />
+</form>
+<form>
+	<input type="button" value="GET" onclick="doRequestUsingGET();" /><br>
+	<input type="button" value="POST" onclick="doRequestUsingPOST();" />
+</form>
+<div id="serverResponse"></div>
+</body>
+14.3.1.2 全局设定ajax
+$.ajaxSetup(options)
+<script language="javascript" src="jquery.min.js"></script>
+<script language="javascript">
+$.ajaxSetup({
+	//全局设定
+	url: "14-5.aspx",
+	success: function(data){
+		$("#serverResponse").html(decodeURI(data));
+	}
+});
+function createQueryString(){
+	//必须两次编码才能解决中文问题
+	var firstName = encodeURI(encodeURI($("#firstName").val()));
+	var birthday = encodeURI(encodeURI($("#birthday").val()));
+	//组合成对象的形式
+	var queryString = "firstName="+firstName+"&birthday="+birthday;
+	return queryString;
+}
+function doRequestUsingGET(){
+	$.ajax({
+		data: createQueryString(),
+		type: "GET"
+	});
+}
+function doRequestUsingPOST(){
+	$.ajax({
+		data: createQueryString(),
+		type: "POST"
+	});
+}
+</script>
+</head>
+
+<body>
+<h2>输入姓名和生日</h2>
+<form>
+	<input type="text" id="firstName" /><br>
+	<input type="text" id="birthday" />
+</form>
+<form>
+	<input type="button" value="GET" onclick="doRequestUsingGET();" /><br>
+	<input type="button" value="POST" onclick="doRequestUsingPOST();" />
+</form>
+<div id="serverResponse"></div>
+</body>

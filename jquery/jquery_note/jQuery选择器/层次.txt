@@ -1,0 +1,30 @@
+jQuery选择器 – 层次(Hierarchy)
+
+六月 25th, 2009
+Leave a comment
+
+本文是jQuery选择器系列之层次(Hierarchy).
+
+我对层次(Hierarchy)的理解:使用构造的选择符来层层过滤DOM元素.
+Hierarchy包括了四部分:
+ancestor descendant
+parent > child
+prev + next
+prev ~ siblings
+
+ancestor descendant
+用法: $(“form input”) ;
+说明: 在给定的祖先元素下匹配所有后代元素.这个要下面讲的”parent > child”区分开.
+
+parent > child
+用法: $(“form > input”) ;
+说明: 在给定的父元素下匹配所有子元素.注意:要区分好后代元素与子元素.这里的是XPath用法,前面前面就说过了,jQuery是可以任意使用XPath选择符的.
+
+prev + next
+用法: $(“label + input”) ;
+说明: 匹配所有紧接在 prev 元素后的 next 元素.需要强调的是:label+其他元素+input这样的是不会被匹配的.
+
+prev ~ siblings
+用法: $(“form ~ input”) ;
+说明: 匹配 prev 元素之后的所有 siblings 元素.注意:是匹配之后的元素,不包含该元素在内,并且siblings匹配的是和prev同辈的元素,其后辈元素不被匹配.
+

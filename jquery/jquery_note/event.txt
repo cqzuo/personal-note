@@ -1,0 +1,158 @@
+6.1 事件流
+6.1.1 冒泡型事件
+<html> 
+<head> 
+<title>冒泡型事件</title> 
+<script language="javascript"> 
+function add(sText){
+	var oDiv = document.getElementById("display");
+	oDiv.innerHTML += sText;	//输出点击顺序
+}
+</script> 
+</head> 
+ 
+<body onclick="add('body<br>');"> 
+	<div onclick="add('div<br>');"> 
+		<p onclick="add('p<br>');">Click Me</p> 
+	</div> 
+	<div id="display"></div>
+</body> 
+</html>
+6.1.2 捕获型事件
+6.2 事件监听
+<html>
+<head>
+<title>监听函数</title>
+<script language="javascript">
+window.onload = function(){
+	var oP = document.getElementById("myP");	//找到对象
+	oP.onclick = function(){			//设置事件监听函数
+		alert('我被点击了');
+	}
+}
+</script>
+</head>
+<body>
+	<div>
+		<p id="myP">Click Me</p>
+	</div>
+</body>
+</html>
+6.2.1 Ie中的监听
+<html>
+<head>
+<title>IE的监听函数</title>
+<script language="javascript">
+function fnClick(){
+	alert("我被点击了");
+	oP.detachEvent("onclick",fnClick);		//点击了一次后删除监听函数
+}
+var oP;
+window.onload = function(){
+	oP = document.getElementById("myP");		//找到对象
+	oP.attachEvent("onclick",fnClick);		//添加监听函数
+}
+</script>
+</head>
+
+<body>
+	<div>
+		<p id="myP">Click Me</p>
+	</div>
+</body>
+</html>
+6.2.2 添加多个监听函数
+<html>
+<head>
+<title>多个监听函数</title>
+<script language="javascript">
+function fnClick1(){
+	alert("我被fnClick1点击了");
+}
+function fnClick2(){
+	alert("我被fnClick2点击了");
+	//oP.detachEvent("onclick",fnClick1);		//删除监听函数1
+}
+var oP;
+window.onload = function(){
+	oP = document.getElementById("myP");	//找到对象
+	oP.attachEvent("onclick",fnClick1);		//添加监听函数1
+	oP.attachEvent("onclick",fnClick2);		//添加监听函数2
+}
+</script>
+</head>
+
+<body>
+	<div>
+		<p id="myP">Click Me</p>
+	</div>
+</body>
+</html>
+6.2.3 标准DOM
+<html>
+<head>
+<title>标准DOM的事件监听</title>
+<script language="javascript">
+function fnClick1(){
+	alert("我被fnClick1点击了");
+	//oP.removeEventListener("click",fnClick2,false);		//删除监听函数2
+}
+function fnClick2(){
+	alert("我被fnClick2点击了");
+}
+var oP;
+window.onload = function(){
+	oP = document.getElementById("myP");	//找到对象
+	oP.addEventListener("click",fnClick1,false);		//添加监听函数1
+	oP.addEventListener("click",fnClick2,false);		//添加监听函数2
+}
+</script>
+</head>
+
+<body>
+	<div>
+		<p id="myP">Click Me</p>
+	</div>
+</body>
+</html>
+6.3 事件对象
+ie: window的属性event
+oP.click = function()
+{
+	var oEvent = window.event;
+}
+dom规定event必须作为事件处理函数的唯一参数
+oP.click = function(oEvent);
+6.3.1 兼容多种浏览器的方法
+节点.onclick = function(oEvent)
+{
+	if(window.event) oEvent = event;
+}
+6.3.2 一系列属性方法
+6.3.3 事件类型
+<html> 
+<head> 
+<title>事件的类型</title> 
+<script language="javascript"> 
+function handle(oEvent){
+	var oDiv = document.getElementById("display");
+	if(window.event) oEvent = window.event;		//处理兼容性，获得事件对象
+	if(oEvent.type == "click")					//检测事件名称
+		oDiv.innerHTML += "你点击了我&nbsp&nbsp;";
+	else if( oEvent.type == "mouseover")
+		oDiv.innerHTML += "你移动到我上方了&nbsp&nbsp;";
+		
+}
+window.onload = function(){
+	var oImg = document.getElementsByTagName("img")[0];
+	oImg.onclick = handle;
+	oImg.onmouseover = handle;
+}
+</script> 
+</head> 
+ 
+<body> 
+	<img src="01.jpg" border="0"> 
+    <div id="display"></div> 
+</body> 
+</html>
