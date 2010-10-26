@@ -1,0 +1,16 @@
+<hibernate-mapping>
+	<class entity-name="要持久化的类的名称">
+		<id name="主键的名称" type="主键类型" column="数据库中主键列名">
+			<generator class="主键生成方式"/>
+		</id>
+		<property name="其他非主键属性" column="数据库中列名" type="数据类型"/>
+		<many-to-one name="" column="" class=""/>
+		<bag name="orders"
+			inverse="true"
+			lazy="false"
+			cascade="all">
+			<key column="CUSTOMER_ID"/>
+			<one-to-many class="Order"/>
+		</bag>		
+	</class>
+</hibernate-mapping>
