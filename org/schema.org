@@ -1,16 +1,104 @@
+#+OPTIONS: "\n:t"
 * 整理已经看完的部分
 ** 确定复习的内容纲要及时间分配
-** 复习struts2
-*** 项目搭建
-*** 配置文件
-*** action编写
-*** i18n
+** struts2
+*** DONE 基础知识
+    CLOSED: [2010-10-26 星期二 17:41]
+  1. mvc
+     优点
+     + 视图与模型
+          - 模型与显示逻辑分离
+          - 多个视图对应一个模型
+     + 三层架构
+         - 降低耦合,提高扩展性
+  2. strust1
+     + API
+       - struts1的api依赖
+       - servlet api的依赖
+     + 表现层
+  3. webwork
+     + api
+       - action与 servlet分离
+     + 表现层
+       - 更多表现层技术的支持
+     + ognl
+  4. model2
+     + 处理流程
+       - filterDispatcher根据请求调用action
+       - 拦截器链对请求应用通用功能
+       - action的execute()的处理信息被输出到浏览器
+  5. struts1与struts2
+     + action的实现
+     + 线程
+     + servlet api依赖
+     + 可测性
+     + 封装请求参数
+     + 表达式语言
+     + 视图
+     + 类型转换
+     + 数据校检
+     + action执行控制
+*** DONE 项目搭建
+    CLOSED: [2010-10-26 星期二 17:48]
+ 1. web项目的文件结构
+*** DONE 配置文件
+    CLOSED: [2010-10-26 星期二 18:15]
+ 1. web.xml
+    + FilterDispatcher 过滤器的添加
+    + ActionContextCleanUp 过滤器添加
+    + ContextLoaderListener 监听器的添加
+ 2. struts.xml
+    + include
+    + package
+    + action
+    + result
+*** DONE action编写
+    CLOSED: [2010-10-26 星期二 18:34]
+ 1. execute
+ 2. 属性及其设置器获取器
+ 3. validate()验证方法
+ 4. ActionSupport接口
+ 5. 访问HttpSession
+    + action中 ActionContext.getContext().getSession().put(键,值)
+    + jsp中 session.getAttribute(键)
+*** DONE 表单标签
+    CLOSED: [2010-10-26 星期二 18:34]
+ 1. iterator
+ 2. if/else
+ 3. property
+*** DONE i18n
+    CLOSED: [2010-10-26 星期二 19:00]
+ 1. 资源文件
+   + 位置
+     - classes目录
+   + struts.properties 
+     - struts.custom.i18n.resources=globalMessages
+   + globalMessage_**.properties
+     - 名称=要显示的内容
+ 2. 国际化信息输出 
+   + <s:text name=""/>
+   + <s:propety text="%{getText("")}">
+*** DONE 数据验证
+    CLOSED: [2010-10-26 星期二 19:26]
+ 1. 继承ActionSupport
+   + 重写validate()
+     addFiledError()
+ 2. 使用Struts2验证框架
+   + 校验规则文件
+     - validators
+     - field
+     - filed-validator
+   + 位置
+     与action同目录
+   + 名称
+     action名称-validation.xml
 *** interceptor
+
 *** convertor
 *** upload-down
 *** 与spring整合 
 *** crub实现
-** 复习spring
+** spring
 *** 配置文件
 *** 项目搭建
 *** 基本bean装配
@@ -18,5 +106,12 @@
 *** 通知
 *** 连接数据库
 *** 事务管理
-* 继续未看完的部分
 ** Hibernate
+*** 项目搭建
+*** 配置文件
+*** 体系结构
+*** 持久化类
+*** 对象关系映射 
+* 继续未看完的部分
+** hibernate
+*** 对象关系映射
