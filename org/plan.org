@@ -1,0 +1,165 @@
+* 基本语言    
+** java								       :java:    
+*** DONE java的环境配置
+    SCHEDULED: <2010-07-18 星期日> DEADLINE: <2010-07-18 星期日> CLOSED: [2010-07-18 星期日 12:42]
+*** DONE java的动态加载机制
+    SCHEDULED: <2010-07-18 星期日> DEADLINE: <2010-07-19 星期一> CLOSED: [2010-07-25 星期日 06:59]
+*** DONE jdk/jre    
+    SCHEDULED: <2010-07-18 星期日> DEADLINE: <2010-07-18 星期日> CLOSED: [2010-07-25 星期日 06:59]
+*** TODO java设计模式    
+    SCHEDULED: <2010-07-18 星期日> DEADLINE: <2010-07-30 星期五>
+*** TODO object类理解    
+    SCHEDULED: <2010-07-18 星期日> DEADLINE: <2010-07-18 星期日>
+*** TODO 容器类    
+    SCHEDULED: <2010-07-19 星期一> DEADLINE: <2010-07-20 星期二>
+*** TODO 反射
+    SCHEDULED: <2010-07-19 星期一> DEADLINE: <2010-07-20 星期二>
+*** TODO 大数值处理
+    SCHEDULED: <2010-07-19 星期一> DEADLINE: <2010-07-20 星期二>
+*** TODO 字符处理
+    SCHEDULED: <2010-07-19 星期一> DEADLINE: <2010-07-21 星期三>
+*** 日期处理
+*** 静态域与静态方法
+*** 实例化的顺序
+*** 同步和异步
+*** 构造方法
+*** 继承
+*** 接口
+*** 内部类
+*** 反射
+*** 泛型
+*** 图形设计
+*** 事件处理
+*** swing
+*** jar文件
+*** 异常
+*** 流与文件的处理
+*** 多线程
+*** 序列化
+*** Java读写XML     
+** C#
+*** 基础知识
+*** windows编程
+*** 常用控件和类的使用
+*** 文本编辑器的实现
+*** 图形图像编程
+*** 文件和流
+*** 多线程
+*** 数据库与ADO.net   
+*** web服务
+*** 
+** C									  :c:    
+*** c语言基本知识
+*** 数据类型
+*** 库和接口
+*** 递归入门
+*** 递归过程
+*** 回溯算法
+*** 算法分析
+*** 抽象数据类型
+*** 效率与ADT
+*** 线性结构
+*** 符号表
+*** 递归链表
+*** 树
+*** 表达式树
+*** 集合
+*** 图 
+** python							     :python:    
+* 网站开发    
+** JSP 								       :java:
+*** JSP基础知识
+*** CSS JS 与JSP
+*** JSP与EL
+*** JSP指令
+*** JSP标准动作
+*** JSP与JAVABEAN
+*** 错误处理
+*** 构建定制JSP标记库
+*** JSP与servlet
+*** 访问数据库
+** asp.net
+*** 网络基础
+*** 技术基础
+*** web服务器端控件
+*** 内建对象									 :c#:
+** struts2							       :java0:
+*** TODO struts2基础知识
+    SCHEDULED: <2010-07-18 星期日> DEADLINE: <2010-07-18 星期日>
+*** 动作
+*** 使用拦截器追加工作流
+*** 数据转移:OGNL和类型转换
+*** 构建视图--标签
+*** UI组件标签
+*** 结果
+*** 集成spring和hibernate/JPA
+*** 验证框架
+*** 国际化
+*** 插件扩展
+*** struts迁移
+*** 高级主题
+** spring							       :java:
+*** 基本Bean装配
+*** 高级Bean装配
+*** 通知Bean
+*** 使用数据库
+*** 事务管理
+*** 保护spring
+*** spring和基于pojo的远程服务
+*** 在spring中建立契约优先服务
+*** spring消息
+*** spring和ejb
+*** 处理web请求
+*** 渲染web视图
+*** 使用spring web flow
+*** 集成其他web框架
+** hibernate							       :java:
+*** 基础知识
+*** OR映射
+*** 通过API操纵数据库
+*** 检索策略和方式
+*** 数据库事务
+*** 并发
+*** 缓存 性能优化
+*** 高级配置
+* 基础课程    
+** 数据结构
+** 数据库
+*** oracle
+*** sqlserver
+*** mysql
+** XML
+*** 基本概念
+*** 文档显示
+*** 文档处理
+*** 数据库
+** UML
+* 服务器管理    
+** tomcat							       :java:
+** iis									 :c#:
+** jboss							       :java:
+** weblogic							       :java:
+** websphere
+* 其他    
+** LINUX
+*** shell
+*** Desktop
+*** Basic Management System
+*** internet
+*** security
+*** install
+*** firewall and router
+*** lamp
+*** mail
+*** print
+*** file system
+*** 编程环境与接口
+*** 编程工具与应用程序
+** 计算机英语
+*** Introduction to Computer
+**** word
+**** phrase
+**** content
+*** Computer System Basics
+** 操作系统    
+       

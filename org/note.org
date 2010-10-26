@@ -1,0 +1,116 @@
+2010年10月4日 12:23:05
+* DONE struts2的action置中相对路径与命名空间
+  CLOSED: [2010-10-04 星期一 12:22]
+** DONE jsp页面
+   CLOSED: [2010-10-04 星期一 12:22]
+   form属性action的值,不需要命名空间 ,只需action名称即可
+** DONE struts.xml配置文件
+   CLOSED: [2010-10-04 星期一 12:22]
+   需要定义package,包括名称和extends(struts-default.xml)
+   action中的name不需要命名空间,需和jsp中提交form的action属性值一致
+   action中的class属性需要有包名和文件名
+* DONE Struts2中取得和操作Servlet接口的方法
+  CLOSED: [2010-10-04 星期一 12:37]
+** 非IOC方法
+   取得Session对象和操作  
+    ActionContext.getContext().getSession()
+    HttpServletRequest request = ServletActionContext.getRequest();
+    HttpServletResponse response = ServletActionContext.getResponse();
+    HttpSession session = request.getSession();
+    在session对象中放数据 put("键",值)
+** IOC方法
+   继承SessionAware,ServletRequestAware,ServletResponse接口
+   在数据域中添加HttpServletRequest和HttpServletResponse2个对象
+   添加setter/getter方法
+   直接使用request和reponse
+* DONE 国际化的步骤
+  CLOSED: [2010-10-04 星期一 12:52]
+** src目录下添加资源文件
+   struts.properties文件添加 struts.custom.i18n.resources=资源文件名
+   添加 资源文件名_zh_CN.properties等文件
+** 在资源文件中添加对应的字符
+** 国际化信息的获取
+   getText()  ------------- lable="${getText('name')}"
+   <s:text>   ------------- name="名称"
+   <s:i18n>  ------------- name="资源文件名称"
+** 参数的国际化
+   国际化字符串中使用OGNL     
+            字符串=****${getText("字符串名称")}****
+   设置参数并显示 
+           <s:text name="字符串" value0="字符串名称"/>
+           <s:text name="字符串">
+                <s:param value="字符串名称"/>
+           </s:text>
+* DONE 验证的方法
+  CLOSED: [2010-10-04 星期一 12:57]
+** 继承ActionSupport后重写validate()方法
+** 使用stuts2自有验证框架
+   Action名称-validation.xml 添加验证配置
+* DONE 转换器的配置
+  CLOSED: [2010-10-04 星期一 13:04]
+** 写转换器
+   继承 DefaultTypeConverter类
+   实现convertValue(Map context,Object value,Class toType)方法
+** src目录下添加xwork-conversion.properties
+需要转换的数据类型=转换器的包名文件名
+** 批量封装对象
+   编写转换器   
+         封装对象的pojo类
+   转换器配置   
+   Element_action中的数据类型=转换器的包名文件名
+* DONE 拦截器的配置
+  CLOSED: [2010-10-04 星期一 15:03]
+** 已有拦截器配置
+   struts.xml中添加interceptor
+       <inceptor-ref name="拦截器名称"/>
+** 自定义拦截器
+   编写拦截器
+        继承AbstractInterceptor
+        重写 public String intercept(ActionInvocation ai)方法
+	return ai.invoke()或Action.LOGIN等
+   struts.xml中添加拦截器
+       <interceptors>
+              <interceptor name="自定义拦截器名" class=""/>
+       <interceptors>
+       <action>>
+             <interceptor-ref name="自定义拦截器名"/>
+       </action>       
+2010年10月6日 11:15:03
+2010年10月6日 12:00:00
+* DONE struts2-spring整合
+  SCHEDULED: <2010-10-04 星期一> CLOSED: [2010-10-06 星期三 11:04]
+** spring所需jar文件及配置文件
+    jar包
+    applicationContext.xml
+    web.xml
+        <listerner>
+	<listerner-class>org.springframework.web.context.ContextLoaderListerner</listerner-class>
+        </listerner>
+    struts.xml
+        bean标签中class属性值为注入Bean的Id
+    struts.properties
+        struts.objectFactory=spring
+* DONE struts2 文件上传
+  SCHEDULED: <2010-10-04 星期一>  CLOSED: [2010-10-06 星期三 11:14]
+** 上传和显示上传图片的jsp页面
+   上传 
+   <s:form action="" method="POST" enctype="multipart/form-data">
+         <s:file ../>
+    </s:form>
+    显示
+  <img src="目录/<s:property value="imageFileName"/>"><s:property value="caption"/>
+** action
+   几个必要属性
+       文件
+       文件名
+       文件类型
+       后台图片文件名
+       自定义图片名称
+   方法
+       将上传文件从临时文件夹中复制到指定的文件夹
+** 配置
+   action中添加拦截器
+        fileUploadStack
+        allowedTypes
+* DONE struts2实现crud操作
+  SCHEDULED: <2010-10-04 星期一> CLOSED: [2010-10-06 星期四 11:01]
