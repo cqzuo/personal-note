@@ -92,12 +92,126 @@
      与action同目录
    + 名称
      action名称-validation.xml
-*** interceptor
-
-*** convertor
+*** DONE convertor
+    CLOSED: [2010-10-27 星期三 16:15]
+ 1. 作用
+   + 自动完成字符串类型与其他类型之间的转换
+ 2. 编写
+   + 继承ognl.DefaultTypeConvertor
+   + 重写convertValue()
+     public Object convertValue(Map context,Object value,Class toType)
+3. 配置文件
+   + src目录下
+     - xwork-conversion.xml
+       要转换的数据类型=自定义的convertor
+4. 批量封装对象
+   + 自定义的属性Bean类
+   +  配置文件
+      - action名称-conversion.property
+	action名称_action中的被封装为list的属性名称=自定义的被封装属性Bean类
+      - 文件位置
+	同转换器类同级目录
+*** DONE interceptor
+    CLOSED: [2010-10-27 星期三 16:57]
+  1. 作用
+     + 方法或字段在访问前加入自定义的各种操作
+  2. 原理
+     + 依次调用根据struts.xml配置文件中的拦截器对象序列
+  3. 配置
+     + struts.xml
+       - <interceptor-ref name="拦截器名称">
+       - 默认拦截器
+	 <include file="struts-default.xml"/>
+  4. 自定义拦截器
+     + 方式
+       - 实现org.opensymphony.interceptor.Interceptor
+       - 继承org.opensymphony.interceptor.AbstractInterceptor
+       - 重写 intercept(ActionInvocation ai)方法
+         通过 ActionInvocation对象的 getInvocationContext().getSession()获取Map对象
+         通过上面获取的Map对象的get()方法获取session中的值
+      - 对action的操作
+        通过 ActionInvocation对象的 getAction()获取一个Object对象
+        判断该对象是否是某个actioin
+        如果是,则将该Object对象转换为该action对象
+        将session中的值放入action
+         调用action
+     + 配置
+       - struts.xml
+         <interceptors>
+	 <interceptor name="拦截器名称" class="拦截器完整路径名称"/>
+         </interceptors> 
+*** DONE 与spring整合
+    CLOSED: [2010-10-27 星期三 17:19]
+  1. 所需的jar包
+  2. 配置
+     + web.xml
+       <listener>
+          <listener-class>org.springframework.web.context.ContextLoaderListener</lisener-class>
+       </lisener>
+     + struts.properties
+       struts.objectFactory=spring
+  3. 实现
+     + 在spring中配置action对象
+       <bean id="自定义action" class="该action的实际路径">
+         <property name="">
+	<ref local="自定义属性"/>
+        </property>
+       </bean>
+     + 在struts的配置文件中直接使用
+       <action name="" class="在spring中配置好的action名称">
 *** upload-down
-*** 与spring整合 
+  1. 需要的Jar文件 
+  2. 上传页面
+     + jsp
+       -form
+       method="POST"
+       enctype="mutipart/form-data"
+  3. 上传action
+    + 上传文件所需的属性
+       -File名称 myFile--<s:file name="这里自定义的file名称">
+       -上传文件的MIME类型 contentType
+       -文件名 fileName
+       -文件名(不包括完整路径) imageFileName
+       -文件标题 caption
+     +  需要setter方法的属性
+      -上传的文件MIME类型
+      -文件名(不包括完整路径)
+      -文件名
+  4. 页面上传内容
+     + jsp
+       <img src="目录/<s:propety value="action返回的文件名称">">
+
 *** crub实现
+*** jsp页面
+  1. 显示错误信息
+     + <s:filederror/>
+  2. Bean批量封装
+     + Bean属性 输入 
+       <s:iterator value="new int[bean的个数]" status="stat">
+           <tr>
+                  <td><s:textarea name="%{'Bean名称['#stat.index'].Bean属性1'}"></td>
+                  <td><s:textarea name="%{'Bean名称['#stat.index'].Bean属性2'}"></td>
+                  <td><s:textarea name="%{'Bean名称['#stat.index'].Bean属性3'}"></td>
+		  ....
+            </tr>
+        </s:iterator>
+     + Bean属性显示
+       <s:iterator name="Bean名称" status="stat">
+           <tr>
+            <td><s:property name="Bean属性名称1"><td>
+            <td><s:property name="Bean属性名称1"><td>
+          </tr>
+       </s:iterator> 
+*** 编程实例
+ 1. 自定义拦截器
+ 2. 自定义转换器
+ 3. 上传下载
+ 4. 与spring整合
+ 5. crub实现
+ 6. 信息国际化的实现 
+ 7. jsp的各种操作
+  + Bean的批量封装
+  + 属性的显示与输入
 ** spring
 *** 配置文件
 *** 项目搭建

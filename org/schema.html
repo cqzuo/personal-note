@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="gb2312"?>
+<?xml version="1.0" encoding="gbk"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 lang="en" xml:lang="en">
 <head>
-<title></title>
-<meta http-equiv="Content-Type" content="text/html;charset=gb2312"/>
+<title>schema</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2010-10-26 21:52:23 "/>
+<meta name="generated" content="2010-10-27 16:55:11 "/>
 <meta name="author" content=""/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -71,7 +71,7 @@ lang="en" xml:lang="en">
 <body>
 <div id="content">
 
-<h1 class="title"></h1>
+<h1 class="title">schema</h1>
 
 
 <div id="table-of-contents">
@@ -90,11 +90,13 @@ lang="en" xml:lang="en">
 <li><a href="#sec-1.2.5">1.2.5 表单标签 </a></li>
 <li><a href="#sec-1.2.6">1.2.6 i18n </a></li>
 <li><a href="#sec-1.2.7">1.2.7 数据验证 </a></li>
-<li><a href="#sec-1.2.8">1.2.8 interceptor </a></li>
-<li><a href="#sec-1.2.9">1.2.9 convertor </a></li>
+<li><a href="#sec-1.2.8">1.2.8 convertor </a></li>
+<li><a href="#sec-1.2.9">1.2.9 interceptor </a></li>
 <li><a href="#sec-1.2.10">1.2.10 upload-down </a></li>
 <li><a href="#sec-1.2.11">1.2.11 与spring整合 </a></li>
 <li><a href="#sec-1.2.12">1.2.12 crub实现 </a></li>
+<li><a href="#sec-1.2.13">1.2.13 jsp页面 </a></li>
+<li><a href="#sec-1.2.14">1.2.14 编程实例 </a></li>
 </ul>
 </li>
 <li><a href="#sec-1.3">1.3 spring </a>
@@ -495,17 +497,148 @@ action名称-validation.xml<br/>
 </div>
 
 <div id="outline-container-1.2.8" class="outline-4">
-<h4 id="sec-1.2.8"><span class="section-number-4">1.2.8</span> interceptor </h4>
+<h4 id="sec-1.2.8"><span class="section-number-4">1.2.8</span> <span class="done DONE"> DONE</span> convertor </h4>
 <div class="outline-text-4" id="text-1.2.8">
 
+<p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-27 星期三 16:15</span></span><br/><br/>
+</p><ol>
+<li>
+作用<br/>
+<ul>
+<li>
+自动完成字符串类型与其他类型之间的转换<br/>
+</li>
+</ul>
+</li>
+<li>
+编写<br/>
+<ul>
+<li>
+继承ognl.DefaultTypeConvertor<br/>
+</li>
+<li>
+重写convertValue()<br/>
+public Object convertValue(Map context,Object value,Class toType)<br/>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>
+配置文件<br/>
+<ul>
+<li>
+src目录下<br/>
+<ul>
+<li>
+action名称-conversion.xml<br/>
+要转换的数据类型=自定义的convertor<br/>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+批量封装对象<br/>
+<ul>
+<li>
+自定义的属性Bean类<br/>
+</li>
+<li>
+ 配置文件<br/>
+<ul>
+<li>
+action名称-conversion.property<br/>
+action名称<sub>action中的被封装为list的属性名称</sub>=自定义的被封装属性Bean类<br/>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
 </div>
 
 </div>
 
 <div id="outline-container-1.2.9" class="outline-4">
-<h4 id="sec-1.2.9"><span class="section-number-4">1.2.9</span> convertor </h4>
+<h4 id="sec-1.2.9"><span class="section-number-4">1.2.9</span> interceptor </h4>
 <div class="outline-text-4" id="text-1.2.9">
 
+<ol>
+<li>
+作用<br/>
+<ul>
+<li>
+方法或字段在访问前加入自定义的各种操作<br/>
+</li>
+</ul>
+</li>
+<li>
+原理<br/>
+<ul>
+<li>
+依次调用根据struts.xml配置文件中的拦截器对象序列<br/>
+</li>
+</ul>
+</li>
+<li>
+配置<br/>
+<ul>
+<li>
+struts.xml<br/>
+<ul>
+<li>
+&lt;interceptor-ref name="拦截器名称"&gt;<br/>
+</li>
+<li>
+默认拦截器<br/>
+&lt;include file="struts-default.xml"/&gt;<br/>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+自定义拦截器<br/>
+<ul>
+<li>
+方式<br/>
+<ul>
+<li>
+实现org.opensymphony.interceptor.Interceptor<br/>
+</li>
+<li>
+继承org.opensymphony.interceptor.AbstractInterceptor<br/>
+</li>
+<li>
+重写 intercept(ActionInvocation ai)方法<br/>
+通过 ActionInvocation对象的 getInvocationContext().getSession()获取Map对象<br/>
+通过上面获取的Map对象的get()方法获取session中的值<br/>
+</li>
+<li>
+对action的操作<br/>
+通过 ActionInvocation对象的 getAction()获取一个Object对象<br/>
+判断该对象是否是某个actioin<br/>
+如果是,则将该Object对象转换为该action对象<br/>
+将session中的值放入action<br/>
+调用action<br/>
+</li>
+</ul>
+</li>
+<li>
+配置<br/>
+<ul>
+<li>
+struts.xml<br/>
+&lt;interceptors&gt;<br/>
+&lt;interceptor name="拦截器名称" class="拦截器完整路径名称"/&gt;<br/>
+&lt;/interceptors&gt; <br/>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
 </div>
 
 </div>
@@ -530,6 +663,88 @@ action名称-validation.xml<br/>
 <h4 id="sec-1.2.12"><span class="section-number-4">1.2.12</span> crub实现 </h4>
 <div class="outline-text-4" id="text-1.2.12">
 
+</div>
+
+</div>
+
+<div id="outline-container-1.2.13" class="outline-4">
+<h4 id="sec-1.2.13"><span class="section-number-4">1.2.13</span> jsp页面 </h4>
+<div class="outline-text-4" id="text-1.2.13">
+
+<ol>
+<li>
+显示错误信息<br/>
+<ul>
+<li>
+&lt;s:filederror/&gt;<br/>
+</li>
+</ul>
+</li>
+<li>
+Bean批量封装<br/>
+<ul>
+<li>
+Bean属性 输入 <br/>
+&lt;s:iterator value="new int[bean的个数]" status="stat"&gt;<br/>
+&lt;tr&gt;<br/>
+&lt;td&gt;&lt;s:textarea name="%{'Bean名称['#stat.index'].Bean属性1'}"&gt;&lt;/td&gt;<br/>
+&lt;td&gt;&lt;s:textarea name="%{'Bean名称['#stat.index'].Bean属性2'}"&gt;&lt;/td&gt;<br/>
+&lt;td&gt;&lt;s:textarea name="%{'Bean名称['#stat.index'].Bean属性3'}"&gt;&lt;/td&gt;<br/>
+&hellip;.<br/>
+&lt;/tr&gt;<br/>
+&lt;/s:iterator&gt;<br/>
+</li>
+<li>
+Bean属性显示<br/>
+&lt;s:iterator name="Bean名称" status="stat"&gt;<br/>
+&lt;tr&gt;<br/>
+&lt;td&gt;&lt;s:property name="Bean属性名称1"&gt;&lt;td&gt;<br/>
+&lt;td&gt;&lt;s:property name="Bean属性名称1"&gt;&lt;td&gt;<br/>
+&lt;/tr&gt;<br/>
+&lt;/s:iterator&gt; <br/>
+</li>
+</ul>
+</li>
+</ol>
+</div>
+
+</div>
+
+<div id="outline-container-1.2.14" class="outline-4">
+<h4 id="sec-1.2.14"><span class="section-number-4">1.2.14</span> 编程实例 </h4>
+<div class="outline-text-4" id="text-1.2.14">
+
+<ol>
+<li>
+自定义拦截器<br/>
+</li>
+<li>
+自定义转换器<br/>
+</li>
+<li>
+上传下载<br/>
+</li>
+<li>
+与spring整合<br/>
+</li>
+<li>
+crub实现<br/>
+</li>
+<li>
+信息国际化的实现 <br/>
+</li>
+<li>
+jsp的各种操作<br/>
+<ul>
+<li>
+Bean的批量封装<br/>
+</li>
+<li>
+属性的显示与输入<br/>
+</li>
+</ul>
+</li>
+</ol>
 </div>
 </div>
 
@@ -673,7 +888,7 @@ action名称-validation.xml<br/>
 <div id="postamble">
 <p class="author"> Author: 
 </p>
-<p class="date"> Date: 2010-10-26 21:52:23 </p>
+<p class="date"> Date: 2010-10-27 16:55:11 </p>
 <p class="creator">HTML generated by org-mode 6.35i in emacs 24</p>
 </div>
 </div>
