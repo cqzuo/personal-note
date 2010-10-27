@@ -62,7 +62,11 @@
                 <Node Name="添加Action" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
                     <Node Name="List &lt;Bean b&gt;" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
                 </Node>
-                <Node Name="配置Converter" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="配置Converter" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="Action名称-conversion.property" Code="N1288164409" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                        <Node Name="Action名称.被封装为List的属性名称=自定义的转换器的完整路径名称" Code="N1288164441" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    </Node>
+                </Node>
                 <Node Name="配置struts.xml" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
                 <Node Name="jsp中输入" Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
                     <Node Name='&lt;s:iterator value=&quot;new int[3]&quot; status=&quot;stat&quot;&gt;&#x0A;    &lt;tr&gt;&#x0A;       &lt;td&gt;&lt;s:textfield name=&quot;%{&apos;products[&apos;+#stat.index+&apos;].name&apos;}&quot;/&gt;&lt;/td&gt;&#x0A;       &lt;td&gt;&lt;s:textfield name=&quot;%{&apos;products[&apos;+#stat.index+&apos;].price&apos;}&quot;/&gt;&lt;/td&gt;&#x0A;       &lt;td&gt;&lt;s:textfield name=&quot;%{&apos;products[&apos;+#stat.index+&apos;].dateOfProduction&apos;}&quot;/&gt;&lt;/td&gt;&#x0A;    &lt;/tr&gt;&#x0A;&lt;/s:iterator&gt;' Code="N1285305253" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
@@ -86,7 +90,7 @@
         <Digest Text="" />
     </Digest1>
     <Digest2>
-        <Digest Text='&lt;HTML&gt;&lt;HEAD&gt;&#x0D;&#x0A;&lt;META content=yes http-equiv=MSThemeCompatible&gt;&#x0D;&#x0A;&lt;META name=GENERATOR content=&quot;MSHTML 8.00.6001.18928&quot;&gt;&lt;/HEAD&gt;&#x0D;&#x0A;&lt;BODY&gt;&#x0D;&#x0A;&lt;DIV&gt;&lt;/DIV&gt;&lt;/BODY&gt;&lt;/HTML&gt;' />
+        <Digest Text='&lt;HTML&gt;&lt;HEAD&gt;&#x0D;&#x0A;&lt;META content=yes http-equiv=MSThemeCompatible&gt;&#x0D;&#x0A;&lt;META name=GENERATOR content=&quot;MSHTML 8.00.6001.18975&quot;&gt;&lt;/HEAD&gt;&#x0D;&#x0A;&lt;BODY&gt;&#x0D;&#x0A;&lt;DIV&gt;&lt;/DIV&gt;&lt;/BODY&gt;&lt;/HTML&gt;' />
     </Digest2>
     <SoundSet />
 </Map>
