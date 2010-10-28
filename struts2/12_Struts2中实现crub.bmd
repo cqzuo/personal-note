@@ -76,8 +76,16 @@
                   <nodes>
                     <node text="模拟数据库操作">
                       <nodes>
-                        <node text="HashMap对象存储数据" />
-                        <node text="对数据的CRUD操作方法" />
+                        <node text="HashMap对象存储数据">
+                          <style>
+                            <shape>3</shape>
+                          </style>
+                        </node>
+                        <node text="对数据的CRUD操作方法">
+                          <style>
+                            <shape>3</shape>
+                          </style>
+                        </node>
                       </nodes>
                     </node>
                   </nodes>
@@ -108,7 +116,11 @@
                       <nodes>
                         <node text="链接到前台的action">
                           <nodes>
-                            <node text="&lt;result&gt;前台jsp页面&lt;/result&gt;" />
+                            <node text="&lt;result&gt;前台jsp页面&lt;/result&gt;">
+                              <style>
+                                <shape>3</shape>
+                              </style>
+                            </node>
                           </nodes>
                         </node>
                         <node text="链接到其它action">
