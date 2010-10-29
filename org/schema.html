@@ -4,10 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 lang="en" xml:lang="en">
 <head>
-<title>schema</title>
+<title>ssh复习</title>
 <meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2010-10-27 16:55:11 "/>
+<meta name="generated" content="2010-10-29 10:43:05 "/>
 <meta name="author" content=""/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -71,62 +71,145 @@ lang="en" xml:lang="en">
 <body>
 <div id="content">
 
-<h1 class="title">schema</h1>
+<h1 class="title">ssh复习</h1>
 
 
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1 整理已经看完的部分 </a>
+<li><a href="#sec-1">1 确定复习的内容纲要及时间分配 </a></li>
+<li><a href="#sec-2">2 struts2 </a>
 <ul>
-<li><a href="#sec-1.1">1.1 确定复习的内容纲要及时间分配 </a></li>
-<li><a href="#sec-1.2">1.2 struts2 </a>
+<li><a href="#sec-2.1">2.1 基础知识 </a>
 <ul>
-<li><a href="#sec-1.2.1">1.2.1 基础知识 </a></li>
-<li><a href="#sec-1.2.2">1.2.2 项目搭建 </a></li>
-<li><a href="#sec-1.2.3">1.2.3 配置文件 </a></li>
-<li><a href="#sec-1.2.4">1.2.4 action编写 </a></li>
-<li><a href="#sec-1.2.5">1.2.5 表单标签 </a></li>
-<li><a href="#sec-1.2.6">1.2.6 i18n </a></li>
-<li><a href="#sec-1.2.7">1.2.7 数据验证 </a></li>
-<li><a href="#sec-1.2.8">1.2.8 convertor </a></li>
-<li><a href="#sec-1.2.9">1.2.9 interceptor </a></li>
-<li><a href="#sec-1.2.10">1.2.10 upload-down </a></li>
-<li><a href="#sec-1.2.11">1.2.11 与spring整合 </a></li>
-<li><a href="#sec-1.2.12">1.2.12 crub实现 </a></li>
-<li><a href="#sec-1.2.13">1.2.13 jsp页面 </a></li>
-<li><a href="#sec-1.2.14">1.2.14 编程实例 </a></li>
+<li><a href="#sec-2.1.1">2.1.1 mvc </a></li>
+<li><a href="#sec-2.1.2">2.1.2 strust1 </a></li>
+<li><a href="#sec-2.1.3">2.1.3 webwork </a></li>
+<li><a href="#sec-2.1.4">2.1.4 model2 </a></li>
+<li><a href="#sec-2.1.5">2.1.5 struts1与struts2 </a></li>
 </ul>
 </li>
-<li><a href="#sec-1.3">1.3 spring </a>
+<li><a href="#sec-2.2">2.2 项目搭建 </a>
 <ul>
-<li><a href="#sec-1.3.1">1.3.1 配置文件 </a></li>
-<li><a href="#sec-1.3.2">1.3.2 项目搭建 </a></li>
-<li><a href="#sec-1.3.3">1.3.3 基本bean装配 </a></li>
-<li><a href="#sec-1.3.4">1.3.4 高级Bean装配 </a></li>
-<li><a href="#sec-1.3.5">1.3.5 通知 </a></li>
-<li><a href="#sec-1.3.6">1.3.6 连接数据库 </a></li>
-<li><a href="#sec-1.3.7">1.3.7 事务管理 </a></li>
+<li><a href="#sec-2.2.1">2.2.1 web项目的文件结构 </a></li>
 </ul>
 </li>
-<li><a href="#sec-1.4">1.4 Hibernate </a>
+<li><a href="#sec-2.3">2.3 配置文件 </a>
 <ul>
-<li><a href="#sec-1.4.1">1.4.1 项目搭建 </a></li>
-<li><a href="#sec-1.4.2">1.4.2 配置文件 </a></li>
-<li><a href="#sec-1.4.3">1.4.3 体系结构 </a></li>
-<li><a href="#sec-1.4.4">1.4.4 持久化类 </a></li>
-<li><a href="#sec-1.4.5">1.4.5 对象关系映射 </a></li>
+<li><a href="#sec-2.3.1">2.3.1 web.xml </a></li>
+<li><a href="#sec-2.3.2">2.3.2 struts.xml </a></li>
+</ul>
+</li>
+<li><a href="#sec-2.4">2.4 action编写 </a>
+<ul>
+<li><a href="#sec-2.4.1">2.4.1 属性及其设置器获取器 </a></li>
+<li><a href="#sec-2.4.2">2.4.2 execute </a></li>
+<li><a href="#sec-2.4.3">2.4.3 validate()验证方法 </a></li>
+<li><a href="#sec-2.4.4">2.4.4 ActionSupport接口 </a></li>
+<li><a href="#sec-2.4.5">2.4.5 访问HttpSession </a></li>
+</ul>
+</li>
+<li><a href="#sec-2.5">2.5 表单标签 </a>
+<ul>
+<li><a href="#sec-2.5.1">2.5.1 iterator </a></li>
+<li><a href="#sec-2.5.2">2.5.2 if/else </a></li>
+<li><a href="#sec-2.5.3">2.5.3 property </a></li>
+</ul>
+</li>
+<li><a href="#sec-2.6">2.6 i18n </a>
+<ul>
+<li><a href="#sec-2.6.1">2.6.1 资源文件 </a></li>
+<li><a href="#sec-2.6.2">2.6.2 国际化信息输出 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2.7">2.7 数据验证 </a>
+<ul>
+<li><a href="#sec-2.7.1">2.7.1 继承ActionSupport </a></li>
+<li><a href="#sec-2.7.2">2.7.2 使用Struts2验证框架 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2.8">2.8 convertor </a>
+<ul>
+<li><a href="#sec-2.8.1">2.8.1 作用 </a></li>
+<li><a href="#sec-2.8.2">2.8.2 编写 </a></li>
+<li><a href="#sec-2.8.3">2.8.3 配置文件 </a></li>
+<li><a href="#sec-2.8.4">2.8.4 批量封装对象 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2.9">2.9 interceptor </a>
+<ul>
+<li><a href="#sec-2.9.1">2.9.1 作用 </a></li>
+<li><a href="#sec-2.9.2">2.9.2 原理 </a></li>
+<li><a href="#sec-2.9.3">2.9.3 配置 </a></li>
+<li><a href="#sec-2.9.4">2.9.4 自定义拦截器 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2.10">2.10 与spring整合 </a>
+<ul>
+<li><a href="#sec-2.10.1">2.10.1 所需的jar包 </a></li>
+<li><a href="#sec-2.10.2">2.10.2 配置 </a></li>
+<li><a href="#sec-2.10.3">2.10.3 实现 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2.11">2.11 upload-down </a>
+<ul>
+<li><a href="#sec-2.11.1">2.11.1 需要的Jar文件 </a></li>
+<li><a href="#sec-2.11.2">2.11.2 上传页面 </a></li>
+<li><a href="#sec-2.11.3">2.11.3 上传action </a></li>
+<li><a href="#sec-2.11.4">2.11.4 页面上传内容 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2.12">2.12 crub实现 </a>
+<ul>
+<li><a href="#sec-2.12.1">2.12.1 jsp </a></li>
+</ul>
+</li>
+<li><a href="#sec-2.13">2.13 ActionContext与ServletActionContext </a>
+<ul>
+<li><a href="#sec-2.13.1">2.13.1 ActionContext </a></li>
+<li><a href="#sec-2.13.2">2.13.2 ServletActionContext </a></li>
+<li><a href="#sec-2.13.3">2.13.3 ioc方式获取 request response sesson </a></li>
+</ul>
+</li>
+<li><a href="#sec-2.14">2.14 java(web)中的相对路径和绝对路径 </a></li>
+<li><a href="#sec-2.15">2.15 jsp页面 </a>
+<ul>
+<li><a href="#sec-2.15.1">2.15.1 显示错误信息 </a></li>
+<li><a href="#sec-2.15.2">2.15.2 Bean批量封装 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2.16">2.16 编程实例 </a>
+<ul>
+<li><a href="#sec-2.16.1">2.16.1 自定义拦截器 </a></li>
+<li><a href="#sec-2.16.2">2.16.2 自定义转换器 </a></li>
+<li><a href="#sec-2.16.3">2.16.3 上传下载 </a></li>
+<li><a href="#sec-2.16.4">2.16.4 与spring整合 </a></li>
+<li><a href="#sec-2.16.5">2.16.5 crub实现 </a></li>
+<li><a href="#sec-2.16.6">2.16.6 信息国际化的实现 </a></li>
+<li><a href="#sec-2.16.7">2.16.7 文件的复制 </a></li>
+<li><a href="#sec-2.16.8">2.16.8 jsp的各种操作 </a></li>
 </ul></li>
 </ul>
 </li>
-<li><a href="#sec-2">2 继续未看完的部分 </a>
+<li><a href="#sec-3">3 Hibernate </a>
 <ul>
-<li><a href="#sec-2.1">2.1 hibernate </a>
-<ul>
-<li><a href="#sec-2.1.1">2.1.1 对象关系映射 </a></li>
+<li><a href="#sec-3.1">3.1 项目搭建 </a></li>
+<li><a href="#sec-3.2">3.2 配置文件 </a></li>
+<li><a href="#sec-3.3">3.3 体系结构 </a></li>
+<li><a href="#sec-3.4">3.4 持久化类 </a></li>
+<li><a href="#sec-3.5">3.5 对象关系映射 </a></li>
 </ul>
 </li>
+<li><a href="#sec-4">4 spring </a>
+<ul>
+<li><a href="#sec-4.1">4.1 配置文件 </a></li>
+<li><a href="#sec-4.2">4.2 项目搭建 </a></li>
+<li><a href="#sec-4.3">4.3 基本bean装配 </a></li>
+<li><a href="#sec-4.4">4.4 高级Bean装配 </a></li>
+<li><a href="#sec-4.5">4.5 通知 </a></li>
+<li><a href="#sec-4.6">4.6 连接数据库 </a></li>
+<li><a href="#sec-4.7">4.7 事务管理 </a></li>
 </ul>
 </li>
 </ul>
@@ -134,37 +217,35 @@ lang="en" xml:lang="en">
 </div>
 
 <div id="outline-container-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> 整理已经看完的部分 </h2>
+<h2 id="sec-1"><span class="section-number-2">1</span> 确定复习的内容纲要及时间分配 </h2>
 <div class="outline-text-2" id="text-1">
 
+<p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-29 星期五 10:28</span></span><br/><br/>
+</p></div>
 
 </div>
 
-<div id="outline-container-1.1" class="outline-3">
-<h3 id="sec-1.1"><span class="section-number-3">1.1</span> 确定复习的内容纲要及时间分配 </h3>
-<div class="outline-text-3" id="text-1.1">
-
-</div>
-
-</div>
-
-<div id="outline-container-1.2" class="outline-3">
-<h3 id="sec-1.2"><span class="section-number-3">1.2</span> struts2 </h3>
-<div class="outline-text-3" id="text-1.2">
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> struts2 </h2>
+<div class="outline-text-2" id="text-2">
 
 
 </div>
 
-<div id="outline-container-1.2.1" class="outline-4">
-<h4 id="sec-1.2.1"><span class="section-number-4">1.2.1</span> <span class="done DONE"> DONE</span> 基础知识 </h4>
-<div class="outline-text-4" id="text-1.2.1">
+<div id="outline-container-2.1" class="outline-3">
+<h3 id="sec-2.1"><span class="section-number-3">2.1</span> <span class="done DONE"> DONE</span> 基础知识 </h3>
+<div class="outline-text-3" id="text-2.1">
 
 <p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-26 星期二 17:41</span></span><br/><br/>
-</p><ol>
-<li>
-mvc<br/>
-优点<br/>
-<ul>
+</p>
+</div>
+
+<div id="outline-container-2.1.1" class="outline-4">
+<h4 id="sec-2.1.1"><span class="section-number-4">2.1.1</span> mvc </h4>
+<div class="outline-text-4" id="text-2.1.1">
+
+<p>优点<br/>
+</p><ul>
 <li>
 视图与模型<br/>
 <ul>
@@ -185,9 +266,14 @@ mvc<br/>
 </ul>
 </li>
 </ul>
-</li>
-<li>
-strust1<br/>
+</div>
+
+</div>
+
+<div id="outline-container-2.1.2" class="outline-4">
+<h4 id="sec-2.1.2"><span class="section-number-4">2.1.2</span> strust1 </h4>
+<div class="outline-text-4" id="text-2.1.2">
+
 <ul>
 <li>
 API<br/>
@@ -204,9 +290,14 @@ servlet api的依赖<br/>
 表现层<br/>
 </li>
 </ul>
-</li>
-<li>
-webwork<br/>
+</div>
+
+</div>
+
+<div id="outline-container-2.1.3" class="outline-4">
+<h4 id="sec-2.1.3"><span class="section-number-4">2.1.3</span> webwork </h4>
+<div class="outline-text-4" id="text-2.1.3">
+
 <ul>
 <li>
 api<br/>
@@ -228,9 +319,14 @@ action与 servlet分离<br/>
 ognl<br/>
 </li>
 </ul>
-</li>
-<li>
-model2<br/>
+</div>
+
+</div>
+
+<div id="outline-container-2.1.4" class="outline-4">
+<h4 id="sec-2.1.4"><span class="section-number-4">2.1.4</span> model2 </h4>
+<div class="outline-text-4" id="text-2.1.4">
+
 <ul>
 <li>
 处理流程<br/>
@@ -247,9 +343,14 @@ action的execute()的处理信息被输出到浏览器<br/>
 </ul>
 </li>
 </ul>
-</li>
-<li>
-struts1与struts2<br/>
+</div>
+
+</div>
+
+<div id="outline-container-2.1.5" class="outline-4">
+<h4 id="sec-2.1.5"><span class="section-number-4">2.1.5</span> struts1与struts2 </h4>
+<div class="outline-text-4" id="text-2.1.5">
+
 <ul>
 <li>
 action的实现<br/>
@@ -282,34 +383,40 @@ servlet api依赖<br/>
 action执行控制<br/>
 </li>
 </ul>
-</li>
-</ol>
+</div>
 </div>
 
 </div>
 
-<div id="outline-container-1.2.2" class="outline-4">
-<h4 id="sec-1.2.2"><span class="section-number-4">1.2.2</span> <span class="done DONE"> DONE</span> 项目搭建 </h4>
-<div class="outline-text-4" id="text-1.2.2">
+<div id="outline-container-2.2" class="outline-3">
+<h3 id="sec-2.2"><span class="section-number-3">2.2</span> <span class="done DONE"> DONE</span> 项目搭建 </h3>
+<div class="outline-text-3" id="text-2.2">
 
 <p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-26 星期二 17:48</span></span><br/><br/>
-</p><ol>
-<li>
-web项目的文件结构<br/>
-</li>
-</ol>
+</p>
+</div>
+
+<div id="outline-container-2.2.1" class="outline-4">
+<h4 id="sec-2.2.1"><span class="section-number-4">2.2.1</span> web项目的文件结构 </h4>
+<div class="outline-text-4" id="text-2.2.1">
+
+</div>
 </div>
 
 </div>
 
-<div id="outline-container-1.2.3" class="outline-4">
-<h4 id="sec-1.2.3"><span class="section-number-4">1.2.3</span> <span class="done DONE"> DONE</span> 配置文件 </h4>
-<div class="outline-text-4" id="text-1.2.3">
+<div id="outline-container-2.3" class="outline-3">
+<h3 id="sec-2.3"><span class="section-number-3">2.3</span> <span class="done DONE"> DONE</span> 配置文件 </h3>
+<div class="outline-text-3" id="text-2.3">
 
 <p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-26 星期二 18:15</span></span><br/><br/>
-</p><ol>
-<li>
-web.xml<br/>
+</p>
+</div>
+
+<div id="outline-container-2.3.1" class="outline-4">
+<h4 id="sec-2.3.1"><span class="section-number-4">2.3.1</span> web.xml </h4>
+<div class="outline-text-4" id="text-2.3.1">
+
 <ul>
 <li>
 FilterDispatcher 过滤器的添加<br/>
@@ -321,9 +428,14 @@ ActionContextCleanUp 过滤器添加<br/>
 ContextLoaderListener 监听器的添加<br/>
 </li>
 </ul>
-</li>
-<li>
-struts.xml<br/>
+</div>
+
+</div>
+
+<div id="outline-container-2.3.2" class="outline-4">
+<h4 id="sec-2.3.2"><span class="section-number-4">2.3.2</span> struts.xml </h4>
+<div class="outline-text-4" id="text-2.3.2">
+
 <ul>
 <li>
 include<br/>
@@ -338,32 +450,55 @@ action<br/>
 result<br/>
 </li>
 </ul>
-</li>
-</ol>
+</div>
 </div>
 
 </div>
 
-<div id="outline-container-1.2.4" class="outline-4">
-<h4 id="sec-1.2.4"><span class="section-number-4">1.2.4</span> <span class="done DONE"> DONE</span> action编写 </h4>
-<div class="outline-text-4" id="text-1.2.4">
+<div id="outline-container-2.4" class="outline-3">
+<h3 id="sec-2.4"><span class="section-number-3">2.4</span> <span class="done DONE"> DONE</span> action编写 </h3>
+<div class="outline-text-3" id="text-2.4">
 
 <p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-26 星期二 18:34</span></span><br/><br/>
-</p><ol>
-<li>
-execute<br/>
-</li>
-<li>
-属性及其设置器获取器<br/>
-</li>
-<li>
-validate()验证方法<br/>
-</li>
-<li>
-ActionSupport接口<br/>
-</li>
-<li>
-访问HttpSession<br/>
+</p>
+</div>
+
+<div id="outline-container-2.4.1" class="outline-4">
+<h4 id="sec-2.4.1"><span class="section-number-4">2.4.1</span> 属性及其设置器获取器 </h4>
+<div class="outline-text-4" id="text-2.4.1">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.4.2" class="outline-4">
+<h4 id="sec-2.4.2"><span class="section-number-4">2.4.2</span> execute </h4>
+<div class="outline-text-4" id="text-2.4.2">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.4.3" class="outline-4">
+<h4 id="sec-2.4.3"><span class="section-number-4">2.4.3</span> validate()验证方法 </h4>
+<div class="outline-text-4" id="text-2.4.3">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.4.4" class="outline-4">
+<h4 id="sec-2.4.4"><span class="section-number-4">2.4.4</span> ActionSupport接口 </h4>
+<div class="outline-text-4" id="text-2.4.4">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.4.5" class="outline-4">
+<h4 id="sec-2.4.5"><span class="section-number-4">2.4.5</span> 访问HttpSession </h4>
+<div class="outline-text-4" id="text-2.4.5">
+
 <ul>
 <li>
 action中 ActionContext.getContext().getSession().put(键,值)<br/>
@@ -372,40 +507,56 @@ action中 ActionContext.getContext().getSession().put(键,值)<br/>
 jsp中 session.getAttribute(键)<br/>
 </li>
 </ul>
-</li>
-</ol>
+</div>
 </div>
 
 </div>
 
-<div id="outline-container-1.2.5" class="outline-4">
-<h4 id="sec-1.2.5"><span class="section-number-4">1.2.5</span> <span class="done DONE"> DONE</span> 表单标签 </h4>
-<div class="outline-text-4" id="text-1.2.5">
+<div id="outline-container-2.5" class="outline-3">
+<h3 id="sec-2.5"><span class="section-number-3">2.5</span> <span class="done DONE"> DONE</span> 表单标签 </h3>
+<div class="outline-text-3" id="text-2.5">
 
 <p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-26 星期二 18:34</span></span><br/><br/>
-</p><ol>
-<li>
-iterator<br/>
-</li>
-<li>
-if/else<br/>
-</li>
-<li>
-property<br/>
-</li>
-</ol>
+</p>
+</div>
+
+<div id="outline-container-2.5.1" class="outline-4">
+<h4 id="sec-2.5.1"><span class="section-number-4">2.5.1</span> iterator </h4>
+<div class="outline-text-4" id="text-2.5.1">
+
 </div>
 
 </div>
 
-<div id="outline-container-1.2.6" class="outline-4">
-<h4 id="sec-1.2.6"><span class="section-number-4">1.2.6</span> <span class="done DONE"> DONE</span> i18n </h4>
-<div class="outline-text-4" id="text-1.2.6">
+<div id="outline-container-2.5.2" class="outline-4">
+<h4 id="sec-2.5.2"><span class="section-number-4">2.5.2</span> if/else </h4>
+<div class="outline-text-4" id="text-2.5.2">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.5.3" class="outline-4">
+<h4 id="sec-2.5.3"><span class="section-number-4">2.5.3</span> property </h4>
+<div class="outline-text-4" id="text-2.5.3">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2.6" class="outline-3">
+<h3 id="sec-2.6"><span class="section-number-3">2.6</span> <span class="done DONE"> DONE</span> i18n </h3>
+<div class="outline-text-3" id="text-2.6">
 
 <p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-26 星期二 19:00</span></span><br/><br/>
-</p><ol>
-<li>
-资源文件<br/>
+</p>
+</div>
+
+<div id="outline-container-2.6.1" class="outline-4">
+<h4 id="sec-2.6.1"><span class="section-number-4">2.6.1</span> 资源文件 </h4>
+<div class="outline-text-4" id="text-2.6.1">
+
 <ul>
 <li>
 位置<br/>
@@ -432,9 +583,14 @@ globalMessage<sub>*</sub>*.properties<br/>
 </ul>
 </li>
 </ul>
-</li>
-<li>
-国际化信息输出 <br/>
+</div>
+
+</div>
+
+<div id="outline-container-2.6.2" class="outline-4">
+<h4 id="sec-2.6.2"><span class="section-number-4">2.6.2</span> 国际化信息输出 </h4>
+<div class="outline-text-4" id="text-2.6.2">
+
 <ul>
 <li>
 &lt;s:text name=""/&gt;<br/>
@@ -443,29 +599,37 @@ globalMessage<sub>*</sub>*.properties<br/>
 &lt;s:propety text="%{getText("")}"&gt;<br/>
 </li>
 </ul>
-</li>
-</ol>
+</div>
 </div>
 
 </div>
 
-<div id="outline-container-1.2.7" class="outline-4">
-<h4 id="sec-1.2.7"><span class="section-number-4">1.2.7</span> <span class="done DONE"> DONE</span> 数据验证 </h4>
-<div class="outline-text-4" id="text-1.2.7">
+<div id="outline-container-2.7" class="outline-3">
+<h3 id="sec-2.7"><span class="section-number-3">2.7</span> <span class="done DONE"> DONE</span> 数据验证 </h3>
+<div class="outline-text-3" id="text-2.7">
 
 <p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-26 星期二 19:26</span></span><br/><br/>
-</p><ol>
-<li>
-继承ActionSupport<br/>
+</p>
+</div>
+
+<div id="outline-container-2.7.1" class="outline-4">
+<h4 id="sec-2.7.1"><span class="section-number-4">2.7.1</span> 继承ActionSupport </h4>
+<div class="outline-text-4" id="text-2.7.1">
+
 <ul>
 <li>
 重写validate()<br/>
 addFiledError()<br/>
 </li>
 </ul>
-</li>
-<li>
-使用Struts2验证框架<br/>
+</div>
+
+</div>
+
+<div id="outline-container-2.7.2" class="outline-4">
+<h4 id="sec-2.7.2"><span class="section-number-4">2.7.2</span> 使用Struts2验证框架 </h4>
+<div class="outline-text-4" id="text-2.7.2">
+
 <ul>
 <li>
 校验规则文件<br/>
@@ -490,28 +654,36 @@ filed-validator<br/>
 action名称-validation.xml<br/>
 </li>
 </ul>
-</li>
-</ol>
+</div>
 </div>
 
 </div>
 
-<div id="outline-container-1.2.8" class="outline-4">
-<h4 id="sec-1.2.8"><span class="section-number-4">1.2.8</span> <span class="done DONE"> DONE</span> convertor </h4>
-<div class="outline-text-4" id="text-1.2.8">
+<div id="outline-container-2.8" class="outline-3">
+<h3 id="sec-2.8"><span class="section-number-3">2.8</span> <span class="done DONE"> DONE</span> convertor </h3>
+<div class="outline-text-3" id="text-2.8">
 
 <p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-27 星期三 16:15</span></span><br/><br/>
-</p><ol>
-<li>
-作用<br/>
+</p>
+</div>
+
+<div id="outline-container-2.8.1" class="outline-4">
+<h4 id="sec-2.8.1"><span class="section-number-4">2.8.1</span> 作用 </h4>
+<div class="outline-text-4" id="text-2.8.1">
+
 <ul>
 <li>
 自动完成字符串类型与其他类型之间的转换<br/>
 </li>
 </ul>
-</li>
-<li>
-编写<br/>
+</div>
+
+</div>
+
+<div id="outline-container-2.8.2" class="outline-4">
+<h4 id="sec-2.8.2"><span class="section-number-4">2.8.2</span> 编写 </h4>
+<div class="outline-text-4" id="text-2.8.2">
+
 <ul>
 <li>
 继承ognl.DefaultTypeConvertor<br/>
@@ -521,25 +693,33 @@ action名称-validation.xml<br/>
 public Object convertValue(Map context,Object value,Class toType)<br/>
 </li>
 </ul>
-</li>
-</ol>
-<ol>
-<li>
-配置文件<br/>
+</div>
+
+</div>
+
+<div id="outline-container-2.8.3" class="outline-4">
+<h4 id="sec-2.8.3"><span class="section-number-4">2.8.3</span> 配置文件 </h4>
+<div class="outline-text-4" id="text-2.8.3">
+
 <ul>
 <li>
 src目录下<br/>
 <ul>
 <li>
-action名称-conversion.xml<br/>
+xwork-conversion.xml<br/>
 要转换的数据类型=自定义的convertor<br/>
 </li>
 </ul>
 </li>
 </ul>
-</li>
-<li>
-批量封装对象<br/>
+</div>
+
+</div>
+
+<div id="outline-container-2.8.4" class="outline-4">
+<h4 id="sec-2.8.4"><span class="section-number-4">2.8.4</span> 批量封装对象 </h4>
+<div class="outline-text-4" id="text-2.8.4">
+
 <ul>
 <li>
 自定义的属性Bean类<br/>
@@ -551,38 +731,56 @@ action名称-conversion.xml<br/>
 action名称-conversion.property<br/>
 action名称<sub>action中的被封装为list的属性名称</sub>=自定义的被封装属性Bean类<br/>
 </li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-</div>
-
-</div>
-
-<div id="outline-container-1.2.9" class="outline-4">
-<h4 id="sec-1.2.9"><span class="section-number-4">1.2.9</span> interceptor </h4>
-<div class="outline-text-4" id="text-1.2.9">
-
-<ol>
 <li>
-作用<br/>
+文件位置<br/>
+同转换器类同级目录<br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2.9" class="outline-3">
+<h3 id="sec-2.9"><span class="section-number-3">2.9</span> <span class="done DONE"> DONE</span> interceptor </h3>
+<div class="outline-text-3" id="text-2.9">
+
+<p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-27 星期三 16:57</span></span><br/><br/>
+</p>
+</div>
+
+<div id="outline-container-2.9.1" class="outline-4">
+<h4 id="sec-2.9.1"><span class="section-number-4">2.9.1</span> 作用 </h4>
+<div class="outline-text-4" id="text-2.9.1">
+
 <ul>
 <li>
 方法或字段在访问前加入自定义的各种操作<br/>
 </li>
 </ul>
-</li>
-<li>
-原理<br/>
+</div>
+
+</div>
+
+<div id="outline-container-2.9.2" class="outline-4">
+<h4 id="sec-2.9.2"><span class="section-number-4">2.9.2</span> 原理 </h4>
+<div class="outline-text-4" id="text-2.9.2">
+
 <ul>
 <li>
 依次调用根据struts.xml配置文件中的拦截器对象序列<br/>
 </li>
 </ul>
-</li>
-<li>
-配置<br/>
+</div>
+
+</div>
+
+<div id="outline-container-2.9.3" class="outline-4">
+<h4 id="sec-2.9.3"><span class="section-number-4">2.9.3</span> 配置 </h4>
+<div class="outline-text-4" id="text-2.9.3">
+
 <ul>
 <li>
 struts.xml<br/>
@@ -597,9 +795,14 @@ struts.xml<br/>
 </ul>
 </li>
 </ul>
-</li>
-<li>
-自定义拦截器<br/>
+</div>
+
+</div>
+
+<div id="outline-container-2.9.4" class="outline-4">
+<h4 id="sec-2.9.4"><span class="section-number-4">2.9.4</span> 自定义拦截器 </h4>
+<div class="outline-text-4" id="text-2.9.4">
+
 <ul>
 <li>
 方式<br/>
@@ -637,51 +840,302 @@ struts.xml<br/>
 </ul>
 </li>
 </ul>
-</li>
-</ol>
+</div>
 </div>
 
 </div>
 
-<div id="outline-container-1.2.10" class="outline-4">
-<h4 id="sec-1.2.10"><span class="section-number-4">1.2.10</span> upload-down </h4>
-<div class="outline-text-4" id="text-1.2.10">
+<div id="outline-container-2.10" class="outline-3">
+<h3 id="sec-2.10"><span class="section-number-3">2.10</span> <span class="done DONE"> DONE</span> 与spring整合 </h3>
+<div class="outline-text-3" id="text-2.10">
 
+<p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-27 星期三 17:19</span></span><br/><br/>
+</p>
 </div>
 
-</div>
-
-<div id="outline-container-1.2.11" class="outline-4">
-<h4 id="sec-1.2.11"><span class="section-number-4">1.2.11</span> 与spring整合 </h4>
-<div class="outline-text-4" id="text-1.2.11">
-
-</div>
-
-</div>
-
-<div id="outline-container-1.2.12" class="outline-4">
-<h4 id="sec-1.2.12"><span class="section-number-4">1.2.12</span> crub实现 </h4>
-<div class="outline-text-4" id="text-1.2.12">
+<div id="outline-container-2.10.1" class="outline-4">
+<h4 id="sec-2.10.1"><span class="section-number-4">2.10.1</span> 所需的jar包 </h4>
+<div class="outline-text-4" id="text-2.10.1">
 
 </div>
 
 </div>
 
-<div id="outline-container-1.2.13" class="outline-4">
-<h4 id="sec-1.2.13"><span class="section-number-4">1.2.13</span> jsp页面 </h4>
-<div class="outline-text-4" id="text-1.2.13">
+<div id="outline-container-2.10.2" class="outline-4">
+<h4 id="sec-2.10.2"><span class="section-number-4">2.10.2</span> 配置 </h4>
+<div class="outline-text-4" id="text-2.10.2">
 
-<ol>
+<ul>
 <li>
-显示错误信息<br/>
+web.xml<br/>
+&lt;listener&gt;<br/>
+&lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/lisener-class&gt;<br/>
+&lt;/lisener&gt;<br/>
+</li>
+<li>
+struts.properties<br/>
+struts.objectFactory=spring<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2.10.3" class="outline-4">
+<h4 id="sec-2.10.3"><span class="section-number-4">2.10.3</span> 实现 </h4>
+<div class="outline-text-4" id="text-2.10.3">
+
+<ul>
+<li>
+在spring中配置action对象<br/>
+&lt;bean id="自定义action" class="该action的实际路径"&gt;<br/>
+&lt;property name=""&gt;<br/>
+&lt;ref local="自定义属性"/&gt;<br/>
+&lt;/property&gt;<br/>
+&lt;/bean&gt;<br/>
+</li>
+<li>
+在struts的配置文件中直接使用<br/>
+&lt;action name="" class="在spring中配置好的action名称"&gt;<br/>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2.11" class="outline-3">
+<h3 id="sec-2.11"><span class="section-number-3">2.11</span> <span class="done DONE"> DONE</span> upload-down </h3>
+<div class="outline-text-3" id="text-2.11">
+
+<p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-28 星期四 11:56</span></span><br/><br/>
+</p>
+</div>
+
+<div id="outline-container-2.11.1" class="outline-4">
+<h4 id="sec-2.11.1"><span class="section-number-4">2.11.1</span> 需要的Jar文件 </h4>
+<div class="outline-text-4" id="text-2.11.1">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.11.2" class="outline-4">
+<h4 id="sec-2.11.2"><span class="section-number-4">2.11.2</span> 上传页面 </h4>
+<div class="outline-text-4" id="text-2.11.2">
+
+<ul>
+<li>
+jsp<br/>
+-form<br/>
+method="POST"<br/>
+enctype="mutipart/form-data"<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2.11.3" class="outline-4">
+<h4 id="sec-2.11.3"><span class="section-number-4">2.11.3</span> 上传action </h4>
+<div class="outline-text-4" id="text-2.11.3">
+
+<ul>
+<li>
+上传文件所需的属性<br/>
+-File名称 myFile&ndash;&lt;s:file name="这里自定义的file名称"&gt;<br/>
+-上传文件的MIME类型 contentType<br/>
+-文件名 fileName<br/>
+-文件名(不包括完整路径) imageFileName<br/>
+-文件标题 caption<br/>
+<ul>
+<li>
+ 需要setter方法的属性<br/>
+-上传的文件MIME类型<br/>
+-文件名(不包括完整路径)<br/>
+-文件名<br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2.11.4" class="outline-4">
+<h4 id="sec-2.11.4"><span class="section-number-4">2.11.4</span> 页面上传内容 </h4>
+<div class="outline-text-4" id="text-2.11.4">
+
+<ul>
+<li>
+jsp<br/>
+&lt;img src="目录/&lt;s:propety value="action返回的文件名称"&gt;"&gt;<br/>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2.12" class="outline-3">
+<h3 id="sec-2.12"><span class="section-number-3">2.12</span> <span class="done DONE"> DONE</span> crub实现 </h3>
+<div class="outline-text-3" id="text-2.12">
+
+<p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-29 星期五 10:27</span></span><br/><br/>
+</p>
+</div>
+
+<div id="outline-container-2.12.1" class="outline-4">
+<h4 id="sec-2.12.1"><span class="section-number-4">2.12.1</span> jsp </h4>
+<div class="outline-text-4" id="text-2.12.1">
+
+<ul>
+<li>
+链接转向action并传递参数<br/>
+&lt;a href='&lt;s:url action="action名称"&gt;&lt;s:param name="参数名称" value="参数值"/&gt;&lt;/s:ul&gt;'&gt;链接字段&lt;/a&gt;<br/>
+</li>
+<li>
+页面表格范例<br/>
+&lt;table&gt;<br/>
+&lt;thead&gt;<br/>
+&lt;tr&gt;<br/>
+&lt;th&gt;表头&lt;/th&gt;<br/>
+&lt;/tr&gt;<br/>
+&lt;/thead&gt;<br/>
+&lt;tbody&gt; <br/>
+&lt;s:iterator value="action传递过来的属性名称"&gt;<br/>
+&lt;tr&gt;<br/>
+&lt;td&gt;&lt;s:property value="属性名称"&gt;&lt;/td&gt;<br/>
+&lt;/tr&gt;<br/>
+&lt;/tbody&gt;<br/>
+&lt;/table&gt;<br/>
+</li>
+<li>
+页面使用struts标签<br/>
+&lt;%@ taglib prefix="s" uri="/struts-tags"%&gt;<br/>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2.13" class="outline-3">
+<h3 id="sec-2.13"><span class="section-number-3">2.13</span> <span class="done DONE"> DONE</span> ActionContext与ServletActionContext </h3>
+<div class="outline-text-3" id="text-2.13">
+
+<p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-28 星期四 11:50</span></span><br/><br/>
+</p>
+</div>
+
+<div id="outline-container-2.13.1" class="outline-4">
+<h4 id="sec-2.13.1"><span class="section-number-4">2.13.1</span> ActionContext </h4>
+<div class="outline-text-4" id="text-2.13.1">
+
+<ul>
+<li id="sec-2.13.1.1">使用情景 <br/>
+在Action中直接获取请求或会话的一些信息<br/>
+直接对JavaServlet Http的请求(HttpServletRequest),响应(HttpServletResponse)操作<br/>
+</li>
+<li id="sec-2.13.1.2">使用 <br/>
+<ul>
+<li>
+获取request中的信息<br/>
+</li>
+</ul>
+
+<p>Map map = ActionContext.getContext().getParameters();<br/>
+String 属性值 = (String)map.get("属性名称")<br/>
+</p><ul>
+<li>
+获取session<br/>
+Map session= ActionContext.getContext().getSession();<br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2.13.2" class="outline-4">
+<h4 id="sec-2.13.2"><span class="section-number-4">2.13.2</span> ServletActionContext </h4>
+<div class="outline-text-4" id="text-2.13.2">
+
+<ul>
+<li id="sec-2.13.2.1">特点 <br/>
+继承了ActionContext<br/>
+</li>
+<li id="sec-2.13.2.2">作用 <br/>
+可以取得的对象有 Http的请求,HttpSession对象,HTTPservlet相应对象,Servlet上下文信息,Http页面上下文,Servlet配置对象<br/>
+</li>
+<li id="sec-2.13.2.3">实现 <br/>
+<ul>
+<li>
+取得HttpServletRequest对象<br/>
+HttpServletRequest request = ServletActionContext.getRequest();<br/>
+</li>
+<li>
+取得HttpSession对象<br/>
+HttpSession  session = ServletActionContext.getRequest().getSession();<br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2.13.3" class="outline-4">
+<h4 id="sec-2.13.3"><span class="section-number-4">2.13.3</span> ioc方式获取 request response sesson </h4>
+<div class="outline-text-4" id="text-2.13.3">
+
+<ul>
+<li>
+实现ServletRequestAware ServletResponseAware HttpSessionAware<br/>
+</li>
+<li>
+对应的设置器获取器方法(setter/getter)<br/>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2.14" class="outline-3">
+<h3 id="sec-2.14"><span class="section-number-3">2.14</span> java(web)中的相对路径和绝对路径 </h3>
+<div class="outline-text-3" id="text-2.14">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.15" class="outline-3">
+<h3 id="sec-2.15"><span class="section-number-3">2.15</span> <span class="done DONE"> DONE</span> jsp页面 </h3>
+<div class="outline-text-3" id="text-2.15">
+
+<p><span class="timestamp-wrapper"><span class="timestamp-kwd">CLOSED: </span> <span class="timestamp">2010-10-28 星期四 11:50</span></span><br/><br/>
+</p>
+</div>
+
+<div id="outline-container-2.15.1" class="outline-4">
+<h4 id="sec-2.15.1"><span class="section-number-4">2.15.1</span> 显示错误信息 </h4>
+<div class="outline-text-4" id="text-2.15.1">
+
 <ul>
 <li>
 &lt;s:filederror/&gt;<br/>
 </li>
 </ul>
-</li>
-<li>
-Bean批量封装<br/>
+</div>
+
+</div>
+
+<div id="outline-container-2.15.2" class="outline-4">
+<h4 id="sec-2.15.2"><span class="section-number-4">2.15.2</span> Bean批量封装 </h4>
+<div class="outline-text-4" id="text-2.15.2">
+
 <ul>
 <li>
 Bean属性 输入 <br/>
@@ -704,37 +1158,78 @@ Bean属性显示<br/>
 &lt;/s:iterator&gt; <br/>
 </li>
 </ul>
-</li>
-</ol>
+</div>
 </div>
 
 </div>
 
-<div id="outline-container-1.2.14" class="outline-4">
-<h4 id="sec-1.2.14"><span class="section-number-4">1.2.14</span> 编程实例 </h4>
-<div class="outline-text-4" id="text-1.2.14">
+<div id="outline-container-2.16" class="outline-3">
+<h3 id="sec-2.16"><span class="section-number-3">2.16</span> 编程实例 </h3>
+<div class="outline-text-3" id="text-2.16">
 
-<ol>
-<li>
-自定义拦截器<br/>
-</li>
-<li>
-自定义转换器<br/>
-</li>
-<li>
-上传下载<br/>
-</li>
-<li>
-与spring整合<br/>
-</li>
-<li>
-crub实现<br/>
-</li>
-<li>
-信息国际化的实现 <br/>
-</li>
-<li>
-jsp的各种操作<br/>
+
+</div>
+
+<div id="outline-container-2.16.1" class="outline-4">
+<h4 id="sec-2.16.1"><span class="section-number-4">2.16.1</span> 自定义拦截器 </h4>
+<div class="outline-text-4" id="text-2.16.1">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.16.2" class="outline-4">
+<h4 id="sec-2.16.2"><span class="section-number-4">2.16.2</span> 自定义转换器 </h4>
+<div class="outline-text-4" id="text-2.16.2">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.16.3" class="outline-4">
+<h4 id="sec-2.16.3"><span class="section-number-4">2.16.3</span> 上传下载 </h4>
+<div class="outline-text-4" id="text-2.16.3">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.16.4" class="outline-4">
+<h4 id="sec-2.16.4"><span class="section-number-4">2.16.4</span> 与spring整合 </h4>
+<div class="outline-text-4" id="text-2.16.4">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.16.5" class="outline-4">
+<h4 id="sec-2.16.5"><span class="section-number-4">2.16.5</span> crub实现 </h4>
+<div class="outline-text-4" id="text-2.16.5">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.16.6" class="outline-4">
+<h4 id="sec-2.16.6"><span class="section-number-4">2.16.6</span> 信息国际化的实现 </h4>
+<div class="outline-text-4" id="text-2.16.6">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.16.7" class="outline-4">
+<h4 id="sec-2.16.7"><span class="section-number-4">2.16.7</span> 文件的复制 </h4>
+<div class="outline-text-4" id="text-2.16.7">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.16.8" class="outline-4">
+<h4 id="sec-2.16.8"><span class="section-number-4">2.16.8</span> jsp的各种操作 </h4>
+<div class="outline-text-4" id="text-2.16.8">
+
 <ul>
 <li>
 Bean的批量封装<br/>
@@ -743,152 +1238,128 @@ Bean的批量封装<br/>
 属性的显示与输入<br/>
 </li>
 </ul>
-</li>
-</ol>
-</div>
-</div>
-
-</div>
-
-<div id="outline-container-1.3" class="outline-3">
-<h3 id="sec-1.3"><span class="section-number-3">1.3</span> spring </h3>
-<div class="outline-text-3" id="text-1.3">
-
-
-</div>
-
-<div id="outline-container-1.3.1" class="outline-4">
-<h4 id="sec-1.3.1"><span class="section-number-4">1.3.1</span> 配置文件 </h4>
-<div class="outline-text-4" id="text-1.3.1">
-
-</div>
-
-</div>
-
-<div id="outline-container-1.3.2" class="outline-4">
-<h4 id="sec-1.3.2"><span class="section-number-4">1.3.2</span> 项目搭建 </h4>
-<div class="outline-text-4" id="text-1.3.2">
-
-</div>
-
-</div>
-
-<div id="outline-container-1.3.3" class="outline-4">
-<h4 id="sec-1.3.3"><span class="section-number-4">1.3.3</span> 基本bean装配 </h4>
-<div class="outline-text-4" id="text-1.3.3">
-
-</div>
-
-</div>
-
-<div id="outline-container-1.3.4" class="outline-4">
-<h4 id="sec-1.3.4"><span class="section-number-4">1.3.4</span> 高级Bean装配 </h4>
-<div class="outline-text-4" id="text-1.3.4">
-
-</div>
-
-</div>
-
-<div id="outline-container-1.3.5" class="outline-4">
-<h4 id="sec-1.3.5"><span class="section-number-4">1.3.5</span> 通知 </h4>
-<div class="outline-text-4" id="text-1.3.5">
-
-</div>
-
-</div>
-
-<div id="outline-container-1.3.6" class="outline-4">
-<h4 id="sec-1.3.6"><span class="section-number-4">1.3.6</span> 连接数据库 </h4>
-<div class="outline-text-4" id="text-1.3.6">
-
-</div>
-
-</div>
-
-<div id="outline-container-1.3.7" class="outline-4">
-<h4 id="sec-1.3.7"><span class="section-number-4">1.3.7</span> 事务管理 </h4>
-<div class="outline-text-4" id="text-1.3.7">
-
-</div>
-</div>
-
-</div>
-
-<div id="outline-container-1.4" class="outline-3">
-<h3 id="sec-1.4"><span class="section-number-3">1.4</span> Hibernate </h3>
-<div class="outline-text-3" id="text-1.4">
-
-
-</div>
-
-<div id="outline-container-1.4.1" class="outline-4">
-<h4 id="sec-1.4.1"><span class="section-number-4">1.4.1</span> 项目搭建 </h4>
-<div class="outline-text-4" id="text-1.4.1">
-
-</div>
-
-</div>
-
-<div id="outline-container-1.4.2" class="outline-4">
-<h4 id="sec-1.4.2"><span class="section-number-4">1.4.2</span> 配置文件 </h4>
-<div class="outline-text-4" id="text-1.4.2">
-
-</div>
-
-</div>
-
-<div id="outline-container-1.4.3" class="outline-4">
-<h4 id="sec-1.4.3"><span class="section-number-4">1.4.3</span> 体系结构 </h4>
-<div class="outline-text-4" id="text-1.4.3">
-
-</div>
-
-</div>
-
-<div id="outline-container-1.4.4" class="outline-4">
-<h4 id="sec-1.4.4"><span class="section-number-4">1.4.4</span> 持久化类 </h4>
-<div class="outline-text-4" id="text-1.4.4">
-
-</div>
-
-</div>
-
-<div id="outline-container-1.4.5" class="outline-4">
-<h4 id="sec-1.4.5"><span class="section-number-4">1.4.5</span> 对象关系映射 </h4>
-<div class="outline-text-4" id="text-1.4.5">
-
 </div>
 </div>
 </div>
 
 </div>
 
-<div id="outline-container-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> 继续未看完的部分 </h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Hibernate </h2>
+<div class="outline-text-2" id="text-3">
 
 
 </div>
 
-<div id="outline-container-2.1" class="outline-3">
-<h3 id="sec-2.1"><span class="section-number-3">2.1</span> hibernate </h3>
-<div class="outline-text-3" id="text-2.1">
+<div id="outline-container-3.1" class="outline-3">
+<h3 id="sec-3.1"><span class="section-number-3">3.1</span> 项目搭建 </h3>
+<div class="outline-text-3" id="text-3.1">
+
+</div>
+
+</div>
+
+<div id="outline-container-3.2" class="outline-3">
+<h3 id="sec-3.2"><span class="section-number-3">3.2</span> 配置文件 </h3>
+<div class="outline-text-3" id="text-3.2">
+
+</div>
+
+</div>
+
+<div id="outline-container-3.3" class="outline-3">
+<h3 id="sec-3.3"><span class="section-number-3">3.3</span> 体系结构 </h3>
+<div class="outline-text-3" id="text-3.3">
+
+</div>
+
+</div>
+
+<div id="outline-container-3.4" class="outline-3">
+<h3 id="sec-3.4"><span class="section-number-3">3.4</span> 持久化类 </h3>
+<div class="outline-text-3" id="text-3.4">
+
+</div>
+
+</div>
+
+<div id="outline-container-3.5" class="outline-3">
+<h3 id="sec-3.5"><span class="section-number-3">3.5</span> 对象关系映射 </h3>
+<div class="outline-text-3" id="text-3.5">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> spring </h2>
+<div class="outline-text-2" id="text-4">
 
 
 </div>
 
-<div id="outline-container-2.1.1" class="outline-4">
-<h4 id="sec-2.1.1"><span class="section-number-4">2.1.1</span> 对象关系映射 </h4>
-<div class="outline-text-4" id="text-2.1.1">
+<div id="outline-container-4.1" class="outline-3">
+<h3 id="sec-4.1"><span class="section-number-3">4.1</span> 配置文件 </h3>
+<div class="outline-text-3" id="text-4.1">
 
 </div>
+
 </div>
+
+<div id="outline-container-4.2" class="outline-3">
+<h3 id="sec-4.2"><span class="section-number-3">4.2</span> 项目搭建 </h3>
+<div class="outline-text-3" id="text-4.2">
+
+</div>
+
+</div>
+
+<div id="outline-container-4.3" class="outline-3">
+<h3 id="sec-4.3"><span class="section-number-3">4.3</span> 基本bean装配 </h3>
+<div class="outline-text-3" id="text-4.3">
+
+</div>
+
+</div>
+
+<div id="outline-container-4.4" class="outline-3">
+<h3 id="sec-4.4"><span class="section-number-3">4.4</span> 高级Bean装配 </h3>
+<div class="outline-text-3" id="text-4.4">
+
+</div>
+
+</div>
+
+<div id="outline-container-4.5" class="outline-3">
+<h3 id="sec-4.5"><span class="section-number-3">4.5</span> 通知 </h3>
+<div class="outline-text-3" id="text-4.5">
+
+</div>
+
+</div>
+
+<div id="outline-container-4.6" class="outline-3">
+<h3 id="sec-4.6"><span class="section-number-3">4.6</span> 连接数据库 </h3>
+<div class="outline-text-3" id="text-4.6">
+
+</div>
+
+</div>
+
+<div id="outline-container-4.7" class="outline-3">
+<h3 id="sec-4.7"><span class="section-number-3">4.7</span> 事务管理 </h3>
+<div class="outline-text-3" id="text-4.7">
+
+
+<p><br/>
+</p></div>
 </div>
 </div>
 <div id="postamble">
 <p class="author"> Author: 
 </p>
-<p class="date"> Date: 2010-10-27 16:55:11 </p>
+<p class="date"> Date: 2010-10-29 10:43:05 </p>
 <p class="creator">HTML generated by org-mode 6.35i in emacs 24</p>
 </div>
 </div>
