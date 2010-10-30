@@ -1,0 +1,252 @@
+<map version="0.9.0">
+<!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
+<node COLOR="#000000" CREATED="1288434637743" ID="ID_1030524821" MODIFIED="1288434658713" STYLE="bubble" TEXT="Maven-&#x5b8c;&#x5168;&#x4f7f;&#x7528;&#x624b;&#x518c;">
+<font NAME="SansSerif" SIZE="20"/>
+<hook NAME="accessories/plugins/AutomaticLayout.properties"/>
+<node COLOR="#0033ff" CREATED="1288434697850" ID="ID_257549842" MODIFIED="1288435178841" POSITION="right" STYLE="bubble" TEXT="&#x65b0;&#x7279;&#x6027;">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="SansSerif" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1288434704149" ID="ID_1951682464" MODIFIED="1288434716476" STYLE="fork" TEXT="&#x66f4;&#x5feb;&#x66f4;&#x7b80;&#x5355;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1288434725169" ID="ID_1633212938" MODIFIED="1288434731919" STYLE="fork" TEXT="&#x66f4;&#x5c11;&#x7684;&#x914d;&#x7f6e;&#x6587;&#x4ef6;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1288434751497" ID="ID_1967504967" MODIFIED="1288434761321" STYLE="fork" TEXT="Puglin&#x8bed;&#x8a00;&#x7684;&#x5207;&#x6362;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1288434780779" ID="ID_318657970" MODIFIED="1288434789221" STYLE="fork" TEXT="&#x63d0;&#x4f9b;&#x4e86;&#x9884;&#x5b9a;&#x4e49;&#x7684;&#x6a21;&#x7248;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1288434810512" ID="ID_1638464272" MODIFIED="1288434816520" STYLE="fork" TEXT="&#x751f;&#x547d;&#x5468;&#x671f;&#x7684;&#x5f15;&#x5165;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1288434839774" ID="ID_594767919" MODIFIED="1288434871139" STYLE="fork" TEXT="&#x65b0;&#x589e;Dependency Scope">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1288434901302" ID="ID_1225513618" MODIFIED="1288434913019" STYLE="fork" TEXT="&#x4f20;&#x9012;&#x4f9d;&#x8d56;,&#x7b80;&#x5316;&#x4f9d;&#x8d56;&#x7ba1;&#x7406;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+</node>
+<node COLOR="#0033ff" CREATED="1288435182607" ID="ID_1844541220" MODIFIED="1288435190228" POSITION="right" STYLE="bubble" TEXT="&#x73af;&#x5883;&#x642d;&#x5efa;">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="SansSerif" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1288435225308" ID="ID_1523119005" MODIFIED="1288435228242" STYLE="fork" TEXT="maven2">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1288435794697" ID="ID_1489418737" MODIFIED="1288435807075" TEXT="&#x5b89;&#x88c5;">
+<font NAME="SansSerif" SIZE="14"/>
+</node>
+<node COLOR="#990000" CREATED="1288435807786" ID="ID_1828632590" MODIFIED="1288435810880" TEXT="&#x73af;&#x5883;&#x914d;&#x7f6e;">
+<font NAME="SansSerif" SIZE="14"/>
+<node COLOR="#111111" CREATED="1288435814235" ID="ID_496020062" MODIFIED="1288435821706" TEXT="m2_home"/>
+<node COLOR="#111111" CREATED="1288435822006" ID="ID_1005998277" MODIFIED="1288435824860" TEXT="path"/>
+</node>
+</node>
+<node COLOR="#00b439" CREATED="1288435228603" ID="ID_1281668066" MODIFIED="1288435237476" STYLE="fork" TEXT="maven-proxy">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1288435330259" ID="ID_1253659430" MODIFIED="1288435347784" TEXT="&#x4ee3;&#x7406;repository">
+<font NAME="SansSerif" SIZE="14"/>
+</node>
+</node>
+<node COLOR="#00b439" CREATED="1288435237706" ID="ID_682459923" MODIFIED="1288435247420" STYLE="fork" TEXT="continuum">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1288435363717" ID="ID_390464433" MODIFIED="1288435376596" TEXT="&#x81ea;&#x52a8;build">
+<font NAME="SansSerif" SIZE="14"/>
+</node>
+</node>
+<node COLOR="#00b439" CREATED="1288435259237" ID="ID_1697197242" MODIFIED="1288435260308" STYLE="fork" TEXT="svn">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1288435260639" ID="ID_1924678432" MODIFIED="1288435262892" STYLE="fork" TEXT="apche">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+</node>
+<node COLOR="#0033ff" CREATED="1288435853521" ID="ID_1346413504" MODIFIED="1288435860912" POSITION="right" STYLE="bubble" TEXT="&#x4f8b;&#x5b50;">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="SansSerif" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1288435862695" ID="ID_407676584" MODIFIED="1288435867471" STYLE="fork" TEXT="&#x5f00;&#x542f;maven&#x9879;&#x76ee;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1288435960055" ID="ID_1880966007" MODIFIED="1288435961817" TEXT="mvn archetype:create -DgroupId=com.lord.test -DartifactId=myApp">
+<font NAME="SansSerif" SIZE="14"/>
+</node>
+<node COLOR="#990000" CREATED="1288435989557" ID="ID_1176374144" MODIFIED="1288435995996" TEXT="groupId">
+<font NAME="SansSerif" SIZE="14"/>
+<node COLOR="#111111" CREATED="1288436002586" ID="ID_1672950740" MODIFIED="1288436037556" TEXT="&#x5305;&#x540d;,&#x4f1a;&#x5efa;&#x7acb;&#x5bf9;&#x5e94;&#x6587;&#x4ef6;&#x7ed3;&#x6784;"/>
+</node>
+<node COLOR="#990000" CREATED="1288435996267" ID="ID_188349991" MODIFIED="1288436000573" TEXT="artifactId">
+<font NAME="SansSerif" SIZE="14"/>
+<node COLOR="#111111" CREATED="1288436039419" ID="ID_193857828" MODIFIED="1288436052007" TEXT="&#x6253;&#x5305;&#x540e;&#x8f6c;&#x6362;&#x7684;jar&#x540d;"/>
+</node>
+</node>
+</node>
+<node COLOR="#0033ff" CREATED="1288436079546" ID="ID_475827831" MODIFIED="1288436206078" POSITION="right" STYLE="bubble" TEXT="&#x57fa;&#x672c;&#x547d;&#x4ee4;">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="SansSerif" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1288436084714" ID="ID_479079279" MODIFIED="1288436088649" STYLE="fork" TEXT="compile">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1288436088940" ID="ID_306597888" MODIFIED="1288436090382" STYLE="fork" TEXT="test">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1288436090642" ID="ID_1293998075" MODIFIED="1288436095429" STYLE="fork" TEXT="test-compile">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1288436101708" ID="ID_920671234" MODIFIED="1288436104462" STYLE="fork" TEXT="package">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1288436104673" ID="ID_697181182" MODIFIED="1288436106004" STYLE="fork" TEXT="install">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1288436106205" ID="ID_811564753" MODIFIED="1288436107226" STYLE="fork" TEXT="site">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1288436109189" ID="ID_1718164135" MODIFIED="1288436137019" STYLE="fork" TEXT="clean">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1288436137209" ID="ID_1197380703" MODIFIED="1288436140975" STYLE="fork" TEXT="ide:ide">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1288436142096" ID="ID_496378472" MODIFIED="1288436148666" TEXT="eclipse:eclipse">
+<font NAME="SansSerif" SIZE="14"/>
+</node>
+</node>
+</node>
+<node COLOR="#0033ff" CREATED="1288436206869" ID="ID_613217872" MODIFIED="1288436211606" POSITION="right" STYLE="bubble" TEXT="&#x914d;&#x7f6e;">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="SansSerif" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1288441168033" ID="ID_496854310" MODIFIED="1288441181332" STYLE="fork" TEXT="settings.xml">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1288441313152" ID="ID_1172380916" MODIFIED="1288441317769" TEXT="&#x79cd;&#x7c7b;">
+<font NAME="SansSerif" SIZE="14"/>
+<node COLOR="#111111" CREATED="1288441190756" ID="ID_1890419221" MODIFIED="1288441321454" TEXT="&#x5168;&#x5c40;&#x6027;&#x7684;&#x914d;&#x7f6e;">
+<font NAME="SansSerif" SIZE="12"/>
+<node COLOR="#111111" CREATED="1288441256020" ID="ID_1408279737" MODIFIED="1288441269419" TEXT="maven/conf/settings.xml"/>
+</node>
+<node COLOR="#111111" CREATED="1288441250392" ID="ID_1512210270" MODIFIED="1288441324709" TEXT="&#x81ea;&#x5b9a;&#x4e49;&#x914d;&#x7f6e;">
+<font NAME="SansSerif" SIZE="12"/>
+<node COLOR="#111111" CREATED="1288441271923" ID="ID_719921152" MODIFIED="1288441286994" TEXT="&#x7528;&#x6237;&#x540d;/.m2/settgings.xml"/>
+</node>
+</node>
+<node COLOR="#990000" CREATED="1288441304980" ID="ID_276145110" MODIFIED="1288441334903" TEXT="&#x914d;&#x7f6e;&#x8981;&#x7d20;">
+<font NAME="SansSerif" SIZE="14"/>
+<node COLOR="#111111" CREATED="1288441358277" ID="ID_84618748" MODIFIED="1288441391685" TEXT="localRespository">
+<node COLOR="#111111" CREATED="1288441398234" ID="ID_1348623650" MODIFIED="1288441409490" TEXT="&#x672c;&#x5730;&#x5e93;&#x7684;&#x4fdd;&#x5b58;&#x4f4d;&#x7f6e;"/>
+<node COLOR="#111111" CREATED="1288441444441" ID="ID_336393774" MODIFIED="1288441472531" TEXT="&#x9ed8;&#x8ba4;&#x5728; &#x7528;&#x6237;&#x540d;/.m2/respository"/>
+</node>
+<node COLOR="#111111" CREATED="1288441495414" ID="ID_1937973217" MODIFIED="1288441497637" TEXT="offline">
+<node COLOR="#111111" CREATED="1288441498819" ID="ID_585060136" MODIFIED="1288441504237" TEXT="true">
+<node COLOR="#111111" CREATED="1288441505428" ID="ID_1833217969" MODIFIED="1288441528802">
+<richcontent TYPE="NODE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      &#19981;&#29992;&#21435;&#36828;&#31243;&#24211;&#20013;&#19979;&#36733;&#20381;&#36182;&#25991;&#20214;
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+</node>
+<node COLOR="#111111" CREATED="1288441732525" ID="ID_234845227" MODIFIED="1288441734818" TEXT="servers">
+<node COLOR="#111111" CREATED="1288441685978" ID="ID_918032710" MODIFIED="1288441777950" TEXT="&#x914d;&#x7f6e;distributionManagemenst&#x5143;&#x7d20;&#x7684;&#x5f00;&#x53d1;&#x5e93;&#x4fe1;&#x606f;"/>
+<node COLOR="#111111" CREATED="1288441786613" ID="ID_956360298" MODIFIED="1288441788515" TEXT="&#x8981;&#x7d20;">
+<node COLOR="#111111" CREATED="1288441803587" ID="ID_1037727044" MODIFIED="1288441804839" TEXT="id">
+<node COLOR="#111111" CREATED="1288441806211" ID="ID_1623747432" MODIFIED="1288441828493" TEXT="&#x5339;&#x914d;distributionManagement&#x5e93;id"/>
+</node>
+<node COLOR="#111111" CREATED="1288441840941" ID="ID_1581141113" MODIFIED="1288441846289" TEXT="username,password">
+<node COLOR="#111111" CREATED="1288441847560" ID="ID_332006461" MODIFIED="1288441854490" TEXT="&#x767b;&#x5f55;&#x670d;&#x52a1;&#x5668;&#x7684;&#x7528;&#x6237;&#x540d;&#x5bc6;&#x7801;"/>
+</node>
+<node COLOR="#111111" CREATED="1288441873408" ID="ID_1466932278" MODIFIED="1288441904112">
+<richcontent TYPE="NODE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      privateKey passphrase
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node COLOR="#111111" CREATED="1288441917681" ID="ID_1965753169" MODIFIED="1288441951350" TEXT="filePermissions directoryPermissions">
+<node COLOR="#111111" CREATED="1288441965630" ID="ID_1111315229" MODIFIED="1288441981313" TEXT="&#x5e93;&#x4e2d;&#x76ee;&#x5f55;&#x7684;&#x8bbf;&#x95ee;&#x6743;&#x9650;"/>
+</node>
+</node>
+</node>
+<node COLOR="#111111" CREATED="1288441995733" ID="ID_1243383767" MODIFIED="1288441999539" TEXT="mirrors">
+<node COLOR="#111111" CREATED="1288442000971" ID="ID_950238315" MODIFIED="1288442017935" TEXT="&#x5e93;&#x7684;&#x955c;&#x50cf;,&#x7528;&#x4e8e;&#x589e;&#x52a0;&#x5176;&#x4ed6;&#x5e93;"/>
+<node COLOR="#111111" CREATED="1288442031265" ID="ID_939348478" MODIFIED="1288442032877" TEXT="&#x8981;&#x7d20;">
+<node COLOR="#111111" CREATED="1288442033418" ID="ID_531408596" MODIFIED="1288442035991" TEXT="id name">
+<node COLOR="#111111" CREATED="1288442036923" ID="ID_1363261512" MODIFIED="1288442049531" TEXT="&#x552f;&#x4e00;&#x6807;&#x8bc6;&#x955c;&#x50cf;"/>
+</node>
+<node COLOR="#111111" CREATED="1288442058744" ID="ID_768593062" MODIFIED="1288442060657" TEXT="url">
+<node COLOR="#111111" CREATED="1288442061158" ID="ID_404409219" MODIFIED="1288442064282" TEXT="&#x955c;&#x50cf;&#x5730;&#x5740;"/>
+</node>
+<node COLOR="#111111" CREATED="1288442124509" ID="ID_115060613" MODIFIED="1288442156795">
+<richcontent TYPE="NODE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      mirrorOf
+    </p>
+  </body>
+</html>
+</richcontent>
+<node COLOR="#111111" CREATED="1288442158688" ID="ID_1225373167" MODIFIED="1288442176473" TEXT="&#x955c;&#x50cf;&#x6307;&#x5b9a;&#x7684;&#x670d;&#x52a1;"/>
+</node>
+</node>
+</node>
+<node COLOR="#111111" CREATED="1288442263569" ID="ID_1415248594" MODIFIED="1288442267204" TEXT="proxies">
+<node COLOR="#111111" CREATED="1288442321512" ID="ID_735528523" MODIFIED="1288442322313" TEXT="&#x7528;&#x4e8e;&#x65e0;&#x6cd5;&#x76f4;&#x63a5;&#x8bbf;&#x95ee;&#x4e2d;&#x5fc3;&#x7684;&#x5e93;&#x7528;&#x6237;&#x914d;&#x7f6e;"/>
+<node COLOR="#111111" CREATED="1288442333249" ID="ID_867459421" MODIFIED="1288442336814" TEXT="&#x8981;&#x7d20;">
+<node COLOR="#111111" CREATED="1288442337385" ID="ID_218654869" MODIFIED="1288442344865" TEXT="id">
+<node COLOR="#111111" CREATED="1288442345927" ID="ID_1143322022" MODIFIED="1288442350914" TEXT="&#x4ee3;&#x7406;&#x7684;&#x6807;&#x5fd7;"/>
+</node>
+<node COLOR="#111111" CREATED="1288442357674" ID="ID_319378557" MODIFIED="1288442364724">
+<richcontent TYPE="NODE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      active
+    </p>
+  </body>
+</html></richcontent>
+<node COLOR="#111111" CREATED="1288442380156" ID="ID_1058143383" MODIFIED="1288442385975" TEXT="&#x662f;&#x5426;&#x6fc0;&#x6d3b;&#x4ee3;&#x7406;"/>
+</node>
+<node COLOR="#111111" CREATED="1288442488903" ID="ID_622798580" MODIFIED="1288442513188" TEXT="protocol.host"/>
+</node>
+</node>
+</node>
+</node>
+</node>
+</node>
+</map>

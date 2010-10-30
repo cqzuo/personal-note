@@ -1,6 +1,6 @@
 <map version="0.9.0">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
-<node COLOR="#000000" CREATED="1288348878070" ID="ID_1198725549" MODIFIED="1288349167607">
+<node COLOR="#000000" CREATED="1288348878070" ID="ID_1198725549" MODIFIED="1288432348391">
 <richcontent TYPE="NODE"><html>
   <head>
     
@@ -120,7 +120,7 @@
 <node COLOR="#0033ff" CREATED="1288349020986" ID="ID_1987181257" MODIFIED="1288349023119" POSITION="right" TEXT="&#x4f18;&#x70b9;">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="SansSerif" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1288350534602" ID="ID_439447454" MODIFIED="1288350541032" TEXT="build&#x903b;&#x8f91;&#x53ef;&#x4ee5;&#x88ab;&#x91cd;&#x7528;">
+<node COLOR="#00b439" CREATED="1288350534602" ID="ID_439447454" MODIFIED="1288432301884" STYLE="fork" TEXT="build&#x903b;&#x8f91;&#x53ef;&#x4ee5;&#x88ab;&#x91cd;&#x7528;">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="SansSerif" SIZE="16"/>
 </node>
@@ -167,8 +167,7 @@
       &#21019;&#24314;app&#30446;&#24405;&#32467;&#26500;
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 <font NAME="SansSerif" SIZE="14"/>
 <node COLOR="#111111" CREATED="1288350897314" ID="ID_1614402326" MODIFIED="1288350946354" TEXT="mvn archetype:create -DgroupId=&#x5305;&#x540d; -DartifactId=&#x7c7b;&#x540d;"/>
 </node>
@@ -199,12 +198,12 @@
 <font NAME="SansSerif" SIZE="14"/>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1288349079059" ID="ID_1678023518" MODIFIED="1288349083466" TEXT="&#x66f4;&#x9ad8;&#x5c42;&#x6b21;&#x5de5;&#x7a0b;">
+<node COLOR="#00b439" CREATED="1288349079059" ID="ID_1678023518" MODIFIED="1288432166520" TEXT="&#x66f4;&#x9ad8;&#x5c42;&#x6b21;&#x5de5;&#x7a0b;">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="SansSerif" SIZE="16"/>
-<node COLOR="#990000" CREATED="1288355089652" ID="ID_1273727163" MODIFIED="1288355105745" TEXT="&#x5c06;&#x5b50;&#x5de5;&#x7a0b;&#x5305;&#x542b;&#x8fdb;&#x9ad8;&#x5c42;&#x5de5;&#x7a0b;">
+<node COLOR="#990000" CREATED="1288355089652" ID="ID_1273727163" MODIFIED="1288432166530" TEXT="&#x5c06;&#x5b50;&#x5de5;&#x7a0b;&#x5305;&#x542b;&#x8fdb;&#x9ad8;&#x5c42;&#x5de5;&#x7a0b;">
 <font NAME="SansSerif" SIZE="14"/>
-<node COLOR="#111111" CREATED="1288355107017" ID="ID_1386859687" MODIFIED="1288355182856">
+<node COLOR="#111111" CREATED="1288355107017" ID="ID_1386859687" MODIFIED="1288432261426">
 <richcontent TYPE="NODE"><html>
   <head>
     
@@ -223,8 +222,7 @@
       &lt;/modules&gt;
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 </node>
 </node>
 </node>
