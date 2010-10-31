@@ -377,4 +377,3 @@ ssh复习
 点"add",在出现的窗口中的Key Type中选择URL,在location中选"File system",
 然后在spring解压目录的dist/resources目录中选择spring-beans-2.5.xsd,回到设置
 窗口时,把Key Type改为Schemalocation,Key改为http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-
