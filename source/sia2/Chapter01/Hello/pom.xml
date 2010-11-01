@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!--所有的项目配置在 project属性中 -->
 <project>
   <parent>
     <groupId>com.springinaction</groupId>
