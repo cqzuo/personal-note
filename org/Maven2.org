@@ -68,3 +68,72 @@ maven2 笔记
 *** mvn eclise:clean
 ** 将本地jar安装到仓库中
 *** mvn install:install -file -Dfile=文件名 -DgroupId=包名 -DartifactId=文件名 -Dversion=版本号 -Dpackage=jar
+* 定制一个maven项目
+** 创建项目
+   mvn archtype:create -DgroupId=包名 -DartifactId=生成的文件名称 -Dversion=版本号
+** 定义项目信息
+ 添加组织法律和开发人员信息
+   编辑pom.xml
+*** 法律
+ <licenses>
+  <license>
+    <name></name>
+    <url></url>
+    <distribution></distribution>
+    <comments></comments>
+  </license>
+</licenses>
+*** 开发人员
+<developers>
+  <developer>
+    <id></id>
+    <name></name>
+    <email></email>
+    <url></url>
+    <organization></organization>
+    <organizationUrl></organizationUrl>
+    <roles>
+      <role></role> 
+    <roles>
+    <timezone></timezone>
+  </developer>
+</developers>
+*** 组织
+    <organization>
+      <name></name>
+      <url></url>
+    </organization>
+
+** 添加依赖
+<dependancies>
+  <dependancy>
+     <groupId></groupId>
+     <aritfactId></artifactId>
+     <version></version>
+  </dependancy>
+</dependancies>
+** java源码
+  将java源码放在对应目录下
+** 添加资源
+ 建立resources目录,并将资源文件放在其中
+** 运行程序
+ mvn exec:java -Dexec.mainClass=含有main类的完整路径和类名
+** 查看项目依赖
+ mvn dependency:resolve
+** 构建打包的应用程序
+*** 在pom.xml中配置assembly插件
+<plugin>
+  <aritfactId>mavn-assembly-plugin</artifactId>
+  <configuration>
+    <decriptorRefs>
+       <descriptorRef>jar-with-dependencies</descriptorRef>
+    </decriptorRefs>
+  </configuration>
+</plugin>
+*** 打包 
+ mvn assembly:assembly
+*** 执行应用程序 
+java -cp target/jar文件名 完整带包名的类名称
+
+* 找依赖包的相关信息
+ repo2.maven.org/maven2

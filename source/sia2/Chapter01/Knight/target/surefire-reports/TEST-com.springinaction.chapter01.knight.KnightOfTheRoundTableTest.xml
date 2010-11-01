@@ -13,13 +13,13 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="Service Pack 3, v.5973"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Documents and Settings\cao\桌面\sia2\Chapter01\Knight"/>
+    <property name="user.dir" value="E:\note\我的DBank\web\source\sia2\Chapter01\Knight"/>
     <property name="java.runtime.version" value="1.6.0_21-b06"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="basedir" value="C:\Documents and Settings\cao\桌面\sia2\Chapter01\Knight"/>
+    <property name="basedir" value="E:\note\我的DBank\web\source\sia2\Chapter01\Knight"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.6.0_21\jre\lib\endorsed"/>
     <property name="os.arch" value="x86"/>
-    <property name="surefire.real.class.path" value="C:\DOCUME~1\cao\LOCALS~1\Temp\surefirebooter5700301653379800066.jar"/>
+    <property name="surefire.real.class.path" value="C:\DOCUME~1\cao\LOCALS~1\Temp\surefirebooter7752337190498245636.jar"/>
     <property name="java.io.tmpdir" value="C:\DOCUME~1\cao\LOCALS~1\Temp\"/>
     <property name="line.separator" value="
 "/>
@@ -28,7 +28,7 @@
     <property name="os.name" value="Windows XP"/>
     <property name="sun.jnu.encoding" value="GBK"/>
     <property name="java.library.path" value="C:\Program Files\Java\jdk1.6.0_21\jre\bin;.;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\Program Files\Java\jdk1.6.0_21\bin;D:\Program Files\MacType\;D:\apache-ant-1.8.1\bin;C:\Program Files\TortoiseSVN\bin;D:\apache-maven-3.0\bin;"/>
-    <property name="surefire.test.class.path" value="C:\Documents and Settings\cao\桌面\sia2\Chapter01\Knight\target\test-classes;C:\Documents and Settings\cao\桌面\sia2\Chapter01\Knight\target\classes;C:\Documents and Settings\cao\.m2\repository\aspectj\aspectjweaver\1.5.3\aspectjweaver-1.5.3.jar;C:\Documents and Settings\cao\.m2\repository\xerces\xercesImpl\2.8.1\xercesImpl-2.8.1.jar;C:\Documents and Settings\cao\.m2\repository\xml-apis\xml-apis\1.3.03\xml-apis-1.3.03.jar;C:\Documents and Settings\cao\.m2\repository\org\springframework\spring\2.0.6\spring-2.0.6.jar;C:\Documents and Settings\cao\.m2\repository\commons-logging\commons-logging\1.1\commons-logging-1.1.jar;C:\Documents and Settings\cao\.m2\repository\logkit\logkit\1.0.1\logkit-1.0.1.jar;C:\Documents and Settings\cao\.m2\repository\avalon-framework\avalon-framework\4.1.3\avalon-framework-4.1.3.jar;C:\Documents and Settings\cao\.m2\repository\javax\servlet\servlet-api\2.3\servlet-api-2.3.jar;C:\Documents and Settings\cao\.m2\repository\log4j\log4j\1.2.13\log4j-1.2.13.jar;C:\Documents and Settings\cao\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Documents and Settings\cao\.m2\repository\junit-addons\junit-addons\1.4\junit-addons-1.4.jar;C:\Documents and Settings\cao\.m2\repository\xerces\xmlParserAPIs\2.6.2\xmlParserAPIs-2.6.2.jar;"/>
+    <property name="surefire.test.class.path" value="E:\note\我的DBank\web\source\sia2\Chapter01\Knight\target\test-classes;E:\note\我的DBank\web\source\sia2\Chapter01\Knight\target\classes;C:\Documents and Settings\cao\.m2\repository\aspectj\aspectjweaver\1.5.3\aspectjweaver-1.5.3.jar;C:\Documents and Settings\cao\.m2\repository\xerces\xercesImpl\2.8.1\xercesImpl-2.8.1.jar;C:\Documents and Settings\cao\.m2\repository\xml-apis\xml-apis\1.3.03\xml-apis-1.3.03.jar;C:\Documents and Settings\cao\.m2\repository\org\springframework\spring\2.0.6\spring-2.0.6.jar;C:\Documents and Settings\cao\.m2\repository\commons-logging\commons-logging\1.1\commons-logging-1.1.jar;C:\Documents and Settings\cao\.m2\repository\logkit\logkit\1.0.1\logkit-1.0.1.jar;C:\Documents and Settings\cao\.m2\repository\avalon-framework\avalon-framework\4.1.3\avalon-framework-4.1.3.jar;C:\Documents and Settings\cao\.m2\repository\javax\servlet\servlet-api\2.3\servlet-api-2.3.jar;C:\Documents and Settings\cao\.m2\repository\log4j\log4j\1.2.13\log4j-1.2.13.jar;C:\Documents and Settings\cao\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Documents and Settings\cao\.m2\repository\junit-addons\junit-addons\1.4\junit-addons-1.4.jar;C:\Documents and Settings\cao\.m2\repository\xerces\xmlParserAPIs\2.6.2\xmlParserAPIs-2.6.2.jar;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="50.0"/>
     <property name="sun.management.compiler" value="HotSpot Client Compiler"/>
@@ -39,7 +39,7 @@
     <property name="java.specification.version" value="1.6"/>
     <property name="file.encoding" value="GBK"/>
     <property name="user.name" value="cao"/>
-    <property name="java.class.path" value="C:\Documents and Settings\cao\桌面\sia2\Chapter01\Knight\target\test-classes;C:\Documents and Settings\cao\桌面\sia2\Chapter01\Knight\target\classes;C:\Documents and Settings\cao\.m2\repository\aspectj\aspectjweaver\1.5.3\aspectjweaver-1.5.3.jar;C:\Documents and Settings\cao\.m2\repository\xerces\xercesImpl\2.8.1\xercesImpl-2.8.1.jar;C:\Documents and Settings\cao\.m2\repository\xml-apis\xml-apis\1.3.03\xml-apis-1.3.03.jar;C:\Documents and Settings\cao\.m2\repository\org\springframework\spring\2.0.6\spring-2.0.6.jar;C:\Documents and Settings\cao\.m2\repository\commons-logging\commons-logging\1.1\commons-logging-1.1.jar;C:\Documents and Settings\cao\.m2\repository\logkit\logkit\1.0.1\logkit-1.0.1.jar;C:\Documents and Settings\cao\.m2\repository\avalon-framework\avalon-framework\4.1.3\avalon-framework-4.1.3.jar;C:\Documents and Settings\cao\.m2\repository\javax\servlet\servlet-api\2.3\servlet-api-2.3.jar;C:\Documents and Settings\cao\.m2\repository\log4j\log4j\1.2.13\log4j-1.2.13.jar;C:\Documents and Settings\cao\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Documents and Settings\cao\.m2\repository\junit-addons\junit-addons\1.4\junit-addons-1.4.jar;C:\Documents and Settings\cao\.m2\repository\xerces\xmlParserAPIs\2.6.2\xmlParserAPIs-2.6.2.jar;"/>
+    <property name="java.class.path" value="E:\note\我的DBank\web\source\sia2\Chapter01\Knight\target\test-classes;E:\note\我的DBank\web\source\sia2\Chapter01\Knight\target\classes;C:\Documents and Settings\cao\.m2\repository\aspectj\aspectjweaver\1.5.3\aspectjweaver-1.5.3.jar;C:\Documents and Settings\cao\.m2\repository\xerces\xercesImpl\2.8.1\xercesImpl-2.8.1.jar;C:\Documents and Settings\cao\.m2\repository\xml-apis\xml-apis\1.3.03\xml-apis-1.3.03.jar;C:\Documents and Settings\cao\.m2\repository\org\springframework\spring\2.0.6\spring-2.0.6.jar;C:\Documents and Settings\cao\.m2\repository\commons-logging\commons-logging\1.1\commons-logging-1.1.jar;C:\Documents and Settings\cao\.m2\repository\logkit\logkit\1.0.1\logkit-1.0.1.jar;C:\Documents and Settings\cao\.m2\repository\avalon-framework\avalon-framework\4.1.3\avalon-framework-4.1.3.jar;C:\Documents and Settings\cao\.m2\repository\javax\servlet\servlet-api\2.3\servlet-api-2.3.jar;C:\Documents and Settings\cao\.m2\repository\log4j\log4j\1.2.13\log4j-1.2.13.jar;C:\Documents and Settings\cao\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Documents and Settings\cao\.m2\repository\junit-addons\junit-addons\1.4\junit-addons-1.4.jar;C:\Documents and Settings\cao\.m2\repository\xerces\xmlParserAPIs\2.6.2\xmlParserAPIs-2.6.2.jar;"/>
     <property name="java.vm.specification.version" value="1.0"/>
     <property name="sun.arch.data.model" value="32"/>
     <property name="java.home" value="C:\Program Files\Java\jdk1.6.0_21\jre"/>
@@ -59,5 +59,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
-  <testcase time="0.02" classname="com.springinaction.chapter01.knight.KnightOfTheRoundTableTest" name="testEmbarkOnQuest"/>
+  <testcase time="0.01" classname="com.springinaction.chapter01.knight.KnightOfTheRoundTableTest" name="testEmbarkOnQuest"/>
 </testsuite>
