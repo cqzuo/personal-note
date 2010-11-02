@@ -369,6 +369,28 @@ ssh复习
  + 优点  实现生命周期接口,容器能自动检测创建他们的Bean
  + 实现 重写afterPropertySet()和destroy()方法
 ** 高级Bean装配
+*** bean的继承
+**** 属性配置
+ <parent="父bean名称">
+ <abstract="true/false">
+**** 抽象bean类型
++ 作用是减少xml冗余配置
++ 抽象共同属性
+  - 父类 <bean id="" abstract="">属性</bean>
+  - 子类 <bean id="" class="" parent="上面父类的id">其他属性</bean>
+*** 方法注入
+**** 基本方法注入
+***** 替换Bean
+ + 实现MethodReplacer接口
+ + 重写reimplement()
+***** bean配置
+ + <bean id="被替换bean" class="">
+       <replaced-method name="被替换方法" replace="替换方法Bean"/>
+    </bean>
+**** 获取器注入
+*** 非springBean的注入
+*** 特殊bean
+*** 脚本化bean
 ** 通知
 ** 连接数据库
 ** 事务管理
