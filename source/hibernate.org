@@ -61,7 +61,6 @@ User user = (User)session.load(User.class,"test")
  数据库中有相应数据,并有记录标识值
  没有纳入session管理
  
-
 *** 基本映射
 **** 配置规则
 <class> 映射数据库表
@@ -73,4 +72,5 @@ User user = (User)session.load(User.class,"test")
  为持久化字段声明访问器
 **** 主键生成策略
  uuid native assigned
- 
+***** 一对一唯一外键映射
+ <many-to-one name="外键" unique="true"/>
