@@ -1,7 +1,3 @@
-Hibernate初始了解笔记汇集 收藏 
-一个User 属性id的类型定义错（定义为String）出项了错误，应为int，在many2one的工程中出项了异常，且数据库操作也发生了异常。
-String做主键用uuid整数做主键用native
-
 下面介绍一下hibernate的配置问题：
 第一个hibernate项目
 
