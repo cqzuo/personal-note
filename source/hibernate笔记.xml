@@ -106,6 +106,7 @@ hibernate基本映射
  * 为持久化字段声明访问器(accessors) 
 主键生成策略：
  uuid、native和assigned
+ 
 hibernate一对一主键关联映射（单向关联Person---->IdCard）
 一对一主键关联映射:让两个实体对象的id保持相同，这样可以避免多余的字段被创建
 具体映射：

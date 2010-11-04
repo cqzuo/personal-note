@@ -72,5 +72,7 @@ User user = (User)session.load(User.class,"test")
  为持久化字段声明访问器
 **** 主键生成策略
  uuid native assigned
-***** 一对一唯一外键映射
- <many-to-one name="外键" unique="true"/>
+**** 一对一主键关联映射
+***** 单向关联
+     <many-to-one name="外键" unique="true"/>
+***** 双向管理
