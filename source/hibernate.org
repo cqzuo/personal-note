@@ -44,6 +44,28 @@
 {
    return sessionfactory;
 } 
+// 如果session关闭,则打开新session
+private static final ThreadLoacl session = new ThreadLoacl();
+public static Session getCurrentSession() throws HibernateException
+{
+  Session s = (Session)session.get();
+  if(s==null||s!=isOpen())
+  {
+    s = sessionFactory.openSession();
+    session.set(s);
+  }
+  return s;
+}
+
+public static void closeSession() throws HibernateException
+{
+  Session s = (Session)session.get();
+  session.set(null);
+  if(s!=null)
+  {
+    s.close();
+  }
+}
 *** 测试
 **** 测试类编写原则
 ***** 类名为 测试类Test

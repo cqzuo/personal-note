@@ -1,0 +1,52 @@
+* 找工作的准备
+** 知识
+*** 根据简历中的内容来准备
+**** java语言常考点
+**** struts2
+**** spring
+**** hibernate
+**** ibatis
+**** 服务器
+***** tomcat
+***** weblogic
+***** resin
+*** 其他必备的知识准备
+**** 数据库
+***** oracle
+***** mysql
+***** sqlserver
+**** 数据结构
+***** 链表
+***** 栈
+***** 图
+***** 树
+***** 常用算法
+**** 其他web技术
+***** ajax
+***** jquery
+** 简历
+*** 确定需要修改的地方
+*** 修改并定稿
+* 着手找工作
+** 确定网投的站点目录
+*** 592招聘   http://so.job592.com/so.do?province=1300&location=10145&ppostkind=&publishdate=7&fs=&postkind=&page=1&cname=&pname=&s=&u=&words=+java
+*** 数字英才  http://so.01hr.com/result.do?top_text=java&top_location=%B4%F3%C1%AC&top_type=1
+*** 51job     http://search.51job.com/list/2303,%2B,%2B,%2B,8,%2B,java,1,%2B.html?lang=c&stype=2&postchannel=0000&funtype_big=&postfrom=2303&image_x=28&image_y=17
+*** 中国程序员人才网 http://www.cxyrc.com/liaoning/
+*** 应聘网 http://www.ypw.com.cn/search/?&area=%u5927%u8FDE&name=java
+*** 今题网 http://dalian.jinti.com/diannaoruanjian/
+*** indeed http://cn.indeed.com/%E5%B7%A5%E4%BD%9C-Java-%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88-%E5%9C%B0%E7%82%B9-%E5%A4%A7%E8%BF%9E%E5%B8%82
+*** 中华英才网 http://searchjob.chinahr.com/Liaoning---searchresult.html?myLocIDList=4000&myLocParentIDList=4000&companyTypeIDList=&isInterView=1&from=search&positionName=java&prj=quick
+*** 大连在线人才网 http://www.daliancity.com.cn/job/index.php?job_keyword=java&Submit=+%CB%D1%CB%F7+&n=search_new&search=1
+*** 智联招聘 http://search.zhaopin.com/jobs/request.asp?SchAdv=1&CurPage=1&industry=&SchJobType=%u8BA1%u7B97%u673A%u8F6F%u3001%u786C%u4EF6/%u4E92%u8054%u7F51/IT;&subJobType=&JobLocation=600&KeyWord=java&PublishDate=-1
+*** 大连快线 http://www.dlxp.com/job/job_search.asp?tiaoshu=&jiange=&page=1&jobclass=10000000&subJobtype=&jobtype=&JobLocation=&industry=&PublishDate=&workexp=&degree=&area=&CompanyType=&CompanySize=&SalaryFrom_h=0&SalaryTo_h=&keyType_h=&sortby=&ShowMore=y&SearchModel=0&Salary=&f_kw=&RowID=&SaveType=&iMaxCount=&saveagent=1&sreturn=0&zp_advJS_c_jobtypeF=10000000&zp_advJS_c_jobtypeF=10000000&zp_advJS_cShow_jobtypeF=10000000&KeyWord=java&keywordtype=1&SchSelDegreeAdv=&SchComptypeAdv=&SchCompsizeAdv=&Schjobtype1Adv=&SchSalaryAdv=&SchSeltiaoshuAdv=&searchname=ce
+** 网投策略
+**** 时间
+ + 每天早上8:00
+**** 邮件
+ + 邮件中标明工作年限
+ + 投递过的公司记下相关信息,针对性准备面试
+ + 将需要投递的hr邮箱地址先收集后统一发送简历
+**** 看下别人面试的经验总结
+ + 表现自己对软件编程的热情
+ + 能体现自己的优势点
