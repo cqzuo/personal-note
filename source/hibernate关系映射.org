@@ -96,6 +96,19 @@ public class Test_11fk {
         } 
 }
 *** 主键
+**** 模型
+ + 一个人对应一个地址
+**** 实体
+ + public class Person11pk { 
+   private int personid; 
+   private String name; 
+   private int age; 
+   private Address11pk address11pk; 
+   }  
++ public class Address11pk { 
+  private int addressid; 
+  private String addressdetail; 
+  }
 *** 连接表
 ** 一对多
 *** 外键
