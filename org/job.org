@@ -31,6 +31,7 @@
 ** 确定网投的站点目录
 *** 592招聘   http://so.job592.com/so.do?province=1300&location=10145&ppostkind=&publishdate=7&fs=&postkind=&page=1&cname=&pname=&s=&u=&words=+java
 *** 数字英才  http://so.01hr.com/result.do?top_text=java&top_location=%B4%F3%C1%AC&top_type=1
+
 *** 51job     http://search.51job.com/list/2303,%2B,%2B,%2B,8,%2B,java,1,%2B.html?lang=c&stype=2&postchannel=0000&funtype_big=&postfrom=2303&image_x=28&image_y=17
 *** 中国程序员人才网 http://www.cxyrc.com/liaoning/
 *** 应聘网 http://www.ypw.com.cn/search/?&area=%u5927%u8FDE&name=java
