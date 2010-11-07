@@ -893,15 +893,151 @@ CREATE TABLE `person_nn` (
   PRIMARY KEY  (`personid`) 
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=gbk; 
 **** 映射方法
++ <hibernate-mapping>
+    <class name="com.lavasoft.dx._n_n.Personnn" table="PERSON_nn">
+        <id name="personid">
+            <generator class="identity"/>
+        </id>
+        <property name="name"/>
+        <property name="age"/>
+        <!--映射集合属性，join_1ntab是连接表表名-->
+        <set name="addresses"
+             table="join_nn"
+                >
+            <!--“column="personid"”确定PERSON_1ntab表关联到连接表的外键列名-->
+            <key column="personid"/>
+            <!--“column="addressid"”关联PERSON_1ntab表的Address1ntab对象的id在连接表中的列名-->
+            <many-to-many
+                    column="addressid"
+                    class="com.lavasoft.dx._n_n.Addressnn"/>
+        </set>
+    </class>
+</hibernate-mapping>
++ <hibernate-mapping>
+    <class name="com.lavasoft.dx._n_n.Addressnn" table="ADDRESS_nn">
+        <id name="addressid">
+            <generator class="identity"/>
+        </id>
+        <property name="addressdetail"/>
+    </class>
+</hibernate-mapping>
++ 说明
+  一个类的Set集合来作为另一个类的属性
+ <set name="另一个表的名称" table="连接表名称">
+   <key column="连接表的主键"/>
+   <many-to-many column="另一个表的主键名称" class="另一个表名称"/>
+ </set>
+  另一个类正常设置
 **** 测试方法
+public class Test_nn {
+    public static void main(String[] args){
+        Addressnn add1=new Addressnn();
+        Addressnn add2=new Addressnn();
+        Addressnn add3=new Addressnn();
+        Personnn p1=new Personnn();
+        Personnn p2=new Personnn();
+ 
+        add1.setAddressdetail("郑州市经三路");
+        add2.setAddressdetail("合肥市宿州路");
+        add3.setAddressdetail("北京市长安路");
+        p1.setName("wang");
+        p1.setAge(30);
+        p2.setName("lee");
+        p2.setAge(50);
+ 
+        p1.getAddresses().add(add1);
+        p1.getAddresses().add(add2);
+        p2.getAddresses().add(add2);
+        p2.getAddresses().add(add3);
+ 
+        Session session= HibernateUtil.getCurrentSession();
+        Transaction tx=session.beginTransaction();
+        session.save(add1);
+        session.save(add2);
+        session.save(add3);
+        session.save(p1);
+        session.save(p2);
+        tx.commit();
+        HibernateUtil.closeSession();
+    }
+}
 * 双向关联
 ** 一对一
 *** 外键
 **** 模型
+ 一个人对应一个地址
+ 是一对多外键的特例,多的一方添加唯一性约束
 **** 实体类
++ public class Person implements java.io.Serializable { 
+  private Long id; 
+  private String name; 
+  private Address address;
+ }
++ public class Address implements java.io.Serializable { 
+  private Long id; 
+  private Person person; 
+  private String detail;
+}
++ 说明 
+   实体类都实现Serializable接口
+    都添加Long类型属性
 **** 表模型
+[[200812091228754114406.png]]
 **** SQL脚本
++ create table address
+(
+   id                   bigint not null auto_increment comment 'ID',
+   detail               varchar(120) not null comment '详细地址',
+   personid             bigint comment '人的ID',
+   primary key (id)
+)
+type = InnoDB;
+alter table address comment '地址';
++ create table person
+(
+   id                   bigint not null auto_increment comment 'ID',
+   name                 varchar(24) not null comment '姓名',
+   primary key (id)
+)
+type = InnoDB;
+alter table person comment '人';
+alter table address add constraint FK_Reference_4 foreign key (personid)
+      references person (id) on delete restrict on update restrict;
++ 说明
+ 主键都是Long类型id
+ 每个表都有能关联对方表的外键
 **** 映射方法
++ <class name="entity.Person" table="person"> 
+    <id name="id" type="java.lang.Long"> 
+      <column name="id" /> 
+      <generator class="identity" /> 
+    </id> 
+    <property name="name" type="java.lang.String"> 
+      <column name="name" length="24" not-null="true"> 
+        <comment>姓名</comment> 
+      </column> 
+    </property> 
+    <one-to-one name="address" cascade="all" /> 
+  </class> 
+ + <class name="entity.Address" table="address" catalog="testdb"> 
+    <id name="id" type="java.lang.Long"> 
+      <column name="id" /> 
+      <generator class="identity" /> 
+    </id> 
+    <property name="detail" type="java.lang.String"> 
+      <column name="detail" length="120" not-null="true"> 
+        <comment>详细地址</comment> 
+      </column> 
+    </property> 
+    <many-to-one name="person" class="entity.Person" 
+      fetch="select" unique="true"> 
+      <column name="personid"> 
+        <comment>人的ID</comment> 
+      </column> 
+    </many-to-one> 
+  </class> 
+ + 说明
+ 
 **** 测试方法
 *** 主键
 **** 模型
