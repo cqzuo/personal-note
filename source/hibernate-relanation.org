@@ -74,9 +74,12 @@ hibernate关系映射小结
  另一个类用 set 配置 外键关联
  <set  name="该类中关联另一个对象的属性" table="关联到的另一个表名称" cascade="all">
    <key name="关联到的另一个表的主键"/>
-   <one-to-many class=""/>
+   <one-to-many class="关联到的另一个表的实体类名称"/>
  </set>
 **** 连接表
+ 一个类正常配置
+ 另一个类用 set 配置连接表
+  <set name="" table="" cascade="">
 *** 多对一
 **** 外键
 **** 连接表

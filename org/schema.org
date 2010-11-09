@@ -393,6 +393,15 @@ ssh复习
        <replaced-method name="被替换方法" replace="替换方法Bean"/>
     </bean>
 **** 获取器注入
+***** 声明获取器
+ + 把方法声明为返回某种类型的Bean
+ + 方法一般抽象
+ + 实际返回的Bean在spring上下文中配置
+ + public abstract 某种类型 get类型();
+***** bean配置
+ + 在bean中配置 lookup-method
+ + <lookup-method name="bean中的注入方法名称" bean="需要返回的bean"/>
+ + <bean id="需要返回的bean" class="bean完整路径名称" scope=""/> 
 *** 非springBean的注入
 *** 特殊bean
 *** 脚本化bean

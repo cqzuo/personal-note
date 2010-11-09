@@ -7,7 +7,7 @@
   struts2-core
   struts2-extras
   xwork
-  
+
  2. 建立struts2项目的流程
   建立空白项目
   添加jar包
@@ -15,23 +15,23 @@
   添加并配置struts.xml
   添加action
   添加jsp
-  
+
  3. 几个配置文件的位置
   web.xml
     WEB-INF/
   struts.xml
     src/package-name/
- 
+
  4. action与配置
     jsp中
       直接设置action=""
     struts.xml
-      package 
+      package
         name extends
       action
  5. struts标签
  6. 几个接口所在包名
-  ActionSupport  
+  ActionSupport
     com.opensymphony.xwork2.ActionSupport
  7. 相对路径问题
  8. execute()调用action中的数据域
