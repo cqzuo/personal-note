@@ -1,0 +1,112 @@
+ 大连合恩科技有限公司
+ 	dlheen@126.com
+ 负责开发网站系统及后续维护，参与技术研发、质量控制及进度管理。
+岗位要求：
+1、 精通Java应用开发经验需不少于1年
+2、 熟练掌握网络技术：asp.net、ASP、html,xml.css、JavaScript
+3、 熟悉MSSQL数据库 
+4、 熟悉Eclipse开发平台 
+5、需具备独立网站及软件开发经验, 具有良好的编程风格，有较强的自学能力和良好的语言表达能力，具备良好的团队协作精神。
+
+大连会友科技有限公司
+	hr@hyousoft.com
+职位描述：
+1. 本科或以上学历，计算机软件或相关专业；
+2. 一年以上J2EE项目开发经验；熟悉J2EE设计模式，精通Java及Web的开发和应用；
+3. 熟悉SPRING,HIBERNATE, STRUTS2等常用框架，熟悉spring安全框架
+4. 熟悉大型WEB系统架构设计，性能优化，问题处理解决能力强；
+5. 熟悉缓存系统的原理和设计；
+6. 对数据库及SQL优化有经验者优先
+7. 精通Ajax，ireport者优先 
+
+北京易能达软件开发公司
+	wang_xin_guo@163.com
+熟悉ASP、PHP、JSP、JAVA、VC等开发语言之二种；
+熟悉java/jsp/j2EE技术架构的的优先录用；
+熟悉DB2、Informix、Oracle、SQL Server等数据库之一； 
+熟悉linux操作系统；
+公司待遇优厚，员工长期培养聘用。 
+
+大连嘉华科技发展有限公司
+	jiahua_hr@163.com
+
+遨豪（大连）科技有限公司
+	cherry@aukcell.com
+工程师 (若干-长期招聘)
+1.出色的编程技术，熟练掌握Java 和Java Servlets；
+2.熟悉Web相关技术（HTML, XML, JavaScript），精通CSS、Javascript等界面技术；
+3. 熟悉MVC WEB框架Struts 2.0, SPRING/HABERNATE/AJAX；
+4.良好的英文理解能力，至少能看到英文项目需求说明；
+5.熟悉portal开发，了解liferay，具有liferay-portal的运用开发经验优先考虑
+
+上海华钦软件技术有限公司
+	recruitment_dl@clps.com.cn
+1、计算机或理工科相关专业毕业; 
+2、1-2年Java程序开发经验; 
+3、Java, J2EE, weblogic; 
+4 具有银行工作项目经验者优先; 
+5 英文口语良好,可以接受英语面试;
+6 低于学历要求者，请勿投递。谢谢配合;
+
+大连爱宜国际贸易有限公司
+	sunshine060327@sina.com
+	1、计算机及相关专业毕业，大学本科以上学历； 
+2、一年以上web开发经验 ；精通HTML/XML、JavaScript、CSS、JSP、Java或.net语言及SQl 
+3、能独立完成大型网站架构设计及实现； 
+4、熟悉Web Service、AJAX等技术； 
+5、了解Photoshop、 Flash、Dreamweaver等软件的使用，了解SQL或ORACLE等数据库； 
+6、具有良好的沟通能力和团队合作精神
+
+海辉软件国际集团
+	hta@hisoft.com
+职位要求：
+计算机、电子类、信息类、管理类、数学类相关专业
+英语听说读写较好
+乐于在挑战性强、节奏快的环境下工作
+有一定的开发基础，做事耐心、认真，愿意从事各类开发工作
+工作地点：无锡、深圳、上海、北京、大连、成都、西安、南京
+
+大连激发软件科技有限公司
+	inspire_hr@163.com
+要求：
+本科以上学历，1年以上JAVA项目开发经验。
+
+大连亿蓝德信息科技有限公司
+	recruit@eland-g.com
+？ 应届毕业生或一年以上软件开发经验
+？ 熟悉两种以上开发语言或工具（C/C++、Visual C++、Visual Basic、Cobol、Java、Servlet、JSP和.NET以及
+WEB应用开发相关技术）。
+？ 至少熟悉MySQL、Oracle、Postgre SQL、MS SQL Server、DB2中的一种
+？ 日语二级以上优先考虑
+
+大连合力信软件有限公司 
+	hr@helixinsoft.com
+1.应届毕业生或者1～3年软件开发经验者
+2.本科及以上学历，计算机、电子、自动化控制、通信、数学等相关专业。 
+3.应届毕业生要求专业成绩优秀，具有良好的沟通协调能力。有项目开发经验者优先。
+4.C、C++、Java、Android至少精通一种 
+5.懂日语者优先。
+
+大连华铁海兴科技有限公司 
+	dalianhthx@126.com
+岗位要求：
+1.热爱编程, 热爱钻研, 学习能力强,做事有耐心；
+2.精通JAVA编程，熟悉Struts,了解J2EE平台；
+3.本科生以上学历，有网站或WEB应用开发经验者优先；
+4.熟悉关系数据库应用开发；
+5.了解面向对象开发方法和设计模式，了解敏捷开发流程，逻辑思维能力较强，思路清晰；
+
+大连恒通网络信息系统有限公司
+	dongwzx@163.com
+1、两年以上项目开发经验
+2、熟练掌握JAVA、.net至少一门编程语言
+3、具有强烈的工作责任感、良好的适应能力及沟通协调能力，善于接受和学习新技术，富有团队合作精神。
+
+大连龙图信息技术有限公司
+	zhaoxg@taxrefund.com.cn
+1、2年以上的Java实际开发经验;
+2、熟悉JSP，Servlet，JavaBean，JDBC等Java技术;
+3、熟悉 Tomcat，weblogic, websphere等Web Server;
+4、熟悉关系型数据库，有使用SQLServer，Oracle之一的实际经验;
+5、熟悉Java设计模式，熟悉Struts，Hibernate等开源项目;
+
