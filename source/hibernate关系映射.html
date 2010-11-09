@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>hibernate关系映射</title>
 <meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2010-11-08 20:54:34 "/>
+<meta name="generated" content="2010-11-09 17:47:34 "/>
 <meta name="author" content=""/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -153,30 +153,24 @@ lang="en" xml:lang="en">
 
 <ul>
 <li id="sec-1.1.1.1">模型 <br/>
-<ul>
-<li>
 一个人对应一个地址<br/>
 </li>
-</ul>
-</li>
 <li id="sec-1.1.1.2">实体类定义 <br/>
-<ul>
-<li>
-public class Person11fk {<br/>
-private int personid;<br/>
-private String name;<br/>
-private int age;<br/>
-private Address11fk address11fk;<br/>
-}<br/>
-</li>
-<li>
-public class Address11fk {<br/>
-private int addressid;<br/>
-private String addressdetail;<br/>
-</li>
-</ul>
 
-<p>}<br/>
+<p><br/>
+<pre class="src src-c"> + public class Person11fk {
+   private <span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">personid</span>;
+   private <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">name</span>;
+   private <span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">age</span>;
+   private <span style="color: #9acd32; font-weight: bold;">Address11fk</span> <span style="color: #7fffd4; font-weight: bold;">address11fk</span>;
+   }
+ + public class Address11fk {
+   private <span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">addressid</span>;
+   private <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">addressdetail</span>;
+}
+</pre>
+
+
 </p><ul>
 <li>
 说明<br/>
@@ -225,89 +219,86 @@ mysql&gt; desc person<sub>11fk</sub>;<br/>
 </ul>
 </li>
 <li id="sec-1.1.1.4">SQL脚本 <br/>
-<ul>
-<li>
-CREATE TABLE `address<sub>11fk`</sub> ( <br/>
-`addressid` int(11) NOT NULL auto<sub>increment</sub>, <br/>
-`addressdetail` varchar(255) default NULL, <br/>
-PRIMARY KEY    (`addressid`) <br/>
-) ENGINE=InnoDB AUTO<sub>INCREMENT</sub>=2 DEFAULT CHARSET=gbk; <br/>
 
 <p><br/>
-</p><ul>
-<li>
-CREATE TABLE `person<sub>11fk`</sub> ( <br/>
-`personid` int(11) NOT NULL auto<sub>increment</sub>, <br/>
-`name` varchar(255) default NULL, <br/>
-`age` int(11) default NULL, <br/>
-`addressId` int(11) default NULL, <br/>
-PRIMARY KEY    (`personid`), <br/>
-KEY `FK68A8818F3F45AA77` (`addressId`), <br/>
-CONSTRAINT `FK68A8818F3F45AA77` FOREIGN KEY (`addressId`) REFERENCES `address<sub>11fk`</sub> (`addressid`) <br/>
-) ENGINE=InnoDB AUTO<sub>INCREMENT</sub>=2 DEFAULT CHARSET=gbk; <br/>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li id="sec-1.1.1.5">映射方法 <br/>
-<ul>
-<li>
-&lt;hibernate-mapping&gt; <br/>
-&lt;class name="com.lavasoft.dx.<sub>1</sub><sub>1</sub><sub>fk</sub>.Address11fk" table="ADDRESS<sub>11fk</sub>"&gt; <br/>
-&lt;id name="addressid"&gt; <br/>
-&lt;generator class="identity"/&gt; <br/>
-&lt;/id&gt; <br/>
-&lt;property name="addressdetail"/&gt; <br/>
-&lt;/class&gt; <br/>
-</li>
-</ul>
+<pre class="src src-c">+ CREATE TABLE `address_11fk` ( 
+  `addressid` <span style="color: #9acd32; font-weight: bold;">int</span>(11) NOT <span style="color: #7fffd4;">NULL</span> auto_increment, 
+  `addressdetail` varchar(255) <span style="color: #fa8072;">default</span> <span style="color: #7fffd4;">NULL</span>, 
+  <span style="color: #9acd32; font-weight: bold;">PRIMARY</span> <span style="color: #7fffd4; font-weight: bold;">KEY</span>    (`addressid`) 
+  ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk; 
+  
+ + CREATE TABLE `person_11fk` ( 
+   `personid` <span style="color: #9acd32; font-weight: bold;">int</span>(11) NOT <span style="color: #7fffd4;">NULL</span> auto_increment, 
+   `name` varchar(255) <span style="color: #fa8072;">default</span> <span style="color: #7fffd4;">NULL</span>, 
+   `age` <span style="color: #9acd32; font-weight: bold;">int</span>(11) <span style="color: #fa8072;">default</span> <span style="color: #7fffd4;">NULL</span>, 
+   `addressId` <span style="color: #9acd32; font-weight: bold;">int</span>(11) <span style="color: #fa8072;">default</span> <span style="color: #7fffd4;">NULL</span>, 
+   <span style="color: #9acd32; font-weight: bold;">PRIMARY</span> <span style="color: #7fffd4; font-weight: bold;">KEY</span>    (`personid`), 
+   KEY `FK68A8818F3F45AA77` (`addressId`), 
+   CONSTRAINT `FK68A8818F3F45AA77` FOREIGN KEY (`addressId`) REFERENCES `address_11fk` (`addressid`) 
+   ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk; 
+</pre>
 
-<p>&lt;/hibernate-mapping&gt;<br/>
-</p>
-<p><br/>
-</p><ul>
-<li>
-&lt;hibernate-mapping&gt; <br/>
-&lt;class name="com.lavasoft.dx.<sub>1</sub><sub>1</sub><sub>fk</sub>.Person11fk" table="PERSON<sub>11fk</sub>"&gt; <br/>
-&lt;id name="personid"&gt; <br/>
-&lt;generator class="identity"/&gt; <br/>
-&lt;/id&gt; <br/>
-&lt;property name="name"/&gt; <br/>
-&lt;property name="age"/&gt; <br/>
-&lt;!&ndash;用来映射关联PO column是Address在该表中的外键列名,增加unique变成“1-1”&ndash;&gt; <br/>
-&lt;many-to-one name="address11fk" column="addressId" unique="true"/&gt; <br/>
-&lt;/class&gt; <br/>
-</li>
-</ul>
 
-<p>&lt;/hibernate-mapping&gt;<br/>
 </p></li>
-<li id="sec-1.1.1.6">测试方法 <br/>
-public class Test<sub>11fk</sub> { <br/>
-public static void main(String[] args){ <br/>
-Person11fk p1=new Person11fk(); <br/>
+<li id="sec-1.1.1.5">映射方法 <br/>
 
 <p><br/>
-p1.setAge(21); <br/>
-p1.setName("p1"); <br/>
-</p>
+<pre class="src src-c"> + &lt;hibernate-mapping&gt; 
+        &lt;class name=<span style="color: #ffa07a;">"com.lavasoft.dx._1_1_fk.Address11fk"</span> table=<span style="color: #ffa07a;">"ADDRESS_11fk"</span>&gt; 
+                &lt;id name=<span style="color: #ffa07a;">"addressid"</span>&gt; 
+                        &lt;generator class=<span style="color: #ffa07a;">"identity"</span>/&gt; 
+                &lt;/id&gt; 
+                &lt;property name=<span style="color: #ffa07a;">"addressdetail"</span>/&gt; 
+        &lt;/class&gt; 
+ &lt;/hibernate-mapping&gt;
+ + &lt;hibernate-mapping&gt; 
+        &lt;class name=<span style="color: #ffa07a;">"com.lavasoft.dx._1_1_fk.Person11fk"</span> table=<span style="color: #ffa07a;">"PERSON_11fk"</span>&gt; 
+                &lt;id name=<span style="color: #ffa07a;">"personid"</span>&gt; 
+                        &lt;generator class=<span style="color: #ffa07a;">"identity"</span>/&gt; 
+                &lt;/id&gt; 
+                &lt;property name=<span style="color: #ffa07a;">"name"</span>/&gt; 
+                &lt;property name=<span style="color: #ffa07a;">"age"</span>/&gt; 
+                &lt;!--&#29992;&#26469;&#26144;&#23556;&#20851;&#32852;PO column&#26159;Address&#22312;&#35813;&#34920;&#20013;&#30340;&#22806;&#38190;&#21015;&#21517;,&#22686;&#21152;unique&#21464;&#25104;&#8220;1-1&#8221;--&gt; 
+                &lt;many-to-one name=<span style="color: #ffa07a;">"address11fk"</span> column=<span style="color: #ffa07a;">"addressId"</span> unique=<span style="color: #ffa07a;">"true"</span>/&gt; 
+        &lt;/class&gt; 
+&lt;/hibernate-mapping&gt;
+</pre>
+
+
+</p><ul>
+<li>
+说明<br/>
+关联的外键用 many-to-one配置<br/>
+&lt;many-to-one name="实体类中关联另一个类的属性" column="该属性对应的外键" unique="true"/&gt; <br/>
+</li>
+</ul>
+</li>
+<li id="sec-1.1.1.6">测试方法 <br/>
+
 <p><br/>
-Address11fk add1=new Address11fk(); <br/>
-add1.setAddressdetail("郑州市经三路"); <br/>
-</p>
-<p><br/>
-p1.setAddress11fk(add1); <br/>
-</p>
-<p><br/>
-Session session= HibernateUtil.getCurrentSession(); <br/>
-Transaction tx=session.beginTransaction(); <br/>
-session.save(add1); <br/>
-session.save(p1); <br/>
-tx.commit(); <br/>
-HibernateUtil.closeSession(); <br/>
-} <br/>
-}<br/>
+<pre class="src src-c">public <span style="color: #9acd32; font-weight: bold;">class</span> <span style="color: #7fffd4; font-weight: bold;">Test_11fk</span> { 
+      public <span style="color: #fa8072;">static</span> <span style="color: #9acd32; font-weight: bold;">void</span> <span style="color: #7fffd4; font-weight: bold;">main</span>(String[] args){ 
+             <span style="color: #9acd32; font-weight: bold;">Person11fk</span> <span style="color: #7fffd4; font-weight: bold;">p1</span>=new Person11fk(); 
+ 
+             p1.setAge(21); 
+             p1.setName(<span style="color: #ffa07a;">"p1"</span>); 
+ 
+             <span style="color: #9acd32; font-weight: bold;">Address11fk</span> <span style="color: #7fffd4; font-weight: bold;">add1</span>=new Address11fk(); 
+             add1.setAddressdetail(<span style="color: #ffa07a;">"&#37073;&#24030;&#24066;&#32463;&#19977;&#36335;"</span>); 
+ 
+             p1.setAddress11fk(add1); 
+ 
+             <span style="color: #9acd32; font-weight: bold;">Session</span> <span style="color: #7fffd4; font-weight: bold;">session</span>= HibernateUtil.getCurrentSession(); 
+             <span style="color: #9acd32; font-weight: bold;">Transaction</span> <span style="color: #7fffd4; font-weight: bold;">tx</span>=session.beginTransaction(); 
+             session.save(add1); 
+             session.save(p1); 
+             tx.commit(); 
+             HibernateUtil.closeSession(); 
+     } 
+}
+</pre>
+
+
 </p></li>
 </ul>
 </div>
@@ -2736,11 +2727,8 @@ public class Addressnn<sub>sx</sub> {<br/>
 private int addressid;<br/>
 private String addressdetail;<br/>
 private Set persons = new HashSet();<br/>
+}<br/>
 </li>
-</ul>
-
-<p>}<br/>
-</p><ul>
 <li>
 说明<br/>
 2个类的Set集合都互为对方的属性<br/>
@@ -2971,7 +2959,7 @@ HibernateUtil.closeSession();<br/>
 <div id="postamble">
 <p class="author"> Author: 
 </p>
-<p class="date"> Date: 2010-11-08 20:54:34 </p>
+<p class="date"> Date: 2010-11-09 17:47:34 </p>
 <p class="creator">HTML generated by org-mode 6.35i in emacs 24</p>
 </div>
 </div>

@@ -6,6 +6,7 @@ hibernate关系映射
 **** 模型
  一个人对应一个地址
 **** 实体类定义
+ #+BEGIN_SRC c
  + public class Person11fk {
    private int personid;
    private String name;
@@ -16,6 +17,7 @@ hibernate关系映射
    private int addressid;
    private String addressdetail;
 }
+ #+END_SRC
 + 说明
   一个类作为另一个类的属性
 **** 表模型
@@ -39,6 +41,7 @@ mysql> desc person_11fk;
 + 说明
   一个表中的主键在另一个表中
 **** SQL脚本
+ #+BEGIN_SRC c
  + CREATE TABLE `address_11fk` ( 
    `addressid` int(11) NOT NULL auto_increment, 
    `addressdetail` varchar(255) default NULL, 
@@ -54,17 +57,18 @@ mysql> desc person_11fk;
     KEY `FK68A8818F3F45AA77` (`addressId`), 
     CONSTRAINT `FK68A8818F3F45AA77` FOREIGN KEY (`addressId`) REFERENCES `address_11fk` (`addressid`) 
     ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk; 
+ #+END_SRC
 **** 映射方法
-+ <hibernate-mapping> 
+ #+BEGIN_SRC c
+ + <hibernate-mapping> 
         <class name="com.lavasoft.dx._1_1_fk.Address11fk" table="ADDRESS_11fk"> 
                 <id name="addressid"> 
                         <generator class="identity"/> 
                 </id> 
                 <property name="addressdetail"/> 
         </class> 
-</hibernate-mapping>
- 
-+ <hibernate-mapping> 
+ </hibernate-mapping>
+ + <hibernate-mapping> 
         <class name="com.lavasoft.dx._1_1_fk.Person11fk" table="PERSON_11fk"> 
                 <id name="personid"> 
                         <generator class="identity"/> 
@@ -75,9 +79,14 @@ mysql> desc person_11fk;
                 <many-to-one name="address11fk" column="addressId" unique="true"/> 
         </class> 
 </hibernate-mapping>
+#+END_SRC
++ 说明
+  关联的外键用 many-to-one配置
+ <many-to-one name="实体类中关联另一个类的属性" column="该属性对应的外键" unique="true"/> 
 **** 测试方法
-public class Test_11fk { 
-        public static void main(String[] args){ 
+ #+BEGIN_SRC c
+   public class Test_11fk { 
+         public static void main(String[] args){ 
                 Person11fk p1=new Person11fk(); 
     
                 p1.setAge(21); 
@@ -95,7 +104,8 @@ public class Test_11fk {
                 tx.commit(); 
                 HibernateUtil.closeSession(); 
         } 
-}
+   }
+#+END_SRC
 *** 主键
 **** 模型
  + 一个人对应一个地址
