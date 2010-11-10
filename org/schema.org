@@ -391,24 +391,98 @@ ssh复习
 ***** bean配置
  + <bean id="被替换bean" class="">
        <replaced-method name="被替换方法" replace="替换方法Bean"/>
-    </bean>
+   </bean>
 **** 获取器注入
-***** 声明获取器
- + 把方法声明为返回某种类型的Bean
- + 方法一般抽象
- + 实际返回的Bean在spring上下文中配置
- + public abstract 某种类型 get类型();
-***** bean配置
- + 在bean中配置 lookup-method
- + <lookup-method name="bean中的注入方法名称" bean="需要返回的bean"/>
- + <bean id="需要返回的bean" class="bean完整路径名称" scope=""/> 
+***** 方法声明
+ 在类中声明方法
+ public abstract 需要返回的Bean类型 getBean类型();
+***** 方法替换 
+ <lookup-method name="上面声明的抽象方法名称" bean="需要返回的Bean类型"/>
 *** 非springBean的注入
+**** 场景
+***** 自己实例化的Bean
+***** orm中工具实例化的对象或域
+***** jsp中自定义标签的对象
+**** 应用
+***** bean添加abstract修饰
+***** 在bean中添加 @Configurable
+***** 在spring的配置文件中添加 <aop:spring-configured/>
+*** 定义属性编辑器
+    DEADLINE: <2010-11-10 星期三>
+**** 实现接口
+ + PropertieEditorSupport
+  - getAsText()
+  - setAsText()
+**** 注册编辑器 
+ + 在org.springframework.beans.factory.config.CustomEditorConfigurer 添加属性
+  - <map>
+      <entry key="自定义属性编辑器的完整路径名称">
+        <bean id="属性编辑器的名称" class="同上面key的值"/>
+      </entry>
+    </map>
 *** 特殊bean
+**** 后处理bean
+***** 实现BeanPostProcessor接口
+ + postProessorBeforeInitialization()
+ + postProessorAfterInitialization()
+***** 注册Bean
+ + 在spring的配置文件中添加bean
+ <bean id="" class=""/>
+**** 工厂的后处理
+***** 实现BeanFactoryPostProcessor接口
+ + postProcessorBeanFacory()
+***** 注册Bean
+ + <bean id="" class=""/>
+**** 配置属性的外在化
+***** 属性文件
+ + PropertiePlaceHolderConfigurer
+  - <property name=="location" value="配置文件的位置和名称"/>
+  - <property name="locations"> 
+     <list>
+       <value>配置文件的位置和名称</value>
+       <value>.....</value>
+     </list>
+    </property>
+***** 配置文件
+ + <property name="属性名称" value="${配置文件中配置的属性对应值}"/>
+**** 提取文本信息
+***** 原理
+ + ApplicationContext 通过 MessageResource 接口把参数化的消息提供给容器
+***** ResourceBundleMessageResource 接口
+ + 在spring的配置文件中添加引用
+  - <bean id="MessageResource" class="org.springframework.context.support.ResourceBundleMessageResource">
+      <property name="basename" value="参数化包"/>
+    </bean>
+***** 获取信息
+ + 在spring中获取信息 
+   Local local = ...;
+   String text = context.getMessage("参数名称",new Object[0],local);
+ + 在jsp中获取信息
+   <spring:message code="参数名称"/>
+*** 程序之间的解耦
+**** 发布事件
+ + 事件
+  实现接口 ApplicationEvent
+ + 发布
+  ApplicationContext context = ...;
+  context.publishEvent(event对象);
+**** 监听事件
+ + 接口
+  org.springframework.context.ApplicationListerner
+ + 方法
+  onApplicationEvent()
+ + 注册
+  <bean id="监听器名称" class="监听类完整路径名"/>
 *** 脚本化bean
+**** xsi添加
+ + 
+**** 脚本配置
+*** 了解容器
 ** 通知
-** 连接数据库
+** 连接数据库    
 ** 事务管理
-** 在eclipse中添加spring配置文件提示
+** 其它
+ 在eclipse中添加spring配置文件提示
    windows-preferences-myeclipse-files and editors-xml-xmlcatalog
 点"add",在出现的窗口中的Key Type中选择URL,在location中选"File system",
 然后在spring解压目录的dist/resources目录中选择spring-beans-2.5.xsd,回到设置
