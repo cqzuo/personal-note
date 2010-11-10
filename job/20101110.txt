@@ -1,0 +1,80 @@
+北京神州数码思特奇信息技术股份有限公司沈阳分公司
+	hrs@si-tech.com.cn
+工作职责：
+1、参与JAVA/J2EE技术的相关产品设计、开发、测试等产品研发工作；
+2、参与软件工程文档、产品文档编写，满足质量要求；
+3、参与研发产品在工程项目中的安装、调试、客户化修改、开发；
+4、参与各省新需求分析及新需求开发。
+任职要求：
+1、国家正规院校大学本科或以上学历，计算机或相关专业毕业；
+2、1年以上JAVA/J2EE开发经验，有电信行业经验开发经验者优先；
+3、熟系Spring，Struts和Hibernate等主流的开发框架，熟悉JSP/Servlet/JavaScript等WEB开发技术；
+4、熟练掌握数据库Oracle、Sybase、SQLServer中至少一种，能够熟练进行编程。
+5、熟练使用UNIX、LINUX，能进行shell编程；
+6、熟悉软件技术文档的编写，具备良好的文档编制习惯和代码书写规范；
+7、具有强烈的工作责任心、有良好的沟通能力和团队合作精神、承压能力；
+8、学习能力强，拥有优秀的逻辑思维能力与自我管理能力。
+
+大连简易软件有限公司
+	hr@ddaysoft.com
+Qualifications:
+Java open source technologies                     Good
+Java/Java EE                                                       Good  
+Eclipse/SVN                                                        Excellent
+Test Driven Programming (JUnit/TestNG)    Good
+Able to read English technical document    
+3 years working experience
+
+大连东方之翼科技有限公司
+	rencai@commy.jp
+、有java开发工作经验；熟练使用java语言，有良好的编程风格；
+2、精通java网络编程； 
+3、优先游戏开发经验者； 
+4、具有系统功能需求分析及数据库设计经验； 
+5、能够协同技术开发团队完成产品实现的功能,并对最终产品质量负责； 
+6、工作积极主动、认真踏实、有良好的沟通能力和团队合作精神。
+
+大连华信计算机技术股份有限公司
+	job@dhc.com.cn
+职位要求：
+1.根据公司项目需要，完成软件系统代码的实现，编写代码注释和开发文档；
+2.辅助进行系统的功能定义,程序设计；
+3.根据设计文档或需求说明完成代码编写，调试，测试和维护；
+4.分析并解决软件开发过程中的问题。
+
+任职资格：
+1.计算机或相关专业本科学历以上；
+2.1～5年以上的项目经验，熟练使用JAVA进行开发；
+3.日语3级以上；
+4.熟练使用J2EE体系、Struts、Hibernate、Spring、JavaScript以及Oracle数据库；
+5.具备需求分析和系统设计能力， 以及较强的逻辑分析和独立解决问题能力；
+6.富有团队精神,责任感和沟通能力，能承受较强的工作压力。  
+
+大连隆盈商贸有限公司
+	hr@366g.net
+一、岗位职责：
+加入一个成长性的团队，共同负责基于Web的软件开发，参与设计、编码、测试及技术文档的撰写。
+
+二、招聘要求：
+1.熟悉java编程，掌握J2EE规范以及主流设计模式。掌握基于Web的应用程序开发,理解Struts2、Hibernate、Spring 等主流框架开发过程。具有将用户需求转换为概要设计，并优化设计的能力,有较强的代码分析、整理、优化能力，
+2.有一定的数据库开发经验，熟悉Mysql，能编写Oracle的存储过程，会使用等数据库设计工具，具备数据库表规划设计能力，包含单数据表设计、数据表关联设计、访问权限设计、事务脚本设计； 
+3.熟练使用Javascript framework, 特别是 jQuery。
+4.有良好的学习及沟通能力，富有团队精神。
+5.有B2C网站,论坛设计经验者优先,精通数据库者优先。
+
+大连锐成佳业科技有限公司
+	rcs@rui-cheng.com
+1.二年以上Java开发经验(J2EE,SQL,Database -Oracle/Syb,Unix ,Spring, Hibernate)或（Java,Web,Spring,Unix.） 
+2.有责任感，适合群体工作，并能适度调节工作压力 
+3.计算机专业本科或硕士 
+
+同方鼎欣信息技术有限公司
+	li_li@asdc.com.cn
+职位名称：java开发工程师（大连）
+需求人数： 2
+最低学历要求： 本科 
+语言能力要求： 英语4级及以上
+技术能力要求： 
+java programming,knowledge in J2SE,SWT/Jface,XML,Eclipse programming,knowledge in eclipse architecture.Clear understanding of plugin development.hands-on experience in CVS,merger,maintenance.Hands-on experience in DB2:Database
+工作地点：大连
+最好是对欧美项目或国内项目经验。

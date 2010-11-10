@@ -1,112 +1,203 @@
- 大连合恩科技有限公司
- 	dlheen@126.com
- 负责开发网站系统及后续维护，参与技术研发、质量控制及进度管理。
-岗位要求：
-1、 精通Java应用开发经验需不少于1年
-2、 熟练掌握网络技术：asp.net、ASP、html,xml.css、JavaScript
-3、 熟悉MSSQL数据库 
-4、 熟悉Eclipse开发平台 
-5、需具备独立网站及软件开发经验, 具有良好的编程风格，有较强的自学能力和良好的语言表达能力，具备良好的团队协作精神。
+大连北方假日旅游咨询服务有限公司  
+	800@bfjr.com 
+1、负责对公司预订平台及业务支持系统的升级，及相关业务软件产品的技术支持； 
+2、对现有产品的设计更新给予技术支持。 
+职位要求： 
+1、计算机相关专业，精通B/S结构开发，二年以上web软件开发经验； 
+2、精通Java、Struts、Spring、Hibernate、JSF等B/S开发技术； 
+3、精通dhtml,jsvascript，css，熟悉ajax应用； 
+4、精通Java开发，熟悉Swing编程； 
+5、思路清晰，工作规范，良好的沟通能力、较强的团队协作精神和责任心； 
+6、善于学习新的软件方法和技术；诚实守信、刻苦钻研； 
+7、有MIS、CRM、ERP或电子商务系统编程经验优先。
 
-大连会友科技有限公司
-	hr@hyousoft.com
-职位描述：
-1. 本科或以上学历，计算机软件或相关专业；
-2. 一年以上J2EE项目开发经验；熟悉J2EE设计模式，精通Java及Web的开发和应用；
-3. 熟悉SPRING,HIBERNATE, STRUTS2等常用框架，熟悉spring安全框架
-4. 熟悉大型WEB系统架构设计，性能优化，问题处理解决能力强；
-5. 熟悉缓存系统的原理和设计；
-6. 对数据库及SQL优化有经验者优先
-7. 精通Ajax，ireport者优先 
+大连智达科技有限公司
+	dlzd.ivtv@163.com 
+1）计算机相关专业毕业；
+2）熟悉Java SE 和Java EE技术,包括Servlet/JSP、JDBC、EJB、JMS、Web Service等；
+3）熟悉SQL语言,能应用Oracle,MySQL,SQLServer一种以上数据库进行开发;
+4）具备高度的团队合作精神及较强的创新能力;
+5）身体健康,能适应加班和出差;
+6）思维敏捷,有较强的语言和文字表达能力
 
-北京易能达软件开发公司
-	wang_xin_guo@163.com
-熟悉ASP、PHP、JSP、JAVA、VC等开发语言之二种；
-熟悉java/jsp/j2EE技术架构的的优先录用；
-熟悉DB2、Informix、Oracle、SQL Server等数据库之一； 
-熟悉linux操作系统；
-公司待遇优厚，员工长期培养聘用。 
+大连慧搜网络技术有限公司 
+	li.hua@nhn.com 
+- Java 开发经验1年以上 
+- DBMS(Oracle,MySQL) 精通 
+- 设计/分析能力优秀者优先 
+- 有日本工作经验者优先 
 
-大连嘉华科技发展有限公司
-	jiahua_hr@163.com
+· 语言能力：日语精通者优先 
+· 简历语言：中文
 
-遨豪（大连）科技有限公司
-	cherry@aukcell.com
-工程师 (若干-长期招聘)
-1.出色的编程技术，熟练掌握Java 和Java Servlets；
-2.熟悉Web相关技术（HTML, XML, JavaScript），精通CSS、Javascript等界面技术；
-3. 熟悉MVC WEB框架Struts 2.0, SPRING/HABERNATE/AJAX；
-4.良好的英文理解能力，至少能看到英文项目需求说明；
-5.熟悉portal开发，了解liferay，具有liferay-portal的运用开发经验优先考虑
+大连尚嘉信息咨询有限公司
+	Jobs@bdconsulting.cn
+1. 愿意去南京工作 
+2. 可以阅读日文文档，要求三级或三级上 
+3. Java基本功扎实，熟悉web开发，对Struts有一定了解 
+4. 能熟练使用SQL 
+5. 毕业1年上，本专不限
+联系电话：黄经理 -(0411)8475-6183 
+简历请发到：Jobs@bdconsulting.cn
 
-上海华钦软件技术有限公司
-	recruitment_dl@clps.com.cn
-1、计算机或理工科相关专业毕业; 
-2、1-2年Java程序开发经验; 
-3、Java, J2EE, weblogic; 
-4 具有银行工作项目经验者优先; 
-5 英文口语良好,可以接受英语面试;
-6 低于学历要求者，请勿投递。谢谢配合;
 
-大连爱宜国际贸易有限公司
-	sunshine060327@sina.com
-	1、计算机及相关专业毕业，大学本科以上学历； 
-2、一年以上web开发经验 ；精通HTML/XML、JavaScript、CSS、JSP、Java或.net语言及SQl 
-3、能独立完成大型网站架构设计及实现； 
-4、熟悉Web Service、AJAX等技术； 
-5、了解Photoshop、 Flash、Dreamweaver等软件的使用，了解SQL或ORACLE等数据库； 
-6、具有良好的沟通能力和团队合作精神
+大连华信计算机技术股份有限公司
+	job@dhc.com.cn 
+职位要求： 
 
-海辉软件国际集团
-	hta@hisoft.com
-职位要求：
-计算机、电子类、信息类、管理类、数学类相关专业
-英语听说读写较好
-乐于在挑战性强、节奏快的环境下工作
-有一定的开发基础，做事耐心、认真，愿意从事各类开发工作
-工作地点：无锡、深圳、上海、北京、大连、成都、西安、南京
+1.根据公司项目需要，完成软件系统代码的实现，编写代码注释和开发文档；
+2.辅助进行系统的功能定义,程序设计；
+3.根据设计文档或需求说明完成代码编写，调试，测试和维护；
+4.分析并解决软件开发过程中的问题。
+任职资格： 
+1.计算机或相关专业本科学历以上；
+2.英语四级以上，具备听说读写能力； 
+3.有3年以上的项目经验，熟练使用JAVA进行开发； 
+4.熟练使用J2EE体系、Struts、Hibernate、Spring、JavaScript以及Oracle数据库；
+5.具备需求分析和系统设计能力， 
+以及较强的逻辑分析和独立解决问题能力；
+6.富有团队精神,责任感和沟通能力，能承受较强的工作压力。
 
-大连激发软件科技有限公司
-	inspire_hr@163.com
-要求：
-本科以上学历，1年以上JAVA项目开发经验。
+上海思冲信息技术有限公司
+	branda.wu@astronchina.net 
+大连当地外资公司内部开发职位，需要有1-3年JAVA开发经验，英文相当CET-6水平。
 
-大连亿蓝德信息科技有限公司
-	recruit@eland-g.com
-？ 应届毕业生或一年以上软件开发经验
-？ 熟悉两种以上开发语言或工具（C/C++、Visual C++、Visual Basic、Cobol、Java、Servlet、JSP和.NET以及
-WEB应用开发相关技术）。
-？ 至少熟悉MySQL、Oracle、Postgre SQL、MS SQL Server、DB2中的一种
-？ 日语二级以上优先考虑
+大连亿科信息技术有限公司 
+	hr@escco.com.cn 
+1.JAVA开发二年以上，会SQL SERVER 数据库 
+2.大学本科学历，计算机相关专业 
+3.有生产管理系统开发的相关经验优先 
+4.懂日语的优先 
 
-大连合力信软件有限公司 
-	hr@helixinsoft.com
-1.应届毕业生或者1～3年软件开发经验者
-2.本科及以上学历，计算机、电子、自动化控制、通信、数学等相关专业。 
-3.应届毕业生要求专业成绩优秀，具有良好的沟通协调能力。有项目开发经验者优先。
-4.C、C++、Java、Android至少精通一种 
-5.懂日语者优先。
+大连北游科技有限公司
+	laoduiqipai@hotmail.com 
+1、精通java面向对象编程，精通JSP/Servlet/HTML/JavaScript/JDBC/XML。 
+2、了解MVC和Apache Struts，Spring，Hibernate，ibatis者； 
+3、熟悉Oracle，Sql Server，Mysql等数据库开发经验； 
+4、精通HTML、JavaScript；精通JSP、Java的开发；精通SQL程序设计； 
+5、熟悉Apache、Tomcat、Resin等配置； 
+6、有1年以上Web应用和J2EE体系开发经验；
+7、有as3编程能力优先；
+8、有webgame开发经验优先
 
-大连华铁海兴科技有限公司 
-	dalianhthx@126.com
-岗位要求：
-1.热爱编程, 热爱钻研, 学习能力强,做事有耐心；
-2.精通JAVA编程，熟悉Struts,了解J2EE平台；
-3.本科生以上学历，有网站或WEB应用开发经验者优先；
-4.熟悉关系数据库应用开发；
-5.了解面向对象开发方法和设计模式，了解敏捷开发流程，逻辑思维能力较强，思路清晰；
+大连启华科技有限公司
+	hr@dlqihua.com 
+1、职责描述： 
+*参加基于Java技术的企业级服务器应用开发或J2EE应用开发； 
+*根据开发规范与流程独立完成模块的设计、编码、测试以及相关文档； 
+*参与软件需求与设计审核和代码检查。 
+2、任职责任： 
+*本科及以上学历，计算机、数学或相关专业毕业； 
+*精通面向对象软件结构知识，熟悉设计模式，具有较强的逻辑思维能力； 
+*具有较好的沟通、协作和学习能力，良好的团队合作精神； 
+*熟练掌握C语言或有金融业务或电信业务开发经验者优先考虑。
 
-大连恒通网络信息系统有限公司
-	dongwzx@163.com
-1、两年以上项目开发经验
-2、熟练掌握JAVA、.net至少一门编程语言
-3、具有强烈的工作责任感、良好的适应能力及沟通协调能力，善于接受和学习新技术，富有团队合作精神。
+大连荣达科技发展有限公司
+	dgt_hr@hotmail.com 
+★招聘Java 软件工程师(工作地大连)：
+1、正规大学专科以上学历； 
+2、至少2年java开发经验； 
+3、精通Java、WebSphere，精通J2EE、Struts开发技术； 
+4、熟悉面向对象的程序开发； 
+5、熟悉DB2, JSP, servlet, Java bean, EJB, CVS； 
+6、熟悉Junit,Ant,Websphere Commerce Suite； 
+7、日语3级以上 或 英语CET-6优先；
 
-大连龙图信息技术有限公司
-	zhaoxg@taxrefund.com.cn
+大连亿联网络科技有限公司 
+	liupeng@yilian.cc 
+职位要求： 
+1、具有扎实的计算机理论知识，有2年以上软件开发经验；
+2、Java开发经验2年以上，精通Struts,Ibitis,Spring；
+3、熟悉基于MySql的设计和开发；
+4、能够独立完成模块的详细设计和程序设计工作；
+工作职责：
+1、负责模块核心代码的编写；
+2、单元测试计划的制定和实施。
+
+大连创科科技发展有限公司 
+	hr@dldck.com.cn 
+Qualification 
+1. At least one year English support project experience. Good trouble-shooting skills.
+2. Minimum two years of Oracle working experience.
+3. At least two years Java development experience.
+4. Familiar with JavaScript, AJAX，SQL, Hibernate，JSF， SWT,spring,struts
+5. English skill: Basic English oral skill. Good English write and read skills.
+6.Proven ability to work well under pressure and in a team environment 
+7.The successful candidate must be highly motivated, fast learner, flexible, willing to assume responsibility, and deliver quality work on time
+1.一年以上欧美项目开发经验。
+2.2年以上Oracle开发经验
+3.2年以上java开发经验
+4.熟悉JavaScript, AJAX，SQL, Hibernate，JSF， SWT，Spring，Struts等
+5.良好的英语读写 能力，口语沟通能力
+6.在较强压力下的团队工作能力 
+7.较强的工作主动性，学习能力强，能高效完成工作
+
+博涵前锋科技（大连）有限公司
+	recruitment@bhr.com.cn 
+大学本科及以上学历
+1-2年Java/J2EE程序开发经验, 熟练应用Web开发技术，如JSP/Servlet/EJB/HTML / XML / Java Scripts，熟练应用SQL
+充分理解J2EE architecture / Struts framework
+有使用Java/Jsp IDE like Eclipse, NetBeans等的开发经验
+有WebLogic Integration / WebLogic Workshop经验的优先
+良好的英语读写能力
+良好的沟通能力及团队合作精神
+
+大连盛研科技发展有限公司
+	gameteam@dlshengyan.com 
+岗位要求：专科以上学历，热爱程序工作；
+岗位职责：
+1、有一定的英语阅读和理解能力
+2、熟练掌握windows操作系统，了解Linux操作系统相关知识
+3、有一定的程序设计语言基础
+若无相关工作经验，上岗前需参加公司岗前内训
+
+大连运邦科技发展有限公司 
+	hr@runbest.com.cn 
+计算机专业正规统招本科以上学历，二年以上JAVA开发经验，独立开发能力强，学习能力强，认真敬业。
+
+大连有风网络科技有限公司
+	camille-fyj@163.com 
+一到两年经验，大专上以学历
+抗压力强，有团队精神
+应届毕业生皆可
+请将简历发到邮箱里
+以附件形式发送，请注明应聘的职位
+
+东软集团股份有限公司 
+	hrdl@neusoft.com 
+本科学历，计算机相关专业，二年以上Java开发经验，懂数据库，具备良好的沟通能力，日语三级以上者优先
+
+克斯美（北京）科技有限公司  
+	zhaili@cosmic-net.cn 
+1、熟悉面向对象设计编程，熟悉JAVA 编程语言，熟悉J2EE；
+熟悉jsp，servlet，jdbc编程，熟悉Struts、Hibernate、Spring等； 
+2、熟练掌握JavaScript/HTML/CSS/XML； 
+3、熟悉关系数据库Oracle，Sqlserver或MSSQL； 
+4、熟悉UML统一建模语言； 
+5、熟练掌握Eclipse，PLSQLDev等开发工具； 
+6、具有较强的文档编写能力； 
+7、工作严谨、认真；
+8、具备钻研和开拓精神，责任心强；具备团队协作精神；能够承受工作压力；
+9、工作地点：大连
+10、工作性质：对日开发以及技术支持 
+注：请应聘者把简历发往以下邮箱，勿发到公司邮箱中，谢谢您的配合！ 
+
+软通动力信息技术（集团）有限公司
+	cv@isoftstone.com 
 1、2年以上的Java实际开发经验;
 2、熟悉JSP，Servlet，JavaBean，JDBC等Java技术;
-3、熟悉 Tomcat，weblogic, websphere等Web Server;
-4、熟悉关系型数据库，有使用SQLServer，Oracle之一的实际经验;
-5、熟悉Java设计模式，熟悉Struts，Hibernate等开源项目;
+3、熟悉 Tomcat，Resin，weblogic, websphere等Web Server;
+4、熟悉关系型数据库，有使用SQLServer，Oracle，DB2之一的实际经验;
+5、熟悉Java设计模式，熟悉Struts，Hibernate等开源项目的将优先考虑;
+6、有金融、银行、电信项目背景者优先考虑. 
+7、国家正规院校毕业，计算机相关专业本科及以上学历;
+8、英语大学四级以上，良好的听说读写能力;
+9、良好的学习能力、沟通能力及团队协作精神，能够承受一定工作压力.
+
+黑龙江海康软件工程有限公司
+	highcom@mail.highcom.com.cn  
+1、计算机相关专业，本科及以上学历，有良好的技术基础。 
+2、有一年以上Java开发经验，熟悉SSH，熟悉Oracle或SQL Server数据库。 
+3、具有良好的沟通能力，及团队协作精神。 
+4、通过英语四级、能够阅读英文文档资料者优先。
 
