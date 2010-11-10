@@ -1,0 +1,1698 @@
+#+OPTIONS:"\n:t"
+hibernate关系映射
+* 单向关联
+** 一对一
+*** 外键
+**** 模型
+ 一个人对应一个地址
+**** 实体类定义
+ #+BEGIN_SRC c
+ + public class Person11fk {
+   private int personid;
+   private String name;
+   private int age;
+   private Address11fk address11fk;
+   }
+ + public class Address11fk {
+   private int addressid;
+   private String addressdetail;
+}
+ #+END_SRC
++ 说明
+  一个类作为另一个类的属性
+**** 表模型
+mysql> desc address_11fk;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| addressid     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| addressdetail | varchar(255) | YES  |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+ 
+mysql> desc person_11fk;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| personid  | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name      | varchar(255) | YES  |     | NULL    |                |
+| age       | int(11)      | YES  |     | NULL    |                |
+| addressId | int(11)      | YES  | UNI | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
++ 说明
+  一个表中的主键在另一个表中
+**** SQL脚本
+ #+BEGIN_SRC c
+ + CREATE TABLE `address_11fk` ( 
+   `addressid` int(11) NOT NULL auto_increment, 
+   `addressdetail` varchar(255) default NULL, 
+   PRIMARY KEY    (`addressid`) 
+   ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk; 
+   
+  + CREATE TABLE `person_11fk` ( 
+    `personid` int(11) NOT NULL auto_increment, 
+    `name` varchar(255) default NULL, 
+    `age` int(11) default NULL, 
+    `addressId` int(11) default NULL, 
+    PRIMARY KEY    (`personid`), 
+    KEY `FK68A8818F3F45AA77` (`addressId`), 
+    CONSTRAINT `FK68A8818F3F45AA77` FOREIGN KEY (`addressId`) REFERENCES `address_11fk` (`addressid`) 
+    ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk; 
+ #+END_SRC
+**** 映射方法
+ #+BEGIN_SRC c
+ + <hibernate-mapping> 
+        <class name="com.lavasoft.dx._1_1_fk.Address11fk" table="ADDRESS_11fk"> 
+                <id name="addressid"> 
+                        <generator class="identity"/> 
+                </id> 
+                <property name="addressdetail"/> 
+        </class> 
+ </hibernate-mapping>
+ + <hibernate-mapping> 
+        <class name="com.lavasoft.dx._1_1_fk.Person11fk" table="PERSON_11fk"> 
+                <id name="personid"> 
+                        <generator class="identity"/> 
+                </id> 
+                <property name="name"/> 
+                <property name="age"/> 
+                <!--用来映射关联PO column是Address在该表中的外键列名,增加unique变成“1-1”--> 
+                <many-to-one name="address11fk" column="addressId" unique="true"/> 
+        </class> 
+</hibernate-mapping>
+#+END_SRC
++ 说明
+  关联的外键用 many-to-one配置
+ <many-to-one name="实体类中关联另一个类的属性" column="该属性对应的外键" unique="true"/> 
+**** 测试方法
+ #+BEGIN_SRC c
+   public class Test_11fk { 
+         public static void main(String[] args){ 
+                Person11fk p1=new Person11fk(); 
+    
+                p1.setAge(21); 
+                p1.setName("p1"); 
+    
+                Address11fk add1=new Address11fk(); 
+                add1.setAddressdetail("郑州市经三路"); 
+    
+                p1.setAddress11fk(add1); 
+    
+                Session session= HibernateUtil.getCurrentSession(); 
+                Transaction tx=session.beginTransaction(); 
+                session.save(add1); 
+                session.save(p1); 
+                tx.commit(); 
+                HibernateUtil.closeSession(); 
+        } 
+   }
+#+END_SRC
+*** 主键
+**** 模型
+ + 一个人对应一个地址
+**** 实体
+ + public class Person11pk { 
+   private int personid; 
+   private String name; 
+   private int age; 
+   private Address11pk address11pk; 
+   }  
++ public class Address11pk { 
+  private int addressid; 
+  private String addressdetail; 
+  }
++ 说明
+ 同一对一外键关联,一个类作为另一个类的属性
+**** 表模型
+mysql> desc address_11pk; 
++---------------+--------------+------+-----+---------+----------------+ 
+| Field         | Type         | Null | Key | Default | Extra          | 
++---------------+--------------+------+-----+---------+----------------+ 
+| addressid     | int(11)      | NO   | PRI | NULL    | auto_increment | 
+| addressdetail | varchar(255) | YES  |     | NULL    |                | 
++---------------+--------------+------+-----+---------+----------------+ 
+  
+mysql> desc person_11pk; 
++----------+--------------+------+-----+---------+-------+ 
+| Field    | Type         | Null | Key | Default | Extra | 
++----------+--------------+------+-----+---------+-------+ 
+| personid | int(11)      | NO   | PRI |         |       | 
+| name     | varchar(255) | YES  |     | NULL    |       | 
+| age      | int(11)      | YES  |     | NULL    |       | 
++----------+--------------+------+-----+---------+-------+ 
++ 说明
+ 同一对一外键关联相比,一个表的主键不再出现在另一个表中
+**** 生成的sql语句
++ CREATE TABLE `address_11pk` ( 
+  `addressid` int(11) NOT NULL auto_increment, 
+  `addressdetail` varchar(255) default NULL, 
+  PRIMARY KEY  (`addressid`) 
+  ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk; 
++ CREATE TABLE `person_11pk` ( 
+  `presonid` int(11) NOT NULL, 
+  `name` varchar(255) default NULL, 
+  `age` int(11) default NULL, 
+  PRIMARY KEY  (`presonid`), 
+  KEY `FK68A882C591BB393E` (`presonid`), 
+  CONSTRAINT `FK68A882C591BB393E` FOREIGN KEY (`presonid`) REFERENCES `address_11pk` (`addressid`) 
+  ) ENGINE=InnoDB DEFAULT CHARSET=gbk; 
+  + 说明 
+   CONSTRAINT 关联名称 FOREIGN KEY('本表的主键名称') REFERENCES '在另一个表中的主键'
+**** 映射方法
+ + 配置实例 
+   <id name="personid"> 
+            <!--基于主键关联时，主键生成策略是foreign，表明根据关联类生成主键--> 
+            <generator class="foreign"> 
+                <!--关联持久化类的属性名--> 
+                <param name="property">address11pk</param> 
+            </generator> 
+        </id> 
+        ...... 
+        <!--用于映射1-1关联--> 
+        <one-to-one name="address11pk" constrained="true"/> 
+  
++ <hibernate-mapping> 
+    <class name="com.lavasoft.dx._1_1_pk.Person11pk" table="PERSON_11pk"> 
+        <id name="personid" column="presonid"> 
+            <!--基于主键关联时，主键生成策略是foreign，表明根据关联类生成主键--> 
+            <generator class="foreign"> 
+                <!--关联持久化类的属性名--> 
+                <param name="property">address11pk</param> 
+            </generator> 
+        </id> 
+        <property name="name"/> 
+        <property name="age"/> 
+        <!--用于映射1-1关联--> 
+        <one-to-one name="address11pk" constrained="true"/> 
+    </class> 
+</hibernate-mapping>   
++ <hibernate-mapping> 
+    <class name="com.lavasoft.dx._1_1_pk.Address11pk" table="ADDRESS_11pk"> 
+        <id name="addressid"> 
+            <generator class="identity"/> 
+        </id> 
+        <property name="addressdetail"/> 
+    </class> 
+</hibernate-mapping> 
++ 说明
+ 一个表正常配置,另一个表配置 <one-to-one name="关联到的另一个表的主键" constrained="true"/>
++ 关联的配置 <generator class="foreign"><param name="property">关联到的另一个表的主键</param></generator>
+**** 测试方法
+ public class Test_11pk { 
+    public static void main(String[] args){ 
+        Person11pk p1=new Person11pk(); 
+  
+        p1.setAge(21); 
+        p1.setName("p1"); 
+  
+        Address11pk add1=new Address11pk(); 
+        add1.setAddressdetail("郑州市经三路"); 
+  
+        p1.setAddress11pk(add1); 
+  
+        Session session= HibernateUtil.getCurrentSession(); 
+        Transaction tx=session.beginTransaction(); 
+        session.save(add1); 
+        session.save(p1); 
+        tx.commit(); 
+        HibernateUtil.closeSession(); 
+    } 
+} 
++ 
+*** 连接表
+**** 模型
+ 一个人对应一个地址
+**** 实体
++ public class Person11tab { 
+  private int personid; 
+  private String name; 
+  private int age; 
+  private Address11tab address11tab; 
+  }  
++ public class Address11tab { 
+  private int addressid; 
+  private String addressdetail; 
+  }
+**** 表模型
+ mysql> desc address_11tab; 
++---------------+--------------+------+-----+---------+----------------+ 
+| Field         | Type         | Null | Key | Default | Extra          | 
++---------------+--------------+------+-----+---------+----------------+ 
+| addressid     | int(11)      | NO   | PRI | NULL    | auto_increment | 
+| addressdetail | varchar(255) | YES  |     | NULL    |                | 
++---------------+--------------+------+-----+---------+----------------+ 
+  
+mysql> desc join_11tab; 
++--------------+---------+------+-----+---------+-------+ 
+| Field        | Type    | Null | Key | Default | Extra | 
++--------------+---------+------+-----+---------+-------+ 
+| personid     | int(11) | NO   | PRI |         |       | 
+| address11tab | int(11) | YES  | UNI | NULL    |       | 
++--------------+---------+------+-----+---------+-------+ 
+  
+mysql> desc person_11tab; 
++----------+--------------+------+-----+---------+----------------+ 
+| Field    | Type         | Null | Key | Default | Extra          | 
++----------+--------------+------+-----+---------+----------------+ 
+| personid | int(11)      | NO   | PRI | NULL    | auto_increment | 
+| name     | varchar(255) | YES  |     | NULL    |                | 
+| age      | int(11)      | YES  |     | NULL    |                | 
++----------+--------------+------+-----+---------+----------------+ 
++ 说明
+ 新增一个包含2个表主键的连接表
+**** SQL脚本
++ CREATE TABLE `join_11tab` ( 
+  `personid` int(11) NOT NULL, 
+  `address11tab` int(11) default NULL, 
+  PRIMARY KEY  (`personid`), 
+  UNIQUE KEY `address11tab` (`address11tab`), 
+  KEY `FK6B44BE20C4CC3D33` (`address11tab`), 
+  KEY `FK6B44BE209049BB1F` (`personid`), 
+  CONSTRAINT `FK6B44BE209049BB1F` FOREIGN KEY (`personid`) REFERENCES `person_11tab` (`personid`), 
+  CONSTRAINT `FK6B44BE20C4CC3D33` FOREIGN KEY (`address11tab`) REFERENCES `address_11tab` (`addressid`) 
+) ENGINE=InnoDB DEFAULT CHARSET=gbk; 
+  
++ CREATE TABLE `address_11tab` ( 
+  `addressid` int(11) NOT NULL auto_increment, 
+  `addressdetail` varchar(255) default NULL, 
+  PRIMARY KEY  (`addressid`) 
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk; 
+
++ CREATE TABLE `person_11tab` ( 
+  `personid` int(11) NOT NULL auto_increment, 
+  `name` varchar(255) default NULL, 
+  `age` int(11) default NULL, 
+  PRIMARY KEY  (`personid`) 
+  ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk; 
+**** 映射方法
+ + 配置实例 
+  <!--使用join元素显式确定链接表--> 
+    <join table="join_11tab"> 
+      <key column="personid"/> 
+      <!--映射1-1关联属性，其中unique=“true”属性确定为“1-1”--> 
+      <many-to-one name="address11tab" unique="true"/> 
+   </join> 
++ <hibernate-mapping> 
+      <class name="com.lavasoft.dx._1_1_tab.Person11tab" table="PERSON_11tab"> 
+         <id name="personid"> 
+            <generator class="identity"/> 
+         </id> 
+        <property name="name"/> 
+        <property name="age"/> 
+        <!--使用join元素显式确定链接表--> 
+        <join table="join_11tab"> 
+            <key column="personid"/> 
+            <!--映射1-1关联属性，其中unique=“true”属性确定为“1-1”--> 
+            <many-to-one name="address11tab" unique="true"/> 
+        </join> 
+	</class> 
+  </hibernate-mapping> 
++ <hibernate-mapping> 
+    <class name="com.lavasoft.dx._1_1_tab.Address11tab" table="ADDRESS_11tab"> 
+        <id name="addressid"> 
+            <generator class="identity"/> 
+        </id> 
+        <property name="addressdetail"/> 
+    </class> 
+</hibernate-mapping> 
++ 说明
+ 在一个表中配置另一个join表的信息
+ <join table="连接表">
+   <key column="连接表中的主键"/>
+   <many-to-one name="连接表中关联到另一个表" unique="true"/>
+ </join>
+**** 测试方法
+ public class Test_11tab { 
+    public static void main(String[] args){ 
+        Person11tab p1=new Person11tab(); 
+  
+        p1.setAge(21); 
+        p1.setName("p1"); 
+  
+        Address11tab add1=new Address11tab(); 
+        add1.setAddressdetail("郑州市经三路"); 
+  
+        p1.setAddress11tab(add1); 
+  
+        Session session= HibernateUtil.getCurrentSession(); 
+        Transaction tx=session.beginTransaction(); 
+        session.save(add1); 
+        session.save(p1); 
+        tx.commit(); 
+        HibernateUtil.closeSession(); 
+    } 
+} 
+** 一对多
+*** 外键
+**** 模型
+ 一个人对应多个地址
+****  实体类
++ public class Person1nfk implements Serializable { 
+    private int personid; 
+    private String name; 
+    private int age; 
+    private Set addresses=new HashSet(); 
+}  
+public class Address1nfk implements Serializable { 
+    private int addressid; 
+    private String addressdetail; 
+}
+ + 说明
+  一个类的Set集合来作为另一个类的属性
+**** 表模型
+ mysql> desc address_1nfk; 
++---------------+--------------+------+-----+---------+----------------+ 
+| Field         | Type         | Null | Key | Default | Extra          | 
++---------------+--------------+------+-----+---------+----------------+ 
+| addressid     | int(11)      | NO   | PRI | NULL    | auto_increment | 
+| addressdetail | varchar(255) | YES  |     | NULL    |                | 
+| personid      | int(11)      | YES  | MUL | NULL    |                | 
++---------------+--------------+------+-----+---------+----------------+ 
+  
+mysql> desc person_1nfk; 
++----------+--------------+------+-----+---------+----------------+ 
+| Field    | Type         | Null | Key | Default | Extra          | 
++----------+--------------+------+-----+---------+----------------+ 
+| personid | int(11)      | NO   | PRI | NULL    | auto_increment | 
+| name     | varchar(255) | YES  |     | NULL    |                | 
+| age      | int(11)      | YES  |     | NULL    |                | 
++----------+--------------+------+-----+---------+----------------+ 
++ 说明
+ 一的一方对应表的主键在另一个表(集合类对应表)中
+
+**** SQL脚本
++ CREATE TABLE `address_1nfk` ( 
+    `addressid` int(11) NOT NULL auto_increment, 
+    `addressdetail` varchar(255) default NULL, 
+    `addresses` int(11) default NULL, 
+    PRIMARY KEY  (`addressid`), 
+    KEY `FK9B93456DC08D1667` (`addresses`), 
+    CONSTRAINT `FK9B93456DC08D1667` FOREIGN KEY (`addresses`) REFERENCES `person_1nfk` (`personid`) 
+  ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=gbk; 
+  
++  CREATE TABLE `person_1nfk` ( 
+    `personid` int(11) NOT NULL auto_increment, 
+    `name` varchar(255) default NULL, 
+    `age` int(11) default NULL, 
+    PRIMARY KEY  (`personid`) 
+  ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk; 
+
+**** 映射方法
+ + 配置实例
+  <!--映射集合属性，关联到持久化类,inverse="false"表示主控端在Person1nfk端，lazy="false"表示不采用延迟加载--> 
+        <set name="addresses" 
+             table="ADDRESS_1nfk" 
+             cascade="all" 
+        > 
+            <!--确定关联的外键列--> 
+            <key column="personid"/> 
+            <!--用以映射到关联类属性--> 
+            <one-to-many class="com.lavasoft.dx._1_n_fk.Address1nfk"/> 
+        </set> 
+ + <hibernate-mapping> 
+    <class name="com.lavasoft.dx._1_n_fk.Person1nfk" table="PERSON_1nfk"> 
+        <id name="personid"> 
+            <generator class="identity"/> 
+        </id> 
+        <property name="name"/> 
+        <property name="age"/> 
+        <!--映射集合属性，关联到持久化类,inverse="false"表示主控端在Person1nfk端，lazy="false"表示不采用延迟加载--> 
+        <set name="addresses" 
+             table="ADDRESS_1nfk" 
+             cascade="all" 
+        > 
+            <!--确定关联的外键列--> 
+            <key column="personid"/> 
+            <!--用以映射到关联类属性--> 
+            <one-to-many class="com.lavasoft.dx._1_n_fk.Address1nfk"/> 
+        </set> 
+    </class> 
+</hibernate-mapping> 
+ + <hibernate-mapping> 
+    <class name="com.lavasoft.dx._1_n_fk.Address1nfk" table="ADDRESS_1nfk"> 
+        <id name="addressid"> 
+            <generator class="identity"/> 
+        </id> 
+        <property name="addressdetail"/> 
+    </class> 
+</hibernate-mapping> 
++ 说明
+ 将一个类的集合作为另一个类的属性进行配置
+ <set name="连接到的另一个类的名称" table="另一个类对应的表名" cascade="all">
+   <key column="关联到的另一个表的主键"/>
+   <one-to-many class="关联到的另一个表名称"/>
+ </set>
+ 另一个类正常设置
+**** 测试方法
+public class Test_1nfk { 
+    public static void main(String[] args){ 
+        Address1nfk add1=new Address1nfk(); 
+        Address1nfk add2=new Address1nfk(); 
+        Person1nfk p=new Person1nfk(); 
+  
+        add1.setAddressdetail("郑州市经三路"); 
+        add2.setAddressdetail("合肥市宿州路"); 
+        p.setName("wang"); 
+        p.setAge(30); 
+        p.getAddresses().add(add1); 
+        p.getAddresses().add(add2); 
+  
+        Session session= HibernateUtil.getCurrentSession(); 
+        Transaction tx=session.beginTransaction(); 
+        session.save(add1); 
+        session.save(add2); 
+        session.save(p); 
+        tx.commit(); 
+        HibernateUtil.closeSession(); 
+    } 
+} 
+*** 连接表
+**** 模型
+一个人对应多个地址
+**** 实体类
+public class Person1ntab { 
+    private int personid; 
+    private String name; 
+    private int age; 
+    private Set addresses=new HashSet(); 
+}  
+public class Address1nfk implements Serializable { 
+    private int addressid; 
+    private String addressdetail; 
+}
++ 说明
+ 一个类的Set集合来作为另一个类的属性
+**** 表模型
+mysql> desc join_1ntab; 
++-----------+---------+------+-----+---------+-------+ 
+| Field     | Type    | Null | Key | Default | Extra | 
++-----------+---------+------+-----+---------+-------+ 
+| personid  | int(11) | NO   | PRI |         |       | 
+| addressid | int(11) | NO   | PRI |         |       | 
++-----------+---------+------+-----+---------+-------+ 
+  
+mysql> desc person_1ntab; 
++----------+--------------+------+-----+---------+----------------+ 
+| Field    | Type         | Null | Key | Default | Extra          | 
++----------+--------------+------+-----+---------+----------------+ 
+| personid | int(11)      | NO   | PRI | NULL    | auto_increment | 
+| name     | varchar(255) | YES  |     | NULL    |                | 
+| age      | int(11)      | YES  |     | NULL    |                | 
++----------+--------------+------+-----+---------+----------------+ 
+  
+mysql> desc address_1ntab; 
++---------------+--------------+------+-----+---------+----------------+ 
+| Field         | Type         | Null | Key | Default | Extra          | 
++---------------+--------------+------+-----+---------+----------------+ 
+| addressid     | int(11)      | NO   | PRI | NULL    | auto_increment | 
+| addressdetail | varchar(255) | YES  |     | NULL    |                | 
++---------------+--------------+------+-----+---------+----------------+ 
++ 连接表中的2个列都是主键
+**** SQL脚本
++ /* Formatted on 2007/08/21 10:58 (QP5 v5.50) */ 
+CREATE TABLE `address_1ntab` ( 
+  `addressid` int(11) NOT NULL auto_increment, 
+  `addressdetail` varchar(255) default NULL, 
+  PRIMARY KEY  (`addressid`) 
+  ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=gbk; 
++ /* Formatted on 2007/08/21 10:58 (QP5 v5.50) */ 
+CREATE TABLE `join_1ntab` ( 
+  `personid` int(11) NOT NULL, 
+  `addressid` int(11) NOT NULL, 
+  PRIMARY KEY  (`personid`,`addressid`), 
+  UNIQUE KEY `addressid` (`addressid`), 
+  KEY `FK6B6078C3C8DF5BFF` (`personid`), 
+  KEY `FK6B6078C3C2B11347` (`addressid`), 
+  CONSTRAINT `FK6B6078C3C2B11347` FOREIGN KEY (`addressid`) REFERENCES `address_1ntab` (`addressid`), 
+  CONSTRAINT `FK6B6078C3C8DF5BFF` FOREIGN KEY (`personid`) REFERENCES `person_1ntab` (`personid`) 
+) ENGINE=InnoDB DEFAULT CHARSET=gbk; 
++ /* Formatted on 2007/08/21 10:58 (QP5 v5.50) */ 
+CREATE TABLE `person_1ntab` ( 
+  `personid` int(11) NOT NULL auto_increment, 
+  `name` varchar(255) default NULL, 
+  `age` int(11) default NULL, 
+  PRIMARY KEY  (`personid`) 
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk; 
+**** 映射方法
++ <hibernate-mapping> 
+    <class name="com.lavasoft.dx._1_n_tab.Person1ntab" table="PERSON_1ntab"> 
+        <id name="personid"> 
+            <generator class="identity"/> 
+        </id> 
+        <property name="name"/> 
+        <property name="age"/> 
+        <!--映射集合属性，join_1ntab是连接表表名--> 
+        <set name="addresses" 
+             table="join_1ntab" 
+                > 
+            <!--“column="personid"”确定PERSON_1ntab表关联到连接表的外键列名--> 
+            <key column="personid"/> 
+            <!--“column="addressid"”关联PERSON_1ntab表的Address1ntab对象的id在连接表中的列名--> 
+            <!--“unique="true"表示1-N，Person1ntab是1，Address1ntab是多”--> 
+            <many-to-many 
+                    column="addressid" 
+                    unique="true" 
+                    class="com.lavasoft.dx._1_n_tab.Address1ntab"/> 
+        </set> 
+    </class> 
+</hibernate-mapping> 
++ <hibernate-mapping> 
+    <class name="com.lavasoft.dx._1_n_tab.Address1ntab" table="ADDRESS_1ntab"> 
+        <id name="addressid"> 
+            <generator class="identity"/> 
+        </id> 
+        <property name="addressdetail"/> 
+    </class> 
+</hibernate-mapping> 
++ 说明
+ 将join表设置为其中一个类的set属性
+<set name="另一个多的类名称" table="连接类名称">
+  <key column="一的一方的主键名称"/>
+  <many-to-many column="多的一方的主键" unique="true" class="多的一方对应表名称"/>
+</set>
+**** 测试方法
+public class Test_1ntab { 
+    public static void main(String[] args){ 
+        Address1ntab add1=new Address1ntab(); 
+        Address1ntab add2=new Address1ntab(); 
+        Address1ntab add3=new Address1ntab(); 
+        Person1ntab p1=new Person1ntab(); 
+        Person1ntab p2=new Person1ntab(); 
+  
+        add1.setAddressdetail("郑州市经三路"); 
+        add2.setAddressdetail("合肥市宿州路"); 
+        add3.setAddressdetail("北京市长安路"); 
+        p1.setName("wang"); 
+        p1.setAge(30); 
+        p2.setName("lee"); 
+        p2.setAge(50); 
+  
+        p1.getAddresses().add(add1); 
+        p1.getAddresses().add(add2); 
+        +p2.getAddresses().add(add2); 
+        p2.getAddresses().add(add3); 
+  
+        Session session= HibernateUtil.getCurrentSession(); 
+        Transaction tx=session.beginTransaction(); 
+        session.save(add1); 
+        session.save(add2); 
+        session.save(add3); 
+        session.save(p1); 
+        session.save(p2); 
+        tx.commit(); 
+        HibernateUtil.closeSession(); 
+    } 
+} 
+** 多对一
+*** 外键
+**** 模型
+ 多个人对应一个地址
+**** 实体类
+ + public class Personn1fk { 
+   private int personid; 
+   private String name; 
+   private int age; 
+   private Addressn1fk addressn1fk; 
+   }  
++ public class Addressn1fk { 
+  private int addressid; 
+  private String addressdetail; 
+  }
+ + 说明
+  一对应的类中包含多方对应的类作为其属性
+**** 表模型
+mysql> desc address_n1kf;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| addressid     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| addressdetail | varchar(255) | YES  |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+ 
+mysql> desc person_n1kf;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| personid  | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name      | varchar(255) | YES  |     | NULL    |                |
+| age       | int(11)      | YES  |     | NULL    |                |
+| addressId | int(11)      | YES  | MUL | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
++ 说明
+ 在多方的表中含有一方的主键作为其属性
+**** SQL脚本
++ CREATE TABLE `address_n1kf` (
+  `addressid` int(11) NOT NULL auto_increment,
+  `addressdetail` varchar(255) default NULL,
+  PRIMARY KEY  (`addressid`)
+) ENGINE=InnoDB DEFAULT CHARSET=gbk;
+ 
+DROP TABLE IF EXISTS `person_n1kf`;
+ 
++ CREATE TABLE `person_n1kf` (
+  `personid` int(11) NOT NULL auto_increment,
+  `name` varchar(255) default NULL,
+  `age` int(11) default NULL,
+  `addressId` int(11) default NULL,
+  PRIMARY KEY  (`personid`),
+  KEY `FK4571AF54A2A3EE48` (`addressId`),
+  CONSTRAINT `FK4571AF54A2A3EE48` FOREIGN KEY (`addressId`) REFERENCES `address_n1kf` (`addressid`)
+) ENGINE=InnoDB DEFAULT CHARSET=gbk;
+**** 映射方法
+ + <hibernate-mapping>
+    <class name="com.lavasoft.dx._n_1_fk.Personn1fk" table="PERSON_n1fk">
+        <id name="personid">
+            <generator class="identity"/>
+        </id>
+        <property name="name"/>
+        <property name="age"/>
+        <!--用来映射关联PO column是Address在该表中的外键列名-->
+        <many-to-one name="addressn1fk" column="addressId"/>
+    </class>
+</hibernate-mapping>
+ + <hibernate-mapping>
+    <class name="com.lavasoft.dx._n_1_fk.Addressn1fk" table="ADDRESS_n1fk">
+        <id name="addressid">
+            <generator class="identity"/>
+        </id>
+        <property name="addressdetail"/>
+    </class>
+</hibernate-mapping>
+ + 说明 
+ 其中一对应类正常配置
+ 多对应类中用many-to-one配置表之间的关联
+ <many-to-one name="关联的一方的表名称" column="一方表的主键"/>
+**** 测试方法
+ public class Test_n1fk { 
+    public static void main(String[] args){ 
+        Personn1fk p1=new Personn1fk(); 
+        Personn1fk p2=new Personn1fk(); 
+  
+        p1.setAge(21); 
+        p1.setName("p1"); 
+  
+        p2.setAge(23); 
+        p2.setName("p2"); 
+  
+        Addressn1fk add=new Addressn1fk(); 
+        add.setAddressdetail("郑州市经三路"); 
+  
+        p1.setAddressn1fk(add); 
+        p2.setAddressn1fk(add); 
+  
+        Session session=HibernateUtil.getCurrentSession(); 
+        Transaction tx=session.beginTransaction(); 
+        session.save(add); 
+        session.save(p1); 
+        session.save(p2); 
+        tx.commit(); 
+        HibernateUtil.closeSession(); 
+    } 
+}
+*** 连接表
+**** 模型
+ 多个人对应一个地址
+**** 实体类
+ public class Personn1tab { 
+    private int personid; 
+    private String name; 
+    private int age; 
+    private Addressn1tab addressn1tab; 
+}  
+public class Addressn1tab { 
+    private int addressid; 
+    private String addressdetail; 
+}
+ + 说明 
+ 一方的类作为多方类的属性
+**** 表模型
+ mysql> desc address_n1tab; 
++---------------+--------------+------+-----+---------+----------------+ 
+| Field         | Type         | Null | Key | Default | Extra          | 
++---------------+--------------+------+-----+---------+----------------+ 
+| addressid     | int(11)      | NO   | PRI | NULL    | auto_increment | 
+| addressdetail | varchar(255) | YES  |     | NULL    |                | 
++---------------+--------------+------+-----+---------+----------------+ 
+  
+mysql> desc join_n1tab; 
++------------+---------+------+-----+---------+-------+ 
+| Field      | Type    | Null | Key | Default | Extra | 
++------------+---------+------+-----+---------+-------+ 
+| personid   | int(11) | NO   | PRI |         |       | 
+| addressn1tab | int(11) | YES  | MUL | NULL    |       | 
++------------+---------+------+-----+---------+-------+ 
+  
+mysql> desc person_n1tab; 
++----------+--------------+------+-----+---------+----------------+ 
+| Field    | Type         | Null | Key | Default | Extra          | 
++----------+--------------+------+-----+---------+----------------+ 
+| personid | int(11)      | NO   | PRI | NULL    | auto_increment | 
+| name     | varchar(255) | YES  |     | NULL    |                | 
+| age      | int(11)      | YES  |     | NULL    |                | 
++----------+--------------+------+-----+---------+----------------+ 
+ ＋说明
+ 多方和一方表正常
+ 增加连接表,列为多和一方表的主键
+**** SQL脚本
+ CREATE TABLE `address_n1tab` ( 
+  `addressid` int(11) NOT NULL auto_increment, 
+  `addressdetail` varchar(255) default NULL, 
+  PRIMARY KEY  (`addressid`) 
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk; 
+  
+CREATE TABLE `join_n1tab` ( 
+  `personid` int(11) NOT NULL, 
+  `address11fk` int(11) default NULL, 
+  PRIMARY KEY  (`personid`), 
+  KEY `FKAC780AAADAE3A82C` (`personid`), 
+  KEY `FKAC780AAAC6242A64` (`address11fk`), 
+  CONSTRAINT `FKAC780AAAC6242A64` FOREIGN KEY (`address11fk`) REFERENCES `address_n1tab` (`addressid`), 
+  CONSTRAINT `FKAC780AAADAE3A82C` FOREIGN KEY (`personid`) REFERENCES `person_n1tab` (`personid`) 
+) ENGINE=InnoDB DEFAULT CHARSET=gbk; 
+  
+CREATE TABLE `person_n1tab` ( 
+  `personid` int(11) NOT NULL auto_increment, 
+  `name` varchar(255) default NULL, 
+  `age` int(11) default NULL, 
+  PRIMARY KEY  (`personid`) 
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=gbk 
+**** 映射方法
++ <hibernate-mapping> 
+    <class name="com.lavasoft.dx._n_1_tab.Personn1tab" table="PERSON_n1tab"> 
+        <id name="personid"> 
+            <generator class="identity"/> 
+        </id> 
+        <property name="name"/> 
+        <property name="age"/> 
+        <!--使用join元素显式确定链接表--> 
+        <join table="join_n1tab"> 
+            <!--映射关联所用的外键--> 
+            <key column="personid"/> 
+            <many-to-one name="addressn1tab"/> 
+        </join> 
+    </class> 
+</hibernate-mapping> 
++ <hibernate-mapping> 
+    <class name="com.lavasoft.dx._n_1_tab.Addressn1tab" table="ADDRESS_n1tab"> 
+        <id name="addressid"> 
+            <generator class="identity"/> 
+        </id> 
+        <property name="addressdetail"/> 
+    </class> 
+</hibernate-mapping> 
++ 说明
+ 连接表,在多的一方用join配置
+ <join table="连接表的表名称">
+   <key column="连接表的主键"/>
+   <many-to-one name="管理到的一方的表名称"/>
+ </join>
+ 一方的表正常配置
+**** 测试方法
+ public class Test_n1tab { 
+    public static void main(String[] args){ 
+        Personn1tab p1=new Personn1tab(); 
+        Personn1tab p2=new Personn1tab(); 
+  
+        p1.setAge(21); 
+        p1.setName("p1"); 
+  
+        p2.setAge(23); 
+        p2.setName("p2"); 
+  
+        Addressn1tab add=new Addressn1tab(); 
+        add.setAddressdetail("郑州市经三路"); 
+  
+        p1.setAddressn1tab(add); 
+        p2.setAddressn1tab(add); 
+  
+        Session session=HibernateUtil.getCurrentSession(); 
+        Transaction tx=session.beginTransaction(); 
+        session.save(add); 
+        session.save(p1); 
+        session.save(p2); 
+        tx.commit(); 
+        HibernateUtil.closeSession(); 
+    } 
+} 
+** 多对多
+**** 模型
+ 一个人对应多个地址和多个人对应一个地址
+**** 实体类
+ public class Personnn { 
+    private int personid; 
+    private String name; 
+    private int age; 
+    private Set addresses=new HashSet(); 
+}  
+public class Addressnn { 
+    private int addressid; 
+    private String addressdetail; 
+}
+ + 说明
+ 其中一个类中包含另一个类的Set集合
+**** 表模型
+ mysql> desc person_nn; 
++----------+--------------+------+-----+---------+----------------+ 
+| Field    | Type         | Null | Key | Default | Extra          | 
++----------+--------------+------+-----+---------+----------------+ 
+| personid | int(11)      | NO   | PRI | NULL    | auto_increment | 
+| name     | varchar(255) | YES  |     | NULL    |                | 
+| age      | int(11)      | YES  |     | NULL    |                | 
++----------+--------------+------+-----+---------+----------------+ 
+  
+mysql> desc join_nn; 
++-----------+---------+------+-----+---------+-------+ 
+| Field     | Type    | Null | Key | Default | Extra | 
++-----------+---------+------+-----+---------+-------+ 
+| personid  | int(11) | NO   | PRI |         |       | 
+| addressid | int(11) | NO   | PRI |         |       | 
++-----------+---------+------+-----+---------+-------+ 
+  
+mysql> desc person_nn; 
++----------+--------------+------+-----+---------+----------------+ 
+| Field    | Type         | Null | Key | Default | Extra          | 
++----------+--------------+------+-----+---------+----------------+ 
+| personid | int(11)      | NO   | PRI | NULL    | auto_increment | 
+| name     | varchar(255) | YES  |     | NULL    |                | 
+| age      | int(11)      | YES  |     | NULL    |                | 
++----------+--------------+------+-----+---------+----------------+ 
+ + 说明
+  使用连接表,2个表中的主键都在连接表中为主键
+**** SQL脚本
++  /* Formatted on 2007/08/21 11:13 (QP5 v5.50) */
+ CREATE TABLE `address_nn` ( 
+  `addressid` int(11) NOT NULL auto_increment, 
+  `addressdetail` varchar(255) default NULL, 
+  PRIMARY KEY  (`addressid`) 
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=gbk; 
+  
++  /* Formatted on 2007/08/21 11:14 (QP5 v5.50) */ 
+CREATE TABLE `join_nn` ( 
+  `personid` int(11) NOT NULL, 
+  `addressid` int(11) NOT NULL, 
+  PRIMARY KEY  (`personid`,`addressid`), 
+  KEY `FKAAB98CF5E008E752` (`personid`), 
+  KEY `FKAAB98CF5239F6A16` (`addressid`), 
+  CONSTRAINT `FKAAB98CF5239F6A16` FOREIGN KEY (`addressid`) REFERENCES `address_nn` (`addressid`), 
+  CONSTRAINT `FKAAB98CF5E008E752` FOREIGN KEY (`personid`) REFERENCES `person_nn` (`personid`) 
+) ENGINE=InnoDB DEFAULT CHARSET=gbk; 
+  
++ /* Formatted on 2007/08/21 11:14 (QP5 v5.50) */ 
+CREATE TABLE `person_nn` ( 
+  `personid` int(11) NOT NULL auto_increment, 
+  `name` varchar(255) default NULL, 
+  `age` int(11) default NULL, 
+  PRIMARY KEY  (`personid`) 
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=gbk; 
+**** 映射方法
++ <hibernate-mapping>
+    <class name="com.lavasoft.dx._n_n.Personnn" table="PERSON_nn">
+        <id name="personid">
+            <generator class="identity"/>
+        </id>
+        <property name="name"/>
+        <property name="age"/>
+        <!--映射集合属性，join_1ntab是连接表表名-->
+        <set name="addresses"
+             table="join_nn"
+                >
+            <!--“column="personid"”确定PERSON_1ntab表关联到连接表的外键列名-->
+            <key column="personid"/>
+            <!--“column="addressid"”关联PERSON_1ntab表的Address1ntab对象的id在连接表中的列名-->
+            <many-to-many
+                    column="addressid"
+                    class="com.lavasoft.dx._n_n.Addressnn"/>
+        </set>
+    </class>
+</hibernate-mapping>
++ <hibernate-mapping>
+    <class name="com.lavasoft.dx._n_n.Addressnn" table="ADDRESS_nn">
+        <id name="addressid">
+            <generator class="identity"/>
+        </id>
+        <property name="addressdetail"/>
+    </class>
+</hibernate-mapping>
++ 说明
+  一个类的Set集合来作为另一个类的属性
+ <set name="另一个表的名称" table="连接表名称">
+   <key column="连接表的主键"/>
+   <many-to-many column="另一个表的主键名称" class="另一个表名称"/>
+ </set>
+  另一个类正常设置
+**** 测试方法
+public class Test_nn {
+    public static void main(String[] args){
+        Addressnn add1=new Addressnn();
+        Addressnn add2=new Addressnn();
+        Addressnn add3=new Addressnn();
+        Personnn p1=new Personnn();
+        Personnn p2=new Personnn();
+ 
+        add1.setAddressdetail("郑州市经三路");
+        add2.setAddressdetail("合肥市宿州路");
+        add3.setAddressdetail("北京市长安路");
+        p1.setName("wang");
+        p1.setAge(30);
+        p2.setName("lee");
+        p2.setAge(50);
+ 
+        p1.getAddresses().add(add1);
+        p1.getAddresses().add(add2);
+        p2.getAddresses().add(add2);
+        p2.getAddresses().add(add3);
+ 
+        Session session= HibernateUtil.getCurrentSession();
+        Transaction tx=session.beginTransaction();
+        session.save(add1);
+        session.save(add2);
+        session.save(add3);
+        session.save(p1);
+        session.save(p2);
+        tx.commit();
+        HibernateUtil.closeSession();
+    }
+}
+* 双向关联
+** 一对一
+*** 外键
+**** 模型
+ 一个人对应一个地址
+ 是一对多外键的特例,多的一方添加唯一性约束
+**** 实体类
++ public class Person implements java.io.Serializable { 
+  private Long id; 
+  private String name; 
+  private Address address;
+ }
++ public class Address implements java.io.Serializable { 
+  private Long id; 
+  private Person person; 
+  private String detail;
+  }
++ 说明 
+   实体类都实现Serializable接口
+    都添加Long类型属性
+**** 表模型
+[[200812091228754114406.png]]
+**** SQL脚本
++ create table address
+(
+   id                   bigint not null auto_increment comment 'ID',
+   detail               varchar(120) not null comment '详细地址',
+   personid             bigint comment '人的ID',
+   primary key (id)
+)
+type = InnoDB;
+alter table address comment '地址';
++ create table person
+(
+   id                   bigint not null auto_increment comment 'ID',
+   name                 varchar(24) not null comment '姓名',
+   primary key (id)
+)
+type = InnoDB;
+alter table person comment '人';
+alter table address add constraint FK_Reference_4 foreign key (personid)
+      references person (id) on delete restrict on update restrict;
++ 说明
+ 主键都是Long类型id
+ 一个表中有能关联对方表的外键
+**** 映射方法
++ <class name="entity.Person" table="person"> 
+    <id name="id" type="java.lang.Long"> 
+      <column name="id" /> 
+      <generator class="identity" /> 
+    </id> 
+    <property name="name" type="java.lang.String"> 
+      <column name="name" length="24" not-null="true"> 
+        <comment>姓名</comment> 
+      </column> 
+    </property> 
+    <one-to-one name="address" cascade="all" /> 
+  </class> 
+ + <class name="entity.Address" table="address" catalog="testdb"> 
+    <id name="id" type="java.lang.Long"> 
+      <column name="id" /> 
+      <generator class="identity" /> 
+    </id> 
+    <property name="detail" type="java.lang.String"> 
+      <column name="detail" length="120" not-null="true"> 
+        <comment>详细地址</comment> 
+      </column> 
+    </property> 
+    <many-to-one name="person" class="entity.Person" 
+      fetch="select" unique="true"> 
+      <column name="personid"> 
+        <comment>人的ID</comment> 
+      </column> 
+    </many-to-one> 
+  </class> 
+ + 说明
+  - 包含关联另一个表的主键 配置如下
+   <one-to-one name="关联的一方的表名称" cascade="true"/>
+  - 在另一个表中配置 many-to-one
+   <many-to-one name="关联到的另一个表名称" class="关联到的另一个表的实体类名称" fetch="select" unique="true">
+      <column name=="关联到的另一个表的主键"/>
+      <comment>在表中对应列的名称</comment>
+  </many-to-one>
+**** 测试方法
+ public class Test { 
+  public static void main(String[] args) { 
+    savePerson(); 
+  } 
+
+  public static void savePerson() { 
+    Person person = new Person("张三"); 
+    Address address = new Address("XX街X号"); 
+    person.setAddress(address); 
+    address.setPerson(person); 
+
+    Session session = HibernateSessionFactory.getSession(); 
+    Transaction tx = session.beginTransaction(); 
+    session.save(person); 
+    tx.commit(); 
+  } 
+  }
+*** 主键
+**** 模型
+ 一个人对应一个地址
+**** 实体类
+ public class Person implements java.io.Serializable { 
+
+  private Long id; 
+  private String name; 
+  private Address address;
+} 
+public class Address implements java.io.Serializable { 
+  private Long id; 
+  private Person person; 
+  private String detail;
+}
+ + 两个类互为对方的属性
+**** 表模型
+ [[200812081228749820593.png]]
+**** SQL脚本
+ + create table address 
+( 
+     id                                     bigint not null comment 'ID', 
+     detail                             varchar(120) not null comment '详细地址', 
+     primary key (id) 
+) 
+type = InnoDB; 
+ + create table person 
+    ( 
+    id                                bigint not null auto_increment comment 'ID', 
+    name                                 varchar(24) not null comment '姓名', 
+    primary key (id) 
+    ) 
+    type = InnoDB; 
+
+    alter table person comment '人'; 
+    
+    alter table address add constraint FK_Reference_2 foreign key (id) 
+    references person (id) on delete restrict on update restrict;
+ + 说明
+   2个表中都建立 id列作为其主键
+**** 映射方法
+ +  <class name="entity.Person" table="person"> 
+    <id name="id" type="java.lang.Long"> 
+      <column name="id" /> 
+      <generator class="identity" /> 
+    </id> 
+    <property name="name" type="java.lang.String"> 
+      <column name="name" length="24" not-null="true"> 
+        <comment>姓名</comment> 
+      </column> 
+    </property> 
+    <!-- cascade="all"：在保存person对象的时候，级联保存person对象关联的address对象    --> 
+    <one-to-one name="address" cascade="all" /> 
+  </class> 
++ <class name="entity.Address" table="address" catalog="mydb"> 
+    <id name="id" type="java.lang.Long"> 
+      <column name="id" /> 
+      <!-- class="foreign": 一对一主键映射中，使用另外一个相关联的对象的标识符 --> 
+      <generator class="foreign"> 
+        <param name="property">person</param> 
+      </generator> 
+    </id> 
+    <property name="detail" type="java.lang.String"> 
+      <column name="detail" length="120" not-null="true"> 
+        <comment>详细地址</comment> 
+      </column> 
+    </property> 
+    <!-- 表示在address表存在一个外键约束，外键参考相关联的表person --> 
+    <one-to-one name="person" constrained="true" /> 
+  </class> 
++ 说明
+   其中一个类配置 one-to-one 
+  <one-to-one name="另一个表名称" cascade="true"/>
+   另一个也配置 one-to-one
+  <one-to-one name="另一个表名称'" constrained="true"/>
+*** 连接表
+**** 模型
+ 一个人对应一个地址
+**** 实体类
++ public class Person11tab_sx { 
+    private int personid; 
+    private String name; 
+    private int age; 
+    private Address11tab_sx address11tab_sx; 
+}  
++ public class Address11tab_sx { 
+    private int addressid; 
+    private String addressdetail; 
+    private Person11tab_sx person11tab_sx; 
+}
++ 说明
+  2个类都互为对方的属性
+**** 表模型
+ mysql> desc person_11tab_sx; 
++----------+--------------+------+-----+---------+----------------+ 
+| Field    | Type         | Null | Key | Default | Extra          | 
++----------+--------------+------+-----+---------+----------------+ 
+| personid | int(11)      | NO   | PRI | NULL    | auto_increment | 
+| name     | varchar(255) | YES  |     | NULL    |                | 
+| age      | int(11)      | YES  |     | NULL    |                | 
++----------+--------------+------+-----+---------+----------------+
+ 
+mysql> desc join_11tab_sx; 
++-----------+---------+------+-----+---------+-------+ 
+| Field     | Type    | Null | Key | Default | Extra | 
++-----------+---------+------+-----+---------+-------+ 
+| addressid | int(11) | NO   | UNI |         |       | 
+| personid  | int(11) | NO   | PRI |         |       | 
++-----------+---------+------+-----+---------+-------+ 
+ 
+  
+mysql> desc address_11tab_sx; 
++---------------+--------------+------+-----+---------+----------------+ 
+| Field         | Type         | Null | Key | Default | Extra          | 
++---------------+--------------+------+-----+---------+----------------+ 
+| addressid     | int(11)      | NO   | PRI | NULL    | auto_increment | 
+| addressdetail | varchar(255) | YES  |     | NULL    |                | 
++---------------+--------------+------+-----+---------+----------------+ 
++ 说明
+  建立一个连接表,其中一个表的主键在连接表中做主键
+**** SQL脚本
+ CREATE TABLE `person_11tab_sx` ( 
+  `personid` int(11) NOT NULL auto_increment, 
+  `name` varchar(255) default NULL, 
+  `age` int(11) default NULL, 
+  PRIMARY KEY  (`personid`) 
+) ENGINE=InnoDB DEFAULT CHARSET=gbk; 
+  
+CREATE TABLE `address_11tab_sx` ( 
+  `addressid` int(11) NOT NULL auto_increment, 
+  `addressdetail` varchar(255) default NULL, 
+  PRIMARY KEY  (`addressid`) 
+) ENGINE=InnoDB DEFAULT CHARSET=gbk;
+ 
+CREATE TABLE `join_11tab_sx` (
+  `addressid` int(11) NOT NULL,
+  `personid` int(11) NOT NULL,
+  PRIMARY KEY  (`personid`),
+  UNIQUE KEY `addressid` (`addressid`),
+  UNIQUE KEY `personid` (`personid`),
+  KEY `FKF4AA80E44327AAB6` (`personid`),
+  KEY `FKF4AA80E460C0C9F0` (`addressid`),
+  CONSTRAINT `FKF4AA80E460C0C9F0` FOREIGN KEY (`addressid`) REFERENCES `address_11tab_sx` (`addressid`),
+  CONSTRAINT `FKF4AA80E44327AAB6` FOREIGN KEY (`personid`) REFERENCES `person_11tab_sx` (`personid`)
+) ENGINE=InnoDB DEFAULT CHARSET=gbk;
+**** 映射方法
++ <hibernate-mapping> 
+    <class name="com.lavasoft.sx._1_1_tab.Person11tab_sx" table="PERSON_11tab_sx"> 
+        <id name="personid"> 
+            <generator class="identity"/> 
+        </id> 
+        <property name="name"/> 
+        <property name="age"/> 
+        <join table="join_11tab_sx" 
+              optional="true"> 
+            <key column="personid" 
+                 unique="true"/> 
+            <many-to-one name="address11tab_sx" 
+                         column="addressid" 
+                         not-null="true" 
+                         unique="true"/> 
+        </join> 
+    </class> 
+</hibernate-mapping> 
+  
++ <hibernate-mapping> 
+    <class name="com.lavasoft.sx._1_1_tab.Address11tab_sx" table="ADDRESS_11tab_sx"> 
+        <id name="addressid"> 
+            <generator class="identity"/> 
+        </id> 
+        <property name="addressdetail"/> 
+        <join table="join_11tab_sx" 
+              optional="true" 
+              inverse="true"> 
+            <key column="addressid" 
+                 unique="true"/> 
+            <many-to-one name="person11tab_sx" column="personid" 
+                         not-null="true" unique="true"/> 
+        </join> 
+    </class> 
+</hibernate-mapping> 
++ 说明 
+ - 其中一个类配置 many-to-one
+   <many-to-one name="另一个表名称" column="另一个表中主键" not-null="true" unique="true"/>
+ - 另一个类配置 join
+   <join table="join表名称" optional="true" inverse="true">
+     <key column="连接表主键" unique="true"/>
+     <many-to-one name="另一个表名称" column="另一个表中主键" not-null="true" unique="true"/>
+    </join>  
+**** 测试方法
+ public class Test_11tab_sx { 
+    public static void main(String[] args){ 
+        Address11tab_sx add = new Address11tab_sx(); 
+        Person11tab_sx p = new Person11tab_sx(); 
+  
+        add.setAddressdetail("郑州市经三路"); 
+        p.setAge(12); 
+        p.setName("wudalang"); 
+  
+        add.setPerson11tab_sx(p); 
+        p.setAddress11tab_sx(add); 
+  
+        Session session = HibernateUtil.getCurrentSession(); 
+        Transaction tx = session.beginTransaction(); 
+        session.saveOrUpdate(p); 
+        session.saveOrUpdate(add); 
+        tx.commit(); 
+        HibernateUtil.closeSession(); 
+    } 
+} 
+** 一对多
+*** 外键
+**** 模型
+ 一个人对应多个地址
+**** 实体类
++ public class Person1nfk_sx implements Serializable {
+    private int personid;
+    private String name;
+    private int age;
+    private Set addresses=new HashSet();
+} 
++ public class Address1nfk_sx implements Serializable {
+    private int addressid;
+    private String addressdetail;
+    private Person1nfk_sx person1nfkSx;
+}
++ 说明
+  一对应的类中包含多方对应类的Set集合作为其属性
+  多的一方对应的类包含一的主键
+**** 表模型
+ mysql> desc person_1nfk_sx;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| personid | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(255) | YES  |     | NULL    |                |
+| age      | int(11)      | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+ 
+mysql> desc address_1nfk_sx;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| addressid     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| addressdetail | varchar(255) | YES  |     | NULL    |                |
+| personid      | int(11)      | NO   | MUL |         |                |
++---------------+--------------+------+-----+---------+----------------+
+ + 说明
+  一的一方对应表的主键在多的一方
+**** SQL脚本
+ + CREATE TABLE `address_1nfk` (
+    `addressid` int(11) NOT NULL auto_increment,
+    `addressdetail` varchar(255) default NULL,
+    `personid` int(11) default NULL,
+    PRIMARY KEY  (`addressid`),
+    KEY `FK9B93456DA6D6C1F5` (`personid`),
+    CONSTRAINT `FK9B93456DA6D6C1F5` FOREIGN KEY (`personid`) REFERENCES `person_1nfk` (`personid`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=gbk;
+
+ + CREATE TABLE `person_1nfk` (
+    `personid` int(11) NOT NULL auto_increment,
+    `name` varchar(255) default NULL,
+    `age` int(11) default NULL,
+    PRIMARY KEY  (`personid`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=gbk;
+**** 映射方法
++ <hibernate-mapping>
+    <class name="com.lavasoft.sx._1_n_fk.Person1nfk_sx" table="PERSON_1nfk_sx">
+        <id name="personid">
+            <generator class="identity"/>
+        </id>
+        <property name="name"/>
+        <property name="age"/>
+        <!--映射集合属性，关联到持久化类-->
+        <set name="addresses" inverse="true" cascade="all">
+            <!--column用于指定外键列名-->
+            <key column="personid" not-null="true"/>
+            <!--映射关联类-->
+            <one-to-many class="com.lavasoft.sx._1_n_fk.Address1nfk_sx"/>
+        </set>
+    </class>
+</hibernate-mapping>
++ <hibernate-mapping>
+    <class name="com.lavasoft.sx._1_n_fk.Address1nfk_sx" table="ADDRESS_1nfk_sx">
+        <id name="addressid">
+            <generator class="identity"/>
+        </id>
+        <property name="addressdetail"/>
+        <!--映射关联属性，column属性指定外键列名-->
+        <many-to-one name="person1nfk"
+                     class="com.lavasoft.sx._1_n_fk.Person1nfk_sx"
+                     fetch="select"
+                     cascade="save-update">
+            <column name="personid" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
++  说明
+ -  多的一方在一中用set配置
+  <set name="关联的一方的表名称" inverse="true" cascade="true">
+     <key column="关联到的另一个表的主键" not-null="true"/>
+     <one-to-many class="关联到的另一个表的实体类名称"/>
+   </set>
+ -  一的一方包含多方的主键,用many-to-one配置
+ <many-to-one name="关联到的另一个表名称" class="关联到的另一个表的实体类名称" fetch="true" cascade="save-update">
+   <column name="关联到的另一个表的主键" not-null="true"/> 
+</many-to-one>
+**** 测试方法
+ public class Test_1nfk_sx {
+    public static void main(String[] args){
+        Address1nfk_sx add1=new Address1nfk_sx();
+        Address1nfk_sx add2=new Address1nfk_sx();
+        Person1nfk_sx p=new Person1nfk_sx();
+ 
+        add1.setAddressdetail("郑州市经三路");
+        add2.setAddressdetail("合肥市宿州路");
+        p.setName("wang");
+        p.setAge(30);
+ 
+        p.getAddresses().add(add1);
+        p.getAddresses().add(add2);
+        add1.setPerson1nfk(p);
+        add2.setPerson1nfk(p);
+ 
+        Session session= HibernateUtil.getCurrentSession();
+        Transaction tx=session.beginTransaction();
+        session.save(p);
+        session.saveOrUpdate(add1);
+        session.saveOrUpdate(add2);
+        tx.commit();
+        HibernateUtil.closeSession();
+    }
+}
+*** 连接表
+**** 模型
+ 一个人对应多个地址
+**** 实体类
++ public class Person1ntab_sx {
+    private int personid;
+    private String name;
+    private int age;
+    private Set addresses=new HashSet();
+} 
++ public class Address1ntab_sx {
+    private int addressid;
+    private String addressdetail;
+    private Person1ntab_sx person1ntab_sx;
+}
++ 说明
+  同一对多外键关联双向
+**** 表模型
+ mysql> desc person_1ntab_sx;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| personid | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(255) | YES  |     | NULL    |                |
+| age      | int(11)      | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+ 
+mysql> desc address_1ntab_sx;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| addressid     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| addressdetail | varchar(255) | YES  |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+ 
+mysql> desc join_1ntab_sx;
++-----------+---------+------+-----+---------+-------+
+| Field     | Type    | Null | Key | Default | Extra |
++-----------+---------+------+-----+---------+-------+
+| addressid | int(11) | NO   | PRI |         |       |
+| personid  | int(11) | NO   | PRI |         |       |
++-----------+---------+------+-----+---------+-------+
+ +  说明
+  2个表的主键都在新连接表中作主键
+**** SQL脚本
+ + CREATE TABLE `address_1ntab_sx` (
+  `addressid` int(11) NOT NULL auto_increment,
+  `addressdetail` varchar(255) default NULL,
+  PRIMARY KEY  (`addressid`)
+) ENGINE=InnoDB DEFAULT CHARSET=gbk;
+ + CREATE TABLE `person_1ntab_sx` (
+  `personid` int(11) NOT NULL auto_increment,
+  `name` varchar(255) default NULL,
+  `age` int(11) default NULL,
+  PRIMARY KEY  (`personid`)
+) ENGINE=InnoDB DEFAULT CHARSET=gbk;
+ + CREATE TABLE `join_1ntab_sx` (
+  `addressid` int(11) NOT NULL,
+  `personid` int(11) NOT NULL,
+  PRIMARY KEY  (`personid`,`addressid`),
+  KEY `FK8F869F61F93DDD6` (`personid`),
+  KEY `FK8F869F61FC0F682A` (`addressid`),
+  CONSTRAINT `FK8F869F61FC0F682A` FOREIGN KEY (`addressid`) REFERENCES `address_1ntab_sx` (`addressid`),
+  CONSTRAINT `FK8F869F61F93DDD6` FOREIGN KEY (`personid`) REFERENCES `person_1ntab_sx` (`personid`)
+) ENGINE=InnoDB DEFAULT CHARSET=gbk;
+**** 映射方法
+ + <hibernate-mapping>
+    <class name="com.lavasoft.sx._1_n_tab.Person1ntab_sx" table="PERSON_1ntab_sx">
+        <id name="personid">
+            <generator class="identity"/>
+        </id>
+        <property name="name"/>
+        <property name="age"/>
+        <!--映射集合属性，关联到持久化类-->
+        <!--table="join_1ntab_sx"指定了连接表的名字-->
+        <set name="addresses"
+             table="join_1ntab_sx"
+             cascade="all">
+            <!--column="personid"指定连接表中关联当前实体类的列名-->
+            <key column="personid" not-null="true"/>
+            <!--unique="true"表示当前实体类是"1",不是"n"-->
+            <many-to-many column="addressid"
+                          unique="true"
+                          class="com.lavasoft.sx._1_n_tab.Address1ntab_sx"/>
+        </set>
+    </class>
+</hibernate-mapping>
+ 
+ + <hibernate-mapping>
+    <class name="com.lavasoft.sx._1_n_tab.Address1ntab_sx"
+           table="ADDRESS_1ntab_sx">
+        <id name="addressid">
+            <generator class="identity"/>
+        </id>
+        <property name="addressdetail"/>
+        <!--映射关联属性，column属性指定外键列名-->
+        <join   table="join_1ntab_sx"
+                inverse="true"
+              optional="true">
+            <key column="addressid"/>
+            <many-to-one name="person1ntab_sx"
+                         column="personid"
+                         cascade="all"
+                         not-null="true"/>
+        </join>
+    </class>
+</hibernate-mapping>
+ + 说明
+  -  一对应一方中包含多方的Set集合属性,用set配置
+  <set name="关联到的另一个表名称" table="连接表名称" cascade="all">
+     <key column="连接表的主键" not-null="true"/>
+     <many-to-many column="关联到的另一个表的主键" unique="true" class="关联到的另一个表的实体类名称"/>
+  </set>
+  - 多的一方配置join
+  <join table="连接表名称" inverse="true" optional="true">
+     <key column="连接表中关联到另一个表的主键"/>
+     <many-to-one name="连接到的另一个类的名称" column="关联到的另一个表的主键" cascade="all" not-null="true"/>
+  </join>
+**** 测试方法
+ public class Test_1ntab_sx {
+    public static void main(String[] args){
+        Address1ntab_sx add1=new Address1ntab_sx();
+        Address1ntab_sx add2=new Address1ntab_sx();
+        Person1ntab_sx p=new Person1ntab_sx();
+ 
+        add1.setAddressdetail("郑州市经三路");
+        add2.setAddressdetail("合肥市宿州路");
+        p.setName("wang");
+        p.setAge(30);
+ 
+        p.getAddresses().add(add1);
+        p.getAddresses().add(add2);
+        add1.setPerson1ntab_sx(p);
+        add2.setPerson1ntab_sx(p);
+ 
+        Session session= HibernateUtil.getCurrentSession();
+        Transaction tx=session.beginTransaction();
+//        session.save(p);
+        session.saveOrUpdate(add1);
+        session.saveOrUpdate(add2);
+        tx.commit();
+        HibernateUtil.closeSession();
+    }
+}
+** 多对多
+*** 模型
+一个人对应多个地址,一个地址也对应多个人
+*** 实体
++ public class Personnn_sx {
+    private int personid;
+    private String name;
+    private int age;
+    private Set addresses=new HashSet();
+} 
++ public class Addressnn_sx {
+    private int addressid;
+    private String addressdetail;
+    private Set persons = new HashSet();
+  }
++ 说明
+  2个类的Set集合都互为对方的属性
+*** 表模型
+ mysql> desc person_nn_sx;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| personid | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(255) | YES  |     | NULL    |                |
+| age      | int(11)      | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+ 
+mysql> desc address_nn_sx;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| addressid     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| addressdetail | varchar(255) | YES  |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+ 
+mysql> desc join_nn_sx;
++-----------+---------+------+-----+---------+-------+
+| Field     | Type    | Null | Key | Default | Extra |
++-----------+---------+------+-----+---------+-------+
+| addressid | int(11) | NO   | PRI |         |       |
+| personid  | int(11) | NO   | PRI |         |       |
++-----------+---------+------+-----+---------+-------+
+ + 说明
+  2个类的主键都在新的jion表中为主键    
+
+*** SQL脚本
++ CREATE TABLE `address_nn_sx` (
+  `addressid` int(11) NOT NULL auto_increment,
+  `addressdetail` varchar(255) default NULL,
+  PRIMARY KEY  (`addressid`)
+) ENGINE=InnoDB DEFAULT CHARSET=gbk;
++ CREATE TABLE `person_nn_sx` (
+  `personid` int(11) NOT NULL auto_increment,
+  `name` varchar(255) default NULL,
+  `age` int(11) default NULL,
+  PRIMARY KEY  (`personid`)
+) ENGINE=InnoDB DEFAULT CHARSET=gbk;
++ CREATE TABLE `join_nn_sx` (
+  `addressid` int(11) NOT NULL,
+  `personid` int(11) NOT NULL,
+  PRIMARY KEY  (`personid`,`addressid`),
+  KEY `FK6EBBC5EF6C600921` (`personid`),
+  KEY `FK6EBBC5EF2A92FF3D` (`addressid`),
+  CONSTRAINT `FK6EBBC5EF2A92FF3D` FOREIGN KEY (`addressid`) REFERENCES `address_nn_sx` (`addressid`),
+  CONSTRAINT `FK6EBBC5EF6C600921` FOREIGN KEY (`personid`) REFERENCES `person_nn_sx` (`personid`)
+) ENGINE=InnoDB DEFAULT CHARSET=gbk;
+*** 映射方法
++ <hibernate-mapping>
+    <class name="com.lavasoft.sx._n_n.Personnn_sx" table="PERSON_nn_sx">
+        <id name="personid">
+            <generator class="identity"/>
+        </id>
+        <property name="name"/>
+        <property name="age"/>
+        <!--映射集合属性，关联到持久化类-->
+        <!--table="join_1ntab_sx"指定了连接表的名字-->
+        <set name="addresses"
+             table="join_nn_sx"
+             cascade="all">
+            <!--column="personid"指定连接表中关联当前实体类的列名-->
+            <key column="personid" not-null="true"/>
+            <!--column="addressid"是连接表中关联本实体的外键-->
+            <many-to-many column="addressid"
+                          class="com.lavasoft.sx._n_n.Addressnn_sx"/>
+        </set>
+    </class>
+</hibernate-mapping>
++ <hibernate-mapping>
+    <class name="com.lavasoft.sx._n_n.Addressnn_sx"
+           table="ADDRESS_nn_sx">
+        <id name="addressid">
+            <generator class="identity"/>
+        </id>
+        <property name="addressdetail"/>
+        <!--table="join_nn_sx"是双向多对多的连接表-->
+        <set name="persons"
+             inverse="true"
+             table="join_nn_sx">
+            <!--column="addressid"是连接表中关联本实体的外键-->
+            <key column="addressid"/>
+            <many-to-many column="personid"
+                          class="com.lavasoft.sx._n_n.Personnn_sx"/>
+        </set>
+    </class>
+</hibernate-mapping>
++ 说明
+   set集合对应在配置中使用set
+ #+BEGIN_SRC c
+  <set name="关联到的另一个表名称" table="连接表名称">
+    <key column="连接表中关联当前实体的列名" not-null="true"/>
+    <many-to-many column="连接表中关联到的另一个实体的外键" class="关联到的另一个表的实体类名称"/>
+ </set>
+ #+END_SRC
+*** 测试方法
+ public class Test_nn_sx {
+    public static void main(String[] args){
+        Addressnn_sx add1=new Addressnn_sx();
+        Addressnn_sx add2=new Addressnn_sx();
+        Personnn_sx p1=new Personnn_sx();
+        Personnn_sx p2=new Personnn_sx();
+ 
+        add1.setAddressdetail("郑州市经三路");
+        add2.setAddressdetail("合肥市宿州路");
+        p1.setName("wang");
+        p1.setAge(30);
+        p2.setName("zhang");
+        p2.setAge(22);
+ 
+        p1.getAddresses().add(add1);
+        p1.getAddresses().add(add2);
+        p2.getAddresses().add(add2);
+        add1.getPersons().add(p1);
+        add2.getPersons().add(p1);
+        add2.getPersons().add(p2);
+ 
+ 
+        Session session= HibernateUtil.getCurrentSession();
+        Transaction tx=session.beginTransaction();
+        session.save(p1);
+        session.save(p2);
+//        session.saveOrUpdate(add1);
+//        session.saveOrUpdate(add2);
+        tx.commit();
+        HibernateUtil.closeSession();
+    }
+}

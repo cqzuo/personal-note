@@ -1,0 +1,193 @@
+#+OPTIONS:"\n:t"
+hibernate关系映射小结
+* 实体类
+  相同类型对应关系(不分外键主键连接表)实体类完全相同
+** 单向
+*** 一对一
+  一个类正常
+  一个类包含另一个类作为其属性
+***  一对多
+ 一个类正常
+ 一个类的Set集合来作为另一个类的属性
+*** 多对一
+ 同一对一
+*** 多对多
+ 同一对多
+** 双向
+*** 一对一
+ 2个类都互为对方的属性
+ 都实现Serializable接口
+ 都含有Long id 作为其属性 
+*** 一对多
+ 都实现Serializable接口
+ 一个类的Set集合来作为另一个类的属性
+ 一个类作为另一个类的属性
+*** 多对多
+ 一个类的Set集合来互相作为对方类的属性	
+* 表模型
+ 相同键关联类型(不分对应关系)表模型相同
+** 单向
+*** 外键
+ 一个表中的主键在另一个表中
+*** 主键
+ 正常
+*** 连接表
+ 新增连接表,其中一个表的主键在连接表中做主键
+** 双向
+*** 一对一
+**** 外键
+2个表中有相同列 id作为其主键
+一个表的主键在另一个表中
+**** 主键
+ 2个表中有相同列 id来进行关联
+**** 连接表
+ 新增连接表,其中一个表的主键在连接表中做主键
+*** 一对多
+**** 外键
+ 一个表中的主键在另一个表中
+**** 连接表
+ 新建连接表,2个表中的主键都在连接表中为主键
+*** 多对多
+ 同一对多连接表
+ 新建连接表,2个表中的主键都在连接表中为主键
+* 映射定义
+** 单向
+*** 一对一
+**** 外键
+ 一个类正常配置
+ 另一个类用 many-to-one 来配置外键关联
+  #+BEGIN_SRC c
+   <many-to-one name="该类中关联另一个对象的属性" column="该属性对应的外键" unique="true"/>
+  #+END_SRC
+**** 主键
+ 一个类正常配置
+ 另一个类用 one-to-one 来配置主键关联
+  #+BEGIN_SRC c
+    <one-to-one name="该类中关联另一个对象的属性"  constrained="true"/>
+  #+END_SRC
+**** 连接表
+ 一个类正常配置
+ 另一个类用 join 来配置连接表
+  #+BEGIN_SRC c
+   <join table="连接表名称">
+     <key column="连接表的主键"/>
+     <many-to-one name="实体类中关联另一个类的属性" unique="true"/>
+   </join>
+  #+END_SRC
+*** 一对多
+**** 外键
+  一个类正常配置
+  另一个类用 set 配置 外键关联
+   #+BEGIN_SRC c
+    <set  name="该类中关联另一个对象的属性" table="关联到的另一个表名称" cascade="all">
+     <key name="关联到的另一个表的主键"/>
+    <one-to-many class="关联到的另一个表的实体类名称"/>
+    </set>
+  #+END_SRC
+**** 连接表
+   一个类正常配置
+   另一个类用 set 来配置连接表
+ #+BEGIN_SRC c
+   <set name="该类中关联另一个对象的属性" table="连接表名称">
+       <key column="连接表中的主键"/>         
+      <many-to-many column="关联到的另一个表的主键" class="关联到的另一个表的实体类名称" unique="true"/>	  
+   </set>
+#+END_SRC 
+*** 多对一
+**** 外键
+ 一个类正常配置
+ 另一个类用 many-to-one 来配置外键关联
+ #+BEGIN_SRC c
+  <many-to-one name="该类中关联另一个对象的属性" column="关联到的另一个表的外键名称""/>
+ #+END_SRC
+**** 连接表
+ 一个类正常配置
+ 另一类用 set 来配置连接表
+ #+BEGIN_SRC c
+  <join table="连接表的名称">
+     <key column="连接表中关联到的另一个表的外键"/>
+     <many-to-one name=""关联到的另一个表的名称/>
+  </join>
+#+END_SRC
+*** 多对多
+ 一个类正常配置
+ 另一个类用 set 来配置 多对多映射
+ #+BEGIN_SRC c
+ <set name="该类中关联另一个对象的属性" table="连接表名称">
+   <key column="连接表中关联到的另一个表的外键"/>
+   <many-to-many column="关联到的另一个表的主键" class="关联到的另一个表的实体类名称"/>
+  </set>
+#+END_SRC
+** 双向
+*** 一对一
+**** 外键
+  包含关联另一个表的主键 配置如下
+ #+BEGIN_SRC c
+   <one-to-one name="关联的一方的表名称" cascade="true"/>
+ #+END_SRC
+  在另一个表中配置 many-to-one
+ #+BEGIN_SRC c
+   <many-to-one name="关联到的另一个表名称" class="关联到的另一个表的实体类名称" fetch="select" unique="true">
+      <column name=="关联到的另一个表的主键"/>
+      <comment>在表中对应列的名称</comment>
+   </many-to-one>
+ #+END_SRC
+**** 主键
+  其中一个类配置 one-to-one 
+ #+BEGIN_SRC c
+   <one-to-one name="另一个表名称" cascade="true"/>
+ #+END_SRC
+   另一个也配置 one-to-one
+ #+BEGIN_SRC c
+   <one-to-one name="另一个表名称'" constrained="true"/>
+ #+END_SRC
+**** 连接表
+ 其中一个类配置 many-to-one
+  #+BEGIN_SRC c
+   <many-to-one name="另一个表名称" column="另一个表中主键" not-null="true" unique="true"/>
+ #+END_SRC
+ 另一个类配置 join
+  #+BEGIN_SRC c
+   <join table="join表名称" optional="true" inverse="true">
+      <key column="连接表主键" unique="true"/>
+      <many-to-one name="另一个表名称" column="另一个表中主键" not-null="true" unique="true"/>
+    </join>  
+ #+END_SRC
+*** 一对多
+**** 外键
+  多的一方在一中用set配置
+#+BEGIN_SRC c
+    <set name="关联的一方的表名称" inverse="true" cascade="true">
+      <key column="关联到的另一个表的主键" not-null="true"/>
+      <one-to-many class="关联到的另一个表的实体类名称"/>
+   </set>
+ #+END_SRC
+  一的一方包含多方的主键,用many-to-one配置
+ #+BEGIN_SRC c
+ <many-to-one name="关联到的另一个表名称" class="关联到的另一个表的实体类名称" fetch="true" cascade="save-update">
+    <column name="关联到的另一个表的主键" not-null="true"/> 
+ </many-to-one>
+ #+END_SRC
+**** 连接表
+  一对应一方中包含多方的Set集合属性,用set配置
+ #+BEGIN_SRC c
+   <set name="关联到的另一个表名称" table="连接表名称" cascade="all">
+      <key column="连接表的主键" not-null="true"/>
+      <many-to-many column="关联到的另一个表的主键" unique="true" class="关联到的另一个表的实体类名称"/>
+   </set>
+ #+END_SRC
+  多的一方配置join
+#+BEGIN_SRC c
+  <join table="连接表名称" inverse="true" optional="true">
+     <key column="连接表中关联到另一个表的主键"/>
+     <many-to-one name="连接到的另一个类的名称" column="关联到的另一个表的主键" cascade="all" not-null="true"/>
+ </join>
+#+END_SRC
+*** 多对多
+  set集合对应在配置中使用set
+ #+BEGIN_SRC c
+     <set name="关联到的另一个表名称" table="连接表名称">
+       <key column="连接表中关联当前实体的列名" not-null="true"/>
+       <many-to-many column="连接表中关联到的另一个实体的外键" class="关联到的另一个表的实体类名称"/>
+     </set>
+ #+END_SRC
