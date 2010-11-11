@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>ibatis笔记</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2010-11-11 13:03:05 "/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">ibatis笔记</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 优点 </a>
+<ul>
+<li><a href="#sec-1.1">1.1 易于掌握 </a></li>
+<li><a href="#sec-1.2">1.2 容易进行sql优化 </a></li>
+<li><a href="#sec-1.3">1.3 可以进行细粒度的优化 </a>
+<ul>
+<li><a href="#sec-1.3.1">1.3.1 更新表的某个字段不用更新所有字段 </a></li>
+<li><a href="#sec-1.3.2">1.3.2 需要列出表的部分内容时,可以少从数据库读数据,节省资源 </a></li>
+<li><a href="#sec-1.3.3">1.3.3 更新语句时,执行一条 UPDATE 就可以,无需先 SELECT 提升性能 </a></li>
+<li><a href="#sec-1.3.4">1.3.4 SQL语句都保存在单独的文件中,具有可维护性 </a></li>
+<li><a href="#sec-1.3.5">1.3.5 运行效率比hibernate高 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 缺点 </a>
+<ul>
+<li><a href="#sec-2.1">2.1 对不同数据库类型的支持差 </a></li>
+<li><a href="#sec-2.2">2.2 cache管理支持差 </a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 开发实例 </a>
+<ul>
+<li><a href="#sec-3.1">3.1 新建数据表 </a></li>
+<li><a href="#sec-3.2">3.2 配置文件 </a></li>
+<li><a href="#sec-3.3">3.3 关联xml配置文件 </a></li>
+<li><a href="#sec-3.4">3.4 映射java类 </a></li>
+<li><a href="#sec-3.5">3.5 使用ibatis映射 </a>
+<ul>
+<li><a href="#sec-3.5.1">3.5.1 初始化 ibatis ,获取 SqlMapClient对象 </a></li>
+<li><a href="#sec-3.5.2">3.5.2 使用映射 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 spring与ibatis </a>
+<ul>
+<li><a href="#sec-4.1">4.1 配置ibatis客户模版 </a>
+<ul>
+<li><a href="#sec-4.1.1">4.1.1 配置 SqlMapClientTemplate </a></li>
+<li><a href="#sec-4.1.2">4.1.2 定义 ibatis sql 映射表 </a></li>
+<li><a href="#sec-4.1.3">4.1.3 在dao中使用模板 </a></li>
+</ul>
+</li>
+<li><a href="#sec-4.2">4.2 建立基于ibatis的dao </a>
+<ul>
+<li><a href="#sec-4.2.1">4.2.1 实现 </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 优点 </h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1.1" class="outline-3">
+<h3 id="sec-1.1"><span class="section-number-3">1.1</span> 易于掌握 </h3>
+<div class="outline-text-3" id="text-1.1">
+
+</div>
+
+</div>
+
+<div id="outline-container-1.2" class="outline-3">
+<h3 id="sec-1.2"><span class="section-number-3">1.2</span> 容易进行sql优化 </h3>
+<div class="outline-text-3" id="text-1.2">
+
+</div>
+
+</div>
+
+<div id="outline-container-1.3" class="outline-3">
+<h3 id="sec-1.3"><span class="section-number-3">1.3</span> 可以进行细粒度的优化 </h3>
+<div class="outline-text-3" id="text-1.3">
+
+
+</div>
+
+<div id="outline-container-1.3.1" class="outline-4">
+<h4 id="sec-1.3.1"><span class="section-number-4">1.3.1</span> 更新表的某个字段不用更新所有字段 </h4>
+<div class="outline-text-4" id="text-1.3.1">
+
+<ul>
+<li>
+UPDATE 表名称 SET 列名='值' WHERE 条件<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1.3.2" class="outline-4">
+<h4 id="sec-1.3.2"><span class="section-number-4">1.3.2</span> 需要列出表的部分内容时,可以少从数据库读数据,节省资源 </h4>
+<div class="outline-text-4" id="text-1.3.2">
+
+<ul>
+<li>
+SELECT 列名1,列名2,列名&hellip; FROM 表名称 WHERE 条件<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1.3.3" class="outline-4">
+<h4 id="sec-1.3.3"><span class="section-number-4">1.3.3</span> 更新语句时,执行一条 UPDATE 就可以,无需先 SELECT 提升性能 </h4>
+<div class="outline-text-4" id="text-1.3.3">
+
+</div>
+
+</div>
+
+<div id="outline-container-1.3.4" class="outline-4">
+<h4 id="sec-1.3.4"><span class="section-number-4">1.3.4</span> SQL语句都保存在单独的文件中,具有可维护性 </h4>
+<div class="outline-text-4" id="text-1.3.4">
+
+</div>
+
+</div>
+
+<div id="outline-container-1.3.5" class="outline-4">
+<h4 id="sec-1.3.5"><span class="section-number-4">1.3.5</span> 运行效率比hibernate高 </h4>
+<div class="outline-text-4" id="text-1.3.5">
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 缺点 </h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2.1" class="outline-3">
+<h3 id="sec-2.1"><span class="section-number-3">2.1</span> 对不同数据库类型的支持差 </h3>
+<div class="outline-text-3" id="text-2.1">
+
+</div>
+
+</div>
+
+<div id="outline-container-2.2" class="outline-3">
+<h3 id="sec-2.2"><span class="section-number-3">2.2</span> cache管理支持差 </h3>
+<div class="outline-text-3" id="text-2.2">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 开发实例 </h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3.1" class="outline-3">
+<h3 id="sec-3.1"><span class="section-number-3">3.1</span> 新建数据表 </h3>
+<div class="outline-text-3" id="text-3.1">
+
+</div>
+
+</div>
+
+<div id="outline-container-3.2" class="outline-3">
+<h3 id="sec-3.2"><span class="section-number-3">3.2</span> 配置文件 </h3>
+<div class="outline-text-3" id="text-3.2">
+
+<ul>
+<li>
+ibatis必须配置 sql-map-config,文件名随意<br/>
+
+<p><br/>
+<pre class="src src-xml">  &lt;?<span style="color: #fa8072;">xml</span> <span style="color: #ffa07a;">version="1.0" encoding="UTF-8" </span>?&gt;
+  &lt;!<span style="color: #fa8072;">DOCTYPE</span> sqlMapConfig
+  <span style="color: #fa8072;">PUBLIC</span> <span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">-//iBATIS.com//DTD SQL Map Config 2.0//EN</span><span style="color: #ffa07a;">"</span>
+  <span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">http://www.ibatis.com/dtd/sql-map-config-2.dtd</span><span style="color: #ffa07a;">"</span>&gt;
+ &lt;<span style="color: #7fffd4; font-weight: bold;">sqlMapConfig</span>&gt;
+   &lt;<span style="color: #7fffd4; font-weight: bold;">settings</span>
+     <span style="color: #7fffd4; font-weight: bold;">cacheModelsEnabled</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">true</span><span style="color: #ffa07a;">"</span>
+     <span style="color: #7fffd4; font-weight: bold;">enhancementEnabled</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">true</span><span style="color: #ffa07a;">"</span>
+     <span style="color: #7fffd4; font-weight: bold;">lazyLoadingEnabled</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">true</span><span style="color: #ffa07a;">"</span>
+     <span style="color: #7fffd4; font-weight: bold;">maxRequests</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">32</span><span style="color: #ffa07a;">"</span>
+     <span style="color: #7fffd4; font-weight: bold;">maxSessions</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">10</span><span style="color: #ffa07a;">"</span>
+    <span style="color: #7fffd4; font-weight: bold;">maxTransactions</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">5</span><span style="color: #ffa07a;">"</span>
+    <span style="color: #7fffd4; font-weight: bold;">useStatementNamespaces</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">false</span><span style="color: #ffa07a;">"</span>
+  /&gt;
+  &lt;<span style="color: #7fffd4; font-weight: bold;">transactionManager</span> <span style="color: #7fffd4; font-weight: bold;">type</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">JDBC</span><span style="color: #ffa07a;">"</span> &gt;
+    &lt;<span style="color: #7fffd4; font-weight: bold;">dataSource</span> <span style="color: #7fffd4; font-weight: bold;">type</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">SIMPLE</span><span style="color: #ffa07a;">"</span>&gt;
+      &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">JDBC.Driver</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">sun.jdbc.odbc.JdbcOdbcDriver</span><span style="color: #ffa07a;">"</span>/&gt;
+      &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">JDBC.ConnectionURL</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">jdbc:odbc:Blog</span><span style="color: #ffa07a;">"</span>/&gt;
+      &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">JDBC.Username</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">admin</span><span style="color: #ffa07a;">"</span>/&gt;
+      &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">JDBC.Password</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">"</span>/&gt;
+     &lt;/<span style="color: #7fffd4; font-weight: bold;">dataSource</span>&gt;
+  &lt;/<span style="color: #7fffd4; font-weight: bold;">transactionManager</span>&gt;
+  &lt;<span style="color: #7fffd4; font-weight: bold;">sqlMap</span> <span style="color: #7fffd4; font-weight: bold;">resource</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">Account.xml</span><span style="color: #ffa07a;">"</span> /&gt;
+&lt;/<span style="color: #7fffd4; font-weight: bold;">sqlMapConfig</span>&gt;
+</pre>
+
+
+</p><ul>
+<li>
+说明 <br/>
+<ul>
+<li>
+sqlMapConfig<br/>
+</li>
+<li>
+transactionManager<br/>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3.3" class="outline-3">
+<h3 id="sec-3.3"><span class="section-number-3">3.3</span> 关联xml配置文件 </h3>
+<div class="outline-text-3" id="text-3.3">
+
+
+<p><br/>
+<pre class="src src-xml"> &lt;?<span style="color: #fa8072;">xml</span> <span style="color: #ffa07a;">version="1.0" encoding="UTF-8" </span>?&gt;
+&lt;!<span style="color: #fa8072;">DOCTYPE</span> sqlMap
+  <span style="color: #fa8072;">PUBLIC</span> <span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">-//iBATIS.com//DTD SQL Map 2.0//EN</span><span style="color: #ffa07a;">"</span>
+  <span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">http://www.ibatis.com/dtd/sql-map-2.dtd</span><span style="color: #ffa07a;">"</span>&gt;
+&lt;<span style="color: #7fffd4; font-weight: bold;">sqlMap</span> <span style="color: #7fffd4; font-weight: bold;">namespace</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">Account</span><span style="color: #ffa07a;">"</span>&gt;
+
+  &lt;<span style="color: #7fffd4; font-weight: bold;">select</span> <span style="color: #7fffd4; font-weight: bold;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">getAccount</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">parameterClass</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">java.lang.String</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">resultClass</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">example.Account</span><span style="color: #ffa07a;">"</span>&gt;
+    select * from Account where username = #value#
+  &lt;/<span style="color: #7fffd4; font-weight: bold;">select</span>&gt;
+
+  &lt;<span style="color: #7fffd4; font-weight: bold;">insert</span> <span style="color: #7fffd4; font-weight: bold;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">createAccount</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">parameterClass</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">example.Account</span><span style="color: #ffa07a;">"</span>&gt;
+    insert into Account (username, password)
+    values ( #username#, #password# )
+  &lt;/<span style="color: #7fffd4; font-weight: bold;">insert</span>&gt;
+&lt;/<span style="color: #7fffd4; font-weight: bold;">sqlMap</span>&gt;
+</pre>
+
+
+</p><ul>
+<li>
+说明<br/>
+<ul>
+<li>
+查询语句用 &lt;select id="" parameterClass="" resultClass=""&gt;查询语句&lt;/select&gt;<br/>
+查询方法为 getAccount<br/>
+</li>
+<li>
+插入语句用 &lt;insert id="" parameterClass=""&gt;插入语句&lt;/insert&gt; <br/>
+插入方法为 createAccount<br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3.4" class="outline-3">
+<h3 id="sec-3.4"><span class="section-number-3">3.4</span> 映射java类 </h3>
+<div class="outline-text-3" id="text-3.4">
+
+
+<p><br/>
+<pre class="src src-java"><span style="color: #fa8072;">package</span> <span style="color: #7fffd4;">example</span>;
+<span style="color: #fa8072;">public</span> <span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">Account</span> {
+   <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">username</span>;
+   <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">password</span>;
+
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">getUsername</span>() { <span style="color: #fa8072;">return</span> username; }
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">void</span> <span style="color: #7fffd4; font-weight: bold;">setUsername</span>(<span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">username</span>) { <span style="color: #fa8072;">this</span>.username=username; }
+
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">getPassword</span>() { <span style="color: #fa8072;">return</span> password; }
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">void</span> <span style="color: #7fffd4; font-weight: bold;">setPassword</span>(<span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">password</span>) { <span style="color: #fa8072;">this</span>.password=password; }
+ }
+</pre>
+
+
+</p><ul>
+<li>
+说明<br/>
+<ul>
+<li>
+javaBean<br/>
+
+<p><br/>
+</p></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3.5" class="outline-3">
+<h3 id="sec-3.5"><span class="section-number-3">3.5</span> 使用ibatis映射 </h3>
+<div class="outline-text-3" id="text-3.5">
+
+
+</div>
+
+<div id="outline-container-3.5.1" class="outline-4">
+<h4 id="sec-3.5.1"><span class="section-number-4">3.5.1</span> 初始化 ibatis ,获取 SqlMapClient对象 </h4>
+<div class="outline-text-4" id="text-3.5.1">
+
+
+<p><br/>
+<pre class="src src-java"><span style="color: #7fffd4;">com</span>.<span style="color: #7fffd4;">ibatis</span>.<span style="color: #7fffd4;">sqlmap</span>.<span style="color: #7fffd4;">client</span>.<span style="color: #9acd32; font-weight: bold;">SqlMapClient</span> <span style="color: #7fffd4; font-weight: bold;">sqlMap</span> = <span style="color: #7fffd4;">null</span>;
+  <span style="color: #fa8072;">try</span> {
+      <span style="color: #7fffd4;">java</span>.<span style="color: #7fffd4;">io</span>.<span style="color: #9acd32; font-weight: bold;">Reader</span> <span style="color: #7fffd4; font-weight: bold;">reader</span> = <span style="color: #7fffd4;">com</span>.<span style="color: #7fffd4;">ibatis</span>.<span style="color: #7fffd4;">common</span>.<span style="color: #7fffd4;">resources</span>.Resources.getResourceAsReader (<span style="color: #ffa07a;">"sql-map-config.xml"</span>);
+      sqlMap = SqlMapClientBuilder.buildSqlMapClient(reader);
+  } <span style="color: #fa8072;">catch</span> (<span style="color: #9acd32; font-weight: bold;">Exception</span> <span style="color: #7fffd4; font-weight: bold;">e</span>) {
+      e.printStackTrace();
+  }
+</pre>
+
+
+</p></div>
+
+</div>
+
+<div id="outline-container-3.5.2" class="outline-4">
+<h4 id="sec-3.5.2"><span class="section-number-4">3.5.2</span> 使用映射 </h4>
+<div class="outline-text-4" id="text-3.5.2">
+
+<ul>
+<li>
+查询<br/>
+
+<p><br/>
+</p></li>
+</ul>
+
+
+<pre class="src src-java"><span style="color: #fa8072;">try</span> {
+     <span style="color: #9acd32; font-weight: bold;">Account</span> <span style="color: #7fffd4; font-weight: bold;">accout</span> = (<span style="color: #9acd32; font-weight: bold;">Account</span>)sqlMap.queryForObject(<span style="color: #ffa07a;">"getAccount"</span>, <span style="color: #ffa07a;">"admin"</span>);
+     ...
+ }  
+</pre>
+
+
+<ul>
+<li>
+插入<br/>
+
+<p><br/>
+</p></li>
+</ul>
+
+
+<pre class="src src-java"><span style="color: #fa8072;">try</span> {
+       <span style="color: #9acd32; font-weight: bold;">Account</span> <span style="color: #7fffd4; font-weight: bold;">account</span> = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">Account</span>();
+       account.setUsername(<span style="color: #ffa07a;">"micheal"</span>);
+       account.setPassword(<span style="color: #ffa07a;">"1234"</span>);
+       sqlMap.insert(<span style="color: #ffa07a;">"createAccount"</span>, account);
+   }
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> spring与ibatis </h2>
+<div class="outline-text-2" id="text-4">
+
+
+</div>
+
+<div id="outline-container-4.1" class="outline-3">
+<h3 id="sec-4.1"><span class="section-number-3">4.1</span> 配置ibatis客户模版 </h3>
+<div class="outline-text-3" id="text-4.1">
+
+<ul>
+<li>
+ibatis的核心是com.ibatis.sqlmap.client.SqlMapClient<br/>
+-执行所有的数据访问操作<br/>
+</li>
+<li>
+存储方法可能抛出java.lang.SQLException,过于泛泛不便使用<br/>
+</li>
+<li>
+SqlMapClientTemplate 包裹了一个 SqlMapClient  来透明地操作数据库<br/>
+</li>
+</ul>
+
+</div>
+
+<div id="outline-container-4.1.1" class="outline-4">
+<h4 id="sec-4.1.1"><span class="section-number-4">4.1.1</span> 配置 SqlMapClientTemplate </h4>
+<div class="outline-text-4" id="text-4.1.1">
+
+
+<p><br/>
+<pre class="src src-xml">&lt;<span style="color: #7fffd4; font-weight: bold;">bean</span> <span style="color: #7fffd4; font-weight: bold;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">SqlMapClientTemplate</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">org.springframework.orm.ibatis.SqlMapClientTemplate</span><span style="color: #ffa07a;">"</span>&gt;
+  &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">sqlMapClient</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">ref</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">sqlMapClient</span><span style="color: #ffa07a;">"</span>/&gt;
+&lt;/<span style="color: #7fffd4; font-weight: bold;">bean</span>&gt;
+&lt;<span style="color: #7fffd4; font-weight: bold;">bean</span> <span style="color: #7fffd4; font-weight: bold;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">SqlMapClient</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">orm.springframework.orm.ibatis.SqlMapClientFactoryBean</span><span style="color: #ffa07a;">"</span>&gt;
+  &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">dataSource</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">ref</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">dataSource</span><span style="color: #ffa07a;">"</span>/&gt;
+  &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">cofigLocation</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">sql-map-config.xml</span><span style="color: #ffa07a;">"</span>/&gt;  
+&lt;/<span style="color: #7fffd4; font-weight: bold;">bean</span>&gt;
+</pre>
+
+
+</p></div>
+
+</div>
+
+<div id="outline-container-4.1.2" class="outline-4">
+<h4 id="sec-4.1.2"><span class="section-number-4">4.1.2</span> 定义 ibatis sql 映射表 </h4>
+<div class="outline-text-4" id="text-4.1.2">
+
+<ul>
+<li id="sec-4.1.2.1">映射配置 <br/>
+
+<p><br/>
+<pre class="src src-xml"> &lt;<span style="color: #7fffd4; font-weight: bold;">sqlMapConfig</span>&gt;
+   &lt;<span style="color: #7fffd4; font-weight: bold;">sqlMap</span> <span style="color: #7fffd4; font-weight: bold;">resources</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">&#37197;&#32622;&#25991;&#20214;&#30340;&#36335;&#24452;&#21517;&#31216;</span><span style="color: #ffa07a;">"</span>/&gt;
+   ....
+&lt;/<span style="color: #7fffd4; font-weight: bold;">sqlMapConfig</span>&gt;
+</pre>
+
+
+</p></li>
+<li id="sec-4.1.2.2">映射文件 <br/>
+
+<p><br/>
+<pre class="src src-xml">&lt;<span style="color: #7fffd4; font-weight: bold;">sqlMap</span>&gt;
+ <span style="color: #add8e6;">&lt;!--</span><span style="color: #add8e6;">&#37197;&#32622;&#32467;&#26524;&#26144;&#23556;</span><span style="color: #add8e6;">--&gt;</span>
+  &lt;<span style="color: #7fffd4; font-weight: bold;">resultMap</span> <span style="color: #7fffd4; font-weight: bold;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">"</span>&gt;
+    &lt;<span style="color: #7fffd4; font-weight: bold;">result</span> <span style="color: #7fffd4; font-weight: bold;">propety</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">column</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">"</span>/&gt;
+  &lt;/<span style="color: #7fffd4; font-weight: bold;">resultMap</span>&gt;
+  &lt;<span style="color: #7fffd4; font-weight: bold;">select</span> <span style="color: #7fffd4; font-weight: bold;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">resultMap</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">parameterClass</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">"</span>&gt;
+    &lt;![CDATA[
+      &#26597;&#35810;&#35821;&#21477;&#22312;&#36825;&#37324;
+    ]]  
+  &lt;/<span style="color: #7fffd4; font-weight: bold;">select</span>&gt;
+&lt;/<span style="color: #7fffd4; font-weight: bold;">sqlMap</span>&gt;
+</pre>
+
+
+</p></li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-4.1.3" class="outline-4">
+<h4 id="sec-4.1.3"><span class="section-number-4">4.1.3</span> 在dao中使用模板 </h4>
+<div class="outline-text-4" id="text-4.1.3">
+
+<ul>
+<li id="sec-4.1.3.1">配置依赖 SqlMapClientTemplate 的 Dao <br/>
+
+<p><br/>
+<pre class="src src-xml">&lt;<span style="color: #7fffd4; font-weight: bold;">bean</span> <span style="color: #7fffd4; font-weight: bold;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">dao&#21517;&#31216;</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">dao&#30340;&#36335;&#24452;&#21517;&#31216;</span><span style="color: #ffa07a;">"</span>&gt;
+  &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">sqlMapClientTemplate</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">ref</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">sqlMapClientTemplate</span><span style="color: #ffa07a;">"</span>/&gt;
+&lt;/<span style="color: #7fffd4; font-weight: bold;">bean</span>&gt;
+</pre>
+
+
+</p></li>
+<li id="sec-4.1.3.2">使用 SqlMapClientTemplate <br/>
+
+<p><br/>
+<pre class="src src-java"><span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">List</span>&lt;Rant&gt; getRantForDay(<span style="color: #9acd32; font-weight: bold;">Date</span> <span style="color: #7fffd4; font-weight: bold;">day</span>)
+{
+  <span style="color: #fa8072;">return</span> sqlMapClientTemplate.queryForList(<span style="color: #ffa07a;">"getRantForDay"</span>,day);
+}
+</pre>
+
+
+</p></li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4.2" class="outline-3">
+<h3 id="sec-4.2"><span class="section-number-3">4.2</span> 建立基于ibatis的dao </h3>
+<div class="outline-text-3" id="text-4.2">
+
+
+</div>
+
+<div id="outline-container-4.2.1" class="outline-4">
+<h4 id="sec-4.2.1"><span class="section-number-4">4.2.1</span> 实现 </h4>
+<div class="outline-text-4" id="text-4.2.1">
+
+<ul>
+<li>
+继承 SqlMapClientDaoSupport 类<br/>
+
+<p><br/>
+</p></li>
+</ul>
+
+
+<pre class="src src-java"><span style="color: #fa8072;">public</span> <span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">IbatisRantDao</span> <span style="color: #fa8072;">extends</span> <span style="color: #9acd32; font-weight: bold;">SqlMapClientDaoSupport</span> <span style="color: #fa8072;">implements</span> <span style="color: #9acd32; font-weight: bold;">Rantdao</span>
+{
+   <span style="color: #fa8072;">return</span> sqlMapClientTemplate.queryForList(<span style="color: #ffa07a;">"getRantForDay"</span>,day);
+}
+</pre>
+
+
+<ul>
+<li>
+配置<br/>
+无需再配置 SqlMapClientTemplate ,直接将 sqlMapClient 配置在dao中<br/>
+
+<p><br/>
+<pre class="src src-xml"> &lt;<span style="color: #7fffd4; font-weight: bold;">bean</span> <span style="color: #7fffd4; font-weight: bold;">id</span>="dao&#21517;&#31216; <span style="color: #7fffd4; font-weight: bold;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">dao&#30340;&#36335;&#24452;&#21517;&#31216;</span><span style="color: #ffa07a;">"</span>&gt;
+ &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">sqlMapClient</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">ref</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">sqlMapClient</span><span style="color: #ffa07a;">"</span>/&gt;
+&lt;/<span style="color: #7fffd4; font-weight: bold;">bean</span>&gt;
+</pre>
+
+
+</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble">
+<p class="author"> Author: 
+</p>
+<p class="date"> Date: 2010-11-11 13:03:05 </p>
+<p class="creator">HTML generated by org-mode 6.35i in emacs 24</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,186 @@
+#+OPTIONS:"\n:t"
+ibatis笔记
+* 优点
+** 易于掌握
+** 容易进行sql优化
+** 可以进行细粒度的优化
+*** 更新表的某个字段不用更新所有字段
+ + UPDATE 表名称 SET 列名='值' WHERE 条件
+*** 需要列出表的部分内容时,可以少从数据库读数据,节省资源
+ + SELECT 列名1,列名2,列名... FROM 表名称 WHERE 条件
+*** 更新语句时,执行一条 UPDATE 就可以,无需先 SELECT 提升性能
+*** SQL语句都保存在单独的文件中,具有可维护性
+*** 运行效率比hibernate高
+* 缺点
+** 对不同数据库类型的支持差
+** cache管理支持差
+* 开发实例
+** 新建数据表
+** 配置文件
++ ibatis必须配置 sql-map-config,文件名随意
+ #+BEGIN_SRC xml
+   <?xml version="1.0" encoding="UTF-8" ?>
+   <!DOCTYPE sqlMapConfig
+   PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+   "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+  <sqlMapConfig>
+    <settings
+      cacheModelsEnabled="true"
+      enhancementEnabled="true"
+      lazyLoadingEnabled="true"
+      maxRequests="32"
+      maxSessions="10"
+     maxTransactions="5"
+     useStatementNamespaces="false"
+   />
+   <transactionManager type="JDBC" >
+     <dataSource type="SIMPLE">
+       <property name="JDBC.Driver" value="sun.jdbc.odbc.JdbcOdbcDriver"/>
+       <property name="JDBC.ConnectionURL" value="jdbc:odbc:Blog"/>
+       <property name="JDBC.Username" value="admin"/>
+       <property name="JDBC.Password" value=""/>
+      </dataSource>
+   </transactionManager>
+   <sqlMap resource="Account.xml" />
+ </sqlMapConfig>
+ #+END_SRC
+ + 说明 
+  - sqlMapConfig
+  - transactionManager
+** 关联xml配置文件
+#+BEGIN_SRC xml
+ <?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="Account">
+
+  <select id="getAccount" parameterClass="java.lang.String" resultClass="example.Account">
+    select * from Account where username = #value#
+  </select>
+
+  <insert id="createAccount" parameterClass="example.Account">
+    insert into Account (username, password)
+    values ( #username#, #password# )
+  </insert>
+</sqlMap>
+#+END_SRC
++ 说明
+  - 查询语句用 <select id="" parameterClass="" resultClass="">查询语句</select>
+    查询方法为 getAccount
+  - 插入语句用 <insert id="" parameterClass="">插入语句</insert> 
+    插入方法为 createAccount
+** 映射java类
+ #+BEGIN_SRC java
+ package example;
+ public class Account {
+    private String username;
+    private String password;
+
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username=username; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password=password; }
+  }
+ #+END_SRC
+ + 说明
+  - javaBean
+
+** 使用ibatis映射
+*** 初始化 ibatis ,获取 SqlMapClient对象
+ #+BEGIN_SRC java
+  com.ibatis.sqlmap.client.SqlMapClient sqlMap = null;
+    try {
+        java.io.Reader reader = com.ibatis.common.resources.Resources.getResourceAsReader ("sql-map-config.xml");
+        sqlMap = SqlMapClientBuilder.buildSqlMapClient(reader);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+#+END_SRC
+*** 使用映射
+ + 查询
+#+BEGIN_SRC java
+   try {
+        Account accout = (Account)sqlMap.queryForObject("getAccount", "admin");
+        ...
+    }  
+ #+END_SRC
++ 插入
+#+BEGIN_SRC java
+ try {
+        Account account = new Account();
+        account.setUsername("micheal");
+        account.setPassword("1234");
+        sqlMap.insert("createAccount", account);
+    }
+#+END_SRC
+
+* spring与ibatis
+** 配置ibatis客户模版
+ + ibatis的核心是com.ibatis.sqlmap.client.SqlMapClient
+   -执行所有的数据访问操作
+ + 存储方法可能抛出java.lang.SQLException,过于泛泛不便使用
+ + SqlMapClientTemplate 包裹了一个 SqlMapClient  来透明地操作数据库
+*** 配置 SqlMapClientTemplate
+ #+BEGIN_SRC xml 
+  <bean id="SqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+  <bean id="SqlMapClient" class="orm.springframework.orm.ibatis.SqlMapClientFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="cofigLocation" value="sql-map-config.xml"/>  
+  </bean>
+ #+END_SRC
+*** 定义 ibatis sql 映射表
+****  映射配置
+ #+BEGIN_SRC xml
+ <sqlMapConfig>
+   <sqlMap resources="配置文件的路径名称"/>
+   ....
+</sqlMapConfig>
+#+END_SRC
+****  映射文件
+#+BEGIN_SRC xml
+ <sqlMap>
+  <!--配置结果映射-->
+   <resultMap id="" class="">
+     <result propety="" column=""/>
+   </resultMap>
+   <select id="" resultMap="" parameterClass="">
+     <![CDATA[
+       查询语句在这里
+     ]]  
+   </select>
+ </sqlMap>
+#+END_SRC
+*** 在dao中使用模板
+**** 配置依赖 SqlMapClientTemplate 的 Dao
+#+BEGIN_SRC xml
+  <bean id="dao名称" class="dao的路径名称">
+    <property id="sqlMapClientTemplate" ref="sqlMapClientTemplate"/>
+  </bean>
+#+END_SRC
+**** 使用 SqlMapClientTemplate
+ #+BEGIN_SRC java
+  public List<Rant> getRantForDay(Date day)
+  {
+    return sqlMapClientTemplate.queryForList("getRantForDay",day);
+  }
+#+END_SRC
+** 建立基于ibatis的dao
+*** 实现
+ + 继承 SqlMapClientDaoSupport 类
+ #+BEGIN_SRC java
+   public class IbatisRantDao extends SqlMapClientDaoSupport implements Rantdao
+   {
+      return sqlMapClientTemplate.queryForList("getRantForDay",day);
+   }
+#+END_SRC
++ 配置
+  无需再配置 SqlMapClientTemplate ,直接将 sqlMapClient 配置在dao中
+ #+BEGIN_SRC xml
+   <bean id="dao名称 class="dao的路径名称">
+   <property id="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+#+END_SRC
