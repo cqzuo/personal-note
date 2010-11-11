@@ -475,8 +475,9 @@ ssh复习
   <bean id="监听器名称" class="监听类完整路径名"/>
 *** 脚本化bean
 **** xsi添加
- + 
+ + http://www.springframework.org/schema.lang/spring-lang-2.0.xsd
 **** 脚本配置
+ + 
 *** 了解容器
 ** 通知
 ** 连接数据库    
