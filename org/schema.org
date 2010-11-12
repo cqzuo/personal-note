@@ -477,7 +477,10 @@ ssh复习
 **** xsi添加
  + http://www.springframework.org/schema.lang/spring-lang-2.0.xsd
 **** 脚本配置
- + 
+ + ruby
+   <lang:jruby id="bean名称" script-source="脚本文件路径名" script-interface="脚本要实现的接口及路径"/>
+ + groovy
+ + bellshell
 *** 了解容器
 ** 通知
 ** 连接数据库    
