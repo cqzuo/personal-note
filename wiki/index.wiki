@@ -1,18 +1,9 @@
-=主页=
- * [ ] blog
- * [x] code
-{{{class="brush: java"
-  public class Test
-{
-	public static void main()
-	{
-	System.out.println("This is a test code!");
-}
-}
-}}}
-
-{{{class="brush: python" 
- 	>def hello(world):      
-		for x in range(10):          
-		print("Hello {0} number {1}".format(world, x)) 
-}}} 
+=vimwiki语法=
+ * 入门
+  * 进入首页 
+    \ww 直接打开index.wikui
+  * 建立链接 
+      [[目录]]
+    别名显示链接 [[页面名称|要显示的链接名称]]
+  * 转到新页面
+    双击链接(或enter)

@@ -480,7 +480,9 @@ ssh复习
  + ruby
    <lang:jruby id="bean名称" script-source="脚本文件路径名" script-interface="脚本要实现的接口及路径"/>
  + groovy
+   <lang:groovy id="bean名称" script-source="脚本文件路径名" script-interface="脚本要实现的接口及路径"/>
  + bellshell
+   <lang:bellshell id="bean名称" script-source="脚本文件路径名" script-interface="脚本要实现的接口及路径"/>
 *** 了解容器
 ** 通知
 ** 连接数据库    
