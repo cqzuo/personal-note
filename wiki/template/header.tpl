@@ -38,7 +38,6 @@
     </head>
     <body>
         <div id="header">
-            <h1>%title%</h1>
-            <a href="index.html" id="backButton">Index</a> 
+            <a href="index.html" id="backButton">Index</a><center><h1>%title%</h1></center> 
         </div>
         <div id="content">
