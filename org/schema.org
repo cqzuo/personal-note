@@ -17,7 +17,7 @@ ssh复习
 	 - 多个视图对应一个模型
     + 三层架构
 	- 降低耦合,提高扩展性
-***  strust1
+*** strust1
       + API
        	- struts1的api依赖
        	- servlet api的依赖
@@ -482,8 +482,17 @@ ssh复习
  + groovy
    <lang:groovy id="bean名称" script-source="脚本文件路径名" script-interface="脚本要实现的接口及路径"/>
  + bellshell
-   <lang:bellshell id="bean名称" script-source="脚本文件路径名" script-interface="脚本要实现的接口及路径"/>
-*** 了解容器
+   <lang:bash id="bean名称" script-source="脚本文件路径名" script-interface="脚本要实现的接口及路径"/>
+**** 注入脚本化Bean的属性
+ <lang property name="" ref=""/>
+**** 刷新脚本化的Bean
+ <reflash-check-delay="5000"/>
+**** 内嵌脚本
+ <lang inline-script>
+   <!CDATA[
+     内嵌脚本
+   ]>
+ </lang>
 ** 通知
 ** 连接数据库    
 ** 事务管理
