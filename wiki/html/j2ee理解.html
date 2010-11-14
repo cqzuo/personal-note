@@ -41,12 +41,175 @@
             <a href="index.html" id="backButton">Index</a><center><h1>j2ee理解</h1></center> 
         </div>
         <div id="content">
-<p>
-==
-</p>
+<div class="toc">
+<ul>
+<li><a href="#toc_0.1">J2EE的概念</a></li>
+<li><a href="#toc_0.2">J2EE的优势</a></li>
+<li><a href="#toc_0.3">四层模型</a></li>
+<li><a href="#toc_0.4">框架结构</a></li>
+<li><a href="#toc_0.5">十三种核心技术</a></li>
+</ul>
+</ul>
+</div>
+<h2 id="toc_0.1">J2EE的概念</h2>
+<ul>
+<li>
+是一种利用java2平台来简化企业解决方案的开放部署和管理相关复杂问题的体系结构
+</li>
+<li>
+巩固了标准版的优点(可移植性,方便存取数据库的jdbc,corba以及在internate应用中保护数据的安全模式)
+</li>
+<li>
+提供EJB JAVA SERVLET JSP 以及xml技术的全面支持
+</li>
+</ul>
+<h2 id="toc_0.2">J2EE的优势</h2>
+<ul>
+<li>
+保留现存it资产
+</li>
+<ul>
+<li>
+以渐进方式建立在已有系统之上
+</li>
+</ul>
+<li>
+高效开发
+</li>
+<ul>
+<li>
+将通用和繁琐的服务端任务交给中间件供应商完成
+</li>
+</ul>
+<li>
+状态管理服务
+</li>
+<ul>
+<li>
+开发人员不用关心状态管理 
+</li>
+</ul>
+<li>
+持续性服务
+</li>
+<ul>
+<li>
+开发人员不用对数据访问逻辑进行编码就能编写应用程序,易于开发维护
+</li>
+</ul>
+<li>
+分布式共享数据对象cache服务
+</li>
+<ul>
+<li>
+让开发人员能开发高性能的系统,极大提高整体部署的伸缩性
+</li>
+</ul>
+<li>
+支持异构环境
+</li>
+<ul>
+<li>
+j2ee能够开发部署在异构环境的可移植程序,不依赖于任何特定操作系统,中间件,硬件
+</li>
+</ul>
+<li>
+可伸缩性
+</li>
+<ul>
+<li>
+基于j2ee平台的应用程序能被部署到各种操作系统上
+</li>
+<li>
+j2ee领域的供应商提供了更为广泛的负载平衡策略,能消除系统中的瓶颈,允许多台服务器集成部署
+</li>
+</ul>
+<li>
+稳定的可用性
+</li>
+<ul>
+<li>
+j2ee部署到可靠的操作环境中,支持长期的可用性
+</li>
+</ul>
+</ul>
+<h2 id="toc_0.3">四层模型</h2>
+<ul>
+<li>
+介绍
+</li>
+<ul>
+<li>
+j2ee使用多层的分布式应用模型,将c/s模型中的不同曾平分成多层
+</li>
+</ul>
+<li>
+j2ee应用程序组件
+</li>
+<ul>
+<li>
+j2ee应用程序由组件构成,组件是具有独立功能的软件单元
+</li>
+<li>
+应用客户端程序和applets是客户层组件
+</li>
+<li>
+Servlet和jsp是web层组件
+</li>
+<li>
+ejb是业务层组件
+</li>
+</ul>
+<li>
+客户层
+</li>
+<ul>
+<li>
+基于web或传统模式
+</li>
+<li>
+jsp/servlet html和java applets不算web层组件
+</li>
+<li>
+包含某些javaBean对象来处理用户输入,并将输入发送给业务层来处理
+</li>
+</ul>
+<li>
+业务逻辑层组件
+</li>
+<ul>
+<li>
+业务层代码的逻辑用来满足客户特定需求,有ejb进行处理 
+</li>
+<ul>
+<li>
+sessonBean
+       与客户端程序的临时交互
+</li>
+<li>
+entityBean
+       数据库的表中一行永久的记录
+</li>
+<li>
+messagedrivenBean
+       结合sessonBean和JMS消息监听器的特性,运行业务层组件异步接收JMS消息
+</li>
+</ul>
+</ul>
+<li>
+企业信息系统
+</li>
+<ul>
+<li>
+
+</li>
+</ul>
+</ul>
+<h2 id="toc_0.4">框架结构</h2>
+<h2 id="toc_0.5">十三种核心技术</h2>
         </div>
-        <div id="footer">
-            Powered by <a href="http://vimwiki.googlecode.com/">Vimwiki</a>
+<div id="footer"><center>
+            Powered by <a href="http://vimwiki.googlecode.com/">Vimwiki</a>,<script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.js"></script></center>
         </div>
     </body>
 </html>
