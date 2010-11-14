@@ -1,6 +1,3 @@
-J2EE全面理解
-文章分类:Java编程 关键字: j2ee 
-引用
 本文从五个方面对J2EE进行了比较全面的介绍。从J2EE的概念说起，到它的优势，到J2EE典型的四层模型，和它的框架结构，最后是J2EE十三种核心技术的一个简介。本文分门别类的对J2EE中的服务，组件，层次，容器，API都做了比较详细的介绍，相信看完此文，读者会对J2EE有一个更清晰的认识。 
 一. J2EE的概念 
 目前，Java 2平台有3个版本，它们是适用于小型设备和智能卡的Java 2平台Micro版（Java 2 Platform Micro Edition，J2ME）、适用于桌面系统的Java 2平台标准版（Java 2 Platform Standard Edition，J2SE）、适用于创建服务器应用程序和服务的Java 2平台企业版（Java 2 Platform Enterprise Edition，J2EE）。 
