@@ -215,3 +215,23 @@ table {
 .infomark {
   background-image: url(../images/icon_info_sml.gif);
 }
+.toc {
+	position: relative;
+	z-index: 2;
+    float: right;
+    max-width: 260px;
+    min-width: 220px;
+    border: 1px solid #D6E0E5;
+    margin: 0 0 1em 1em;
+    padding: 1em;
+    background-color: #F4F8FB;
+}
+.toc .switch { float: right; }
+.toc > ul {
+    margin: 0;
+}
+.toc > ul > li {
+    list-style: none;
+}
+#footer { margin: 50px 0 40px; padding-top: 10px; border-top: 1px solid #ddd; text-align: left; font-size: 90%; }
+#footer abbr { float: right; cursor: help; text-indent: 0; font-size: 85%; }

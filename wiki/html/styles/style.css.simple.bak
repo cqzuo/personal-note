@@ -179,3 +179,23 @@ a.comment-count{}
 footer{border-width:1px 0 0; border-style:solid; border-color:#ccc; background:#fff none; color:#999; text-align:right; margin:0; padding:5px; display:block;}
     footer p{margin:0; padding:0; font-size:.75em;}
     footer a{color:#333; margin:0 5px;}
+.toc {
+	position: relative;
+	z-index: 2;
+    float: right;
+    max-width: 260px;
+    min-width: 220px;
+    border: 1px solid #D6E0E5;
+    margin: 0 0 1em 1em;
+    padding: 1em;
+    background-color: #F4F8FB;
+}
+.toc .switch { float: right; }
+.toc > ul {
+    margin: 0;
+}
+.toc > ul > li {
+    list-style: none;
+}
+#footer { margin: 50px 0 40px; padding-top: 10px; border-top: 1px solid #ddd; text-align: left; font-size: 90%; }
+#footer abbr { float: right; cursor: help; text-indent: 0; font-size: 85%; }
