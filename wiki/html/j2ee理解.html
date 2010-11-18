@@ -45,9 +45,47 @@
 <ul>
 <li><a href="#toc_0.1">J2EE的概念</a></li>
 <li><a href="#toc_0.2">J2EE的优势</a></li>
+<ul>
+<li><a href="#toc_0.2.1">保留现存it资产</a></li>
+<li><a href="#toc_0.2.2">高效开发</a></li>
+<li><a href="#toc_0.2.3">状态管理服务</a></li>
+<li><a href="#toc_0.2.4">持续性服务</a></li>
+<li><a href="#toc_0.2.5">分布式共享数据对象cache服务</a></li>
+<li><a href="#toc_0.2.6">支持异构环境</a></li>
+<li><a href="#toc_0.2.7">可伸缩性</a></li>
+<li><a href="#toc_0.2.8">稳定的可用性</a></li>
+</ul>
 <li><a href="#toc_0.3">四层模型</a></li>
-<li><a href="#toc_0.4">框架结构</a></li>
-<li><a href="#toc_0.5">十三种核心技术</a></li>
+<ul>
+<li><a href="#toc_0.3.1">介绍</a></li>
+<li><a href="#toc_0.3.2">j2ee应用程序组件</a></li>
+<li><a href="#toc_0.3.3">客户层与web层</a></li>
+<li><a href="#toc_0.3.4">业务逻辑层组件</a></li>
+<li><a href="#toc_0.3.5">企业信息系统</a></li>
+</ul>
+<li><a href="#toc_0.4">j2ee的框架</a></li>
+<ul>
+<li><a href="#toc_0.4.1">优点</a></li>
+<li><a href="#toc_0.4.2">服务</a></li>
+<ul>
+<li><a href="#toc_0.4.2.1">j2ee安全模型</a></li>
+<li><a href="#toc_0.4.2.2">事务管理</a></li>
+<li><a href="#toc_0.4.2.3">jndi寻址</a></li>
+<li><a href="#toc_0.4.2.4">j2ee远程连接</a></li>
+<li><a href="#toc_0.4.2.5">生存周期管理</a></li>
+<li><a href="#toc_0.4.2.6">数据库连接池</a></li>
+</ul>
+<li><a href="#toc_0.4.3">容器</a></li>
+</ul>
+<li><a href="#toc_0.5">核心技术</a></li>
+<li><a href="#toc_0.6">设计观念</a></li>
+<ul>
+<li><a href="#toc_0.6.1">Professinal</a></li>
+<li><a href="#toc_0.6.2">Configruation</a></li>
+<li><a href="#toc_0.6.3">Simple</a></li>
+<li><a href="#toc_0.6.4">Reusable</a></li>
+<li><a href="#toc_0.6.5">Communication</a></li>
+</ul>
 </ul>
 </ul>
 </div>
@@ -64,58 +102,43 @@
 </li>
 </ul>
 <h2 id="toc_0.2">J2EE的优势</h2>
-<ul>
-<li>
-保留现存it资产
-</li>
+<h3 id="toc_0.2.1">保留现存it资产</h3>
 <ul>
 <li>
 以渐进方式建立在已有系统之上
 </li>
 </ul>
-<li>
-高效开发
-</li>
+<h3 id="toc_0.2.2">高效开发</h3>
 <ul>
 <li>
 将通用和繁琐的服务端任务交给中间件供应商完成
 </li>
 </ul>
-<li>
-状态管理服务
-</li>
+<h3 id="toc_0.2.3">状态管理服务</h3>
 <ul>
 <li>
 开发人员不用关心状态管理 
 </li>
 </ul>
-<li>
-持续性服务
-</li>
+<h3 id="toc_0.2.4">持续性服务</h3>
 <ul>
 <li>
 开发人员不用对数据访问逻辑进行编码就能编写应用程序,易于开发维护
 </li>
 </ul>
-<li>
-分布式共享数据对象cache服务
-</li>
+<h3 id="toc_0.2.5">分布式共享数据对象cache服务</h3>
 <ul>
 <li>
 让开发人员能开发高性能的系统,极大提高整体部署的伸缩性
 </li>
 </ul>
-<li>
-支持异构环境
-</li>
+<h3 id="toc_0.2.6">支持异构环境</h3>
 <ul>
 <li>
 j2ee能够开发部署在异构环境的可移植程序,不依赖于任何特定操作系统,中间件,硬件
 </li>
 </ul>
-<li>
-可伸缩性
-</li>
+<h3 id="toc_0.2.7">可伸缩性</h3>
 <ul>
 <li>
 基于j2ee平台的应用程序能被部署到各种操作系统上
@@ -124,28 +147,20 @@ j2ee能够开发部署在异构环境的可移植程序,不依赖于任何特定操作系统,中间件,硬件
 j2ee领域的供应商提供了更为广泛的负载平衡策略,能消除系统中的瓶颈,允许多台服务器集成部署
 </li>
 </ul>
-<li>
-稳定的可用性
-</li>
+<h3 id="toc_0.2.8">稳定的可用性</h3>
 <ul>
 <li>
 j2ee部署到可靠的操作环境中,支持长期的可用性
 </li>
 </ul>
-</ul>
 <h2 id="toc_0.3">四层模型</h2>
+<h3 id="toc_0.3.1">介绍</h3>
 <ul>
 <li>
-介绍
-</li>
-<ul>
-<li>
-j2ee使用多层的分布式应用模型,将c/s模型中的不同曾平分成多层
+j2ee使用多层的分布式应用模型,将c/s模型中的不同层平分成多层
 </li>
 </ul>
-<li>
-j2ee应用程序组件
-</li>
+<h3 id="toc_0.3.2">j2ee应用程序组件</h3>
 <ul>
 <li>
 j2ee应用程序由组件构成,组件是具有独立功能的软件单元
@@ -160,9 +175,7 @@ Servlet和jsp是web层组件
 ejb是业务层组件
 </li>
 </ul>
-<li>
-客户层
-</li>
+<h3 id="toc_0.3.3">客户层与web层</h3>
 <ul>
 <li>
 基于web或传统模式
@@ -174,9 +187,7 @@ jsp/servlet html和java applets不算web层组件
 包含某些javaBean对象来处理用户输入,并将输入发送给业务层来处理
 </li>
 </ul>
-<li>
-业务逻辑层组件
-</li>
+<h3 id="toc_0.3.4">业务逻辑层组件</h3>
 <ul>
 <li>
 业务层代码的逻辑用来满足客户特定需求,有ejb进行处理 
@@ -196,25 +207,191 @@ messagedrivenBean
 </li>
 </ul>
 </ul>
-<li>
-企业信息系统
-</li>
+<h3 id="toc_0.3.5">企业信息系统</h3>
 <ul>
 <li>
 企业基础建设系统(erp),大型机事务处理 数据库系统 其他信息系统
 </li>
 </ul>
-</ul>
-<h2 id="toc_0.4">框架结构</h2>
+<h2 id="toc_0.4">j2ee的框架</h2>
+<h3 id="toc_0.4.1">优点</h3>
 <ul>
 <li>
-
+业务逻辑被封装为可复用的组件
+</li>
+<li>
+服务器以容器的形式为所有的组件类型提供后台服务
 </li>
 </ul>
-<h2 id="toc_0.5">十三种核心技术</h2>
+<h3 id="toc_0.4.2">服务</h3>
+<h4 id="toc_0.4.2.1">j2ee安全模型</h4>
+<ul>
+<li>
+配置web组件或enterprise bean,让授权用户才能访问资源
+</li>
+<li>
+给客户分配角色,只允许激活特定方法
+</li>
+<ul>
+<li>
+enterprise bean的部署描述中声明角色和激活方法
+</li>
+</ul>
+</ul>
+<h4 id="toc_0.4.2.2">事务管理</h4>
+<ul>
+<li>
+可以指定组成一个事务中所有方法间的关系,同一事务的方法被作为一个单一单元
+</li>
+<li>
+在部署描述文件中声明enterprise bean的事务属性,并处理相应事务
+</li>
+</ul>
+<h4 id="toc_0.4.2.3">jndi寻址</h4>
+<ul>
+<li>
+为企业内多重名字和目录服务提供了一个统一的接口
+</li>
+</ul>
+<h4 id="toc_0.4.2.4">j2ee远程连接</h4>
+<ul>
+<li>
+管理客户端和enterprise bean间的底层交互
+</li>
+</ul>
+<h4 id="toc_0.4.2.5">生存周期管理</h4>
+<ul>
+<li>
+管理enterprise bean的创建和移除
+</li>
+</ul>
+<h4 id="toc_0.4.2.6">数据库连接池</h4>
+<h3 id="toc_0.4.3">容器</h3>
+<ul>
+<li>
+ejb容器管理所有J2ee应用程序企业级bean的执行
+</li>
+<ul>
+<li>
+enterprise bean和它们的容器运行在j2ee服务器上
+</li>
+</ul>
+<li>
+web容器管理jsp和servlet组件的执行
+</li>
+<ul>
+<li>
+web组件和他们的容器运行在j2ee服务器上
+</li>
+</ul>
+<li>
+应用程序客户端管理所有j2ee 应用程序中客户端组件的执行
+</li>
+<ul>
+<li>
+应用程序客户端和他们的容器运行在j2ee服务器上 
+</li>
+</ul>
+<li>
+applet容器运行在客户端机器上的web浏览器
+</li>
+</ul>
+<h2 id="toc_0.5">核心技术</h2>
+<ul>
+<li>
+j2ee平台由一整套服务,应用程序接口和协议组成
+</li>
+<li>
+jdbc
+</li>
+<ul>
+<li>
+对数据库的访问具有平台无关性
+</li>
+</ul>
+<li>
+jndi
+</li>
+<ul>
+<li>
+执行名字和目录服务,提供了统一的模型来操作本地资源和服务器中的对象
+</li>
+</ul>
+<li>
+ejb
+</li>
+<ul>
+<li>
+提供了一个框架来开发和部署分布式的商务逻辑,简化了企业级应用开发的难度
+</li>
+</ul>
+<li>
+rmi
+</li>
+<ul>
+<li>
+使用序列化方式在客户端和服务器端传递数据
+</li>
+</ul>
+<li>
+java Idl/corba
+</li>
+<li>
+jsp
+</li>
+<li>
+servlet
+</li>
+<li>
+xml 
+</li>
+<li>
+jms
+</li>
+<li>
+jta
+</li>
+<li>
+jts
+</li>
+<li>
+java mail
+</li>
+</ul>
+<h2 id="toc_0.6">设计观念</h2>
+<h3 id="toc_0.6.1">Professinal</h3>
+<ul>
+<li>
+j2ee应用有各个组件组成,每个组件领域的开发者都应该是专业的
+</li>
+</ul>
+<h3 id="toc_0.6.2">Configruation</h3>
+<ul>
+<li>
+可配置性是ejb重用的基础
+</li>
+</ul>
+<h3 id="toc_0.6.3">Simple</h3>
+<ul>
+<li>
+将大问题细化,分而治之
+</li>
+</ul>
+<h3 id="toc_0.6.4">Reusable</h3>
+<ul>
+<li>
+可重用
+</li>
+</ul>
+<h3 id="toc_0.6.5">Communication</h3>
+<ul>
+<li>
+开发者之间,开发者与客户之间的沟通
+</li>
+</ul>
         </div>
 <div id="footer"><center>
-            Copyright@2010 曹红伟 Powered by <a href="http://vimwiki.googlecode.com/">Vimwiki</a>
+            Copyright@2010 arch Powered by <a href="http://vimwiki.googlecode.com/">Vimwiki</a>
 	 <script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.js"></script></center>
         </div>
     </body>
