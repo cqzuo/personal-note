@@ -1,0 +1,16 @@
+1.Hashtable和HashMap有什么区别？
+2.你怎么理解MVC模式？
+3.SQLServer中左联接查询用left join，Oracle中用什么？
+4.SQLServer中的数据库，在Oracle中对应的是什么？
+5.如果SQLServer中有两个数据库，那么让你把这两个数据库对应到Oracle中，你应该怎么做？
+6.有两个页面a.jsp和b.jsp，要从a.jsp传值到b.jsp有几种方法？分别是什么？
+7.有三个页面，a.jsp,b.jsp和c.jsp,流程是：a.jsp->b.jsp->c.jsp,其中a.jsp中提交的数据要在c.jsp中访问，用最简单的方法怎么做？注意不能放在session里
+7.jsp和servlet有什么区别？
+8.映射是什么？你怎么理解映射？
+9.Hibernate中：不看数据库，不看XML文件，不看查询语句，怎么样能知道表结构？
+10.SQLServer支持集群吗？
+11.为什么要用MVC？我从JSP页面直接访问数据库不是更简单吗,为什么非要先提交到控制器再做处理？
+12.在struts中，假设有一个对数据库中一张表的增删改查的操作，你是写一个action还是写多个action？为什么？
+13.struts中的actionform有什么好处？
+14.用过Hibernate吗，用它有什么好处？
+15.通常所说的web应用程序分3层，即MVC，如果我想分4层，应该怎么分？

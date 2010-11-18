@@ -1,0 +1,147 @@
+set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunctio
+set guioptions-=T
+filetype on
+set nobackup
+:autocmd  BufEnter  *  call  DoWordComplete()
+set history=1000
+colo evening
+set background=dark
+:setlocal omnifunc=javacomplete#Complete
+syntax on
+"set guifont=Courier_New:h11:cANSI
+"set guifont=YaHei\ Consolas\ Hybrid:h12
+nmap <silent> <F12>  :%s/\s\+$//<CR>         "删除行末多余空字符
+nmap <silent> <F8>  gg=G                    "格式化整个文件，为误用，特意加shift键
+nmap <silent> <F6>  =a{                     "格式化当前{}之内的文本
+nmap <silent> <F11> :%s/\n\n/\r/g<CR>   "删除多余空行
+nmap <silent> <F2>  :bd<CR>
+nmap <silent> <F5>  :w<CR>
+nmap <silent> <F3> <ESC>:Tlist<RETURN>
+noremap <silent> <F4> <ESC>:TlistUpdate<RETURN>
+:inoremap <S-ENTER> <c-r>=SkipPair()<CR>
+:inoremap <S-SPACE> <ESC>la
+:inoremap <C-ENTER> <ESC>A;<CR>
+:inoremap ( ()<ESC>i
+:inoremap ) <c-r>=ClosePair(')')<CR>
+:inoremap { <c-r>=ClsoeBrace()<CR>
+:inoremap } <c-r>=ClosePair('}')<CR>
+:inoremap [ []<ESC>i
+:inoremap ] <c-r>=ClosePair(']')<CR>
+:inoremap ;; <ESC>A;<CR>
+
+function ClosePair(char)
+   if getline('.')[col('.') - 1] == a:char
+      return "\<Right>"
+   else
+      return a:char
+   endif
+endf
+function Semicolon()
+   "echo getline('.')[col('.')]
+   if getline('.')[col('.')] == ')'
+      return "<ESC>A;"
+   elseif getline('.')[col('.')] == '}'
+      return "\<ESC>A;"
+   elseif getline('.')[col('.')] == ']'
+      return "\<ESC>A;"
+   else
+      return ";"
+   endif
+endf
+function SkipPair()
+   if getline('.')[col('.') - 1] == ')'
+      return "\<ESC>o"
+   else
+      normal j
+      let curline = line('.')
+      let nxtline = curline
+      while curline == nxtline
+         if getline('.')[col('.') - 1] == '}'
+            normal j
+            let nxtline = nxtline + 1
+            let curline = line('.')
+            continue
+         else
+            return "\<ESC>i"
+         endif
+        
+      endwhile
+      return "\<ESC>o"
+   endif
+endf
+function ClsoeBrace()
+   if getline('.')[col('.') - 2] == '='
+      return "{}\<ESC>i"
+   elseif getline('.')[col('.') - 3] == '='
+      return "{}\<ESC>i"
+   elseif getline('.')[col('.') - 1] == '{'
+      return "{}\<ESC>i"
+   elseif getline('.')[col('.') - 2] == '{'
+      return "{}\<ESC>i"
+   elseif getline('.')[col('.') - 2] == ','
+      return "{}\<ESC>i"
+   elseif getline('.')[col('.') - 3] == ','
+      return "{}\<ESC>i"
+   else
+      return "{\<ENTER>}\<ESC>O"
+   endif
+endf
+syntax on
+let tlist_txt_settings = 'txt;c:content;f:figures;t:tables'
+au BufRead,BufNewFile *.txt setlocal ft=txt
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+
+set statusline=%1*\ %F\ %2*%m%r%*%3*\ [ENCODE=%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %*%4*\ [TYPE=%{&ff}]\ %*%5*\ [ASCII=\%03.3b]\ %*%6*\ [HEX=\%02.2B]\ %*%7*\ [POS=%04l/%04L,%04v]\ %*%8*\ [%p%%]\ %*
+hi User1 guibg=#F4FF93  guifg=#000000
+hi User2 guibg=#CCFE9D  guifg=#000000
+hi User3 guibg=#87D17C  guifg=#000000
+hi User4 guibg=#6BB671  guifg=#000000
+hi User5 guibg=#4D9852  guifg=#000000
+hi User6 guibg=#529398  guifg=#000000
+hi User7 guibg=#556798  guifg=#BFBFBF
+hi User8 guibg=#6A5898  guifg=#ffffff
+hi User9 guifg=#055581
+set laststatus=2
+set guifont=Yahei_Monaco:h10
+" 打开javascript折叠 
+let b:javascript_fold=1 
+" 打开javascript对dom、html和css的支持 
+let javascript_enable_domhtmlcss=1
+inoremap <expr> <buffer> <C-Tab> vimwiki_tbl#kbd_tab()
+
+" vimwiki
+let g:vimwiki_use_mouse = 1
+let g:vimwiki_list = [{'path': 'E:/note/我的DBank/web/wiki',
+\ 'path_html': 'E:/note/我的DBank/web/wiki/html/',
+\ 'html_footer': 'E:/note/我的DBank/web/wiki/template/footer.tpl',
+\ 'html_header': 'E:/note/我的DBank/web/wiki/template/header.tpl',}] 
+
+

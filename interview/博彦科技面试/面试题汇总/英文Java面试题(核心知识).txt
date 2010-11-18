@@ -1,0 +1,165 @@
+Question: What is transient variable?
+Answer: Transient variable can't be serialize. For example if a variable is declared as transient in a Serializable class and the class is written to an ObjectStream, the value of the variable can't be written to the stream instead when the class is retrieved from the ObjectStream the value of the variable becomes null.
+Question: Name the containers which uses Border Layout as their default layout?
+Answer: Containers which uses Border Layout as their default are: window, Frame and Dialog classes.
+
+Question: What do you understand by Synchronization?
+Answer: Synchronization is a process of controlling the access of shared resources by the multiple threads in such a manner that only one thread can access one resource at a time. In non synchronized multithreaded application, it is possible for one thread to modify a shared object while another thread is in the process of using or updating the object's value. Synchronization prevents such type of data corruption.
+E.g. Synchronizing a function:
+public synchronized void Method1 () {
+// Appropriate method-related code. 
+}
+E.g. Synchronizing a block of code inside a function:
+public myFunction (){
+synchronized (this) { 
+// Synchronized code here.
+}
+}
+
+Question: What is Collection API?
+Answer: The Collection API is a set of classes and interfaces that support operation on collections of objects. These classes and interfaces are more flexible, more powerful, and more regular than the vectors, arrays, and hashtables if effectively replaces. 
+Example of classes: HashSet, HashMap, ArrayList, LinkedList, TreeSet and TreeMap.
+Example of interfaces: Collection, Set, List and Map.
+
+Question: Is Iterator a Class or Interface? What is its use?
+Answer: Iterator is an interface which is used to step through the elements of a Collection. 
+
+Question: What is similarities/difference between an Abstract class and Interface?
+Answer: Differences are as follows: 
+Interfaces provide a form of multiple inheritance. A class can extend only one other class. 
+Interfaces are limited to public methods and constants with no implementation. Abstract classes can have a partial implementation, protected parts, static methods, etc. 
+A Class may implement several interfaces. But in case of abstract class, a class may extend only one abstract class. 
+Interfaces are slow as it requires extra indirection to to find corresponding method in in the actual class. Abstract classes are fast. 
+Similarities: 
+Neither Abstract classes or Interface can be instantiated.
+
+Question: How to define an Abstract class?
+Answer: A class containing abstract method is called Abstract class. An Abstract class can't be instantiated. 
+Example of Abstract class:
+abstract class testAbstractClass { 
+protected String myString; 
+public String getMyString() { 
+return myString; 
+} 
+public abstract string anyAbstractFunction();
+}
+
+Question: How to define an Interface?
+Answer: In Java Interface defines the methods but does not implement them. Interface can include constants. A class that implements the interfaces is bound to implement all the methods defined in Interface.
+Emaple of Interface:
+public interface sampleInterface {
+public void functionOne();
+public long CONSTANT_ONE = 1000; 
+}
+
+Question: Explain the user defined Exceptions?
+Answer: User defined Exceptions are the separate Exception classes defined by the user for specific purposed. An user defined can created by simply sub-classing it to the Exception class. This allows custom exceptions to be generated (using throw) and caught in the same way as normal exceptions. 
+Example:
+class myCustomException extends Exception {
+// The class simply has to exist to be an exception 
+} 
+
+Question: Explain the new Features of JDBC 2.0 Core API?
+Answer: The JDBC 2.0 API includes the complete JDBC API, which includes both core and Optional Package API, and provides inductrial-strength database computing capabilities. 
+New Features in JDBC 2.0 Core API:
+
+Scrollable result sets- using new methods in the ResultSet interface allows programmatically move the to particular row or to a position relative to its current position 
+JDBC 2.0 Core API provides the Batch Updates functionality to the java applications. 
+Java applications can now use the ResultSet.updateXXX methods. 
+New data types - interfaces mapping the SQL3 data types 
+Custom mapping of user-defined types (UTDs) 
+Miscellaneous features, including performance hints, the use of character streams, full precision for java.math.BigDecimal values, additional security, and support for time zones in date, time, and timestamp values. 
+
+Question: Explain garbage collection?
+Answer: Garbage collection is one of the most important feature of Java. Garbage collection is also called automatic memory management as JVM automatically removes the unused variables/objects (value is null) from the memory. User program cann't directly free the object from memory, instead it is the job of the garbage collector to automatically free the objects that are no longer referenced by a program. Every class inherits finalize() method from java.lang.Object, the finalize() method is called by garbage collector when it determines no more references to the object exists. In Java, it is good idea to explicitly assign null into a variable when no more in use. I Java on calling System.gc() and Runtime.gc(), JVM tries to recycle the unused objects, but there is no guarantee when all the objects will garbage collected. 
+
+Question: How you can force the garbage collection?
+Answer: Garbage collection automatic process and can't be forced. 
+
+Question: What is OOPS?
+Answer: OOP is the common abbreviation for Object-Oriented Programming. 
+
+Question: Describe the principles of OOPS.
+Answer: There are three main principals of oops which are called Polymorphism, Inheritance and Encapsulation. 
+
+Question: Explain the Encapsulation principle.
+Answer: Encapsulation is a process of binding or wrapping the data and the codes that operates on the data into a single entity. This keeps the data safe from outside interface and misuse. One way to think about encapsulation is as a protective wrapper that prevents code and data from being arbitrarily accessed by other code defined outside the wrapper. 
+
+Question: Explain the Inheritance principle.
+Answer: Inheritance is the process by which one object acquires the properties of another object. 
+
+Question: Explain the Polymorphism principle.
+Answer: The meaning of Polymorphism is something like one name many forms. Polymorphism enables one entity to be used as as general category for different types of actions. The specific action is determined by the exact nature of the situation. The concept of polymorphism can be explained as "one interface, multiple methods". 
+
+Question: Explain the different forms of Polymorphism.
+Answer: From a practical programming viewpoint, polymorphism exists in three distinct forms in Java: 
+Method overloading 
+Method overriding through inheritance 
+Method overriding through the Java interface 
+
+
+Question: What are Access Specifiers available in Java?
+Answer: Access specifiers are keywords that determines the type of access to the member of a class. These are: 
+Public 
+Protected 
+Private 
+Defaults 
+
+
+Question: Describe the wrapper classes in Java.
+Answer: Wrapper class is wrapper around a primitive data type. An instance of a wrapper class contains, or wraps, a primitive value of the corresponding type.
+
+Following table lists the primitive types and the corresponding wrapper classes:
+Primitive Wrapper 
+boolean java.lang.Boolean 
+byte java.lang.Byte 
+char java.lang.Character 
+double java.lang.Double 
+float java.lang.Float 
+int java.lang.Integer 
+long java.lang.Long 
+short java.lang.Short 
+void java.lang.Void 
+
+
+Question: Read the following program:
+
+public class test {
+public static void main(String [] args) {
+int x = 3;
+int y = 1;
+if (x = y)
+System.out.println("Not equal");
+else
+System.out.println("Equal");
+}
+}
+What is the result?
+A. The output is equal?br> B. The output in not Equal?br> C. An error at " if (x = y)" causes compilation to fall.
+D. The program executes but no output is show on console.
+Answer: C
+Question: what is the class variables ?
+Answer: When we create a number of objects of the same class, then each object will share a common copy of variables. That means that there is only one copy per class, no matter how many objects are created from it. Class variables or static variables are declared with the static keyword in a class, but mind it that it should be declared outside outside a class. These variables are stored in static memory. Class variables are mostly used for constants, variable that never change its initial value. Static variables are always called by the class name. This variable is created when the program starts i.e. it is created before the instance is created of class by using new operator and gets destroyed when the programs stops. The scope of the class variable is same a instance variable. The class variable can be defined anywhere at class level with the keyword static. It initial value is same as instance variable. When the class variable is defined as int then it's initial value is by default zero, when declared boolean its default value is false and null for object references. Class variables are associated with the class, rather than with any object. 
+Question: What is the difference between the instanceof and getclass, these two are same or not ?
+Answer: instanceof is a operator, not a function while getClass is a method of java.lang.Object class. Consider a condition where we use 
+if(o.getClass().getName().equals("java.lang.Math")){ }
+This method only checks if the classname we have passed is equal to java.lang.Math. The class java.lang.Math is loaded by the bootstrap ClassLoader. This class is an abstract class.This class loader is responsible for loading classes. Every Class object contains a reference to the ClassLoader that defines. getClass() method returns the runtime class of an object. It fetches the java instance of the given fully qualified type name. The code we have written is not necessary, because we should not compare getClass.getName(). The reason behind it is that if the two different class loaders load the same class but for the JVM, it will consider both classes as different classes so, we can't compare their names. It can only gives the implementing class but can't compare a interface, but instanceof operator can. 
+The instanceof operator compares an object to a specified type. We can use it to test if an object is an instance of a class, an instance of a subclass, or an instance of a class that implements a particular interface. We should try to use instanceof operator in place of getClass() method. Remember instanceof opeator and getClass are not same. Try this example, it will help you to better understand the difference between the two. 
+Interface one{
+}
+Class Two implements one {
+}
+Class Three implements one {
+}
+public class Test {
+public static void main(String args[]) {
+one test1 = new Two();
+one test2 = new Three();
+System.out.println(test1 instanceof one); //true
+System.out.println(test2 instanceof one); //true
+System.out.println(Test.getClass().equals(test2.getClass())); //false
+}
+} 
+
+ 
+转载请注明文章来源：笔试网 www.ipmao.com—专业的笔试、面试资料搜索网站,<br>原文网址:http://www.bishiwang.com/shiti.aspx?id=52745

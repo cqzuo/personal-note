@@ -1,0 +1,118 @@
+1、如何混合使用Jsp和SSI #include? 
+在JSP中可以使用如下方式包含纯HTML： 
+但是如果data.inc中包含JSP CODE ，我们可以使用： 
+2、如何执行一个线程安全的JSP? 
+只需增加如下指令 
+3、JSP如何处理HTML FORM中的数据? 
+通过内置的request对象即可，如下： 
+4、在JSP如何包含一个静态文件? 
+静态包含如下： 
+动态包含如下： 
+5、在JSP中如何使用注释? 
+主要有四中方法： 
+1。 
+2。// 
+3。/**与**/ 
+4。 
+6、在JSP中如何执行浏览重定向? 
+使用如下方式即可：response.sendRedirect("http://ybwen.home.chinaren.com/index.html"); 
+也能物理地改变HTTP HEADER属性，如下： 
+7、如何防止在JSP或SERVLET中的输出不被BROWSER保存在CACHE中? 
+把如下脚本加入到JSP文件的开始即可： 
+8、在JSP中如何设置COOKIE? 
+COOKIE是作为HTTP HEADER的一部分被发送的，如下方法即可设置： 
+9、在JSP中如何删除一个COOKIE? 
+10、在一个JSP的请求处理中如何停止JSP的执行 
+如下例： 
+11、在JSP中如何定义方法 
+你可以定义方法，但是你不能直接访问JSP的内置对象，而是通过参数的方法传递。如下： 
+12、如果BROWSER已关闭了COOKIES，在JSP中我如何打开SESSION来跟踪 
+使用URL重写即可，如下： 
+hello1.jsp 
+>hello2.jsp 
+hello2.jsp 
+13、在JSP中能发送EMAIL吗 
+可以使用SUN的专用包：sun.net.smtp包。如下脚本使用SmtpClient类发送EMAIL。 
+14、在SERVLET中我能调用一个JSP错误页吗 
+当然没问题，如下展示了如何在一个SERVLET控制逻辑单元内调用一个JSP错误页面。 
+protected void sendErrorRedirect(HttpServletRequest request, 
+HttpServletResponse response, String errorPageURL, 
+Throwable e) 
+throws ServletException, IOException { 
+request.setAttribute ("javax.servlet.jsp.jspException", e); 
+getServletConfig().getServletContext(). 
+getRequestDispatcher(errorPageURL).forward(request, 
+response); 
+} 
+public void doPost(HttpServletRequest request,HttpServletResponse response) { 
+try { 
+// do something 
+} catch (Exception ex) { 
+try { 
+sendErrorRedirect(request,response,"/jsp/MyErrorPage.jsp",ex); 
+} catch (Exception e) { 
+e.printStackTrace(); 
+} 
+} 
+} 
+15、JSP和APPLET如何通讯 
+JSP如何与EJB SessionBean通讯 
+下面的代码段作了很好的示范 
+16、当我使用一个结果集时，如何防止字段为"null"的字域显示在我的HTML输入文本域中? 
+可以定义一个简单的函数来达到目的，如下： 
+然后在JSP的FORM中，可以这样使用 
+ 
+17、如何中SERVLET或JSP下载一个文件（如：binary,text,executable)？ 
+现提供两个解决方案： 
+A：使用HTTP， 
+B：在Servlet中，通过设置ContentType和使用java.io包的Stream等类可作到.例如： 
+response.setContentType("application/x-msword"); 
+然后想输出缓冲中写一些东东即可。 
+18、使用useBean标志初始化BEAN时如何接受初始化参数 
+使用如下两标签即可： 
+19、使用JSP如何获得客户浏览器的信息？ 
+使用request.getHeader(String)即可 
+20、能象调用子程序一样调用JSP吗？ 
+当然可以，用 
+21、当我重编译我的JSP使用的一个类后，为什么JVM继续使用我的老CLASS？ 
+与之间的差别？ 
+前一个为静态包含，而后一个为动态包含 
+22、JSP的缺点？ 
+1。对JAVA程序进行调试没有好东东 
+2。因大多数的servlet引擎不支持connection pooling 
+3。Servlet引擎没有标准 
+4。JSP与其它脚本语言的交互 
+23、JSP能进行递归调用吗？ 
+当然可以,如对form的提交给本页 
+34、如何实现JSP的国际化？ 
+为各种版本提供resource bundles属性文件即可 
+25、在JSP中如何写文本文件？ 
+使用PrintWriter对象，如： 
+26、如何在JSP中包括绝对路径文件？ 
+使用URLConnection即可。 
+27、在servlets和JSP之间能共享session对象吗？ 
+当然可以， 
+HttpSession session = request.getSession(true); 
+session.putValue("variable","value"); 
+28、JavaScript的变量能复制到JSP的SESSION中吗？ 
+29、如何设置cookie在某一时间后过期？ 
+用Cookie.setMaxAge(int) 
+30、如何获得当前的sessions数？ 
+可以使用HttpSessionBindingListeners来跟踪 
+31、能设置一些代码在我所有的JSP文件之上运行？如果可以，能共享吗？ 
+当然可以,可以为你的JSP文件定义一个别名:/jsp/=ybwen.genius.myPreprocessingServlet,而以/jsp/为前缀的文件可以使用 
+32、对一个JSP页，如果多个客户端同时请求它，同步可能吗？ 
+在jsp:useBean语法中使用beanName有何好处？ 
+beanName使用Beans.instantiate()初始化Bean 
+33、当我使用时，在浏览器的地址栏没有改变？ 
+使用response.sendRedirect("newURL") 
+34、如何转换JSP 0.9版本的文件到JSP1.1? 
+可使用sed/awk即可 
+35、使用JSP能设置HTML FORM中输入域的焦点，不用JavaScript? 
+没办法 
+36、使用JSP连接到数据库连接缓冲池的最好方法是什么？ 
+1.使用JDBC2。0中带有此服务的Driver 
+2.使用提供有此服务的Application server 
+3.自己写
+ 
+转载请注明文章来源：笔试网 www.ipmao.com—专业的笔试、面试资料搜索网站,<br>原文网址:http://www.bishiwang.com/shiti.aspx?id=52748
