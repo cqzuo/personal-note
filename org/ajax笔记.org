@@ -1,0 +1,48 @@
+* Ajax技术概述与Intellij的安装
+** Ajax技术概述
+ - 特点
+  * 使用XHTML和CSS的表示技术
+  * 使用DOM进行动态显示和交互
+  * 使用XML和XSLT进行数据交换和处理
+  * 使用XMLHttpRequest进行异步数据检索
+  * 使用JavaScript融合上述技术
+ - 优点
+  * 改善表单验证
+  * 无需刷新改变页面内容
+  * 按需获取数据
+* 搭建web项目
+** 选择web application选项
+* 一个简单ajax例子
+** web.xml中配置对应的servlet
+ - servlet代码
+// 所有的serlvet都继承自HttpServlet
+public class ClassicServer extends HttpServlet {
+//serlvet必须重写doGet和doPost方法
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        try{
+//设置session的编码类型
+            response.setContentType("text/html;charset=GB2312");
+            PrintWriter out = response.getWriter();
+            String old = request.getParameter("name");
+            if(old == null || old.length() == 0){
+                out.println("用户名不能为空");
+            } else{
+//获取指定字符编码的方法 new String(原有字符串.getBytes("字符集类型"))
+                String name = new String(old.getBytes("ISO8859-1"));
+                if(name.equals("wangxingkui")){
+                    out.println("用户名[" + name + "]已经存在，请使用其他用户名");
+                } else{
+                    out.println("用户名[" + name + "]尚未存在，可以使用该用户名注册");
+                }
+            }
+            out.println("<br/><a href=\"index.html\">返回校验页面</a>");
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        doGet(request,response);
+    }
+}

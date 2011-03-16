@@ -1,0 +1,6 @@
+* 项目开发的流程
+** 首先建立动态javaWeb
+** 导入jar文件
+** 从空白项目中复制一个web.xml文件
+*** 修改web.xml文件,添加struts2,spring,jpa的支持
+ -  

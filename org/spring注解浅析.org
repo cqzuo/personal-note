@@ -1,0 +1,16 @@
+* 注解的优点
+ - 代码实现更加灵活,无需继承或实现接口
+ - 可以直接将类实例添加到spring容器中管理,简化spring配置
+ - 丰富的参数绑定机制
+* spring注入的2种方式配置
+** @Resource //默认按照名称装配
+ * 如果没有配置装配Bean名称,且找不到名称匹配,则退回到类型匹配
+** @Autowired //默认按照类型装配
+ * 要注入的Bean必须存在
+ * 如果允许存在,则配置
+  - required=false;
+ * 按名称装配的配置
+  - @Qualifier("注入的Bean名称") 
+** 要点: 在beans.xml中配置 <context:annotation-config/> 才能使用spring的注解
+* @Controller
+
