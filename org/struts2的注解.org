@@ -1,0 +1,16 @@
+ struts2的零配置
+* Convention插件的使用
+** 特点: 不使用struts.xml和annotation配置
+** 使用
+ - struts-Convention-plugin-2.1.6.jar添加到lib目录下
+ - 自动搜索action actions struts struts2包下所有的java类
+ - 将下列2类java类当作Action处理
+  + 实现com.opensymphoney.xwork2.Action类
+  + 以Action结尾的类
+** 3个常量的设置
+ - struts.convention.exclude.packages
+  + 指定不扫描的类
+ - struts.convention.package.locators
+  + 指定包作为搜索的根包
+ - struts.convention.action.packages
+  + 作为根包搜索action

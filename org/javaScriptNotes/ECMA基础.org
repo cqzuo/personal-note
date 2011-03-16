@@ -1,0 +1,56 @@
+* ECMAscript
+** 语法
+ - 区分大小写
+ - 弱类型变量
+ - 每行结尾的分号可无
+ - 注释同Java
+** 变量
+ - 用var定义
+ - 第一个字符必须是字母下划线或美元符号
+ - 其它字符可以是下划线,字母和数字
+ - 使用变量前可以不用声明
+** 关键字
+** 保留字
+** 原始类型和引用值
+ - 堆 
+ - 栈
+ - String类型是原始类型
+** 原始类型
+ - Undefineed,Null,Boolean,Number,String 
+ - typeof
+  + 返回数据的类型
+ - 当声明的变量为初始化时
+ - isFinit() 
+  + 确保该数不是无穷大
+ - NaN
+  + 非数
+ - 字符串由单双引号声明
+ - 所有的类型都有lenth属性和toString()方法
+ - 对字符类型有效的有parseInt()和parseFloat()
+** 转换
+ - Boolean
+ - String
+ - Number
+** 引用类型
+ - var o = new Object
+  + 可以不用()
+*** Object类
+ - 属性
+  + Constructor
+  + Prototype
+ - 方法
+  + HasOwnProperty
+  + IsProtoTypeOf
+  + PropertyIsEnumerable
+  + ToString
+  + ValueOf
+*** Boolean
+*** Number
+  + toFixed(Number n)
+  + toExponential
+  + toPrecision
+*** String
+** 运算符
+ 
+** 语句
+** 函数
