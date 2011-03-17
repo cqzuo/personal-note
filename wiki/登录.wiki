@@ -1,0 +1,128 @@
+%toc
+=登录=
+== 登录页面 ==
+{{{class="brush: xml"
+<form action="${pageContext.request.contextPath}/user/LoginAction.action" method="post">
+<table width="100%"  border="0" cellpadding="0" cellspacing="6" class="STYLE3">
+   <tr>            		
+        <td class="textbox"> 
+		用户名:<input type="text" name="user.username" style="width: 10em" maxlength="20" id="username"/>
+	</td>
+   </tr>
+   <tr>
+	<td>
+		密&nbsp;&nbsp;码：<input type="password" name="user.password" style="width: 10em" maxlength="20" id="password"/>
+        </td>
+    </tr>
+</table>
+}}}
+ # 注
+  - 页面上统一管理路径
+   - 设置 pageContext .request.contextPath的值
+    - 取出部署的应用程序名称
+      - ${pageContext.request.contextPath} 
+  - 页面的表单
+    - name的标签
+      - bean的名称.属性名称 
+== action ==
+{{{class="brush: java"
+package com.decg.user.action;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import com.decg.baseaction.BaseAction;
+import com.decg.user.User;
+import com.decg.user.service.UserService;
+import com.hengtong.base.bean.QueryResult;
+import com.opensymphony.xwork2.ActionContext;
+
+@Controller
+@Scope("prototype")
+public class LoginAction extends BaseAction {
+
+	@Resource(name = "userServiceBean")
+	private UserService userService;
+
+	private User user = new User();
+
+	/**
+	 * 用户登录
+	 */
+	public String execute() {
+		String result = "message";
+		String whereStatement = "o.username=?1 and o.password=?2";
+		List<Object> whereParam = new ArrayList<Object>();
+		whereParam.add(this.user.getUsername());
+		whereParam.add(this.user.getPassword());
+		QueryResult<User> qr = userService.getScrollData(User.class,
+				whereStatement, whereParam);
+		if (qr.getResultList() != null && qr.getResultList().size() > 0) {
+			User u = qr.getResultList().get(0);
+			ActionContext.getContext().getSession().put("user", u);
+			result = "login_success";
+		}
+		return result;
+	}
+
+	/**
+	 * 获取登录人具有权限的菜单列表(首页左边菜单栏信息)
+	 */
+	public String frameMenu() {
+		// 是否登录
+		if (!this.isLogin()) {
+			return this.checkResult();
+		}
+		User u = (User) ActionContext.getContext().getSession().get("user");
+		ActionContext.getContext().put("menuList",
+				userService.getMenu(u.getId()));
+		return "frameMenu_success";
+	}
+
+	/**
+	 * 获取用户登录信息(首页头部信息)
+	 */
+	public String frameHead() {
+		// 是否登录
+		if (!this.isLogin()) {
+			return this.checkResult();
+		}
+		User u = (User) ActionContext.getContext().getSession().get("user");
+		ActionContext.getContext().put("userEntity", u);
+		return "frameHead_success";
+	}
+
+	public String frameMain() {
+		
+		return "frameMain_success";
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+} 
+}}}
+ # 注
+  - 获取页面提交的属性值
+   - 直接获取
+  -  查询语句的拼凑
+{{{class="brush: java"
+ 	String whereStatement = "o.username=?1 and o.password=?2";
+		List<Object> whereParam = new ArrayList<Object>();
+		whereParam.add(this.user.getUsername());
+		whereParam.add(this.user.getPassword());
+}}}
+  - 查询语句
+{{{class="brush: java"
+ QueryResult<User> qr = userService.getScrollData(User.class,whereStatement, whereParam);
+}}}

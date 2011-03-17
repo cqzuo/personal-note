@@ -1,0 +1,471 @@
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css" />
+<title>jQuery选择器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=" />
+</head>
+<body>
+
+<div class="toc">
+<ul>
+<li><a href="#toc_1">选择器</a></li>
+<ul>
+<li><a href="#toc_1.1">基本</a></li>
+<li><a href="#toc_1.2">层级</a></li>
+<li><a href="#toc_1.3">内容</a></li>
+<li><a href="#toc_1.4">内容匹配</a></li>
+<li><a href="#toc_1.5">可见性</a></li>
+<li><a href="#toc_1.6">属性</a></li>
+<li><a href="#toc_1.7">子元素</a></li>
+<li><a href="#toc_1.8">表单</a></li>
+<li><a href="#toc_1.9">表单对象属性</a></li>
+</ul>
+</ul>
+</div>
+<h1 id="toc_1">选择器</h1>
+<h2 id="toc_1.1">基本</h2>
+<ol>
+<li>
+4中基本类型
+</li>
+<ul>
+<li>
+id
+</li>
+<ul>
+<li>
+# 
+</li>
+<li>
+根据给定的ID匹配一个元素
+</li>
+<li>
+例子
+<pre class="brush: js">
+ <div id="notMe">&lt;p>id="notMe"&lt;/p></div>
+ <div id="myDiv">id="myDiv"</div>
+ $("#myDiv");   
+</pre>
+</li>
+</ul>
+<li>
+element
+</li>
+<ul>
+<li>
+根据给定的元素名匹配所有元素
+</li>
+<li>
+例子
+<pre class="brush: js">
+<div>DIV1</div>
+<div>DIV2</div>
+&lt;span&gt;SPAN&lt;/span&gt;
+$("div");
+</pre>
+</li>
+</ul>
+<li>
+class
+</li>
+<ul>
+<li>
+.
+</li>
+<li>
+根据给定的类匹配元素
+</li>
+<li>
+例子
+<pre class="brush: js">
+<div class="notMe">div class="notMe"</div>
+<div class="myClass">div class="myClass"</div>
+&lt;span class="myClass"&gt;span class="myClass"&lt;/span&gt;
+$(".myClass");
+</pre>
+</li>
+</ul>
+<li>
+任意
+</li>
+<ul>
+<li>
+匹配所有元素  
+</li>
+</ul>
+</ul>
+</ol>
+<h2 id="toc_1.2">层级</h2>
+<ol>
+<li>
+ancester desendant
+</li>
+<ul>
+<li>
+在给定的祖先元素下匹配所有的后代元素
+</li>
+<li>
+$("form input")
+</li>
+</ul>
+<li>
+parent&gt;child
+</li>
+<ul>
+<li>
+在给定的父元素下匹配所有的子元素
+</li>
+<li>
+$("form &gt; input")
+</li>
+</ul>
+<li>
+prev+next
+</li>
+<ul>
+<li>
+匹配所有紧接在 prev 元素后的 next 元素
+</li>
+<li>
+$("label + input")
+</li>
+</ul>
+<li>
+prev~siblings
+</li>
+<ul>
+<li>
+匹配 prev 元素之后的所有 siblings 元素
+</li>
+<li>
+$("form ~ input")
+</li>
+</ul>
+</ol>
+<h2 id="toc_1.3">内容</h2>
+<ol>
+<li>
+:first
+</li>
+<ul>
+<li>
+第一个元素
+</li>
+</ul>
+<li>
+:last
+</li>
+<ul>
+<li>
+最有一个元素
+</li>
+</ul>
+<li>
+:not
+</li>
+<ul>
+<li>
+去除所有与给定选择器匹配的元素
+</li>
+<li>
+例子:获取未选中的元素
+<pre class="brush: js">
+&lt;input name="apple" /&gt;
+&lt;input name="flower" checked="checked" /&gt;
+$("input:not(:checked)")
+</pre>
+</li>
+</ul>
+<li>
+:even
+</li>
+<ul>
+<li>
+索引为偶数
+</li>
+</ul>
+<li>
+:odd
+</li>
+<ul>
+<li>
+索引为基数
+</li>
+</ul>
+<li>
+:eq
+</li>
+<ul>
+<li>
+匹配索引
+</li>
+</ul>
+<li>
+:gt
+</li>
+<ul>
+<li>
+大于
+</li>
+</ul>
+<li>
+:lt
+</li>
+<ul>
+<li>
+小于
+</li>
+</ul>
+<li>
+:header
+</li>
+<ul>
+<li>
+标题元素
+</li>
+</ul>
+<li>
+:animated
+</li>
+<ul>
+<li>
+正在执行的动画效果
+</li>
+<li>
+例子 对未执行的动画施加一个特效
+<pre class="brush: js">
+&lt;button id="run"&gt;Run&lt;/button&gt;<div></div>
+ $("#run").click(function(){
+ $("div:not(:animated)").animate({ left: "+=20" }, 1000);
+});
+</pre>
+</li>
+</ul>
+</ol>
+<h2 id="toc_1.4">内容匹配</h2>
+<ol>
+<li>
+:contains
+</li>
+<ul>
+<li>
+匹配给定文本的元素
+</li>
+<li>
+例子 匹配含有"John"的div
+<pre class="brush: js">
+<div>John Resig</div>
+<div>George Martin</div>
+<div>Malcom John Sinclair</div>
+<div>J. Ohn
+$("div:contains('John')")
+</pre>
+</li>
+</ul>
+<li>
+:empty
+</li>
+<ul>
+<li>
+不含有子元素或文本元素
+</li>
+</ul>
+<li>
+:has
+</li>
+<ul>
+<li>
+含有指定元素的元素
+</li>
+</ul>
+<li>
+:parent
+</li>
+<ul>
+<li>
+含有子元素或文本元素
+</li>
+</ul>
+</ol>
+<h2 id="toc_1.5">可见性</h2>
+<ol>
+<li>
+:hiden
+</li>
+<li>
+:visible
+</li>
+</ol>
+<h2 id="toc_1.6">属性</h2>
+<ol>
+<li>
+[attribute]
+</li>
+<ul>
+<li>
+匹配含有该属性的元素
+</li>
+</ul>
+<li>
+[attribute=value]
+</li>
+<ul>
+<li>
+属性为指定值
+</li>
+</ul>
+<li>
+[atu!=value]
+</li>
+<ul>
+<li>
+属性为指定值
+</li>
+</ul>
+<li>
+[attribute^=value]
+</li>
+<ul>
+<li>
+开始
+</li>
+</ul>
+<li>
+[attribute$=value]
+</li>
+<ul>
+<li>
+结尾
+</li>
+</ul>
+<li>
+[attribute*=value]
+</li>
+<ul>
+<li>
+任意包含
+</li>
+</ul>
+<li>
+[selector1][selector2]...
+</li>
+<ul>
+<li>
+同时满足多个条件
+</li>
+</ul>
+</ol>
+<h2 id="toc_1.7">子元素</h2>
+<ol>
+<li>
+:nth-child
+</li>
+<ul>
+<li>
+匹配指定元素个数
+</li>
+</ul>
+<li>
+:first-child
+</li>
+<ul>
+<li>
+第一个元素
+</li>
+</ul>
+<li>
+:last-child
+</li>
+<ul>
+<li>
+最后一个元素
+</li>
+</ul>
+<li>
+:only-child
+</li>
+<ul>
+<li>
+唯一匹配值
+</li>
+</ul>
+</ol>
+<h2 id="toc_1.8">表单</h2>
+<ol>
+<li>
+常见表单元素
+</li>
+<ul>
+<li>
+:input
+</li>
+<li>
+:text
+</li>
+<li>
+:password
+</li>
+<li>
+:radio
+</li>
+<li>
+:checkbox
+</li>
+<li>
+:submit
+</li>
+<li>
+:image
+</li>
+<li>
+:reset
+</li>
+<li>
+:button
+</li>
+<li>
+:file
+</li>
+<li>
+:hidden
+</li>
+</ul>
+</ol>
+<h2 id="toc_1.9">表单对象属性</h2>
+<ol>
+<li>
+:enable
+</li>
+<ul>
+<li>
+可用
+</li>
+</ul>
+<li>
+:disable
+</li>
+<ul>
+<li>
+不可用
+</li>
+</ul>
+<li>
+:checked
+</li>
+<ul>
+<li>
+被选择的(不包括select)
+</li>
+</ul>
+<li>
+:selected
+</li>
+<ul>
+<li>
+select中选中的
+</li>
+</ul>
+</ol>
+
+</body>
+</html>

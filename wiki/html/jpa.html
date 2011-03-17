@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=gbk" /> 
+        <title>jpa</title>
+        <meta id="viewport" name="viewport" 
+            content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" /> 
+        <link rel="stylesheet" href="style.css" /> 
+        <link rel="apple-touch-icon" href="../images/apple-touch-icon.png" /> 
+		<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shCore.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCSharp.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrvushPhp.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushJScript.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushJava.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushVb.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushSql.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushXml.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushDelphi.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushPython.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushRuby.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCss.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCpp.js"></script> 
+		
+		<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter/styles/shCoreDefault.css"/> 
+		<script type="text/javascript">SyntaxHighlighter.all();</script> 
+
+		<script type="text/javascript" charset="utf-8"> 
+            window.onload = function() {
+                var header = document.getElementById('header').getElementsByTagName('h1')[0],
+                    old = document.getElementById('content').getElementsByTagName('h1')[0];
+                if (old) header.innerHTML = old.innerHTML;
+                setTimeout(function(){
+                    window.scrollTo(0, 1);
+                }, 100);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="header">
+            <a href="index.html" id="backButton">Index</a><!--<center><h1>jpa</h1></center> -->
+        </div>
+        <div id="content">
+<div class="toc">
+<ul>
+<li><a href="#toc_1">JPA</a></li>
+<ul>
+<li><a href="#toc_1.1">JPA开发环境和思想介绍</a></li>
+<ul>
+<li><a href="#toc_1.1.1">JPA的概念</a></li>
+<li><a href="#toc_1.1.2">出现的原因</a></li>
+<li><a href="#toc_1.1.3">特点</a></li>
+<li><a href="#toc_1.1.4">JAP的内容</a></li>
+<ul>
+<li><a href="#toc_1.1.4.1">RM映射元数据</a></li>
+<li><a href="#toc_1.1.4.2">Java持久化API</a></li>
+<li><a href="#toc_1.1.4.3">查询语言</a></li>
+<li><a href="#toc_1.1.4.4">开发JPA依赖的JAR包</a></li>
+<li><a href="#toc_1.1.4.5">JPA的配置文件</a></li>
+</ul>
+<li><a href="#toc_1.1.5">建库的思想</a></li>
+</ul>
+<li><a href="#toc_1.2">第一个JPA实例与JPA主键生成策略</a></li>
+<ul>
+<li><a href="#toc_1.2.1">persistence.xml内容</a></li>
+<li><a href="#toc_1.2.2">持久化对象</a></li>
+<li><a href="#toc_1.2.3">测试类</a></li>
+</ul>
+<li><a href="#toc_1.3">日期_枚举等字段类型的JPA映射</a></li>
+<ul>
+<li><a href="#toc_1.3.1">持久化类</a></li>
+</ul>
+<li><a href="#toc_1.4">大数据字段映射与字段延迟加载</a></li>
+<li><a href="#toc_1.5">使用JPA加载、更新、删除对象</a></li>
+<ul>
+<li><a href="#toc_1.5.1">查找,删除对象</a></li>
+<li><a href="#toc_1.5.2">加载对象</a></li>
+<li><a href="#toc_1.5.3">更新对象</a></li>
+</ul>
+<li><a href="#toc_1.6">使用JPQL语句进行查询</a></li>
+<ul>
+<li><a href="#toc_1.6.1">查询参数</a></li>
+<li><a href="#toc_1.6.2">获取结果</a></li>
+<li><a href="#toc_1.6.3">删除查询和更新查询必须放到事务中</a></li>
+</ul>
+<li><a href="#toc_1.7">JPA中的一对多双向关联与级联操作、延迟加载与关系维护</a></li>
+</ul>
+</ul>
+</div>
+<h1 id="toc_1">JPA</h1>
+<h2 id="toc_1.1">JPA开发环境和思想介绍</h2>
+<h3 id="toc_1.1.1">JPA的概念</h3>
+<p>
+ Java Persistence API
+<h3 id="toc_1.1.2">出现的原因</h3>
+ 简化现在的持久化开发工作和整合ORM技术
+<h3 id="toc_1.1.3">特点</h3>
+ 易使用 伸缩性强 
+<h3 id="toc_1.1.4">JAP的内容</h3>
+<h4 id="toc_1.1.4.1">RM映射元数据</h4>
+</p>
+<ul>
+<li>
+支持XML和JDK5.0注释两种元数据形式
+</li>
+<li>
+描述对象和表之间的关系
+</li>
+<li>
+框架据此将对象持久化到数据库表中
+</li>
+</ul>
+<h4 id="toc_1.1.4.2">Java持久化API</h4>
+<ul>
+<li>
+操作实体对象,进行CRUD操作
+</li>
+</ul>
+<h4 id="toc_1.1.4.3">查询语言</h4>
+<ul>
+<li>
+面向对象的查询语言
+</li>
+</ul>
+<h4 id="toc_1.1.4.4">开发JPA依赖的JAR包</h4>
+<ol>
+<li>
+Hiberante核心包(8个文件)
+</li>
+<ul>
+<li>
+hibernate-distribution-3.3.1.GA
+</li>
+<li>
+hibernate3.jar
+</li>
+<li>
+lib\bytecode\cglib\hibernate-cglib-repack-2.1_3.jar
+</li>
+<li>
+lib\required\*.jar
+</li>
+</ul>
+<li>
+Hiberante注解包(3个文件)：hibernate-annotations-3.4.0.GA
+</li>
+<ul>
+<li>
+hibernate-annotations.jar
+</li>
+<li>
+lib\ejb3-persistence.jar
+</li>
+<li>
+hibernate-commons-annotations.jar
+</li>
+</ul>
+<li>
+Hibernate针对JPA的实现包(3个文件)：hibernate-entitymanager-3.4.0.GA
+</li>
+<ul>
+<li>
+hibernate-entitymanager.jar
+</li>
+<li>
+lib\test\log4j.jar
+</li>
+<li>
+slf4j-log4j12.jar
+</li>
+</ul>
+</ol>
+<h4 id="toc_1.1.4.5">JPA的配置文件</h4>
+<ul>
+<li>
+在META-INF目录下,固定文件名为 persistence.xml
+</li>
+<li>
+模版文件
+<pre class="brush: xml">
+&lt;?xml version="1.0"?&gt;
+&lt;persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0"&gt;
+&lt;persistence-unit name="itcast" transaction-type="RESOURCE_LOCAL"&gt;
+      &lt;properties&gt;
+         &lt;property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/&gt;
+         &lt;property name="hibernate.connection.driver_class" value="org.gjt.mm.mysql.Driver"/&gt;
+         &lt;property name="hibernate.connection.username" value="root"/&gt;
+         &lt;property name="hibernate.connection.password" value="123456"/&gt;
+         &lt;property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/itcast?useUnicode=true&amp;characterEncoding=UTF-8"/&gt;
+         &lt;property name="hibernate.hbm2ddl.auto" value="update"/&gt;
+      &lt;/properties&gt;
+&lt;/persistence-unit&gt;
+&lt;/persistence&gt;
+</pre>
+</li>
+<li>
+transaction-type的类型
+</li>
+<ul>
+<li>
+RESOURCE_LOCAL、JTA
+</li>
+</ul>
+<li>
+hibernate.hbm2ddl.auto value的取值
+</li>
+<ol>
+<li>
+create：<br>
+	每次加载hibernate时都会删除上一次的生成的表，然后根据你的model类再重新来生成新表，哪怕两次没有任何改变也要这样执行，这就是导致数据库表数据丢失的一个重要原因。
+</li>
+<li>
+create-drop ：<br>
+	每次加载hibernate时根据model类生成表，但是sessionFactory一关闭,表就自动删除。
+</li>
+<li>
+update：<br>
+	最常用的属性，第一次加载hibernate时根据model类会自动建立起表的结构（前提是先建立好数据库），以后加载hibernate时根据 model类自动更新表结构，即使表结构改变了但表中的行仍然存在不会删除以前的行。要注意的是当部署到服务器后，表结构是不会被马上建立起来的，是要等应用第一次运行起来后才会。     
+</li>
+</ol>
+</ul>
+<h3 id="toc_1.1.5">建库的思想</h3>
+<ol>
+<li>
+先建表，后再根据表来编写配置文件和实体bean。使用这种方案的开发人员收到了传统数据库建模的影响。
+</li>
+<li>
+先编写配置文件和实体bean，然后再生成表，使用这种方案的开发人员采用的是领域建模思想，这种思想相对前一种思想更加OOP
+</li>
+</ol>
+<h2 id="toc_1.2">第一个JPA实例与JPA主键生成策略</h2>
+<h3 id="toc_1.2.1">persistence.xml内容</h3>
+<pre class="brush: xml">
+&lt;?xml version="1.0"?&gt;
+&lt;persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0"&gt;
+&lt;persistence-unit name="itcast" transaction-type="RESOURCE_LOCAL"&gt;
+   &lt;properties&gt;
+         &lt;property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/&gt;
+         &lt;property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver"/&gt;
+         &lt;property name="hibernate.connection.username" value="nec"/&gt;
+         &lt;property name="hibernate.connection.password" value="nec"/&gt;
+         &lt;property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:nec"/&gt;
+         &lt;property name="hibernate.hbm2ddl.auto" value="update"/&gt;
+      &lt;/properties&gt;
+&lt;/persistence-unit&gt;
+&lt;/persistence&gt; 
+</pre>
+<h3 id="toc_1.2.2">持久化对象</h3>
+<pre class="brush: java">
+Person.java：
+package cn.itcast.bean;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Person {
+private Integer id;
+private String name;
+
+public Person() {
+}
+
+public Person(String name) {
+   this.name = name;
+}
+
+//@Id可标注在属性或属性的get方法上，通常标注在get方法上
+@Id @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="sequence1")
+@SequenceGenerator(name = "sequence1", sequenceName = "SEQ_1", allocationSize = 1)
+public Integer getId() {
+   return id;
+}
+public void setId(Integer id) {
+   this.id = id;
+}
+public String getName() {
+   return name;
+}
+public void setName(String name) {
+   this.name = name;
+}
+
+}
+</pre>
+<h3 id="toc_1.2.3">测试类</h3>
+<pre class="brush: java">
+PersonTest.java：
+package junit.test;
+
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import cn.itcast.bean.Person;
+
+public class PersonTest {
+
+@BeforeClass
+public static void setUpBeforeClass() throws Exception {
+  
+}
+@Test public void save() {
+   //--&gt;sessionFactory--&gt;session--&gt;begin事务
+   EntityManagerFactory factory = Persistence.createEntityManagerFactory("itcast");
+   EntityManager em= factory.createEntityManager();
+   em.getTransaction().begin(); // 开始事务
+   em.persist(new Person("传智播客"));
+   em.getTransaction().commit();
+   em.close();
+   factory.close();
+}
+
+}
+</pre>
+<h2 id="toc_1.3">日期_枚举等字段类型的JPA映射</h2>
+<h3 id="toc_1.3.1">持久化类</h3>
+<pre class="brush: java">
+Person.java：
+
+package cn.itcast.bean;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+//实体Person对应的表名称为myPerson
+//@Entity(name="myPerson") 或：
+@Entity
+@Table(name="myPerson")
+public class Person {
+private Integer id;
+private String name;
+private Date regdate; //注册日期，只存放日期，不存放出生的时间
+private Gender gender=Gender.MAN; //性别，设置默认值
+
+public Person() {
+}
+
+public Person(String name) {
+   this.name = name;
+   regdate = new Date();
+}
+
+//@Id可标注在属性或属性的get方法上，通常标注在get方法上
+@Id @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="sequence1")
+//使用序列SEQ_1生成主键
+@SequenceGenerator(name = "sequence1", sequenceName = "SEQ_1", allocationSize = 1)
+public Integer getId() {
+   return id;
+}
+public void setId(Integer id) {
+   this.id = id;
+}
+//对应库中字段名为myname，长度为20，不允许为空
+@Column(name="myname",length=20,nullable=false)
+public String getName() {
+   return name;
+}
+public void setName(String name) {
+   this.name = name;
+}
+
+//只存日期，不存时间
+@Temporal(TemporalType.DATE)
+public Date getRegdate() {
+   return regdate;
+}
+
+public void setRegdate(Date regdate) {
+   this.regdate = regdate;
+}
+
+//保存枚举类型的字符串
+@Enumerated(EnumType.STRING)
+@Column(length=5, nullable=false)
+public Gender getGender() {
+   return gender;
+}
+
+public void setGender(Gender gender) {
+   this.gender = gender;
+}
+}
+
+Gender.java：
+package cn.itcast.bean;
+
+public enum Gender {
+MAN, WOMAN
+}
+</pre>
+<h2 id="toc_1.4">大数据字段映射与字段延迟加载</h2>
+<pre class="brush: java">
+Person.java：
+package cn.itcast.bean;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+//实体Person对应的表名称为myPerson
+//@Entity(name="myPerson") 或：
+@Entity
+@Table(name="myPerson")
+public classa Person {
+private Integer id;
+private String name;
+private Date regdate; //注册日期，只存放日期，不存放出生的时间
+private Gender gender=Gender.MAN; //性别，设置默认值
+private String info; //大数据字段
+private byte[] fileblob=null;
+
+//希望该属性不成为持久化字段，即不与数据库中的字段建立关联 @Transient
+private String imagePath;
+
+public Person() {
+}
+
+public Person(String name) {
+   this.name = name;
+   regdate = new Date();
+}
+
+//@Id可标注在属性或属性的get方法上，通常标注在get方法上
+@Id @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="sequence1")
+//使用序列SEQ_1生成主键
+@SequenceGenerator(name = "sequence1", sequenceName = "SEQ_1", allocationSize = 1)
+public Integer getId() {
+   return id;
+}
+public void setId(Integer id) {
+   this.id = id;
+}
+//对应库中字段名为myname，长度为20，不允许为空
+@Column(name="myname",length=20,nullable=false)
+public String getName() {
+   return name;
+}
+public void setName(String name) {
+   this.name = name;
+}
+
+//只存日期，不存时间
+@Temporal(TemporalType.DATE)
+public Date getRegdate() {
+   return regdate;
+}
+
+public void setRegdate(Date regdate) {
+   this.regdate = regdate;
+}
+
+//保存枚举类型的字符串
+@Enumerated(EnumType.STRING)
+@Column(length=5, nullable=false)
+public Gender getGender() {
+   return gender;
+}
+
+public void setGender(Gender gender) {
+   this.gender = gender;
+}
+
+//大文本字段，对应库中字段类型为CLOB
+@Lob
+public String getInfo() {
+   return info;
+}
+
+public void setInfo(String info) {
+   this.info = info;
+}
+
+//延迟加载
+//访问延迟属性时，必须保证session是打开状态的
+//二进制字段，对应库中字段类型为BLOB
+@Lob
+@Basic(fetch=FetchType.LAZY)
+public byte[] getFileblob() {
+   return fileblob;
+}
+
+public void setFileblob(byte[] filebyte) {
+   this.fileblob = filebyte;
+}
+
+@Transient
+public String getImagePath() {
+   return imagePath;
+}
+
+public void setImagePath(String imagePath) {
+   this.imagePath = imagePath;
+}
+}
+
+PersonTest.java片段：
+     Person person = new Person("传智播客");
+     File file = new File("E:\\jpa.JPG");
+     InputStream is = new FileInputStream(file);
+     byte[] filebyte = new byte[(int) file.length()];
+     is.read(filebyte);
+     is.close();
+     person.setFileblob(filebyte);
+     em.persist(person);
+</pre>
+<h2 id="toc_1.5">使用JPA加载、更新、删除对象</h2>
+<h3 id="toc_1.5.1">查找,删除对象</h3>
+<pre class="brush: java">
+  Person person = em.find(Person.class, 210);
+    if (person != null) {
+     em.getTransaction().begin(); // 开始事务
+     em.remove(person);
+     em.getTransaction().commit();
+    }
+</pre>
+<h3 id="toc_1.5.2">加载对象</h3>
+<pre class="brush: java">
+    Person person = em.find(Person.class, 210); // get  //如果记录不存在则返回null
+    // 使用该方法时不会马上从数据库加载对象，而是返回一个代理对象，当需要对该对象进行操作时，才从数据库得到数据，如果em.close()后再对该对象进行操作，若对象未真正加载过，则会出错：
+    //org.hibernate.LazyInitializationException: could not initialize proxy - no Session
+    Person person2 = em.getReference(Person.class, 211); // load 
+    //如果记录不存在则在对对象进行操作时出现异常：
+    //javax.persistence.EntityNotFoundException: Unable to find cn.itcast.bean.Person with id 210
+    System.out.println(person2.getName());
+</pre>
+<h3 id="toc_1.5.3">更新对象</h3>
+<pre class="brush: java">
+Person person = em.find(Person.class, 211);
+    if (person != null) {
+     em.getTransaction().begin(); // 开始事务
+     person.setName("老张");
+    // 当满足下述条件时，可以直接通过修改对象来修改库中数据：
+    // 1. 当修改操作处于事务中
+    // 2. 当处于managed(托管)状态时（new(新建)、游离、删除状态不可用）
+     //em.persist(person); 
+     em.getTransaction().commit();
+    }
+
+    //下面游离状态的对象修改不成功
+    Person person = em.find(Person.class, 211);
+    if (person != null) {
+     em.getTransaction().begin(); // 开始事务
+     person.setName("老张");
+     //将实例管理器中的所有实体bean变为游离对象
+    em.clear(); 
+     em.getTransaction().commit();
+    }
+
+    //将游离状态的对象的更新同步回数据库，用merge
+    Person person = em.find(Person.class, 211);
+    if (person != null) {
+     em.getTransaction().begin(); // 开始事务
+     person.setName("老张2");
+     em.clear(); // 全部设置为游离状态
+     em.merge(person);
+     em.getTransaction().commit();
+    }
+/*
+   几种状态之间的转换
+   1. 托管--&gt;游离
+     em.clear()
+   2. 游离--&gt;托管
+     em.merge()
+   删除对象
+     remove()
+   加载对象
+     load()
+*/
+</pre>
+<h2 id="toc_1.6">使用JPQL语句进行查询</h2>
+<ul>
+<li>
+JPQL = Java Presistence Query Language 
+</li>
+</ul>
+<h3 id="toc_1.6.1">查询参数</h3>
+<ul>
+<li>
+通常情况下不要直接将参数放入查询语句，而使用参数的方式，防止注入
+<pre class="brush: java">
+Named Parameters :
+Query q = em.createQuery("SELECT p FROM Person p WHERE p.lastName = :surnameAND p.firstName =:forename");
+q.setParameter("surname", theSurname);
+q.setParameter("forename", theForename");
+----------------------------------------------------------------------------------------
+Numbered Parameters :
+Query q = em.createQuery("SELECT p FROM Person p WHERE p.lastName = ?1 AND p.firstName = ?2");
+q.setParameter(1, theSurname);
+q.setParameter(2, theForename); 
+</pre>
+</li>
+</ul>
+<h3 id="toc_1.6.2">获取结果</h3>
+<pre class="brush: java">
+  List result = (List) query1.getResultList();
+//获取唯一结果，对应hibernate中的?session.createQuery("").uniqueResult()
+//如果记录不存在会抛出异常：?javax.persistence.NoResultException: No entity found for query
+//所以通常会使用getResultList()
+   Person person = (Person) query1.getSingleResult();
+</pre>
+<ul>
+<li>
+实例
+<pre class="brush: java">
+@Test
+ public void query() {
+   EntityManagerFactory factory = Persistence
+     .createEntityManagerFactory("itcast");
+   EntityManager em = factory.createEntityManager();
+   Query query1 = em.createQuery("select o from Person o where o.id=:id");
+   query1.setParameter("id", 201);
+   Person person = (Person) query1.getSingleResult();
+   if (person != null) {
+    System.out.println("q1:" + person.getId());
+   }
+   else {
+    System.out.println("q1:empty");
+   }
+  
+   Query query2 = em.createQuery("select o from Person o where o.id=?1");
+   query2.setParameter(1, 200);
+   List&lt;Person&gt; persons = (List&lt;Person&gt;) query2.getResultList();
+   for (Person person2 : persons) {
+    System.out.println("person:" + person2.getId());
+   }
+   em.close();
+   factory.close();
+/*
+  查询中参数的设置
+  1. 查询语句中 属性 = ?数字
+  2. 参数设置 Query对象.setParameter(对应数字,对应值)
+*/
+}
+</pre>
+</li>
+</ul>
+<h3 id="toc_1.6.3">删除查询和更新查询必须放到事务中</h3>
+<pre class="brush: java">
+em.getTransaction().begin();
+  int iCount = 0;
+  //删除查询
+  Query queryDelete = em.createQuery("delete from Person o where o.id=?1");
+  queryDelete.setParameter(1, 202);
+  iCount = queryDelete.executeUpdate();
+  System.out.println("Delete count:" + iCount);
+ 
+  //更新查询
+  Query queryUpdate = em.createQuery("update Person o set myname=?1 where o.id=?2");
+  queryUpdate.setParameter(1, "老李");
+  queryUpdate.setParameter(2, 203);
+  iCount = queryUpdate.executeUpdate();
+  System.out.println("Update count:" + iCount);
+ 
+  em.getTransaction().commit();
+/*
+ 更新操作
+ 1. Query对象的executeUpdate(SQL);
+ 2. 删除语句 delete from .... where ... 
+ 3. 更新语句 update TableName from .... where ....
+*/
+</pre>
+<h2 id="toc_1.7">JPA中的一对多双向关联与级联操作、延迟加载与关系维护</h2>
+<ul>
+<li>
+以“订单Order 1:N 订单项<a href="OrderItem.html">OrderItem</a>”为例：
+</li>
+<ol>
+<li>
+在JPA中，如果是双向1:N的关系，则N的一方为关系维护端
+</li>
+<li>
+关系维护端负责外键记录的更新，关系被维护端是没有权利更新外键记录的
+</li>
+<li>
+例如只能通过订单项(<a href="OrderItem.html">OrderItem</a>)来修改所属的订单(Order)，而不能通过订单来修改订单项所属的订单
+</li>
+<li>
+N一边的默认加载方式为延迟加载，1一边的默认加载方式为立即加载
+</li>
+</ol>
+<li>
+关系被维护端
+</li>
+<li>
+
+<pre class="brush: java">
+Order.java：
+package cn.itcast.bean;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="orders")
+public class Order {
+private String orderid;
+private Float amount = 0f;
+private Set&lt;OrderItem&gt; items = new HashSet&lt;OrderItem&gt;();
+
+@Id
+@Column(length=12)
+public String getOrderid() {
+   return orderid;
+}
+public void setOrderid(String orderid) {
+   this.orderid = orderid;
+}
+
+@Column(nullable=false)
+public Float getAmount() {
+   return amount;
+}
+public void setAmount(Float amount) {
+   this.amount = amount;
+}
+
+//1:N的关系用注解：@OneToMany
+//CascadeType.PERSIST: insert Order 时，自动 insert OrderItem
+//CascadeType.MERGE：当Order对象处于游离状态时，修改 Order 时，自动修改 OrderItem
+//级联条件：只有在调用Merge方法时CascadeType.MERGE才起作用，只有在调用Remove方法时，CascadeType.REMOVE才起作用，其他方法以此类推
+@OneToMany(cascade={CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE},
+    fetch=FetchType.LAZY, //Many端默认为LAZY
+    mappedBy="order") //有mappedBy的是被维护端，指定关联的属性，此处指名Order通过“order”属性与OrderItem关联
+public Set&lt;OrderItem&gt; getItems() {
+   return items;
+}
+public void setItems(Set&lt;OrderItem&gt; items) {
+   this.items = items;
+}
+
+public void addOrderItem(OrderItem orderItem) {
+orderItem.setOrder(this); //关联维护端
+   this.items.add(orderItem);
+  
+}
+} 
+</pre>
+</li>
+<li>
+关系维护端
+<pre class="brush: java">
+OrderItem.java：
+package cn.itcast.bean;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class OrderItem {
+private Integer id;
+private String productName;
+private Float sellPrice = 0f;
+private Order order;
+
+@Id @GeneratedValue
+public Integer getId() {
+   return id;
+}
+public void setId(Integer id) {
+   this.id = id;
+}
+@Column(length=40, nullable=false)
+public String getProductName() {
+   return productName;
+}
+public void setProductName(String productName) {
+   this.productName = productName;
+}
+@Column(nullable=false)
+public Float getSellPrice() {
+   return sellPrice;
+}
+public void setSellPrice(Float sellPrice) {
+   this.sellPrice = sellPrice;
+}
+
+@ManyToOne(cascade={CascadeType.MERGE, CascadeType.REFRESH },
+    fetch=FetchType.EAGER, //One端默认为EAGER
+    optional=false //是否可选
+    )
+@JoinColumn(name="order_id") // 定义外键
+public Order getOrder() {
+   return order;
+}
+public void setOrder(Order order) {
+   this.order = order;
+}
+}
+</pre>
+</li>
+<li>
+测试
+<pre class="brush: java">
+ManyToOneTest.java：
+package cn.itcast.bean;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import org.junit.Test;
+
+public class OneToManyTest {
+@Test
+public void save() {
+   EntityManagerFactory factory = Persistence
+     .createEntityManagerFactory("itcast");
+   EntityManager em = factory.createEntityManager();
+
+   em.getTransaction().begin(); // 开始事务
+   Order order = new Order();
+   order.setAmount(34f);
+   order.setOrderid("999"); //UUID.randomUUID().toString()
+  
+   OrderItem orderItem1 = new OrderItem();
+   orderItem1.setProductName("足球");
+   orderItem1.setSellPrice(90f);
+
+   OrderItem orderItem2 = new OrderItem();
+   orderItem2.setProductName("篮球");
+   orderItem2.setSellPrice(30f);
+
+   order.addOrderItem(orderItem1);
+   order.addOrderItem(orderItem2);
+  
+   em.persist(order);
+   em.getTransaction().commit();
+
+   em.close();
+   factory.close();
+}
+}
+</pre>
+</li>
+</ul>
+        </div>
+<div id="footer"><center>
+            Copyright@2010 arch Powered by <a href="http://vimwiki.googlecode.com/">Vimwiki</a>
+	 <script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.js"></script></center>
+        </div>
+    </body>
+</html>

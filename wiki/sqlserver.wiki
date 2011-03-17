@@ -1,0 +1,13 @@
+%toc
+==sqlserver==
+=== 数据定义语言 ===
+ # create
+ # alter
+  - alter table 表名 add 列名 类型
+  - alter table 表名 modify(列名,类型)
+  - alter table 表名 add primary key(列名)
+ # drop
+  - drop table 表名
+=== 数据操纵语言 ===
+ # select 
+ # insert

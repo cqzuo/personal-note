@@ -1,0 +1,424 @@
+1.为Struts应用配置Web.xml文件
+　　
+　　第一步:配置ActionServlet
+　　
+　　<servlet>
+　　<servlet-name>action</servlet-name>
+　　<servlet-class>org.appache.struts.ActionServlet</servlet-class>
+　　</servlet>
+　　
+　　<servlet-mapping>
+　　<servlet-name>action</servlet-name>
+　　<uri-pattern>*.do</url-pattern>
+　　</servlet-mapping>
+　　
+　　注意:不管应用中包含多少个子应用,都只需配置一个ActionServlet,因为ActionServlet支持多线程,目前的Struts框架只允许在应用中配置一个ActionServlet。
+　　
+　　第二步：初始化参数对Servlet的运行环境进行初始化配置。
+　　
+　　<servlet>
+　　<servlet-name> action</servlet-name>
+　　<servlet-class> org.appache.struts.ActionServlet </servlet-class>
+　　<init-param>
+　　<param-name>config</param-name>
+　　<param-value>/WEB-INF/struts-config.xml</param-value>
+　　</init-param>
+　　</servlet>
+　　
+　　表2-1. Struts1.1中用到的初始化参数
+　　
+　　参数名　　　　　　 含义/默认值
+　　config　　　　　以相对路径的方式指明Struts应用程序的配置文件位置。如不设置，则默认值为/WEB-INF/struts-config.xml。
+　　config/sub1　　 以相对路径的方式指明子应用程序的配置文件位置，一般来说，很少用到子应用程序，在此不多描述。
+　　debug　　　　　 设置Servlet的debug级别，控制日志记录的详细程度。默认为0，记录相对最少的日志信息。
+　　detail　　　　　设置Digester的debug级别，Digester是Struts框架所使用的用来解析xml配置文件的一个框架，通过该设置，可以查看不同详细等级的解析日志。默认为0，记录相对最少的日志信息。
+　　
+　　第三步：配置欢迎清单
+　　
+　　当客户访问Web应用时，如果仅仅给出Web应用的Root URL，没用指定具体的文件名，Web容器会自动调用Web应用的欢迎文件。
+　　
+　　<welcome-file-list>
+　　<welcome-file>welcome.jsp</welcome-file>
+　　<welcome-file>index.jsp</welcome-file>
+　　</welcome-fiel-list>
+　　
+　　说明：<welcome-file-list>可以包含多个<welcome-file>子元素，首先查找第一个<welcome-file>文件。
+　　
+　　由于<welcome-file-list>元素中不能配置Servlet映射，因此不能直接把Struts的Action作为欢迎文件，可以采用一种变通的方法来实现在欢迎文件中调用Struts Action。首先，在Struts配置文件中为被调用的Action创建一个全局的转发项，例如：
+　　<global-forwards>
+　　<forward name=”welcome” path=”HelloWord.do”/>
+　　</global-forwords>
+　　
+　　创建一个welcome.jsp的文件
+　　
+　　最后在web.xml文件中把welcome.jsp文件配置为欢迎文件，代码如下：
+　　<welcome-file-list>
+　　<welcome-file>welcome.jsp</welcome-file>
+　　</welcome-file-list>
+　　
+　　第四步：配置错误处理
+　　
+　　<error-page>
+　　<error-code>404</error-code>
+　　<location>/commom/404.jsp</location>
+　　</error-page>
+　　<error-page>
+　　<error-code>505</error-code>
+　　<location>/commom/505.jsp</location>
+　　</error-page>
+　　
+　　也可以为Web容器捕获的Java异常配置<error-page>,需要设置<exception-type>子元素，它用于指定Java异常类。Web容器可能捕获如下异常：
+　　
+　　RuntimeException或Error　 ServletException或它的子类　IOException或它的子类
+　　
+　　<error-page>
+　　<exception-type>java.io.IOException</exception-type>
+　　<location>/common/system_ioerror.jsp</location>
+　　</error-page>
+　　
+　　第五步：配置Struts标签库
+　　
+　　使用客户化的标签库，要配置它们
+　　
+　　<taglib>
+　　<tag-uri>/WEB-INF/struts-html.tld<tag-uri>
+　　<taglib-location>/WEB-INF/struts-html.tld</taglib-location>
+　　</taglib>
+　　
+　　<tag-uri>用于指定标签库的相对或者绝对URI地址，Web应用根据这一URI来访问标签库。
+　　
+　　<taglib-location>指定标签描述文件在文件资源系统中的物理位置。
+　　
+　　2.Struts配置文件
+　　
+　　Struts框架在启动时会读入其配置文件，根据它来创建和配置各种Struts组件。
+　　
+　　1<Struts-config>元素
+　　
+　　<struts-config>元素是Struts配置文件的根元素，<struts-cofig>元素有8个子元素。它的DTD定义如下：
+　　
+　　<!ELEMENT struts-config(data-sources?,formbean?,global-exeception?,global-forward?,action-mapping,controller?,message-resources*,plug-in*)>
+　　
+　　在Struts配置中，必须按照以上的DTD指定的先后顺序来配置<Struts-config>元素的各个子元素，如果颠倒了这些元素的配置文件中的位置，在Struts应用启动时会生成错误。
+　　
+　　<data-sources>元素
+　　
+　　<data-sources>元素包含零个、一个或者多个<data-sources>子元素，<data-sources>用于配置特定的数据源，它可以包含多个<set-property>子元素，用于设置数据源的各种属性。
+　　。。。
+　　
+　　配置了数据源后，就可以在Action类中访问数据源，在org.apache.struts.action.Action类中定义了getDataSource(HttpRequrst)方法，它用于获取数据源对象的引用。
+　　
+　　DataSource　dataSource;
+　　Connection　connection;
+　　dataSource =getDataSource(request);
+　　connection=dataSource.getConnection();
+　　
+　　也可以在配置文件中声明多个数据源，此时需要为每一个数据源分配唯一的key值，通过改值来标识特定的数据源。
+　　
+　　2<form-beans>元素
+　　
+　　<form-beans>元素用来配置多个ActionForm Bean，<form-beans>包含多个<forom-bean>子元素，,每个<from-bean>包含多个属性，ClassName , name,type
+　　
+　　<form-beans>
+　　<form-bean name="HelloForm" type="hello.HelloForm"/>
+　　</form-beans>
+　　
+　　注意：配置动态ActionForm Bean，还必须配置<form-bean>元素的<form-property>元素。
+　　
+　　<form-beans>
+　　<form-bean name="HelloForm" type="hello.HelloForm"/>
+　　<form-bean name="userForm" type="org.apache.struts.action.DynaAction">
+　　<from-property name="firstname" type="java.lang.String"/>
+　　<form-property name="secondname" type="java.lang.String">
+　　<form-property name="age" type="java.Integer" initial="18">
+　　</form-beans>
+　　
+　　3<global-exception>元素
+　　
+　　<global-exception>用于配置异常处理，<global-exception>元素可以包含零个或者多个<exception>元素。
+　　
+　　<exception>元素用来设置java异常和异常处理类org.apache.struts.action,Exception　Hander之间的映射。
+　　
+　　4<gloable-forwards>元素
+　　
+　　<global-forwards>元素用来声明全局的转发关系，<global-forwards>有零个或多个<forward>元素组成。<forward>元素用于把一个逻辑映射到特定的URL
+　　
+　　属性　　　　　　描　述
+　　
+　　className　　和<forward>元素对应的配置类，默认为org.apache.struts.action.ActionForWard
+　　
+　　name　　　　 转发路径的逻辑名，此项时必须的
+　　
+　　path　　　　 指定或者重定向的URI。此项时必须的，必须以”/”开头
+　　
+　　redirect　　 此项是true，表示是执行重定向的****作，此项是false时，表示请求转发。
+　　
+　　<global-forwards>
+　　<forward name="forward1" path="/Action1.do"/>
+　　<forward name="forward1" path="/Action2.do"/>
+　　</global-forwards>
+　　
+　　如果jsp1.jsp把请求转发给Action1,可以使用以下代码：
+　　
+　　<html:link forward=”forward1”>
+　　
+　　或者<logic:forward name=”forward1”>
+　　
+　　如果Action1的execute（）方法把请求转发给JSP2.jsp，可以使用一下代码：
+　　
+　　return(mapping.findForward(“forward2”))
+　　
+　　5<action-mapping>元素
+　　
+　　<action-mapping>元素包含零个或者多个<action>元素。<action>元素描述了从特定的请求路径到相应的Action类的映射。
+　　
+　　6<controller>元素
+　　
+　　<controller>元素用于配置ActionServlet。
+　　
+　　7< message-resources>元素
+　　
+　　<message-resources>元素用于配置Resource Bundle，Resource Budle用于存放本地化消息文件。
+　　
+　　Struts标签
+　　
+　　HTML标签
+　　
+　　标签名　　　　　　　　描述
+　　base　　　　　　　　 包装HTML的base元素
+　　button　　　　　　　 包装HTML的 button类型的input元素
+　　cancel　　　　　　　 包装HTML cancel 按钮
+　　checkbox　　　　　　 包装HTML checkbox 类型的输入域
+　　errors　　　　　　　 有条件地显示一些error消息，显示ActionErrors信息
+　　file　　　　　　　　 包装HTML文件上传输入域
+　　form　　　　　　　　 定义HTML form 元素
+　　frame　　　　　　　　包装HTML frame 元素
+　　hidden　　　　　　　 包装HTML hidden 输入域
+　　html　　　　　　　　 包装 HTML中的 html 元素
+　　image　　　　　　　　包装 "image"类型的输入域
+　　img　　　　　　　　　包装HTML的 img 元素
+　　javascript　　　　　 包装根据ValidatorPlugIn提供的校验规则所提供的javascript校验脚本
+　　link　　　　　　　　 包装超链接
+　　messages　　　　　　 有条件地显示一些提示信息，显示ActionMessages信息
+　　multibox　　　　　　 包装多选输入框
+　　option　　　　　　　 包装一个选择输入框
+　　options　　　　　　　包装一批选择输入框
+　　optionsCollection　　包装一批选择输入框集
+　　password　　　　　　 包装密文输入框
+　　radio　　　　　　　　包装单选输入框
+　　reset　　　　　　　　包装“重置”功能的按钮
+　　rewrite　　　　　　　包装一个URL
+　　select　　　　　　　 包装一个选择输入框
+　　submit　　　　　　　 包装一个提交按钮
+　　text　　　　　　　　 包装一个文本输入框
+　　textarea　　　　　　 包装一个备注输入框
+　　
+　　ActionForm
+　　ActionForm 的要求
+　　
+　　创建一个ActionForm 并不困难，但是你的类必须符合一些要求：
+　　
+　　ActionForm 必须扩展自org.apache.struts.ActionForm。基类ActionForm 是不能实例化的。
+　　
+　　ActionForm 必须为每个应该从请求中收集的HTML控件定义一个公共属性。
+　　
+　　(Struts 1.0 要求每个属性都要mutator 和accessor 。Struts 1.1 则没有如此严格)
+　　
+　　ActionForm还可能要符合一些可选的要求:
+　　
+　　如果你要求ActionForm 在传递属性到Action之前校验它们，你就必须实现validate
+　　
+　　方法；
+　　
+　　如果想在组装前初始化属性，必须实现reset , 它在ActionForm 组装前被调用；
+　　
+　　动态ActionForm
+　　
+　　ActionForm 作为类型转换器
+　　
+　　ActionForm的一个强制点是应该使用String 和boolean属性。实际上，这意味着属性
+　　
+　　必须得从一种转换到另一种类型。大部分应用也需要一些属性，比如电话号码或者数量，以
+　　
+　　一种格式化的方式出现。核心Java 包提供一些工具来做这种事情，但是要清楚地将他们集
+　　
+　　成到应用中仍然是一个挑战。
+　　
+　　Struts 开发人员经常在ActionForm中包含helper方法，来进行类型转换。helper 方法
+　　
+　　可以有很多种实现方式，这我们在5.6种叙述。
+　　
+　　5.2.6 ActionForm 作为防火墙
+　　
+　　当请求提交时，ActionServlet 使用一个自动组装机制来从请求参数中设置请求的
+　　
+　　ActionForm属性。这让你可以通过控制哪个ActionForm 属性被暴露来控制哪个请求参数
+　　
+　　是可接受的。这也意味着如果你的ActionForm 的粗心设计你可能失去控制哪个参数可以接
+　　
+　　受的能力。ActionForm 一定不能包含看起来像是一个JavaBean 属性，但不能从HTTP 请
+　　
+　　求设置的属性方法。
+　　
+　　5.3.4 ActionForm 可以嵌套其它bean
+　　
+　　因为Struts 标签扩展和自动组装机制都支持点号语法来从ActionForm访问其它
+　　
+　　bean。这是一个方便的方式，可以通过ActionForm来组装存在的bean。在JSP 页面, 你可
+　　
+　　以象这样引用一个嵌套的bean：
+　　
+　　<html:text
+　　propety="values.telephoneText"
+　　size="14"
+　　maxlength="14"/>
+　　
+　　5.7.2 分发（Dispatch ）
+　　
+　　Struts 开发人员通常使用同一个Action处理相关的****作。一个通常做法来选择****作是在HTML表单中使用隐藏属性。BaseForm 的dispatch 属性也可用作这个目的：
+　　public void setDispatch(String dispatch);
+　　public String getDispatch();
+　　
+　　Struts 配置提供连个级别嵌套的ActionForward:
+　　
+　　Global （全局） ActionForward对整个应用中的所有Action 对象均有效；
+　　
+　　Local （局部） ActionForward 则在ActionMapping 元素中定义。仅对那些在这个
+　　
+　　ActionMapping中调用的Action对象有效。
+　　
+　　从Action 对象内部来看，forward 通常像这样来选择：
+　　ActionForward forward = mapping.findForward("continue");  
+-----------------------------------------------------------------------------
+首先下载Struts软件包，到 http://struts.apache.org/下载Struts，Struts各版本的差异很大，这里已Struts1.2.9版本为例，解压缩包内容如下：   
+
+1、    在tomcat安装目录下的webapps目录中建立一个itstudy目录。这样就可以通过访问"http://localhost:8080/itstudy"访问"itstudy"这个目录。 
+2、    在你创建的目录itstudy中，建立WEB-INF目录，在WEB-INF中建立classes、lib和tld文件夹。将压缩包struts-1.2.9-bin\lib文件夹中的 commons-*.jar(*代表任意位任意字符)和struts.jar文件拷贝到建立的 itstudy/WEB-INF/lib目录下，然后将Struts中的标签库文件 struts-*.tld(*代表任意位任意字符)拷贝到 itstudy/WEB-INF/tld目录下 
+3、    在itstudy/WEB-INF/目录下建立一个web.xml文件，文件内容如下： 
+<?xml version="1.0" encoding="ISO-8859-1"?>  
+
+<!DOCTYPE web-app  
+  PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"  
+  "http://java.sun.com/j2ee/dtds/web-app_2_3.dtd">  
+
+<web-app>  
+  <display-name>Struts Blank Application</display-name>  
+    
+  <!-- Standard Action Servlet Configuration (with debugging) -->  
+  <servlet>  
+    <servlet-name>action</servlet-name>  
+    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>  
+    <init-param>  
+      <param-name>application</param-name>  
+      <param-value>ApplicationResources</param-value>  
+    </init-param>  
+    <init-param>  
+      <param-name>config</param-name>  
+      <param-value>/WEB-INF/struts-config.xml</param-value>  
+    </init-param>  
+    <init-param>  
+      <param-name>debug</param-name>  
+      <param-value>2</param-value>  
+    </init-param>  
+    <init-param>  
+      <param-name>detail</param-name>  
+      <param-value>2</param-value>  
+    </init-param>  
+    <load-on-startup>2</load-on-startup>  
+  </servlet>  
+
+  <!-- Standard Action Servlet Mapping -->  
+  <servlet-mapping>  
+    <servlet-name>action</servlet-name>  
+    <url-pattern>*.do</url-pattern>  
+  </servlet-mapping>  
+
+  <!-- The Usual Welcome File List -->  
+  <welcome-file-list>  
+    <welcome-file>index.jsp</welcome-file>  
+  </welcome-file-list>  
+
+  <!-- Struts Tag Library Descriptors -->  
+  <taglib>  
+    <taglib-uri>/tags/struts-bean</taglib-uri>  
+    <taglib-location>/WEB-INF/tld/struts-bean.tld</taglib-location>  
+  </taglib>  
+
+  <taglib>  
+    <taglib-uri>/tags/struts-html</taglib-uri>  
+    <taglib-location>/WEB-INF/tld/struts-html.tld</taglib-location>  
+  </taglib>  
+
+  <taglib>  
+    <taglib-uri>/tags/struts-logic</taglib-uri>  
+    <taglib-location>/WEB-INF/tld/struts-logic.tld</taglib-location>  
+  </taglib>  
+
+  <taglib>  
+    <taglib-uri>/tags/struts-nested</taglib-uri>  
+    <taglib-location>/WEB-INF/tld/struts-nested.tld</taglib-location>  
+  </taglib>  
+
+  <taglib>  
+    <taglib-uri>/tags/struts-tiles</taglib-uri>  
+    <taglib-location>/WEB-INF/tld/struts-tiles.tld</taglib-location>  
+  </taglib>  
+
+</web-app>  
+
+4、    在itstudy/WEB-INF/目录下建立一个struts-config.xml文件，文件内容如下： 
+<?xml version="1.0" encoding="ISO-8859-1" ?>  
+
+<!DOCTYPE struts-config PUBLIC  
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"  
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">  
+
+<struts-config>  
+    <form-beans>  
+    </form-beans>  
+
+    <global-forwards>  
+    </global-forwards>  
+
+    <action-mappings>  
+    </action-mappings>  
+    <message-resources parameter="ApplicationResources"/>  
+</struts-config>  
+
+     说明：web.xml和struts-config.xml这两个文件可以压缩包struts-1.2.9-bin\ webapps\ struts-blank.war文件直接拷贝到tomcat安装目录下的webapps目录中，启动tomcat服务器，struts-blank.war就会自动解压缩成一个文件夹struts-blank，复制struts-blank/WEB-INF下web.xml和struts-config.xml到itstudy/WEB-INF下修改对应配置。
+5、    然后在WEB-INF/classes中建立ApplicationResources.properties文件，其中输入： 
+index.title=My Struts 
+
+6、    在webapps/itstudy目录建立test.jsp文件，有如下内容： 
+<%@page contentType="text/html;charset=GBK"%>  
+<%@ taglib uri="/tags/struts-logic" prefix="logic" %>  
+<%@ taglib uri="/tags/struts-bean" prefix="bean" %>  
+<%@ taglib uri="/tags/struts-html" prefix="html" %>  
+
+<html:html locale="true">  
+    <head>  
+        <title>  
+            <bean:message key="index.title" />  <!-- www.DeepTeach.com -->
+        </title>  
+    </head>  
+    <body>  
+        你好  Struts！  
+    </body>  
+</html:html>  
+
+　　随后用http://localhost:8080/itstudy/test.jsp访问该文件，如果页面显示"你好 Struts！"字样，并且页面标题是My Struts就是成功了。 
+
+配置中注意事项： 
+如果出现“Cannot find message resources under key org.apache.struts.action.MESSAGE”，是说明找不到ApplicationResources.properties，要注意三方面设置。 
+　　第一：在web.xml适当位置要有如下设置： 
+<init-param>  
+    <param-name>application</param-name>  
+    <param-value>ApplicationResources</param-value>  
+</init-param>  
+　　第二：在struts-config.xml中适当位置要有如下设置： 
+<message-resources parameter="ApplicationResources"/>  
+　　第三：确保ApplicationResources.properties文件在你建立的WEB-INF\classes文件夹中，而且其中有关于index.title的设置(当然，以你要提取的key名称为准)。 
+
+　　另外说明，你也可以把ApplicationResources.properties放到classes文件夹下其它目录，同时修改struts-config.xml中的对应设置。例如： 
+　将“ApplicationResources.properties”放入WEB-INF\classes\test文件夹下。struts-config.xml中的对应设置： 
+<message-resources parameter="test/ApplicationResources"/> 

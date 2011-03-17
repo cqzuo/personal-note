@@ -1,0 +1,101 @@
+一 首先要配置Tomcat的server.xml文件，在对应的web应用的<Context>中加入<Resource>元素,比如:
+<Context path="/Manager" reloadable="true">
+<Resource
+name="hello"
+type="javax.sql.DataSource"
+driverClassName="com.mysql.jdbc.Driver"
+username="root"
+password="123456"
+maxIdle="4"
+maxActive="4"
+maxWait="5000"
+url="jdbc:mysql://127.0.0.1/jspdev"
+/>
+</Context>
+其中：
+name：指定Resource的JNDI名字
+type：指定Resource所属的Java类名
+driverClassName：指定连接数据库的JDBC驱动程序
+username：指定连接数据库的用户名
+password：指定连接数据库的口令
+maxIdle：指定数据库连接池中的最大空闲连接数目，0表示不受限制
+maxActive：指定数据库连接池中的最大活动连接数目，0表示不受限制
+maxWait：指定连接池中连接处于空闲状态的最长时间,超过会抛出异常，-1表示无限
+url：指定连接数据库的URL
+
+
+二 在Web应用中使用数据源：
+javax.naming.Context提供了查找JNDI Resource的接口，可以通过三个步骤来使用数据源对象：
+A．获得对数据源的引用：
+Context ctx = new InitalContext();
+DataSource ds =
+(DataSource)ctx.lookup("java:comp/env/hello");
+B．获得数据库连接对象：
+Connection con = ds.getConnection();
+
+C．返回数据库连接到连接池：
+con.close();
+在连接池中使用close()方法和在非连接池中使用close()方法的区别是：前者仅仅是把数据库连接对象返回到数据库连接池中，是连接对象又恢复到空闲状态，而非关闭数据库连接，而后者将直接关闭和数据库的连接。
+
+三 如果通过数据源访问数据库，由于数据源由Servlet容器创建并维护，所以必须把JDBC驱动程序拷贝到Tomcat安装目录下的common/lib目录下，确保Servlet容器能够访问驱动程序。
+
+------------------------------------
+有关tomcat数据源配置的文章已经不少，但是一般都是把数据源直接配置到server.xml文件中，这样在移植应用程序时带来了一些不必要的麻烦，其实tomcat数据源的配置还有一种方法如下：
+1.假如有工程test，其需要用到的数据源为test/jdbc/Data，则在目录TOMCAT_HOME/conf\Catalina\localhost
+下面建立文件test.xml,内容为：
+
+<?xml version='1.0' encoding='utf-8'?>
+<Context crossContext="true" displayName="Test" docBase="Test" path="/Test" workDir="work\Catalina\localhost\Test">
+<Resource auth="Container" name="test/jdbc/Data" type="javax.sql.DataSource"/>
+<ResourceParams name="test/jdbc/Data">
+    <parameter>
+      <name>factory</name>
+      <value>org.apache.commons.dbcp.BasicDataSourceFactory</value>
+    </parameter>
+    <parameter>
+      <name>url</name>
+      <value>jdbc:jtds:sqlserver://127.0.0.1:1433/test;tds=8.0;lastupdatecount=true;</value>
+    </parameter>
+    <parameter>
+      <name>password</name>
+      <value>11111111</value>
+    </parameter>
+    <parameter>
+      <name>maxWait</name>
+      <value>10000</value>
+    </parameter>
+    <parameter>
+      <name>maxActive</name>
+      <value>100</value>
+    </parameter>
+    <parameter>
+      <name>driverClassName</name>
+      <value>net.sourceforge.jtds.jdbc.Driver</value>
+    </parameter>
+    <parameter>
+      <name>username</name>
+      <value>sa</value>
+    </parameter>
+    <parameter>
+      <name>maxIdle</name>
+      <value>30</value>
+    </parameter>
+</ResourceParams>
+</Context>
+
+2.其他配置
+（1）web.xml文件
+    在工程当中的web.xml文件中添加
+   <resource-ref>
+        <res-ref-name>test/jdbc/Data</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+   </resource-ref>
+（2）工程中调用代码
+    Context initContext = new InitialContext();
+    Context envContext = (Context)initContext.lookup("java:/comp/env");    
+    DataSource ds = (DataSource)envContext.lookup("test/jdbc/Data");
+// test/jdbc/Data是数据源的名字
+Connection conn = ds.getConnection();
+Statement stmt = conn.createStatement();
+

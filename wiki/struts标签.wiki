@@ -1,0 +1,37 @@
+%toc
+struts的5个标签库
+== html ==
+=== 作用 ===
+创建能够和struts框架和其他相应的Html标签交互的html输入表单
+=== 使用固定属性名称的Struts 标签 ===
+==== id ====
+命名自定义标签创建时的脚本变量名
+==== name ====
+ - 指出其关键字值的bean
+==== property ====
+==== scope ====
+== bean ==
+=== 作用 ===
+在访问javaBeans及其属性以及定义一个新的bean时使用
+== logic ==
+=== 作用 ===
+管理条件产生的输出和对象集产生的循环
+== template ==
+=== 作用 === 
+tiles框架包已及取代
+== nested ==
+=== 作用 ===
+增强对其他的struts标签的嵌套使用的能力
+== html:multibox ==
+=== 用法 ===
+==== 页面 ====
+{{{class="brush: jsp"
+ <html:form action="/checkbox.do" method="post">
+   <html:multibox property="checkList" value="001"/>001<br/>
+   <html:multibox property="checkList" value="002"/>002<br/>
+   <html:multibox property="checkList" value="003"/>003<br/>
+   <html:submit /><br/>
+  </html:form>
+}}}
+==== action配置 ====
+

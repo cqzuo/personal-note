@@ -1,0 +1,977 @@
+ssh项目-尚学堂笔记
+
+1.环境的搭建
+        1.1 数据库的建立,数据库驱动,数据源名称的确定
+                数据库Url: jdbc:mysql//localhost:3306/mldn
+                驱动名称: org.git.mm.mysql.Driver---新版本驱动: com.mysql.jdbc.Driver
+                数据源的确定: java:comp/env/jdbc/mldn
+                模版文件的准备: template.jsp
+        1.2 项目建立,框架的添加
+                顺序: spring--hibernate-struts
+                注意事项: 
+                          要添加所有的包,添加后要注意确认是否成功添加
+                          hibernate要添加数据源
+        1.3 配置文件
+                1.3.1 applicationContext.xml
+                      注入hibernateTemplate
+<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.hibernateTemplate">
+        <property name="sessionFactory">
+                  <ref bean="sessionFactory"/>
+        </property>
+</bean>
+                        为sessionFactory的hiberntaeProperties添加属性
+<prop key="hibernate.connection.autocommit">true</prop>
+<prop key="hibernate.show_sql">false</prop>
+                1.3.2 web.xml
+                       添加context servlet
+<servlet>
+        <servlet-name>context</servlet-name>
+        <servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+</servlet>
+                        添加context的位置参数
+<context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/classes/applicationContext.xml</param-value>
+</context-param>
+                1.3.3 struts-config.xml(添加各种插件)
+                        添加ContextLoaderPlugin插件
+<plug-in className="org.springframework.web.struts.ContextLoaderPlugin">
+         <set-property property="contextConfigLocation" value="WEB-INF/classes/applicationContext.xml"/>
+</plug-in>
+                        添加控制器controller
+<controller processClass="org.springframework.web.struts.DelegatingRequestProcessor" />
+         1.4 解决乱码问题,添加过滤器
+                1.4.1  EncodingFilter
+public class EncodingFilter implements Filter
+{
+        private String charset = null;
+        public void destory(){}
+        public void doFilter(ServletRequest req,ServletResponse resp,FilterChain chain) throws IOException,ServletException
+        {
+                req.setCharacterEnconding(this.charset);
+                chain.doFilter(req,resp);
+        }
+        public voit init(ServletConfig config)
+        {
+                this.charset=config.getInitParamer("charset");
+        }
+}
+                1.4.2 web.xml中配置编码
+<filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>org.ssh.test.filter.EncodingFilter</filter-class>
+        <init-param>
+                <param-name>charset</param-name>
+                <parma-value>gbk</param-value>
+        </init-param>
+</filter>
+<filter-mapping>
+        <filter-name>encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+</filter-mapping>
+          1.5 md5加密
+               包中添加MD5Code.java代码
+          1.6 验证码的添加
+               image.jsp
+          1.7 数据源配置(tomcat6)
+               Tomcat中的context.xml
+<Context path="/test" docBase="C:\Tomcat 6.0\webapps\test"
+		debug="5" reloadable="true" crossContext="true"> 
+    <WatchedResource>WEB-INF/web.xml</WatchedResource> 
+    <Resource name="jdbc/mldn" auth="Container" type="javax.sql.DataSource" 
+     maxActive="100" maxIdle="30" maxWait="10000" username="root" password="19801224" driverClassName="org.gjt.mm.mysql.Driver" 
+     url="jdbc:mysql://localhost:3306/mldn"/>
+</Context>
+                将数据库驱动复制到tomcat/lib下
+            1.8 分页文件
+            一些小的工具例如 分页文件 验证码文件 都放在一个固定的目录中方便引用
+---------------------------------------------------------------------
+2 用户注册功能
+  2.1 注册页面的编写
+register.jsp
+<html:form action="" method="post">
+           用户id:<html:text property="userid"/><br>
+           用户密码:<html:text property="userpwd"/><br>
+           确认密码:<htm:text property="confirpwd"/><br>
+           <html:submit value="提交"/><br>
+           <html:reset value="重置"/>
+</html:form>
+        2.1.1 html:form中加入 隐藏属性,设置DispatchAction的参数
+              值区分: <input type="hidden" name="status" value="register" />
+                       <input type="hidden" name="type" value="1"/>
+   2.2 建立userForm
+UserForm.java 继承自UserForm.java,添加user表的各项属性
+              2.2.1 添加type属性及setter getter方法
+              2.2.2 在validate方法中添加
+public ActionErrors Validate(ActionMapping mapping,HttpServletRequest quest)
+{
+        ActionErrors errors = new ActionErrors();
+		if (type == 1) {
+			if (this.userid == null || "".equals(this.userid)) {
+				errors.add("userid", new ActionMessage("user.userid.null"));
+			}
+			if (this.userpwd == null || "".equals(this.userpwd)) {
+				errors.add("userpwd", new ActionMessage("user.userpwd.null"));
+			} else {
+				if (!(this.userpwd.equals(this.confirmpwd))) {
+					errors.add("configpwd", new ActionMessage(
+							"user.confirmpwd.error"));
+				}
+			}
+			if (this.userques == null || "".equals(this.userques)) {
+				errors.add("userques", new ActionMessage("user.userques.null"));
+			}
+			if (this.userans == null || "".equals(this.userans)) {
+				errors.add("userans", new ActionMessage("user.userans.null"));
+			}
+			if (this.checkcode == null || "".equals(this.checkcode)) {
+				errors.add("checkcode", new ActionMessage("checkcode.null"));
+			}
+                        }
+               return errors;
+}            
+              2.2.3 在配置文件ApplicationResources.property中添加
+user.userid.null = <li> \u7528\u6237ID\u4e0d\u80fd\u4e3a\u7a7a\uff01
+user.userpwd.null = <li> \u7528\u6237\u767b\u5f55\u5bc6\u7801\u4e0d\u80fd\u4e3a\u7a7a\uff01
+user.userques.null = <li> \u627e\u56de\u5bc6\u7801\u63d0\u793a\u95ee\u9898\u4e0d\u80fd\u4e3a\u7a7a\uff01
+user.userans.null = <li> \u627e\u56de\u5bc6\u7801\u95ee\u9898\u7b54\u6848\u4e0d\u80fd\u4e3a\u7a7a\uff01
+user.confirmpwd.error = <li> \u4e24\u6b21\u8f93\u5165\u7684\u5bc6\u7801\u4e0d\u4e00\u81f4\uff01
+user.userid.exist = <li> \u7528\u6237\uff29\uff24\u5df2\u7ecf\u5b58\u5728\uff01
+user.integral.null = <li> \u5fc5\u987b\u586b\u5199\u7528\u6237\u7684\u79ef\u5206\uff01
+user.integral.error = <li> \u79ef\u5206\u5fc5\u987b\u586b\u5199\u6570\u5b57\uff01
+
+checkcode.null = <li> \u9a8c\u8bc1\u7801\u4e0d\u80fd\u4e3a\u7a7a\uff01
+checkcode.error = <li> \u9a8c\u8bc1\u7801\u8f93\u5165\u9519\u8bef\uff01
+   2.3 errors.jsp sucessful.jsp
+程序出现如下错误:<html:errors/>
+<p2><a href="#" onclick="history.back()">返回上一页</a></p2>
+   2.4 验证码的使用 
+  验证码页面image.jsp在该使用页面同目录下
+	验证码：<html:text property="checkcode"></html:text>
+	<img src="image.jsp"><br>
+   2.5 在struts-config.xml中配置
+                2.5.1 struts-config.xml的superclass为org.apache.struts.actions.DispatchAction
+                2.5.2 添加parameter status
+                       注意在register.jsp中的input标签的status属性跟Action中的方法名必须相同
+                2.5.3 action-mapping中的action标签的input属性改为errors.jsp文件目录,确定错误输出页面
+                2.5.4 确定注册成功和失败后的转向页面
+action标签中添加
+<forward name="registesucessful" path="/成功页面地址">
+<forward name="registefail" path="/失败页面地址">
+   2.6  在Action中添加验证代码
+	public ActionForward register(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		UserForm userForm = (UserForm) form;
+		// 先判断验证码是否正确
+		String ccode = (String) request.getSession().getAttribute("ccode");
+		String checkcode = userForm.getCheckcode();
+		if (!(checkcode.equals(ccode))) {
+			ActionMessages errors = new ActionMessages();
+			errors.add("checkcode", new ActionMessage("checkcode.error"));
+			super.saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+		// 如果正确，则需要向数据库中插入
+		User user = null;
+		try {
+			user = this.iuserdao.queryByUserid(userForm.getUserid());
+			if (user == null) {
+				MD5Code md5 = new MD5Code();
+				user = new User();
+				user.setUserid(userForm.getUserid());
+				user.setUserpwd(md5.getMD5ofStr(userForm.getUserpwd()));
+				user.setUserques(userForm.getUserques());
+				user.setUserans(userForm.getUserans());
+				user.setSex("男");
+				user.setGrade(1);
+				// 查询此用户是否存在
+				this.iuserdao.register(user);
+				// 成功之后要将用户名和用户等级保存在session之中
+				request.getSession().setAttribute("userid", user.getUserid());
+				request.getSession().setAttribute("grade", new Integer(user.getGrade()));
+				return mapping.findForward("registersuccess");
+			} else {
+				ActionMessages errors = new ActionMessages();
+				errors.add("exist", new ActionMessage("user.userid.exist"));
+				super.saveErrors(request, errors);
+				return mapping.getInputForward();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return mapping.findForward("registerfailure");
+		}
+	}
+   2.7 添加dao接口
+  package org.lxh.myzngt.dao;
+
+import java.util.List;
+
+import org.lxh.myzngt.vo.User;
+
+public interface IUserDAO {
+	// 按userid查找用户
+	public User queryByUserid(String userid) throws Exception;
+
+	// 用户注册
+	public void register(User user) throws Exception;
+
+	// 登陆验证
+	public boolean login(User user) throws Exception;
+
+	// 找回密码操作 --> 允许用户修改密码
+	public void updateUserpwd(String userid, String userpwd) throws Exception;
+
+	// 根据提示问题、答案、用户名确定此用户是否存在
+	public boolean isExists(String userid, String userques, String userans)
+			throws Exception;
+
+	// 增加得分
+	public void addIntegral(String userid, int itergral) throws Exception;
+
+	// 更新用户
+	public void update(User user) throws Exception;
+
+	// 列出全部用户
+	public List queryAll(int currentPage, int lineSize) throws Exception;
+
+	// 求出全部的记录数
+	public int getAllCount() throws Exception;
+
+	// 删除用户
+	public void delete(String userid) throws Exception;
+
+	// 修改用户积分
+	public void updateIntegral(String userid, int integral) throws Exception;
+
+}
+   2.8 建立vo类(跟数据库相对应的类)
+       注意对应的数据类型 string int
+package org.lxh.myzngt.vo;
+
+public class User {
+	/** sex property */
+	private String sex;
+
+	/** usermail property */
+	private String usermail;
+
+	/** userques property */
+	private String userques;
+
+	/** userid property */
+	private String userid;
+
+	/** realname property */
+	private String realname;
+
+	/** userans property */
+	private String userans;
+
+	/** userpwd property */
+	private String userpwd;
+
+	/** grade property */
+	private int grade;
+
+	/** integral property */
+	private int integral;
+
+	/** id property */
+	private int id;
+
+	public int getGrade() {
+		return grade;
+	}
+
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+
+	public String getRealname() {
+		return realname;
+	}
+
+	public void setRealname(String realname) {
+		this.realname = realname;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getUserans() {
+		return userans;
+	}
+
+	public void setUserans(String userans) {
+		this.userans = userans;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public String getUsermail() {
+		return usermail;
+	}
+
+	public void setUsermail(String usermail) {
+		this.usermail = usermail;
+	}
+
+	public String getUserpwd() {
+		return userpwd;
+	}
+
+	public void setUserpwd(String userpwd) {
+		this.userpwd = userpwd;
+	}
+
+	public String getUserques() {
+		return userques;
+	}
+
+	public void setUserques(String userques) {
+		this.userques = userques;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(int integral) {
+		this.integral = integral;
+	}
+}
+  2.8 建立dao的实现类,实现对数据库的增删改查操作
+继承自IuserDAO
+继承自HibernateDAOTemplate
+package org.lxh.myzngt.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.lxh.myzngt.dao.IUserDAO;
+import org.lxh.myzngt.vo.User;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+public class IUserDAOImpl extends HibernateDaoSupport implements IUserDAO {
+
+	public void register(User user) throws Exception {
+		super.getSession().save(user);
+	}
+
+	public User queryByUserid(String userid) throws Exception {
+		User user = null;
+		String hql = "FROM User AS u WHERE u.userid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, userid);
+		List all = q.list();
+		if (all.size() > 0) {
+			user = (User) all.get(0);
+		}
+		return user;
+	}
+
+	public boolean isExists(String userid, String userques, String userans)
+			throws Exception {
+		boolean flag = false;
+		String hql = "FROM User AS u WHERE u.userid=? AND u.userques=? AND u.userans=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, userid);
+		q.setString(1, userques);
+		q.setString(2, userans);
+		List all = q.list();
+		if (all.size() > 0) {
+			flag = true;
+		}
+		return flag;
+	}
+
+	public boolean login(User user) throws Exception {
+		boolean flag = false;
+		String hql = "FROM User AS u WHERE u.userid=? AND u.userpwd=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, user.getUserid());
+		q.setString(1, user.getUserpwd());
+		List all = q.list();
+		if (all.size() > 0) {
+			flag = true;
+			User t = (User) all.get(0);
+			user.setGrade(t.getGrade());
+		}
+		return flag;
+	}
+
+	public void updateUserpwd(String userid, String userpwd) throws Exception {
+		String hql = "UPDATE User SET userpwd=? WHERE userid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, userpwd);
+		q.setString(1, userid);
+		q.executeUpdate();
+	}
+
+	public void addIntegral(String userid, int itergral) throws Exception {
+		String hql = "FROM User AS u WHERE u.userid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, userid);
+		User user = (User) q.list().get(0);
+		user.setIntegral(user.getIntegral() + itergral);
+		user.setGrade(org.lxh.myzngt.util.IntegralGrade.getInstance().getGrade(
+				user.getIntegral()));
+		hql = "UPDATE User SET integral=?,grade=? WHERE userid=?";
+		q = super.getSession().createQuery(hql);
+		q.setInteger(0, user.getIntegral());
+		q.setInteger(1, user.getGrade());
+		q.setString(2, userid);
+		q.executeUpdate();
+	}
+
+	public void update(User user) throws Exception {
+		String hql = "UPDATE User SET userpwd=?,userques=?,userans=?,usermail=?,integral=?,grade=?,sex=?,realname=? where userid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, user.getUserpwd());
+		q.setString(1, user.getUserques());
+		q.setString(2, user.getUserans());
+		q.setString(3, user.getUsermail());
+		q.setInteger(4, user.getIntegral());
+		q.setInteger(5, user.getGrade());
+		q.setString(6, user.getSex());
+		q.setString(7, user.getRealname());
+		q.setString(8, user.getUserid());
+		q.executeUpdate();
+	}
+
+	public void delete(String userid) throws Exception {
+		String hql = "DELETE FROM User WHERE userid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, userid);
+		q.executeUpdate();
+	}
+
+	public List queryAll(int currentPage, int lineSize) throws Exception {
+		List all = null;
+		String hql = "FROM User AS u";
+		Query q = super.getSession().createQuery(hql);
+		q.setFirstResult((currentPage - 1) * lineSize);
+		q.setMaxResults(lineSize);
+		all = q.list();
+		return all;
+	}
+
+	public int getAllCount() throws Exception {
+		int count = 0;
+		String hql = "SELECT COUNT(u.id) FROM User AS u";
+		Query q = super.getSession().createQuery(hql);
+		List all = q.list();
+		Integer i = (Integer)all.get(0);
+		count = i.intValue();
+		return count;
+	}
+
+	public void updateIntegral(String userid, int integral) throws Exception {
+		String hql = "UPDATE User SET integral=?,grade=? WHERE userid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, integral);
+		q.setInteger(1, org.lxh.myzngt.util.IntegralGrade.getInstance()
+				.getGrade(integral));
+		q.setString(2, userid);
+		q.executeUpdate();
+	}
+
+}
+   2.9 生成映射文件(使用MyEclipse工具生成)
+   主键生成方式为native,去掉 catalog
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- 
+    Mapping file autogenerated by MyEclipse - Hibernate Tools
+-->
+<hibernate-mapping>
+    <class name="org.lxh.myzngt.vo.User" table="user">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="native"></generator>
+        </id>
+        <property name="userid" type="java.lang.String">
+            <column name="userid" length="50" not-null="true" />
+        </property>
+        <property name="userpwd" type="java.lang.String">
+            <column name="userpwd" length="50" />
+        </property>
+        <property name="userques" type="java.lang.String">
+            <column name="userques" length="50" />
+        </property>
+        <property name="userans" type="java.lang.String">
+            <column name="userans" length="50" />
+        </property>
+        <property name="usermail" type="java.lang.String">
+            <column name="usermail" length="50" />
+        </property>
+        <property name="integral" type="java.lang.Integer">
+            <column name="integral" />
+        </property>
+        <property name="grade" type="java.lang.Integer">
+            <column name="grade" />
+        </property>
+        <property name="sex" type="java.lang.String">
+            <column name="sex" length="2" />
+        </property>
+        <property name="realname" type="java.lang.String">
+            <column name="realname" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>
+   2.10 将dao注入到applicationContext.xml中
+	<bean id="iuserdao" class="org.lxh.myzngt.dao.IUserDAO"
+		abstract="true">
+	</bean>
+	<bean id="iuserdaoimpl" class="org.lxh.myzngt.dao.impl.IUserDAOImpl"
+		parent="iuserdao">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+  2.11 在userAction中添加 userDao属性和getter setter方法,以便使用dao
+       	private IUserDAO iuserdao;
+ 	public IUserDAO getIuserdao() {
+		return iuserdao;
+	}
+
+	public void setIuserdao(IUserDAO iuserdao) {
+		this.iuserdao = iuserdao;
+	}    
+ 2.12 实现主页面的跳转
+ <html>
+ <head>
+ 	<title>MLDN —— 我的智囊团</title>
+		<META NAME="Generator" CONTENT="Struts + Spring + Hibernate + MySQL + Tomcat + CP">
+			<META NAME="Author" CONTENT="李兴华">
+				<META NAME="Keywords" CONTENT="李兴华,MLDN,智囊团,SSH,tomcat,mysql">
+					<META NAME="Description" CONTENT="MLDN旗下网站 —— www.zhinangtuan.net.cn">
+						<META HTTP-EQUIV="refresh" CONTENT="0;URL=jsp/index.do?status=list">
+</head>
+<body>
+</body>
+/html>
+  2.13 将struts加入到spring管理
+	<bean name="/jsp/user"
+		class="org.lxh.myzngt.struts.action.UserAction">
+		<property name="iuserdao">
+			<ref bean="iuserdaoimpl" />
+		</property>
+	</bean>
+  2.14 解决用户重名问题
+	在插入数据库之前先查询是否有该id
+	user = this.iuserdao.queryByUserid(userForm.getUserid());
+			if (user == null){....}
+  2.15 mysql的编码设置
+        将tomcat目录下的my.ini中 default-character-set=GBK 修改
+------------------------------------------------------------------
+3 用户登陆
+  3.1 login.jsp编写
+       加入隐藏参数status的值 login
+<%@ page contentType="text/html;charset=gbk"%>
+<%@ page import="java.util.*"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles" %>
+<html:html lang="true">
+<head>
+	<title>MLDN —— 我的智囊团</title>
+	<META NAME="Generator" CONTENT="Struts + Spring + Hibernate + MySQL + Tomcat + CP">
+	<META NAME="Author" CONTENT="李兴华">
+	<META NAME="Keywords" CONTENT="智囊团,SSH,tomcat,mysql">
+	<META NAME="Description" CONTENT="MLDN旗下网站 —— www.zhinangtuan.net.cn">
+</head>
+<body>
+<center>
+<jsp:include flush="true" page="../inc/template.jsp">
+	<jsp:param name="url" value="../"/>
+</jsp:include>
+
+<logic:present name="flag" scope="request">
+	<logic:equal value="error" name="flag" scope="request">
+		<h2>登陆失败，错误的用户名或密码！</h2>
+	</logic:equal>
+</logic:present>
+
+<html:form action="jsp/user.do" method="post">
+	用户ＩＤ：<html:text property="userid"></html:text><br>
+	登陆密码：<html:password property="userpwd"></html:password><br>
+	验证码：<html:text property="checkcode"></html:text>
+		<img src="image.jsp">
+	<br>
+	<input type="hidden" name="status" value="login">
+	<input type="hidden" name="type" value="2">
+	<html:submit value="登陆"></html:submit>
+	<html:reset value="重置"></html:reset>
+	<br>
+	<a href="register.jsp">注册新用户？</a>
+	<a href="forgetpwd.jsp">忘记密码？</a>
+</html:form> 
+</center>
+</body>
+</html:html>
+   3.2 在接口dao中加入登陆验证,修改密码,是否用户已经存在空方法
+public interface IUserDAO {
+	// 按userid查找用户
+	public User queryByUserid(String userid) throws Exception;
+
+	// 用户注册
+	public void register(User user) throws Exception;
+
+	// 登陆验证
+	public boolean login(User user) throws Exception;
+
+	// 找回密码操作 --> 允许用户修改密码
+	public void updateUserpwd(String userid, String userpwd) throws Exception;
+
+	// 根据提示问题、答案、用户名确定此用户是否存在
+	public boolean isExists(String userid, String userques, String userans)
+			throws Exception;
+   3.3 在接口dao的实现类中写login()方法和判断是否已经存在该对象,修改密码等操作	
+package org.lxh.myzngt.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.lxh.myzngt.dao.IUserDAO;
+import org.lxh.myzngt.vo.User;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+public class IUserDAOImpl extends HibernateDaoSupport implements IUserDAO {
+
+	public void register(User user) throws Exception {
+		super.getSession().save(user);
+	}
+
+	public User queryByUserid(String userid) throws Exception {
+		User user = null;
+		String hql = "FROM User AS u WHERE u.userid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, userid);
+		List all = q.list();
+		if (all.size() > 0) {
+			user = (User) all.get(0);
+		}
+		return user;
+	}
+
+	public boolean isExists(String userid, String userques, String userans)
+			throws Exception {
+		boolean flag = false;
+		String hql = "FROM User AS u WHERE u.userid=? AND u.userques=? AND u.userans=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, userid);
+		q.setString(1, userques);
+		q.setString(2, userans);
+		List all = q.list();
+		if (all.size() > 0) {
+			flag = true;
+		}
+		return flag;
+		}
+	public boolean login(User user) throws Exception {
+		boolean flag = false;
+		String hql = "FROM User AS u WHERE u.userid=? AND u.userpwd=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, user.getUserid());
+		q.setString(1, user.getUserpwd());
+		List all = q.list();
+		if (all.size() > 0) {
+			flag = true;
+			User t = (User) all.get(0);
+			user.setGrade(t.getGrade());
+		}
+		return flag;
+	}
+	public void updateUserpwd(String userid, String userpwd) throws Exception {
+		String hql = "UPDATE User SET userpwd=? WHERE userid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, userpwd);
+		q.setString(1, userid);
+		q.executeUpdate();
+	}
+}
+     3.4 在UserForm中验证登陆用户的id和Password是否合法
+		if (type == 2) {
+			if (this.userid == null || "".equals(this.userid)) {
+				errors.add("userid", new ActionMessage("user.userid.null"));
+			}
+			if (this.userpwd == null || "".equals(this.userpwd)) {
+				errors.add("userpwd", new ActionMessage("user.userpwd.null"));
+			}
+			if (this.checkcode == null || "".equals(this.checkcode)) {
+				errors.add("checkcode", new ActionMessage("checkcode.null"));
+			}
+		}
+     3.5 在userAction中验证login
+	public ActionForward login(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		UserForm userForm = (UserForm) form;
+		String ccode = (String) request.getSession().getAttribute("ccode");
+		String checkcode = userForm.getCheckcode();
+		if (!(checkcode.equals(ccode))) {
+			ActionMessages errors = new ActionMessages();
+			errors.add("checkcode", new ActionMessage("checkcode.error"));
+			super.saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+		User user = new User();
+		MD5Code md5 = new MD5Code();
+		user.setUserid(userForm.getUserid());
+		user.setUserpwd(md5.getMD5ofStr(userForm.getUserpwd()));
+		boolean flag = false;
+		try {
+			flag = this.iuserdao.login(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (flag) {
+			// 登陆成功
+			// 向session之中设置内容
+			request.getSession().setAttribute("userid", user.getUserid());
+			request.getSession().setAttribute("grade", user.getGrade());
+			return mapping.findForward("loginsuccess");
+		} else {
+			request.setAttribute("flag", "error");
+			return mapping.findForward("loginfailure");
+		}
+	}
+     3.6 在struts-config中配置登陆成功和失败的隐射
+			<forward name="loginfailure" path="/jsp/login.jsp"></forward>
+			<forward name="loginsuccess" path="/jsp/index.do?status=list"/>
+      3.7 在login.jsp页面添加失败返回信息
+<logic:present name="flag" scope="request">
+	<logic:equal value="error" name="flag" scope="request">
+		<h2>登陆失败，错误的用户名或密码！</h2>
+	</logic:equal>
+</logic:present>
+     3.8 实现找回密码功能
+     	 3.8.1 建立forgetpwd.jsp页面
+<html:form action="jsp/user.do" method="post">
+	用户ＩＤ：<html:text property="userid"></html:text><br>
+	找回密码提示问题：<html:text property="userques"></html:text><br>
+	密码提示问题答案：<html:text property="userans"></html:text><br>
+	验证码：<html:text property="checkcode"></html:text><img src="image.jsp"><br>
+	<input type="hidden" name="status" value="forgetpwd">
+	<input type="hidden" name="type" value="3">
+	<html:submit value="找回密码"></html:submit>
+	<html:reset value="重置"></html:reset>
+	<br>
+	<a href="login.jsp">用户登陆？</a>
+	<a href="register.jsp">用户注册？</a>
+</html:form> 
+	 3.8.2 在dao的实现类中添加isExist()方法来验证方法是否已经存在
+	 3.8.3 在UserForm中验证登陆找回密码的信息是否非法
+		if (type == 3) {
+			if (this.userid == null || "".equals(this.userid)) {
+				errors.add("userid", new ActionMessage("user.userid.null"));
+			}
+			if (this.userques == null || "".equals(this.userques)) {
+				errors.add("userques", new ActionMessage("user.userques.null"));
+			}
+			if (this.userans == null || "".equals(this.userans)) {
+				errors.add("userans", new ActionMessage("user.userans.null"));
+			}
+			if (this.checkcode == null || "".equals(this.checkcode)) {
+				errors.add("checkcode", new ActionMessage("checkcode.null"));
+			}
+		}
+	3.8.4 在userAction中验证用户找回密码的信息
+	public ActionForward forgetpwd(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		UserForm userForm = (UserForm) form;
+		String ccode = (String) request.getSession().getAttribute("ccode");
+		String checkcode = userForm.getCheckcode();
+		if (!(checkcode.equals(ccode))) {
+			ActionMessages errors = new ActionMessages();
+			errors.add("checkcode", new ActionMessage("checkcode.error"));
+			super.saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+		boolean flag = true;
+		try {
+			flag = this.iuserdao.isExists(userForm.getUserid(), userForm
+					.getUserques(), userForm.getUserans());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 返回到修改密码页
+		// 返回到提示问题页
+		if (flag) {
+			request.setAttribute("flag", "exists");
+			return mapping.findForward("exists");
+		} else {
+			return mapping.findForward("notexists");
+		}
+	}
+	public ActionForward updatepwd(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		UserForm userForm = (UserForm) form;
+		String ccode = (String) request.getSession().getAttribute("ccode");
+		String checkcode = userForm.getCheckcode();
+		if (!(checkcode.equals(ccode))) {
+			ActionMessages errors = new ActionMessages();
+			errors.add("checkcode", new ActionMessage("checkcode.error"));
+			super.saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+		MD5Code md5 = new MD5Code();
+		try {
+			this.iuserdao.updateUserpwd(userForm.getUserid(), md5
+					.getMD5ofStr(userForm.getUserpwd()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mapping.findForward("updatepwddo");
+	}
+	3.8.5 在struts-config.xml中配置转向
+			<forward name="exists" path="/jsp/updatepwd.jsp"></forward>
+			<forward name="notexists" path="/jsp/forgetpwd.jsp"></forward>
+			<forward name="updatepwddo" path="/jsp/updatepwd_do.jsp"></forward>
+	3.8.6 添加updatepwd.jsp,并传递userid的参数,值为保存在session中的userid值
+<%-- 用户已存在，可以进行更新密码操作 --%>
+<logic:present name="flag" scope="request">
+<logic:equal value="exists" name="flag" scope="request">
+	<html:form action="jsp/user.do" method="post">
+		新的密码：<html:password property="userpwd"></html:password><br>
+		确认密码：<html:password property="confirmpwd"></html:password><br>
+		验证码：<html:text property="checkcode"></html:text><img src="image.jsp"><br>
+		<input type="hidden" name="status" value="updatepwd">
+		<input type="hidden" name="type" value="4">
+		<input type="hidden" name="userid" value="${param.userid}">
+		<html:submit value="更新密码"></html:submit>
+		<html:reset value="重置"></html:reset>
+		<br>
+		<a href="login.jsp">用户登陆？</a>
+		<a href="register.jsp">用户注册？</a>
+	</html:form>
+	<script language="javaScript">
+		document.userForm.checkcode.value = "" ;
+	</script>
+</logic:equal>
+</logic:present>
+	3.8.7 解决在修改密码时上次的验证码保留下来的bug
+在页面上添加
+	<script languge="javaScript">
+		document.userForm.checkcode.value="";
+	</script>
+      3.9 用户等级的实现
+      	  3.9.1 在util包写实现数字到汉字的类
+IntegralGrade.java
+package org.lxh.myzngt.util;
+
+import java.util.Properties;
+
+public class IntegralGrade {
+	private Properties pro = null;
+
+	private static final IntegralGrade ig = new IntegralGrade();
+
+	// key --> value
+	private IntegralGrade() {
+		this.pro = new Properties();
+		this.pro.setProperty("1", "开发爱好者");
+		this.pro.setProperty("2", "初级程序员");
+		this.pro.setProperty("3", "软件工程师");
+		this.pro.setProperty("4", "高级软件工程师");
+		this.pro.setProperty("5", "项目主管");
+		this.pro.setProperty("6", "项目经理");
+		this.pro.setProperty("7", "项目总监");
+		this.pro.setProperty("8", "首席技术执行官");
+	}
+
+	public static IntegralGrade getInstance() {
+		return ig;
+	}
+
+	// 确认等级
+	public int getGrade(int ita) {
+		int grade = 0;
+		if (ita >= 0 && ita <= 300) {
+			grade = 1;
+		}
+		if (ita >= 301 && ita <= 1000) {
+			grade = 2;
+		}
+		if (ita >= 1001 && ita <= 5000) {
+			grade = 3;
+		}
+		if (ita >= 5001 && ita <= 10000) {
+			grade = 4;
+		}
+		if (ita >= 10001 && ita <= 20000) {
+			grade = 5;
+		}
+		if (ita >= 20001 && ita <= 50000) {
+			grade = 6;
+		}
+		if (ita >= 50001 && ita <= 100000) {
+			grade = 7;
+		}
+		if (ita >= 100000 && ita <= 500000) {
+			grade = 8;
+		}
+		return grade;
+	}
+
+	// 取得等级信息
+	/**
+	 * 
+	 * @param grade
+	 *            表示用户登陆之后的等级
+	 * @return 返回一个等级的具体信息
+	 */
+	public String getGradeInfo(int grade) {
+		String str = null;
+		str = this.pro.getProperty(grade + "");
+		return str == null ? "" : str;
+	}
+}
+	  3.9.2 在页面模板修改等级获取
+<%@ import org.lxh.myzngt.util.*;%>
+....
+头衔:<%= IntegralGrade.getInstance().getGradeInfo((Integer)(session.getAttribute("grade")))%>
+       3.10 我的个人中心
+       	    3.10.1 确定需要的信息:
+	    	   个人提出的问题，个人回答的问题，修改个人信息，列出被采纳的回答
+                   3.10.2 主界面 index.htm 采用框架来实现个人信息管理
+<html>
+	<head>....</head>
+	<frameset cols="2.8">
+		  <frame src="left.jsp"/>
+		  <frame src="userInfo.jsp">
+	</frameset>
+</html>
+		   3.10.2.1 左边页面的实现 left.jsp
+<a href="">修改个人信息</a>
+<a href="">个人提出的问题</a>
+<a href="">个人回答的问题</a>
+<a href="">列出被采纳的回答</a>
+		   3.10.2.2  右边页面实现  userInfo.jsp
+		   3.10.2.3 乱码问题的解决
+ 		   	    在myeclipse中新建的Html中找出关于编码设置的代码复制在htm中
+	<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+---------------------------------------------------------------------------------------------------------------
+4 

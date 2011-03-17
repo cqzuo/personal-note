@@ -1,0 +1,106 @@
+%toc
+=== 内部类 ===
+==== 内部类和外部类的定义 ====
+==== 内部类的特点 ====
+  # 可以声明public protected private等访问限制
+  # 可以声明为abstract类供其他内部类或外部类继承与扩展
+  # 可以实现特定接口
+  # 可以访问外部类的所有方法和属性
+==== static 内部类 ====
+  # 非静态内部类不能定义静态属性或方法
+  # 只能访问外部类的静态方法与属性
+==== 内部类使用 ====
+  # 外部类可以访问内部类的所有方法属性
+  # 内部类访问外部属性与方法-- 外部类对象名.this.属性或方法名
+  # 外部类访问内部类-- 外部对象名.new 内部类名()
+  # 内部类可以声明在外部类的方法或语句块中
+   * 内部类访问包含它的外部类的方法或语句块的局部变量或参数时,其必须是final
+   * 外部类的其他方法和语句块无法访问声明在方法内部或语句块中的内部类
+  # 如果其他类继承内部类,则在该类中必须提供一个以内部类的外部类对象作为参数的构造方法
+==== 匿名内部类 ====
+ # 作用
+  * 使用内部类实现接口的功能
+ # 特点
+  * 匿名内部类可以创建接口,抽象类,普通类的对象
+  * 匿名内部类创建接口时,必须实现接口所有方法
+  * 如果匿名内部类需要传递参数,在参数中使用时,必须final
+  * 可以给匿名内部类定义属性并初始化,使用{}
+ # 使用
+  * 传递参数
+ {{{class="brush: java"
+class A
+{
+	private String name;
+
+	public A(int num)
+	{
+		System.out.println("num is "+num);
+	}
+	public A(){}
+}
+
+class  B
+{
+	private A getA(final int num)
+	{
+		return new A(num){
+			public int getNum()
+			{
+				return num;
+			}
+		};
+	}
+}
+ }}}
+  * 实例化匿名内部类的属性
+{{{class="brush: java"
+	public A getA()
+	{
+		return	new A()
+	 	{
+			private int num = 0;
+			private String str;
+			{
+				str = "lord";
+			}
+		}
+	}
+}}}
+=== 流 ===
+==== 从文件中读取数据写入流中 ====
+  - 建立文件输入流 -- new FileInputStream("文件路径名称")
+  - 从FileInputStream流中读取的数据可以存放在int类型变量中,再char(变量)来转换
+  - 从流中读取数据 -- int c = in.read()
+==== 将流中的数据写入到文件中 ====
+  - 建立文件输出流 -- new FileOutputStream("文件路径名称")
+  - 将数据写入文件 -- out.write(从输出流中读出的int型变量);
+==== 缓冲文件流读取数据 ====
+  - 建立缓冲文件读取流 -- new BufferedReadaer(new FileReader("文件名路径"));
+  - 读取文件-- br.readLine()
+==== 缓冲文件流写入数据 ====
+  - 建立缓冲文件写入流 -- new BufferedWriter(new FileWriter("文件名路径"));
+  - 将字符串写入文件 -- bw.write(s);
+  - 换行符 -- bw.newLine();
+  - 将缓存一次写入文件 -- bw.flush();
+==== 文件编码 ====
+  - new OutputStreamWriter(new FileOutputStream("文件名路径",true),"gb2312");
+==== 数据流 ====
+  - ByteArrayOutputStream DataOutputStream
+   * bos.writeDouble()
+   * bos.writeBoolean()
+  - ByteArrayInputStream DataInputStream
+   * bis.readDouble()
+   * bis.readBoolean()
+==== 输出流 ====
+  - 建立打印输出流 PrintStream ps = new PrintStream(new FileOutputStream("文件路径名"));
+  - 设置输出对象 -- System.setOut(ps);
+  - 打印 -- System.out.print(字符串);
+==== 文件输出到控制台 ====
+  - 设置输出到控制台 -- PrintStream ps = System.out
+==== 从控制台获取数据 ====
+  - 从终端读取数据到BufferedReadaer中 -- new BufferedReadaer(new InputStreamReader(System.in))
+  - 从缓冲里中读取数据 -- br.readLine();
+  - 建立打印输出流 -- new PrintWriter(new FileWriter("文件路径名"),true)
+  - 向打印流写入数据
+   - pw.write(字符串);
+   - pw.println(字符串);

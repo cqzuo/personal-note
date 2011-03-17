@@ -1,0 +1,110 @@
+* hibernate的配置
+** 项目的搭建流程
+*** 新建java项目
+*** 添加jar包
+*** 创建hibernate.cfg.xml
+**** 数据源配置
+***** driver-class
+ <property name="connection.driver-class">驱动名称</property>
+***** url
+ <property name="connection.url">url地址</property>
+***** username password
+ <property name="connection.username">用户名</property>
+ <property name="connection.password">用户密码</property>
+<property name="connection.pool_size">连接池大小</property>
+***** dialect 
+<property name="dialect">org.hibernate.dialect.方言类型</property>
+***** 自动创建数据库
+<property name="hbm2dll.auto">true</property>
+**** 映射文件位置
+ <mapping resource="映射文件位置"/>
+**** 添加log4j的配置文件
+**** 跟踪hibernate执行
+***** hibernate.show_sql属性设置为true
+<property name="show_sql">true</property>
+*** 定义实体类
+*** 写实体类映射文件
+ <hibernate-mapping>
+   <class name="实体类完整包名">
+      <id name="主键名称">
+         <generator class="主键生成方式"/>
+      </id>
+      <property name="其他属性名称"/>
+   </class>
+ </hibernate-mapping>
+**** 实体类与数据表
+**** 主键生成方式
+**** 其他属性与字段之间的映射
+*** 写util类,根据映射文件生成数据库表
+ private static final Sessionfactory sessionfactory;
+ static{
+  sessionfactory = new Configuration().configurate().buildSessionFactory();
+}
+ public static Sessionfactory getSessionFactory()
+{
+   return sessionfactory;
+} 
+// 如果session关闭,则打开新session
+private static final ThreadLoacl session = new ThreadLoacl();
+public static Session getCurrentSession() throws HibernateException
+{
+  Session s = (Session)session.get();
+  if(s==null||s!=isOpen())
+  {
+    s = sessionFactory.openSession();
+    session.set(s);
+  }
+  return s;
+}
+
+public static void closeSession() throws HibernateException
+{
+  Session s = (Session)session.get();
+  session.set(null);
+  if(s!=null)
+  {
+    s.close();
+  }
+}
+*** 测试
+**** 测试类编写原则
+***** 类名为 测试类Test
+***** 继承 junit.framework.TestCase
+***** 测试方法必须以 test开头,不能含有参数和返回值
+ public void testHello(){}
+***** 单元测试代码建立单独的目录
+** 基本知识点
+*** get与load的区别
+**** get不支持lazy, load支持lazy
+// 此get方法会立即执行
+User user = (User)session.get(User.class,"test")
+// 此方法在真正执行的时候才执行加载
+User user = (User)session.load(User.class,"test")
+*** hibernate中对象的状态
+**** transient
+ 数据库中没有相应数据
+ 没有纳入session管理
+**** persistent
+ 数据库中有相应数据
+ 纳入session管理
+ 在清理缓存(脏数据检查)会与数据库同步
+**** detached
+ 数据库中有相应数据,并有记录标识值
+ 没有纳入session管理
+ 
+*** 基本映射
+**** 配置规则
+<class> 映射数据库表
+<property> 映射表字段
+**** 实体类原则
+ 有默认无参构造方法
+ 有标识属性
+ 使用非final类
+ 为持久化字段声明访问器
+**** 主键生成策略
+ uuid native assigned
+**** 一对一主键关联映射
+***** 单向关联
+     <many-to-one name="外键" unique="true"/>
+***** 双向管理
+      

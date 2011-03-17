@@ -1,0 +1,116 @@
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css" />
+<title>jQuery核心</title>
+<meta http-equiv="Content-Type" content="text/html; charset=" />
+</head>
+<body>
+
+<div class="toc">
+<ul>
+<li><a href="#toc_1">jQuery核心</a></li>
+<ul>
+<li><a href="#toc_1.1">核心方法</a></li>
+</ul>
+</ul>
+</div>
+<h1 id="toc_1">jQuery核心</h1>
+<h2 id="toc_1.1">核心方法</h2>
+<ol>
+<li>
+jQuery(expression, [context])
+</li>
+<ul>
+<li>
+接收一个保护css选择器的字符串来匹配一组元素
+</li>
+<li>
+简写为$()
+</li>
+<li>
+会在指定的上下文中去查找匹配信息
+</li>
+<li>
+例子:查找第一个form中的radio元素
+<pre class="brush: js">
+ $("input:radio",document.forms[0])
+</pre>
+</li>
+</ul>
+<li>
+jQueryjQuery(html, [ownerDocument])
+</li>
+<ul>
+<li>
+根据提供的原始HTML标记字符串,动态创建由jQuery对象包装的DOM元素
+</li>
+<li>
+如果html字符串含有"字符,需转义\
+</li>
+<li>
+例子
+<pre class="brush: js">
+$("&lt;li&gt;<div id=\"gname\">我是测试</div>&lt;/li>").appendTo("form");
+</pre>
+</li>
+</ul>
+<li>
+jQuery(html, props)
+</li>
+<ul>
+<li>
+根据提供的原始 HTML 标记字符串，动态创建由 jQuery 对象包装的 DOM 元素。同时设置一系列的属性、事件等
+</li>
+<li>
+例子:在form中添加一个text类型的input标签,并设置聚焦和离焦时的方法
+<pre class="brush: js">
+$("&lt;input&gt;", {
+ type: "text",
+ val: "Test",
+ focusin: function() {
+   $(this).addClass("active");
+ },
+ focusout: function() {
+   $(this).removeClass("active");
+ 
+}).appendTo("form"); 
+</pre>
+</li>
+</ul>
+<li>
+jQuery(elements)
+</li>
+<ul>
+<li>
+将一个或多个DOM元素转化为jQuery对象
+</li>
+<li>
+例子为指定的元素设置css
+<pre class="brush: js">
+$(document.body).css( "background", "black" );
+</pre>
+</li>
+</ul>
+<li>
+jQuery(callback)
+</li>
+<ul>
+<li>
+$(document).ready()的简写
+</li>
+<li>
+参数function为当DOM加载完成后要执行的函数
+</li>
+<li>
+例子
+<pre class="brush: js">
+$(document).ready(function(){
+   $("&lt;li&gt;<div id=\"gname\">我是测试</div>&lt;/li>").appendTo("form");
+  });
+</pre>
+</li>
+</ul>
+</ol>
+
+</body>
+</html>

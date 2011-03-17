@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<map name="ant配置详解" document_type="BLUMIND" editor_version="1.2.0.30808">
+  <!--Create by Blumind, you can download it free from http://www.hyfree.net/download-->
+  <info />
+  <layout>MIND_MAP</layout>
+  <style>
+    <back_color>Window</back_color>
+    <fore_color>WindowText</fore_color>
+    <line_color>ControlDarkDark</line_color>
+    <border_color>ControlDark</border_color>
+    <node_back_color>Control</node_back_color>
+    <node_fore_color>ControlText</node_fore_color>
+    <select_color>Highlight</select_color>
+    <hover_color>HotTrack</hover_color>
+    <link_line_color>ActiveCaption</link_line_color>
+  </style>
+  <nodes>
+    <node text="Ant配置">
+      <style>
+        <back_color>ActiveCaption</back_color>
+        <fore_color>ActiveCaptionText</fore_color>
+        <border_color>GradientActiveCaption</border_color>
+        <padding>12</padding>
+      </style>
+      <nodes>
+        <node text="安装配置">
+          <style>
+            <back_color>#80FF80</back_color>
+          </style>
+          <nodes>
+            <node text="ANT_HOME">
+              <nodes>
+                <node text="ant根目录">
+                  <style>
+                    <shape>3</shape>
+                  </style>
+                </node>
+              </nodes>
+            </node>
+            <node text="path">
+              <nodes>
+                <node text="ant/bin目录">
+                  <style>
+                    <shape>3</shape>
+                  </style>
+                </node>
+              </nodes>
+            </node>
+          </nodes>
+        </node>
+        <node text="主要元素">
+          <style>
+            <back_color>#80FF80</back_color>
+          </style>
+          <nodes>
+            <node text="project">
+              <nodes>
+                <node text="name">
+                  <nodes>
+                    <node text="project的名称">
+                      <style>
+                        <shape>3</shape>
+                      </style>
+                    </node>
+                  </nodes>
+                </node>
+                <node text="default">
+                  <nodes>
+                    <node text="默认要执行的target名称">
+                      <style>
+                        <shape>3</shape>
+                      </style>
+                    </node>
+                  </nodes>
+                </node>
+                <node text="basedir">
+                  <nodes>
+                    <node text="基路径">
+                      <style>
+                        <shape>3</shape>
+                      </style>
+                    </node>
+                  </nodes>
+                </node>
+              </nodes>
+            </node>
+            <node text="target">
+              <nodes>
+                <node text="name">
+                  <nodes>
+                    <node text="target的名称">
+                      <style>
+                        <shape>3</shape>
+                      </style>
+                    </node>
+                  </nodes>
+                </node>
+                <node text="depends">
+                  <nodes>
+                    <node text="依赖的其他targe名称">
+                      <style>
+                        <shape>3</shape>
+                      </style>
+                    </node>
+                  </nodes>
+                </node>
+                <node text="if">
+                  <nodes>
+                    <node text="属性存在才执行">
+                      <style>
+                        <shape>3</shape>
+                      </style>
+                    </node>
+                  </nodes>
+                </node>
+                <node text="unless">
+                  <nodes>
+                    <node text="属性存在不执行">
+                      <style>
+                        <shape>3</shape>
+                      </style>
+                    </node>
+                  </nodes>
+                </node>
+                <node text="description">
+                  <nodes>
+                    <node text="描述说明">
+                      <style>
+                        <shape>3</shape>
+                      </style>
+                    </node>
+                  </nodes>
+                </node>
+              </nodes>
+            </node>
+            <node text="property">
+              <nodes>
+                <node text="参数的定义">
+                  <style>
+                    <shape>3</shape>
+                  </style>
+                </node>
+              </nodes>
+            </node>
+          </nodes>
+        </node>
+        <node text="常见任务">
+          <style>
+            <back_color>#80FF80</back_color>
+          </style>
+          <nodes>
+            <node text="copy">
+              <nodes>
+                <node text="&lt;copy todir=&quot;../newdir/dest_dir&quot;&gt;&#xD;&#xA;     &lt;fileset dir=&quot;src_dir&quot;/&gt;&#xD;&#xA;&lt;/copy&gt;">
+                  <style>
+                    <shape>3</shape>
+                  </style>
+                </node>
+              </nodes>
+            </node>
+            <node text="delete" />
+            <node text="mkdir" />
+            <node text="move" />
+            <node text="echo" />
+          </nodes>
+        </node>
+        <node text="ant构建和部署Java项目">
+          <style>
+            <back_color>#80FF80</back_color>
+          </style>
+          <nodes>
+            <node text="javac编译Java任务" />
+            <node text="java运行Java程序" />
+            <node text="jar生成jar文件" />
+            <node text="war打包J2ee项目" />
+          </nodes>
+        </node>
+      </nodes>
+    </node>
+  </nodes>
+</map>

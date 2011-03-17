@@ -1,0 +1,15 @@
+面试可能提到的问题
+1. java
+2. jsp
+3. servlet
+4. struts
+5. hibernate
+6. spring
+7. oracle
+8. sqlserver
+9. xml
+10. ibatis
+11. mysql
+12. tomcat/weblogic/resin
+13. javascript/css/ajax/jquery
+14. linux

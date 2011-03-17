@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=gbk" /> 
+        <title>struts2标签</title>
+        <meta id="viewport" name="viewport" 
+            content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" /> 
+        <link rel="stylesheet" href="style.css" /> 
+        <link rel="apple-touch-icon" href="../images/apple-touch-icon.png" /> 
+		<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shCore.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCSharp.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrvushPhp.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushJScript.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushJava.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushVb.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushSql.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushXml.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushDelphi.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushPython.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushRuby.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCss.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCpp.js"></script> 
+		
+		<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter/styles/shCoreDefault.css"/> 
+		<script type="text/javascript">SyntaxHighlighter.all();</script> 
+
+		<script type="text/javascript" charset="utf-8"> 
+            window.onload = function() {
+                var header = document.getElementById('header').getElementsByTagName('h1')[0],
+                    old = document.getElementById('content').getElementsByTagName('h1')[0];
+                if (old) header.innerHTML = old.innerHTML;
+                setTimeout(function(){
+                    window.scrollTo(0, 1);
+                }, 100);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="header">
+            <a href="index.html" id="backButton">Index</a><!--<center><h1>struts2标签</h1></center> -->
+        </div>
+        <div id="content">
+<ul>
+<li>
+使用
+</li>
+<ul>
+<li>
+在jsp头文件加上 &lt;%@ taglib prefix="s" uri="/struts-tags" %&gt;
+</li>
+</ul>
+<li>
+标签用法
+</li>
+<ul>
+<li>
+&lt;s:a href=""/&gt; 
+</li>
+<li>
+&lt;s:action name=""/&gt;
+</li>
+<li>
+&lt;s:actionerror/&gt;
+</li>
+<li>
+&lt;s:actionmessage/&gt;
+</li>
+<li>
+&lt;s:append&gt;&lt;/s:append&gt;
+</li>
+<ol>
+<li>
+添加一个值到list,相当于list.add();
+</li>
+</ol>
+<li>
+&lt;s:autocompleter&gt;&lt;/s:autocompleter&gt;
+</li>
+<ol>
+<li>
+自动完成&lt;s:combobox&gt;标签的内容,是个ajax
+</li>
+</ol>
+<li>
+&lt;s:bean name=""/&gt;
+</li>
+<li>
+&lt;s:checkbox/&gt;
+</li>
+<ol>
+<li>
+复选框
+</li>
+</ol>
+<li>
+&lt;s:checkboxlist list=""/&gt;
+</li>
+<ol>
+<li>
+多选框
+</li>
+</ol>
+<li>
+&lt;s:combobox list=""/&gt;
+</li>
+<ol>
+<li>
+下拉框
+</li>
+</ol>
+<li>
+&lt;s:component/&gt;
+</li>
+<ol>
+<li>
+图形组件
+</li>
+</ol>
+<li>
+&lt;s:date/&gt;
+</li>
+<li>
+&lt;s:datetimepicker/&gt;
+</li>
+<ol>
+<li>
+日期输入框
+</li>
+</ol>
+<li>
+&lt;s:debug/&gt;
+</li>
+<ol>
+<li>
+显示错误信息
+</li>
+</ol>
+<li>
+&lt;s:div/&gt;
+</li>
+<ol>
+<li>
+表示一个块
+</li>
+</ol>
+<li>
+&lt;s:doubleselect list="" doubleName="" doubleList=""/&gt;
+</li>
+<ol>
+<li>
+双下拉框
+</li>
+</ol>
+<li>
+&lt;s:if test=""/&gt;
+</li>
+<li>
+&lt;s:elseif test=""/&gt;
+</li>
+<li>
+&lt;s:else&gt;&lt;/s:else&gt;
+</li>
+<ol>
+<li>
+3个标签一起,表示条件判断
+</li>
+</ol>
+<li>
+&lt;s:fielderror&gt;
+</li>
+<ol>
+<li>
+显示文件错误信息
+</li>
+</ol>
+<li>
+&lt;s:file&gt;&lt;/s:file&gt;
+</li>
+<ol>
+<li>
+文件上传
+</li>
+</ol>
+<li>
+&lt;s:form action=""/&gt;
+</li>
+<li>
+&lt;s:iterator/&gt;
+</li>
+<li>
+&lt;s:generator separator="" val=""/&gt;
+</li>
+<ol>
+<li>
+和&lt;s:iterator&gt;一起使用来表示集合遍历
+</li>
+</ol>
+<li>
+&lt;s:i18n name=""/&gt;
+</li>
+<ol>
+<li>
+加载资源包到值栈
+</li>
+</ol>
+<li>
+&lt;s:inclue value=""/&gt;
+</li>
+<ol>
+<li>
+包含一个servlet或jsp页面输出
+</li>
+</ol>
+<li>
+&lt;s:inputtransferselect list=""/&gt;
+</li>
+<ol>
+<li>
+获取form输入
+</li>
+</ol>
+<li>
+&lt;s:lable&gt;
+</li>
+<ol>
+<li>
+只读标签
+</li>
+</ol>
+<li>
+&lt;s:merge&gt;
+</li>
+<ol>
+<li>
+合并遍历集合出来的值
+</li>
+</ol>
+<li>
+&lt;s:optgroup/&gt;
+</li>
+<ol>
+<li>
+获取标签
+</li>
+</ol>
+<li>
+&lt;s:optiontransferselect doubleList="" doubleName=""/&gt;
+</li>
+<ol>
+<li>
+左右选择框
+</li>
+</ol>
+<li>
+&lt;s:param/&gt;
+</li>
+<ol>
+<li>
+提供参数
+</li>
+</ol>
+<li>
+&lt;s:password/&gt;
+</li>
+<li>
+&lt;s:property/&gt;
+</li>
+<li>
+&lt;s:push value=""/&gt;
+</li>
+<ol>
+<li>
+value的值压到栈中,使property标签能够取到value值
+</li>
+</ol>
+<li>
+&lt;s:radio list=""/&gt;
+</li>
+<li>
+&lt;s:reset/&gt;
+</li>
+<li>
+&lt;s:select list=""/&gt;
+</li>
+<li>
+&lt;s:set name=""/&gt;
+</li>
+<ol>
+<li>
+给变量赋值
+</li>
+</ol>
+<li>
+&lt;s:sort comparator=""/&gt;
+</li>
+<ol>
+<li>
+通过属性给list分类
+</li>
+</ol>
+<li>
+&lt;s:submit/&gt;
+</li>
+<li>
+&lt;s:subset&gt;
+</li>
+<ol>
+<li>
+为遍历集合输出子集
+</li>
+</ol>
+<li>
+&lt;s:tabbedPanel id=""/&gt;
+</li>
+<ol>
+<li>
+表格框
+</li>
+</ol>
+<li>
+&lt;s:table/&gt;
+</li>
+<li>
+&lt;s:text name=""/&gt;
+</li>
+<li>
+&lt;s:textfiled/&gt;
+</li>
+<li>
+&lt;s:token/&gt;
+</li>
+<ol>
+<li>
+拦截器
+</li>
+</ol>
+<li>
+&lt;s:tree/&gt;
+</li>
+<li>
+&lt;s:treenode lable=""/&gt;
+</li>
+<ol>
+<li>
+树的结构
+</li>
+</ol>
+<li>
+&lt;s:updownselect list=""/&gt;
+</li>
+<ol>
+<li>
+多选择框
+</li>
+</ol>
+<li>
+&lt;s:url/&gt;
+</li>
+</ul>
+</ul>
+        </div>
+<div id="footer"><center>
+            Copyright@2010 arch Powered by <a href="http://vimwiki.googlecode.com/">Vimwiki</a>
+	 <script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.js"></script></center>
+        </div>
+    </body>
+</html>

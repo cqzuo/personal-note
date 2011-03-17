@@ -1,0 +1,230 @@
+你有项目经验没？
+你说说，你在j2ee方面都会哪些技术
+html,css, xml, javascript,jsp ,servlet,jdbc
+关于框架，那是项目组长和经理要做的事
+不是背全部
+是记住最重要的几点人家只会问最重要最常用最基础的
+面试中
+j2se问得非常多，多半是
+字符串处理
+异常处理
+线程
+数组
+基础数据类型，封闭类
+集合
+IO与文件
+Sevlet
+jdbc
+设计模式
+html,css, xml, javascript,jsp ,servlet,jdbc
+struts和MVC
+会问怎么理解面向对象
+垃圾回收机制
+说说什么是web2.0
+说说struts 的运行原理和流程
+说说用jdbc 批量入库如何实现
+
+
+java软件工程师
+简历：
+  个 人 简  历
+基本信息                                                                                                                   
+
+姓   名：喻 单                                            性    别：男  
+
+年   龄：28岁                                           地   址: 南京
+
+学   历：本科(数学应用专业)           E – Mail ：yuanmengnan@163.com 
+
+移动电话: 13297949913                             
+
+ 
+
+求职意向                                                                                                                     
+
+  JAVA软件开发工程师
+
+ 
+
+能力简介                                                                                                                        
+
+   熟悉C/C++/Java /语言及HTML/XML/CSS/JavaScript，掌握Jsp / Servlet / Struts / Hibernate技术
+
+熟悉Oracle数据库及sql语言，了解Ajax, UML，Tomcat服务器，PowerDesigner建模工具，
+
+1年项目开发经验
+
+ 
+
+专业技能能                                                                                                                 
+
+   
+
+技能名称                         熟练程度                  使用时间
+
+C,C++，                         熟悉                           2年以上
+
+Java                               熟悉                           1年半
+
+Jsp                                 熟悉                           1年半
+
+STRUTS                        熟悉                            1年
+
+Hibenate                         熟悉                            1年
+
+JavaScript                       一般                           1年
+
+XML,CSS,AJAX              一般                           1年
+
+SQL Server 2000              一般                          1年
+
+Oracle                            熟悉                           1年
+
+    
+
+语言能力                                                                                                                     
+
+    英语：良好  CET-4    能阅读一般IT技术英文文档。
+
+ 
+
+教育背景                                                                                                                    
+
+1999.9-2003.6   湖北民族学院       计算机与数学系         本科         学士学位
+
+       2006.7-2007.7   湖北省软件产业基地
+
+ 
+
+ 
+
+工作及培训经历                                                                                                       
+
+2003.9-2006.7 江苏连云港市灌南华侨双语学校，高中部计算机教师
+
+2006.7-2007.7  在湖北省软件产业培训基地 研发中心 进行为期一年的项目开发,
+
+2007.7-2007.12   武汉金立软件有限公司
+
+项目经验：
+
+1.     新闻发布系统(struts + Hibernate, Oracle数据库)
+
+2.     思远人力资源管理系统(Struts + Hibernate,  Oracle数据库)
+
+……
+
+自我评价                                                                                                               
+
+    个人特点：乐观自信，积极向上，踏实严谨，较强的逻辑思维能力和学习能力，
+
+协作意识强
+
+
+
+
+
+
+
+
+
+                         RESUME
+
+Basic Information                                                                            
+
+Englist name:   Tamik                                   
+
+Sex:           Male
+
+Age:           28
+
+Place of birth:        Honghu, Hubei
+
+School record:   Undergraduate College
+
+Mobile phone:   13297949913
+
+Family pnone:   0518-83216616
+
+Email:          yuanmengnan@163.com
+
+ 
+
+Desired Position                                                                                
+
+       Java Software Engineer
+
+ 
+
+Ability Introduction                                                                          
+
+      Have C/C + +/ Java/ HTML / XML / CSS / JavaScript in hand , be good at the Jsp/ Servlet/ 
+
+Struts/ Hibernate technology , know the Oracle data base and sql language very well , know Ajax , UML, can use PowerDesigner to build the model implement , the project for 1 year developing experience.
+
+ 
+
+ 
+
+Professional Skills Item                                                                  
+
+       Skill Name                      Skill Level               Experience   
+
+C/C++                               skillful                      more than 2 year
+
+JAVA ,JSP                         skillful                       1 year
+
+STRUTS                            skillful                       1 year
+
+Hibernate                            skillful                       1 year
+
+JAVASCRIPT                     commonly                 1 year
+
+XML,CSS,AJAX                  commonly                1 yerar
+
+SqlServer2000                     commonly                 1 year
+
+Oracle                                 skillful                      1 year
+
+Education background                                                                   
+
+       1999.9-2003.6  In Hubei Institute for Nationnalityes,  Computer and mathematics department study.
+
+Language Skills                                                                               
+
+       English: CET-4
+
+                      Can read the generality technology document
+
+ 
+
+Working and Training experience                                                   
+
+       2006.10—2007.10: Training software engineer, Thinkbank International Software Developing Center .
+
+   2007.10 —:       Wuhan Jin Li  software company    
+
+ 
+
+Project experience                                                                           
+
+1. Online shopping website (STRUTS , Oralce data base)
+
+2. News announce system (struts + Hibernate, Oracle data base) 
+
+3. Thinkbank human resources management system (Struts + Hibernate ,Oracle data base)
+
+……
+
+ 
+
+Self-Evaluation                                                                                 
+
+       Qualifications: 
+
+       Hoping for the best be confident , active is upward , at ease rigorous , stronger than strong logical thinking ability and the consciousness studying an ability , ptimistic and easy-going, cooperating.
+
+      Expect to cooperate with you……
+
+
+   My picture...

@@ -1,0 +1,3 @@
+<plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+	<set-property property="contextConfigLocation" value="/WEB-INF/classes/applicationContext.xml" />
+</plug-in>

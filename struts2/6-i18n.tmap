@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Map State="1" MTime="" MAddr="" MMemo="">
+    <NodeSet>
+        <Node Name="i18n" Code="N1283999769" Hgap="0" Vshift="0" Type="1" Color="#8B0000" Edge="#C0C0C0" Border="#C0C0C0" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+            <Node Name="流程" Code="N1284444383" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="在src文件夹中加入struts.properties文件" Code="N1284444403" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="struts.custom.i18n.resources=globalMessages" Code="N1284444414" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+                <Node Name="加入globalMessages_en_US.properties文件" Code="N1284444957" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="加入globalMessages_zh_CN.properties文件" Code="N1284444968" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="jsp文件读取信息" Code="N1284444997" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name='&lt;s:text name=&quot;HelloWorld&quot;/&gt;' Code="N1284445021" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    <Node Name='&lt;s:property value=&quot;%{getText(&apos;HelloWorld&apos;)}&quot;/&gt;' Code="N1284445036" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+                <Node Name="全局化lable属性" Code="N1284445079" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name='&lt;s:textfield name=&quot;name&quot; label=&quot;%{getText(&apos;UserName&apos;)}&quot;/&gt;' Code="" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+            </Node>
+            <Node Name="资源文件的查找顺序" Code="N1284445137" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="使用全局的资源文件" Code="N1284445295" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="使用包范围内的资源文件" Code="N1284445441" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="使用Action范围的资源文件" Code="N1284445450" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="使用&lt;s:i18n&gt;标志访问特定路径的properties文件" Code="N1284445459" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name='&lt;s:i18n name=&quot;xxxxx&quot;&gt;' Code="N1284445477" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#00FF80" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+            </Node>
+            <Node Name="参数化国际化字符串" Code="N1284445570" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="在资源文件的国际化字符串中使用OGNL" Code="N1284445586" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="validation.require=${getText(fileName)} is required" Code="N1284445596" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+                <Node Name="使用java.text.MessageFormat中的字符串格式" Code="N1284446551" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name="validation.between=Date must between {0, date, short} and {1, date, short}" Code="N1284446562" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#0080FF" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+            </Node>
+            <Node Name="显示字符串的设置" Code="N1284446615" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="使用标志的value0、value1...valueN的属性" Code="N1284446628" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name='&lt;s:text name=&quot;validation.required&quot; value0=&quot;User Name&quot;/&gt;' Code="N1284446650" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+                <Node Name="使用param子元素，这些param将按先后顺序，代入到国际化字符串的参数中" Code="N1284446639" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name='&lt;s:text name=&quot;validation.required&quot;&gt;&lt;s:param value=&quot;User Name&quot;/&gt;&lt;s:text&gt;' Code="N1284446675" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#FF8040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+            </Node>
+            <Node Name="拦截器原理" Code="N1284450384" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name='在执行Action方法前i18n拦截器查找请求中的一个名为&quot;request_locale&quot;的参数' Code="N1284450391" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                <Node Name="如果其存在，拦截器就将其作为参数实例化Locale对象，并将其设为用户默认的区域（Locale）" Code="N1284450415" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+            </Node>
+            <Node Name="快速切换语言" Code="N1284446765" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                <Node Name="建立Locals获取Bean" Code="N1284455238" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name='public Map&lt;String, Locale&gt; getLocales() {&#x0A;       Map&lt;String, Locale&gt; locales =new Hashtable&lt;String, Locale&gt;(2);&#x0A;       locales.put(&quot;American English&quot;, Locale.US);&#x0A;       locales.put(&quot;Simplified Chinese&quot;, Locale.CHINA);&#x0A;       return locales;' Code="N1284455254" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                        <Node Name="将此Locale对象保存在session的名为“WW_TRANS_I18N_LOCALE”的属性中" Code="N1284450447" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#800040" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    </Node>
+                </Node>
+                <Node Name="jsp调用到一个下拉框中" Code="N1284455269" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name='&lt;%@taglib prefix=&quot;s&quot; uri=&quot;/struts-tags&quot;%&gt;&#x0A;&lt;script type=&quot;text/javascript&quot;&gt;&#x0A;&lt;!--&#x0A;    function langSelecter_onChanged() {&#x0A;        document.langForm.submit();&#x0A;    }&#x0A;//--&gt;&#x0A;&lt;/script&gt;&#x0A;&lt;s:set name=&quot;SESSION_LOCALE&quot; value=&quot;#session[&apos;WW_TRANS_I18N_LOCALE&apos;]&quot;/&gt;&#x0A;&lt;s:bean id=&quot;locales&quot; name=&quot;tutorial.Locales&quot;/&gt;&#x0A;&lt;form action=&quot;&lt;s:url includeParams=&quot;get&quot; encode=&quot;true&quot;/&gt;&quot; name=&quot;langForm&quot; &#x0A;    style=&quot;background-color: powderblue; padding-top: 4px; padding-bottom: 4px;&quot;&gt;&#x0A;    Language: &lt;s:select label=&quot;Language&quot; &#x0A;        list=&quot;#locales.locales&quot; listKey=&quot;value&quot;    listValue=&quot;key&quot;&#x0A;        value=&quot;#SESSION_LOCALE == null ? locale : #SESSION_LOCALE&quot;&#x0A;        name=&quot;request_locale&quot; id=&quot;langSelecter&quot; &#x0A;        onchange=&quot;langSelecter_onChanged()&quot; theme=&quot;simple&quot;/&gt;&#x0A;&lt;/form&gt;' Code="N1284455279" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+                <Node Name="在需要的地方引用" Code="N1284455358" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name='&lt;s:include value=&quot;/LangSelector.jsp&quot;/&gt;' Code="N1284455378" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                </Node>
+                <Node Name="在strus中配置" Code="N1284455393" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                    <Node Name='&lt;action name=&quot;HelloWorld&quot;&gt;&#x0A;    &lt;result&gt;/HelloWorld.jsp&lt;/result&gt;&#x0A;&lt;/action&gt;' Code="N1284455403" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    <Node Name="通用配置" Code="N1284455425" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0">
+                        <Node Name='&lt;action name=&quot;*&quot;&gt;&#x0A;    &lt;result&gt;/{1}.jsp&lt;/result&gt;&#x0A;&lt;/action&gt;' Code="N1284455431" Hgap="0" Vshift="0" Type="1" Color="#800080" Edge="#C0C0C0" Border="#008080" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="1" Unit="0" />
+                    </Node>
+                </Node>
+            </Node>
+        </Node>
+        <Node Name="i18n" Code="N1283999768" Hgap="0" Vshift="0" Type="1" Color="#8B0000" Edge="#C0C0C0" Border="#C0C0C0" Open="1" Conn="0" Round="0" Size="100" Password="0" Blink="0" Font="新宋体" Direct="0" Unit="0" />
+    </NodeSet>
+    <LinkSet />
+    <CurvSet />
+    <FloatSet />
+    <ImageSet />
+    <Digest1>
+        <Digest Text="" />
+    </Digest1>
+    <Digest2>
+        <Digest Text='&lt;HTML&gt;&lt;HEAD&gt;&#x0D;&#x0A;&lt;META http-equiv=MSThemeCompatible content=yes&gt;&#x0D;&#x0A;&lt;META content=&quot;MSHTML 6.00.2900.6003&quot; name=GENERATOR&gt;&lt;/HEAD&gt;&#x0D;&#x0A;&lt;BODY&gt;&#x0D;&#x0A;&lt;DIV&gt;&lt;/DIV&gt;&lt;/BODY&gt;&lt;/HTML&gt;' />
+    </Digest2>
+    <SoundSet />
+</Map>

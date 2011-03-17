@@ -1,0 +1,141 @@
+#+OPTIONS:"\n:t"
+* 注解的优点
+ + 充分利用了java的反射机制,减少了配置的工作
+ + 注释和代码在一个文件内,有助于增强程序的内聚性
+* 使用@Autowired注释
+** 说明: 
+  + 可以对类成员变量,方法及构造函数进行标注,完成自动装配的工作
+ + autowired注解的简单例子
+  - 实体类中注解添加 
+#+BEGIN_SRC java
+ package com.baobaotao;
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class Boss {
+
+    @Autowired
+    private Car car;
+
+    @Autowired
+    private Office office;
+/*
+ 1. Spring 通过一个 BeanPostProcessor 对 @Autowired 进行解析
+ 2. 声明 AutowiredAnnotationBeanPostProcessor Bean
+*/
+#+END_SRC 
+  - 配置文件
+#+BEGIN_SRC xml
+ <?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!-- 该 BeanPostProcessor 将自动起作用，对标注 @Autowired 的 Bean 进行自动注入 -->
+    <bean class="org.springframework.beans.factory.annotation.
+        AutowiredAnnotationBeanPostProcessor"/>
+
+    <!-- 移除 boss Bean 的属性注入配置的信息 -->
+    <bean id="boss" class="com.baobaotao.Boss"/>
+ 
+    <bean id="office" class="com.baobaotao.Office">
+        <property name="officeNo" value="001"/>
+    </bean>
+    <bean id="car" class="com.baobaotao.Car" scope="singleton">
+        <property name="brand" value=" 红旗 CA72"/>
+        <property name="price" value="2000"/>
+    </bean>
+</beans>
+#+END_SRC
+ + 将@Autowired注释标注在Setter方法上
+  - 例子
+    #+BEGIN_SRC java             
+package com.baobaotao;
+public class Boss {
+    private Car car;
+    private Office office;
+
+     @Autowired
+    public void setCar(Car car) {
+        this.car = car;
+    }
+ 
+    @Autowired
+    public void setOffice(Office office) {
+        this.office = office;
+    }
+}
+ /*
+  1. @Autowired 将查找被标注的方法的入参类型的 Bean
+  2. 调用方法自动注入这些 Bean
+  */
+    #+END_SRC
++ 异常
+ - 如果找不到合适的bean,会抛出BeanCreattionException异常
+  - 避免报错的方法 @Autowired(required=false)
+ - 如果找到多个匹配的bean,也会抛出BeanCreationException异常
+  - 解决方法: 使用@Qualifier("bean名称")来指定注入bean的名称
+  - 例子
+  #+BEGIN_SRC java
+   public class Boss {
+    @Autowired
+    private Car car;
+ 
+    @Autowired
+    @Qualifier("office")
+    private Office office;
+    …
+}
+  #+END_SRC
+* 使用JSR-250注释
+**  @Resource
+ + 按byName自动注入Bean
+ + 例子
+  #+BEGIN_SRC java               
+package com.baobaotao;
+import javax.annotation.Resource;
+public class Boss {
+    // 自动注入类型为 Car 的 Bean
+    @Resource
+    private Car car;
+    // 自动注入 bean 名称为 office 的 Bean
+    @Resource(name = "office")
+    private Office office;
+}
+  #+END_SRC
+** @PostConstruct
+ + bean在初始化完成之后的操作
+** @PreDestroy
+ + bean在销毁前执行的操作
+** 使用<context:annotation-config/>简化配置
+* 使用@Component注释
+ + 完全使用注释来设置bean之间的装配
+ + 例子
+  - 要注入的bean类中
+#+BEGIN_SRC java
+ package com.baobaotao;
+ import org.springframework.stereotype.Component;
+ @Component
+ public class Car {
+    …
+}
+#+END_SRC
+  - 被注入的类中
+#+BEGIN_SRC java
+ package com.baobaotao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component("boss")
+public class Boss {
+    @Autowired
+    private Car car;
+
+    @Autowired
+    private Office office;
+    …
+}
+#+END_SRC
+* 使用特殊语义注释

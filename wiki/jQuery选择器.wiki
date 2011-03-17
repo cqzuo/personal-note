@@ -1,0 +1,147 @@
+%toc
+= 选择器 =
+== 基本 ==
+ # 4中基本类型
+  - id
+   - # 
+   - 根据给定的ID匹配一个元素
+   - 例子
+ {{{class="brush: js"
+  <div id="notMe"><p>id="notMe"</p></div>
+  <div id="myDiv">id="myDiv"</div>
+  $("#myDiv");   
+ }}}
+  - element
+   - 根据给定的元素名匹配所有元素
+   - 例子
+ {{{class="brush: js"
+<div>DIV1</div>
+<div>DIV2</div>
+<span>SPAN</span>
+$("div");
+ }}}
+  - class
+   - .
+   - 根据给定的类匹配元素
+   - 例子
+ {{{class="brush: js"
+<div class="notMe">div class="notMe"</div>
+<div class="myClass">div class="myClass"</div>
+<span class="myClass">span class="myClass"</span>
+$(".myClass");
+ }}}
+  - 任意
+   - 匹配所有元素  
+== 层级 ==
+ # ancester desendant
+  - 在给定的祖先元素下匹配所有的后代元素
+  - $("form input")
+ # parent>child
+  - 在给定的父元素下匹配所有的子元素
+  - $("form > input")
+ # prev+next
+  - 匹配所有紧接在 prev 元素后的 next 元素
+  - $("label + input")
+ # prev~siblings
+  - 匹配 prev 元素之后的所有 siblings 元素
+  - $("form ~ input")
+== 内容 ==
+ # :first
+  - 第一个元素
+ # :last
+  - 最有一个元素
+ # :not
+  - 去除所有与给定选择器匹配的元素
+  - 例子:获取未选中的元素
+ {{{class="brush: js"
+<input name="apple" />
+<input name="flower" checked="checked" />
+$("input:not(:checked)")
+ }}}
+ # :even
+  - 索引为偶数
+ # :odd
+  - 索引为基数
+ # :eq
+  - 匹配索引
+ # :gt
+  - 大于
+ # :lt
+  - 小于
+ # :header
+  - 标题元素
+ # :animated
+  - 正在执行的动画效果
+  - 例子 对未执行的动画施加一个特效
+ {{{class="brush: js"
+ <button id="run">Run</button><div></div>
+  $("#run").click(function(){
+  $("div:not(:animated)").animate({ left: "+=20" }, 1000);
+ });
+ }}}
+== 内容匹配 ==
+ # :contains
+  - 匹配给定文本的元素
+  - 例子 匹配含有"John"的div
+ {{{class="brush: js"
+<div>John Resig</div>
+<div>George Martin</div>
+<div>Malcom John Sinclair</div>
+<div>J. Ohn
+$("div:contains('John')")
+ }}}
+ # :empty
+  - 不含有子元素或文本元素
+ # :has
+  - 含有指定元素的元素
+ # :parent
+  - 含有子元素或文本元素
+== 可见性 ==
+ # :hiden
+ # :visible
+== 属性 ==
+ # [attribute]
+  - 匹配含有该属性的元素
+ # [attribute=value]
+  - 属性为指定值
+ # [atu!=value]
+  - 属性为指定值
+ # [attribute^=value]
+  - 开始
+ # [attribute$=value]
+  - 结尾
+ # [attribute*=value]
+  - 任意包含
+ # [selector1][selector2]...
+  - 同时满足多个条件
+== 子元素 ==
+ # :nth-child
+  - 匹配指定元素个数
+ # :first-child
+  - 第一个元素
+ # :last-child
+  - 最后一个元素
+ # :only-child
+  - 唯一匹配值
+== 表单 ==
+ # 常见表单元素
+  - :input
+  - :text
+  - :password
+  - :radio
+  - :checkbox
+  - :submit
+  - :image
+  - :reset
+  - :button
+  - :file
+  - :hidden
+== 表单对象属性 ==
+ # :enable
+  - 可用
+ # :disable
+  - 不可用
+ # :checked
+  - 被选择的(不包括select)
+ # :selected
+  - select中选中的

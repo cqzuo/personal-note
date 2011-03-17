@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>maven2 笔记</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2010-12-28 08:55:22 "/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">maven2 笔记</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 基本配置 setting.xml </a>
+<ul>
+<li><a href="#sec-1_1">1.1 本地仓库目录 </a></li>
+<li><a href="#sec-1_2">1.2 代理 </a></li>
+<li><a href="#sec-1_3">1.3 存储库 </a>
+<ul>
+<li><a href="#sec-1_3_1">1.3.1 在应用程序中使用多个repository </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 基本配置 pom.xml </a>
+<ul>
+<li><a href="#sec-2_1">2.1 继承的写法 </a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 常见命令 </a>
+<ul>
+<li><a href="#sec-3_1">3.1 创建java项目 </a>
+<ul>
+<li><a href="#sec-3_1_1">3.1.1 mvn archtype:create -DgroupId=包名称即文件的目录结构 -DartifactId=生成的文件名称 </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_2">3.2 创建web项目 </a>
+<ul>
+<li><a href="#sec-3_2_1">3.2.1 mvn archtype:create -DgroupId=包名称即文件的目录结构 -DartifactId=生成的文件名称 -DarchtypeArtifactId=maven-archetype-webapp </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_3">3.3 编译源码 </a>
+<ul>
+<li><a href="#sec-3_3_1">3.3.1 mvn compile </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_4">3.4 编译测试源码 </a>
+<ul>
+<li><a href="#sec-3_4_1">3.4.1 mvn test-compile </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_5">3.5 运行测试 </a>
+<ul>
+<li><a href="#sec-3_5_1">3.5.1 mvn test </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_6">3.6 产生site </a>
+<ul>
+<li><a href="#sec-3_6_1">3.6.1 mvn site </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_7">3.7 打包 </a>
+<ul>
+<li><a href="#sec-3_7_1">3.7.1 mvn package </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_8">3.8 在本地仓库中安装jar </a>
+<ul>
+<li><a href="#sec-3_8_1">3.8.1 mvn install </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_9">3.9 清除产生的项目 </a>
+<ul>
+<li><a href="#sec-3_9_1">3.9.1 mvn clean </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_10">3.10 生成eclipse项目 </a>
+<ul>
+<li><a href="#sec-3_10_1">3.10.1 mvn eclipse:eclipse </a></li>
+<li><a href="#sec-3_10_2">3.10.2 还需在eclipse中建立M2<sub>REPO变量</sub>,变量值指向maven2的数据仓库位置 </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_11">3.11 生成idea项目 </a>
+<ul>
+<li><a href="#sec-3_11_1">3.11.1 mvn idea:idea </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_12">3.12 组合使用goal命令 </a>
+<ul>
+<li><a href="#sec-3_12_1">3.12.1 mvn -Dtest package </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_13">3.13 只打包Jar </a>
+<ul>
+<li><a href="#sec-3_13_1">3.13.1 mvn jar:jar </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_14">3.14 只测试不编译和测试编译 </a>
+<ul>
+<li><a href="#sec-3_14_1">3.14.1 mvn tes -skipping compile -skipping test-complie </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_15">3.15 清楚eclipse中的一些系统设置 </a>
+<ul>
+<li><a href="#sec-3_15_1">3.15.1 mvn eclise:clean </a></li>
+</ul>
+</li>
+<li><a href="#sec-3_16">3.16 将本地jar安装到仓库中 </a>
+<ul>
+<li><a href="#sec-3_16_1">3.16.1 mvn install:install -file -Dfile=文件名 -DgroupId=包名 -DartifactId=文件名 -Dversion=版本号 -Dpackage=jar </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 定制一个maven项目 </a>
+<ul>
+<li><a href="#sec-4_1">4.1 创建项目 </a></li>
+<li><a href="#sec-4_2">4.2 定义项目信息 </a>
+<ul>
+<li><a href="#sec-4_2_1">4.2.1 法律 </a></li>
+<li><a href="#sec-4_2_2">4.2.2 开发人员 </a></li>
+<li><a href="#sec-4_2_3">4.2.3 组织 </a></li>
+</ul>
+</li>
+<li><a href="#sec-4_3">4.3 添加依赖 </a></li>
+<li><a href="#sec-4_4">4.4 java源码 </a></li>
+<li><a href="#sec-4_5">4.5 添加资源 </a></li>
+<li><a href="#sec-4_6">4.6 运行程序 </a></li>
+<li><a href="#sec-4_7">4.7 查看项目依赖 </a></li>
+<li><a href="#sec-4_8">4.8 构建打包的应用程序 </a>
+<ul>
+<li><a href="#sec-4_8_1">4.8.1 在pom.xml中配置assembly插件 </a></li>
+<li><a href="#sec-4_8_2">4.8.2 打包 </a></li>
+<li><a href="#sec-4_8_3">4.8.3 执行应用程序 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 找依赖包的相关信息 </a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 基本配置 setting.xml </h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1_1" class="outline-3">
+<h3 id="sec-1_1"><span class="section-number-3">1.1</span> 本地仓库目录 </h3>
+<div class="outline-text-3" id="text-1_1">
+
+<p>&lt;localRepository&gt;本地仓库目录路径&lt;/localRepository&gt;<br/>
+</p></div>
+
+</div>
+
+<div id="outline-container-1_2" class="outline-3">
+<h3 id="sec-1_2"><span class="section-number-3">1.2</span> 代理 </h3>
+<div class="outline-text-3" id="text-1_2">
+
+<p>&lt;proxy&gt;<br/>
+&lt;id&gt;optional&lt;/id&gt;<br/>
+&lt;active&gt;true&lt;/active&gt;<br/>
+&lt;protoclo&gt;http&lt;/protocol&gt;<br/>
+&lt;host&gt;ip地址&lt;/host&gt;<br/>
+&lt;port&gt;端口号&lt;/port&gt;<br/>
+&lt;noProxyHosts&gt;ip地址&lt;/noProxyHosts&gt;<br/>
+&lt;/proxy&gt;<br/>
+</p></div>
+
+</div>
+
+<div id="outline-container-1_3" class="outline-3">
+<h3 id="sec-1_3"><span class="section-number-3">1.3</span> 存储库 </h3>
+<div class="outline-text-3" id="text-1_3">
+
+
+</div>
+
+<div id="outline-container-1_3_1" class="outline-4">
+<h4 id="sec-1_3_1"><span class="section-number-4">1.3.1</span> 在应用程序中使用多个repository </h4>
+<div class="outline-text-4" id="text-1_3_1">
+
+<p>&lt;repositories&gt;<br/>
+&lt;repositoy&gt;<br/>
+&lt;id&gt;仓库1&lt;/id&gt;<br/>
+&lt;name&gt;&lt;/name&gt;<br/>
+&lt;url&gt;&lt;/url&gt;<br/>
+&lt;repository&gt;<br/>
+&lt;repositoy&gt;<br/>
+&lt;id&gt;仓库2&lt;/id&gt;<br/>
+&lt;name&gt;&lt;/name&gt;<br/>
+&lt;url&gt;&lt;/url&gt;<br/>
+&lt;repository&gt;<br/>
+&lt;repositroies&gt;<br/>
+</p></div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 基本配置 pom.xml </h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2_1" class="outline-3">
+<h3 id="sec-2_1"><span class="section-number-3">2.1</span> 继承的写法 </h3>
+<div class="outline-text-3" id="text-2_1">
+
+<p>&lt;parent&gt;<br/>
+&lt;groupId&gt;&lt;/groupId&gt;<br/>
+&lt;aritfactId&gt;&lt;/artifactId&gt;<br/>
+&lt;version&gt;&lt;/version&gt;<br/>
+&lt;relativePath&gt;&lt;/relativePath&gt;<br/>
+&lt;/arent&gt;<br/>
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 常见命令 </h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3_1" class="outline-3">
+<h3 id="sec-3_1"><span class="section-number-3">3.1</span> 创建java项目 </h3>
+<div class="outline-text-3" id="text-3_1">
+
+
+</div>
+
+<div id="outline-container-3_1_1" class="outline-4">
+<h4 id="sec-3_1_1"><span class="section-number-4">3.1.1</span> mvn archtype:create -DgroupId=包名称即文件的目录结构 -DartifactId=生成的文件名称 </h4>
+<div class="outline-text-4" id="text-3_1_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_2" class="outline-3">
+<h3 id="sec-3_2"><span class="section-number-3">3.2</span> 创建web项目 </h3>
+<div class="outline-text-3" id="text-3_2">
+
+
+</div>
+
+<div id="outline-container-3_2_1" class="outline-4">
+<h4 id="sec-3_2_1"><span class="section-number-4">3.2.1</span> mvn archtype:create -DgroupId=包名称即文件的目录结构 -DartifactId=生成的文件名称 -DarchtypeArtifactId=maven-archetype-webapp </h4>
+<div class="outline-text-4" id="text-3_2_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_3" class="outline-3">
+<h3 id="sec-3_3"><span class="section-number-3">3.3</span> 编译源码 </h3>
+<div class="outline-text-3" id="text-3_3">
+
+
+</div>
+
+<div id="outline-container-3_3_1" class="outline-4">
+<h4 id="sec-3_3_1"><span class="section-number-4">3.3.1</span> mvn compile </h4>
+<div class="outline-text-4" id="text-3_3_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_4" class="outline-3">
+<h3 id="sec-3_4"><span class="section-number-3">3.4</span> 编译测试源码 </h3>
+<div class="outline-text-3" id="text-3_4">
+
+
+</div>
+
+<div id="outline-container-3_4_1" class="outline-4">
+<h4 id="sec-3_4_1"><span class="section-number-4">3.4.1</span> mvn test-compile </h4>
+<div class="outline-text-4" id="text-3_4_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_5" class="outline-3">
+<h3 id="sec-3_5"><span class="section-number-3">3.5</span> 运行测试 </h3>
+<div class="outline-text-3" id="text-3_5">
+
+
+</div>
+
+<div id="outline-container-3_5_1" class="outline-4">
+<h4 id="sec-3_5_1"><span class="section-number-4">3.5.1</span> mvn test </h4>
+<div class="outline-text-4" id="text-3_5_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_6" class="outline-3">
+<h3 id="sec-3_6"><span class="section-number-3">3.6</span> 产生site </h3>
+<div class="outline-text-3" id="text-3_6">
+
+
+</div>
+
+<div id="outline-container-3_6_1" class="outline-4">
+<h4 id="sec-3_6_1"><span class="section-number-4">3.6.1</span> mvn site </h4>
+<div class="outline-text-4" id="text-3_6_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_7" class="outline-3">
+<h3 id="sec-3_7"><span class="section-number-3">3.7</span> 打包 </h3>
+<div class="outline-text-3" id="text-3_7">
+
+
+</div>
+
+<div id="outline-container-3_7_1" class="outline-4">
+<h4 id="sec-3_7_1"><span class="section-number-4">3.7.1</span> mvn package </h4>
+<div class="outline-text-4" id="text-3_7_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_8" class="outline-3">
+<h3 id="sec-3_8"><span class="section-number-3">3.8</span> 在本地仓库中安装jar </h3>
+<div class="outline-text-3" id="text-3_8">
+
+
+</div>
+
+<div id="outline-container-3_8_1" class="outline-4">
+<h4 id="sec-3_8_1"><span class="section-number-4">3.8.1</span> mvn install </h4>
+<div class="outline-text-4" id="text-3_8_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_9" class="outline-3">
+<h3 id="sec-3_9"><span class="section-number-3">3.9</span> 清除产生的项目 </h3>
+<div class="outline-text-3" id="text-3_9">
+
+
+</div>
+
+<div id="outline-container-3_9_1" class="outline-4">
+<h4 id="sec-3_9_1"><span class="section-number-4">3.9.1</span> mvn clean </h4>
+<div class="outline-text-4" id="text-3_9_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_10" class="outline-3">
+<h3 id="sec-3_10"><span class="section-number-3">3.10</span> 生成eclipse项目 </h3>
+<div class="outline-text-3" id="text-3_10">
+
+
+</div>
+
+<div id="outline-container-3_10_1" class="outline-4">
+<h4 id="sec-3_10_1"><span class="section-number-4">3.10.1</span> mvn eclipse:eclipse </h4>
+<div class="outline-text-4" id="text-3_10_1">
+
+</div>
+
+</div>
+
+<div id="outline-container-3_10_2" class="outline-4">
+<h4 id="sec-3_10_2"><span class="section-number-4">3.10.2</span> 还需在eclipse中建立M2<sub>REPO变量</sub>,变量值指向maven2的数据仓库位置 </h4>
+<div class="outline-text-4" id="text-3_10_2">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_11" class="outline-3">
+<h3 id="sec-3_11"><span class="section-number-3">3.11</span> 生成idea项目 </h3>
+<div class="outline-text-3" id="text-3_11">
+
+
+</div>
+
+<div id="outline-container-3_11_1" class="outline-4">
+<h4 id="sec-3_11_1"><span class="section-number-4">3.11.1</span> mvn idea:idea </h4>
+<div class="outline-text-4" id="text-3_11_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_12" class="outline-3">
+<h3 id="sec-3_12"><span class="section-number-3">3.12</span> 组合使用goal命令 </h3>
+<div class="outline-text-3" id="text-3_12">
+
+
+</div>
+
+<div id="outline-container-3_12_1" class="outline-4">
+<h4 id="sec-3_12_1"><span class="section-number-4">3.12.1</span> mvn -Dtest package </h4>
+<div class="outline-text-4" id="text-3_12_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_13" class="outline-3">
+<h3 id="sec-3_13"><span class="section-number-3">3.13</span> 只打包Jar </h3>
+<div class="outline-text-3" id="text-3_13">
+
+
+</div>
+
+<div id="outline-container-3_13_1" class="outline-4">
+<h4 id="sec-3_13_1"><span class="section-number-4">3.13.1</span> mvn jar:jar </h4>
+<div class="outline-text-4" id="text-3_13_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_14" class="outline-3">
+<h3 id="sec-3_14"><span class="section-number-3">3.14</span> 只测试不编译和测试编译 </h3>
+<div class="outline-text-3" id="text-3_14">
+
+
+</div>
+
+<div id="outline-container-3_14_1" class="outline-4">
+<h4 id="sec-3_14_1"><span class="section-number-4">3.14.1</span> mvn tes -skipping compile -skipping test-complie </h4>
+<div class="outline-text-4" id="text-3_14_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_15" class="outline-3">
+<h3 id="sec-3_15"><span class="section-number-3">3.15</span> 清楚eclipse中的一些系统设置 </h3>
+<div class="outline-text-3" id="text-3_15">
+
+
+</div>
+
+<div id="outline-container-3_15_1" class="outline-4">
+<h4 id="sec-3_15_1"><span class="section-number-4">3.15.1</span> mvn eclise:clean </h4>
+<div class="outline-text-4" id="text-3_15_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3_16" class="outline-3">
+<h3 id="sec-3_16"><span class="section-number-3">3.16</span> 将本地jar安装到仓库中 </h3>
+<div class="outline-text-3" id="text-3_16">
+
+
+</div>
+
+<div id="outline-container-3_16_1" class="outline-4">
+<h4 id="sec-3_16_1"><span class="section-number-4">3.16.1</span> mvn install:install -file -Dfile=文件名 -DgroupId=包名 -DartifactId=文件名 -Dversion=版本号 -Dpackage=jar </h4>
+<div class="outline-text-4" id="text-3_16_1">
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 定制一个maven项目 </h2>
+<div class="outline-text-2" id="text-4">
+
+
+</div>
+
+<div id="outline-container-4_1" class="outline-3">
+<h3 id="sec-4_1"><span class="section-number-3">4.1</span> 创建项目 </h3>
+<div class="outline-text-3" id="text-4_1">
+
+<p>mvn archtype:create -DgroupId=包名 -DartifactId=生成的文件名称 -Dversion=版本号<br/>
+</p></div>
+
+</div>
+
+<div id="outline-container-4_2" class="outline-3">
+<h3 id="sec-4_2"><span class="section-number-3">4.2</span> 定义项目信息 </h3>
+<div class="outline-text-3" id="text-4_2">
+
+<p>添加组织法律和开发人员信息<br/>
+编辑pom.xml<br/>
+</p>
+</div>
+
+<div id="outline-container-4_2_1" class="outline-4">
+<h4 id="sec-4_2_1"><span class="section-number-4">4.2.1</span> 法律 </h4>
+<div class="outline-text-4" id="text-4_2_1">
+
+<p>&lt;licenses&gt;<br/>
+&lt;license&gt;<br/>
+&lt;name&gt;&lt;/name&gt;<br/>
+&lt;url&gt;&lt;/url&gt;<br/>
+&lt;distribution&gt;&lt;/distribution&gt;<br/>
+&lt;comments&gt;&lt;/comments&gt;<br/>
+&lt;/license&gt;<br/>
+&lt;/licenses&gt;<br/>
+</p></div>
+
+</div>
+
+<div id="outline-container-4_2_2" class="outline-4">
+<h4 id="sec-4_2_2"><span class="section-number-4">4.2.2</span> 开发人员 </h4>
+<div class="outline-text-4" id="text-4_2_2">
+
+<p>&lt;developers&gt;<br/>
+&lt;developer&gt;<br/>
+&lt;id&gt;&lt;/id&gt;<br/>
+&lt;name&gt;&lt;/name&gt;<br/>
+&lt;email&gt;&lt;/email&gt;<br/>
+&lt;url&gt;&lt;/url&gt;<br/>
+&lt;organization&gt;&lt;/organization&gt;<br/>
+&lt;organizationUrl&gt;&lt;/organizationUrl&gt;<br/>
+&lt;roles&gt;<br/>
+&lt;role&gt;&lt;/role&gt; <br/>
+&lt;roles&gt;<br/>
+&lt;timezone&gt;&lt;/timezone&gt;<br/>
+&lt;/developer&gt;<br/>
+&lt;/developers&gt;<br/>
+</p></div>
+
+</div>
+
+<div id="outline-container-4_2_3" class="outline-4">
+<h4 id="sec-4_2_3"><span class="section-number-4">4.2.3</span> 组织 </h4>
+<div class="outline-text-4" id="text-4_2_3">
+
+<p>&lt;organization&gt;<br/>
+&lt;name&gt;&lt;/name&gt;<br/>
+&lt;url&gt;&lt;/url&gt;<br/>
+&lt;/organization&gt;<br/>
+</p>
+<p><br/>
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-4_3" class="outline-3">
+<h3 id="sec-4_3"><span class="section-number-3">4.3</span> 添加依赖 </h3>
+<div class="outline-text-3" id="text-4_3">
+
+<p>&lt;dependancies&gt;<br/>
+&lt;dependancy&gt;<br/>
+&lt;groupId&gt;&lt;/groupId&gt;<br/>
+&lt;aritfactId&gt;&lt;/artifactId&gt;<br/>
+&lt;version&gt;&lt;/version&gt;<br/>
+&lt;/dependancy&gt;<br/>
+&lt;/dependancies&gt;<br/>
+</p></div>
+
+</div>
+
+<div id="outline-container-4_4" class="outline-3">
+<h3 id="sec-4_4"><span class="section-number-3">4.4</span> java源码 </h3>
+<div class="outline-text-3" id="text-4_4">
+
+<p>将java源码放在对应目录下<br/>
+</p></div>
+
+</div>
+
+<div id="outline-container-4_5" class="outline-3">
+<h3 id="sec-4_5"><span class="section-number-3">4.5</span> 添加资源 </h3>
+<div class="outline-text-3" id="text-4_5">
+
+<p>建立resources目录,并将资源文件放在其中<br/>
+</p></div>
+
+</div>
+
+<div id="outline-container-4_6" class="outline-3">
+<h3 id="sec-4_6"><span class="section-number-3">4.6</span> 运行程序 </h3>
+<div class="outline-text-3" id="text-4_6">
+
+<p>mvn exec:java -Dexec.mainClass=含有main类的完整路径和类名<br/>
+</p></div>
+
+</div>
+
+<div id="outline-container-4_7" class="outline-3">
+<h3 id="sec-4_7"><span class="section-number-3">4.7</span> 查看项目依赖 </h3>
+<div class="outline-text-3" id="text-4_7">
+
+<p>mvn dependency:resolve<br/>
+</p></div>
+
+</div>
+
+<div id="outline-container-4_8" class="outline-3">
+<h3 id="sec-4_8"><span class="section-number-3">4.8</span> 构建打包的应用程序 </h3>
+<div class="outline-text-3" id="text-4_8">
+
+
+</div>
+
+<div id="outline-container-4_8_1" class="outline-4">
+<h4 id="sec-4_8_1"><span class="section-number-4">4.8.1</span> 在pom.xml中配置assembly插件 </h4>
+<div class="outline-text-4" id="text-4_8_1">
+
+<p>&lt;plugin&gt;<br/>
+&lt;aritfactId&gt;mavn-assembly-plugin&lt;/artifactId&gt;<br/>
+&lt;configuration&gt;<br/>
+&lt;decriptorRefs&gt;<br/>
+&lt;descriptorRef&gt;jar-with-dependencies&lt;/descriptorRef&gt;<br/>
+&lt;/decriptorRefs&gt;<br/>
+&lt;/configuration&gt;<br/>
+&lt;/plugin&gt;<br/>
+</p></div>
+
+</div>
+
+<div id="outline-container-4_8_2" class="outline-4">
+<h4 id="sec-4_8_2"><span class="section-number-4">4.8.2</span> 打包 </h4>
+<div class="outline-text-4" id="text-4_8_2">
+
+<p>mvn assembly:assembly<br/>
+</p></div>
+
+</div>
+
+<div id="outline-container-4_8_3" class="outline-4">
+<h4 id="sec-4_8_3"><span class="section-number-4">4.8.3</span> 执行应用程序 </h4>
+<div class="outline-text-4" id="text-4_8_3">
+
+<p>java -cp target/jar文件名 完整带包名的类名称<br/>
+</p>
+<p><br/>
+</p></div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 找依赖包的相关信息 </h2>
+<div class="outline-text-2" id="text-5">
+
+<p>repo2.maven.org/maven2<br/>
+</p></div>
+</div>
+<div id="postamble">
+<p class="author"> Author: 
+</p>
+<p class="date"> Date: 2010-12-28 08:55:22 </p>
+<p class="creator">HTML generated by org-mode 7.01 in emacs 24</p>
+</div>
+</div>
+</body>
+</html>

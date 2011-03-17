@@ -1,0 +1,74 @@
+* 项目的基本配置
+** struts2 spring jap hibernate在web.xml中的配置
+*** struts2的加载
+ - 使用过滤器StrutsPreparedAndExecuteFilter来加载
+*** spring的加载
+ - 使用监听器ContextListerner
+*** jpa的配置
+ - 在jsp页面使用实体的懒加载属性
+  + 使用过滤器OpenEntityManagerInViewFilter
+** struts2的配置文件
+ - 字符编码设置
+ - 截取的action扩展名称
+ - 是否支持动态方法调用
+ - 配置文件修改后是否重启服务
+ - 开发模式设置
+ - 将struts的action交由spring容器创建
+ - 分布式的配置
+** jpa的配置文件
+ - 持久化的基本配置
+ - 制定持久化提供者
+ - 数据源配置
+** spring的配置文件
+ - aspectj注解
+ - 设置注释的范围
+ - 定义entityManagerFactory
+ - 定义transactionManager
+ - 开始事务注解
+* struts2的工作
+** 前台页面提交到action
+*** 提交方式
+ - form的submit提交
+ - form的js脚本提交
+ - 链接提交
+*** 要点
+ - form的方法必
+ - 需要传递的参数
+ - 要执行的方法
+** action的逻辑处理
+ - 接收参数
+ - 调用后台的serviceBean对象,处理业务
+ - 将需要传到页面的数据保存进ActionContext.getContext()中
+** 数据返回到前台页面
+ - 从action传递来的数据接收
+ - el表达式进行简单的逻辑判断 
+* spring的工作
+ - struts2中的action创建
+ - jpa配置中所需其它bean的注入
+ - struts2中所需属性的注入,如ServicBean,其他
+* jpa的工作
+** 实体类的映射
+** 业务处理类的事务管理
+* 数据库操作
+** 原则
+ - 尽量使用DAO接口中已经定义好的那些方法
+ - 可以重写已有方法来扩展功能
+ - 自己在接口中实现的方法一定要详细注释
+** 功能
+*** 增
+ - em.persit()
+*** 删
+ - em.remove()
+*** 改
+ - em.merge()
+*** 查
+ - em.find()
+ - em.getReference()
+*** 其他
+ - em.clear()
+ - em.getTransaction()
+ - em.close()
+* 前台页面
+* 脚本
+** 验证
+*** 使用jquery验证

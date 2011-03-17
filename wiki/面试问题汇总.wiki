@@ -1,0 +1,112 @@
+= %toc =
+面试可能提到的
+== java ==
+- /java
+ # C++或Java中的异常处理机制的简单原理和应用?
+ # 抽象类与接口的区别?
+ # Java的接口和C++的虚类的相同和不同处?
+ # 垃圾回收的优点和原理。并考虑2种回收机制?
+ # 请说出你所知道的线程同步的方法?
+ # 请讲一讲c++析构函数和虚函数的用法和作用?
+ # Error与Exception有什么区别？
+ # 在java中一个类被声明为final类型，表示了什么意思？
+ # 描述一下你最常用的编程风格?
+ # heap和stack有什么区别?
+ # 请你设计一个数据结构来存储这种超大型数字以及设计一种算法来实现超大整数加法运算?
+ # 谈谈final, finally, finalize的区别.
+ # Anonymous Inner Class (匿名内部类) 是否可以extends(继承)其它类，是否可以implements(实现)interface(接口)? 
+ # Static Nested Class 和 Inner Class的不同?
+ # &和&&的区别?
+ # hashMap和Hashtable的区别?
+ # Collection 和 Collections的区别?
+ # GC是什么? 为什么要有GC? (基础)?
+ # String s = new String("xyz");创建了几个String Object?
+ # Math.round(11.5)等於多少? Math.round(-11.5)等於多少?
+ # short s1 = 1; s1 = s1 + 1;有什么错? short s1 = 1; s1 += 1;有什么错?
+ # sleep() 和 wait() 有什么区别?
+ # 数组有没有length()这个方法? String有没有length()这个方法？
+ # Overload和Override的区别。Overloaded的方法是否可以改变返回值的类型?
+ # Set里的元素是不能重复的，那么用什么方法来区分重复与否呢? ==和equals()的区别? 
+ # 给我一个你最常见到的runtime exception.
+ # List, Set, Map是否继承自Collection接口?
+ # abstract class和interface有什么区别? 
+ # 接口是否可继承接口? 抽象类是否可实现(implements)接口? 抽象类是否可继承实体类(concrete class)? 
+ # 说出arrayList,Vector, linkedList的存储性能和特性
+ # 设计4个线程，其中两个线程每次对j增加1，另外两个线程对j每次减少1。写出程序.
+ # Class.forName的作用?为什么要用? 
+ # abstract的method是否可同时是static,是否可同时是native，是否可同时是synchronized?
+ # 启动一个线程是用run()还是start()? 
+ # 构造器Constructor是否可被override?
+ # 当一个线程进入一个对象的一个synchronized方法后，其它线程是否可进入此对象的其它方法?
+ # try {}里有一个return语句，那么紧跟在这个try后的finally {}里的code会不会被执行，什么时候被执行，在return前还是后? 
+ # swtich是否能作用在byte上，是否能作用在long上，是否能作用在String上?
+ # java的内存泄漏?
+ # 编程题: 写一个Singleton出来
+ # 编程题: 写一个利用反射输出任意类的构造方法,成员变量和方法
+ # 编程题: 写利用scoket写一个通信的程序,分客户端和服务器端
+ # 编程题: 写一个程序,从终端读取字符串,并写入到文件中
+ # 编程题: 写一个程序,从键盘读取2个数字,并求出其2次方和3次方
+ # 编程题: 写一个程序,判断终端输入的数字是否是2的阶次方
+ # 编程题: 写一个程序,将一个类序列化
+ # 编程题: 写一个程序,将数组类数字的所有组合列出
+ # 编程题: 写一个程序,实现斐波那契数列的计算
+ # 编程题: 写一个程序,计算一个字符串中各个字符出现的次数
+ # 编程题:打印1 2 2 3 4 这4个数字所有不同的排列
+ # 编程题:java的插入排序
+ # 编程题:Java的冒泡排序
+ # 编程题:java的选择排序
+ # 编程题:Java的shell排序
+ # 编程题:java的快速排序
+ # 编程题:java的归并排序
+ # 编程题:java的堆排序
+ # 编程题:Java的二叉树算法
+ # 编程题:java程序实现线程连接池功能
+ # 编程题:给定一个C语言函数，要求实现在java类中进行调用
+ # 编一段代码，实现在控制台输入一组数字后，排序后在控制台输出
+ # 编程题:列出某个文件夹下所有的文件和文件夹
+ # 编程题:删除某文件
+ # 编程题:实现从文件中一次读出一个字符
+== jsp ==
+   - /jsp
+== servlet ==
+- /servlet
+ # jsp有哪些内置对象?作用分别是什么? 
+ # jsp有哪些动作?作用分别是什么?
+ # JSP中动态INCLUDE与静态INCLUDE的区别？
+ # 两种跳转方式分别是什么?有什么区别? 
+ # 说一说Servlet的生命周期?
+ # JAVA SERVLET API中forward() 与redirect()的区别？
+ # Servlet的基本架构 ?
+== struts ==
+== hibernate ==
+   - /hibernate
+== spring ==
+   - /spring
+== ssh ==
+   - /ssh
+== oracle ==
+   - /Oracle
+== sqlserver ==
+   - /sqlserver
+== xml ==
+   - xml.java
+   - xml文件的读写.java
+   - xml有哪些解析技术?区别是什么?
+   - 你在项目中用到了xml技术的哪些方面?如何实现的? 
+   - 用jdom解析xml文件时如何解决中文问题?如何解析? 
+== ibatis ==
+== mysql ==
+== tomcat/weblogic/resin ==
+== javascript/css/ajax/jquery ==
+   - css.txt
+   - html基本语法.html
+== linux ==
+    - linux_note.txt
+== 其他 ==
+- 泛型DAO模式.java
+- service-dao问题.java
+- datapool.xml
+# 写一段Jdbc连Oracle的程序,并实现数据查询.
+== 面试相关 ==
+   - /review
+   - /面试题库

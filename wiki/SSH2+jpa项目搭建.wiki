@@ -1,0 +1,152 @@
+%toc
+= SSc+JPA项目搭建 =
+== 环境搭建 ==
+=== struts2配置 ===
+==== 配置文件 ====
+ # jsp页面标签的使用
+  * 在jsp页面添加下面代码,才能使用struts2的标签
+ {{{ class="brush: xml"
+ <!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+ }}}
+ * 配置文件中各种组件的添加
+ {{{class="brush: xml"
+<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.action.extension" value="action,do" />
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.ui.theme" value="simple" />
+	<!--添加spring对struts对象工厂的管理-->
+	<constant name="struts.objectFactory" value="spring" /> 
+ }}}
+ # action的配置=====
+  * 一个action的action
+ {{{class="brush: xml"
+ <package name="task" namespace="/center/task" extends="struts-default">
+		<!--此处设置action中执行的方法,匹配name属性值的第一个-->
+		<action name="TaskAction_*" class="taskAction" method="{1}">
+			<result name="taskList_success">/WEB-INF/page/task/taskList.jsp</result>
+		</action>
+	</package>
+ }}}
+  * action的分散配置文件,可以按功能将struts2的配置文件分散到各个包中
+	{{{class="brush: xml"
+		<include file="配置文件的完整路径名称"/>
+	}}}
+==== action类的编写 ====
+  * 用声明的方式将该类的实例添加到spring容器中管理
+   - @Controller
+  *  设置实例为原型,为每个请求建立一个对象
+   - @Scope("prototype")
+=== spring配置 ===
+==== 配置文件 ====
+ # 配置文件中标签的添加
+  * 在spring的配置文件applicationContext.xml文件中添加代码如下
+ {{{class="brush: xml"
+ <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+ }}} 
+ # aspectJ动态代理的配置
+  - 自动代理aspectJ
+ {{{class="brush: xml"
+ <aop:aspectj-autoproxy />
+ }}}
+ # spring注释驱动的配置
+  - 自动扫描包中的各种注释并做出处理
+ {{{class="brush: xml"
+ <!--配置了对包进行扫描以进行注释驱动Bean定义的功能添加和注释驱动的自动注入-->
+ <context:component-scan base-package="com.decg" />
+ }}}
+ # 持久化配置
+  - entityManagerFactory的配置
+ {{{class="brush: xml"
+ <bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="demo" />
+	</bean>
+ }}}
+  - transactionManager的配置
+{{{class="brush: xml"
+<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+}}}
+ # spring注释的配置
+  - 注释驱动
+{{{class="brush: xml"
+<tx:annotation-driven transaction-manager="transactionManager" />
+}}}
+=== jpa的配置 ===
+==== 配置文件 ====
+ # 标签
+ {{{class="brush: xml"
+ <persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+ }}}
+ # 持久化的配置 ====
+  - 相当与hibernate的applicationContext.xml文件
+ {{{class="brush: xml"
+	<!--设置事务类型-->
+	<persistence-unit name="demo" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<properties>
+			<!--需要添加的属性 方言,驱动,用户名,密码,地址,是否显示sql执行语句,自动生成数据库表的方式等-->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.connection.username" value="root" />
+			<property name="hibernate.connection.password" value="root" />
+			<property name="hibernate.connection.url"
+				value="jdbc:mysql://localhost:3306/demo?useUnicode=true&amp;characterEncoding=UTF-8" />
+			<property name="hibernate.max_fetch_depth" value="3" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.jdbc.fetch_size" value="18" />
+			<property name="hibernate.jdbc.batch_size" value="10" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="false" />
+		</properties>
+	</persistence-unit>
+</persistence>
+}}}
+==== 持久化类的编写 ====
+ # 将一个类持久化为pojo类
+  - @Entity
+ # id的注释
+  - @Id
+  - @GeneratedValue(strategy=GeneratedType.AUTO)
+ # 
+=== 页面 ===
+ # 页面放在web-inf下
+ # 到action的配置
+  * 页面转到action的链接
+ {{{class="brush: xml"
+  <LI style= "">
+	<A href="<%=basePath%>center/bank/BankAction_bankList.action" onclick="return onLoadAddAction();" target=mainFrame>|-银行</A>
+  </LI>
+ }}}
+ # 路径的处理
+ {{{class="brush: xml"
+ <%
+ String path = request.getContextPath();
+ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+ %>
+ }}}
+ # action中对请求的处理配置
+ {{{class="brush: xml"
+ <!--自动获取action的名称和要执行的方法-->
+ <action name="BankAction_*" class="bankAction" method="{1}">
+			<result name="bankList_success">/WEB-INF/page/bank/bankList.jsp</result>
+			<result name="addBank_success" type="redirect">BankAction_bankList.action</result>
+		</action>
+ }}}  

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=gbk" /> 
+        <title>面试问题汇总</title>
+        <meta id="viewport" name="viewport" 
+            content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" /> 
+        <link rel="stylesheet" href="style.css" /> 
+        <link rel="apple-touch-icon" href="../images/apple-touch-icon.png" /> 
+		<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shCore.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCSharp.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrvushPhp.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushJScript.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushJava.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushVb.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushSql.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushXml.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushDelphi.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushPython.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushRuby.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCss.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCpp.js"></script> 
+		
+		<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter/styles/shCoreDefault.css"/> 
+		<script type="text/javascript">SyntaxHighlighter.all();</script> 
+
+		<script type="text/javascript" charset="utf-8"> 
+            window.onload = function() {
+                var header = document.getElementById('header').getElementsByTagName('h1')[0],
+                    old = document.getElementById('content').getElementsByTagName('h1')[0];
+                if (old) header.innerHTML = old.innerHTML;
+                setTimeout(function(){
+                    window.scrollTo(0, 1);
+                }, 100);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="header">
+            <a href="index.html" id="backButton">Index</a><!--<center><h1>面试问题汇总</h1></center> -->
+        </div>
+        <div id="content">
+<h1 id="toc_1">%toc</h1>
+<p>
+面试可能提到的
+<h2 id="toc_1.1">java</h2>
+</p>
+<ul>
+<li>
+/java
+</li>
+<ol>
+<li>
+C++或Java中的异常处理机制的简单原理和应用?
+</li>
+<li>
+抽象类与接口的区别?
+</li>
+<li>
+Java的接口和C++的虚类的相同和不同处?
+</li>
+<li>
+垃圾回收的优点和原理。并考虑2种回收机制?
+</li>
+<li>
+请说出你所知道的线程同步的方法?
+</li>
+<li>
+请讲一讲c++析构函数和虚函数的用法和作用?
+</li>
+<li>
+Error与Exception有什么区别？
+</li>
+<li>
+在java中一个类被声明为final类型，表示了什么意思？
+</li>
+<li>
+描述一下你最常用的编程风格?
+</li>
+<li>
+heap和stack有什么区别?
+</li>
+<li>
+请你设计一个数据结构来存储这种超大型数字以及设计一种算法来实现超大整数加法运算?
+</li>
+<li>
+谈谈final, finally, finalize的区别.
+</li>
+<li>
+Anonymous Inner Class (匿名内部类) 是否可以extends(继承)其它类，是否可以implements(实现)interface(接口)? 
+</li>
+<li>
+Static Nested Class 和 Inner Class的不同?
+</li>
+<li>
+&amp;和&amp;&amp;的区别?
+</li>
+<li>
+hashMap和Hashtable的区别?
+</li>
+<li>
+Collection 和 Collections的区别?
+</li>
+<li>
+GC是什么? 为什么要有GC? (基础)?
+</li>
+<li>
+String s = new String("xyz");创建了几个String Object?
+</li>
+<li>
+Math.round(11.5)等於多少? Math.round(-11.5)等於多少?
+</li>
+<li>
+short s1 = 1; s1 = s1 + 1;有什么错? short s1 = 1; s1 += 1;有什么错?
+</li>
+<li>
+sleep() 和 wait() 有什么区别?
+</li>
+<li>
+数组有没有length()这个方法? String有没有length()这个方法？
+</li>
+<li>
+Overload和Override的区别。Overloaded的方法是否可以改变返回值的类型?
+</li>
+<li>
+Set里的元素是不能重复的，那么用什么方法来区分重复与否呢? ==和equals()的区别? 
+</li>
+<li>
+给我一个你最常见到的runtime exception.
+</li>
+<li>
+List, Set, Map是否继承自Collection接口?
+</li>
+<li>
+abstract class和interface有什么区别? 
+</li>
+<li>
+接口是否可继承接口? 抽象类是否可实现(implements)接口? 抽象类是否可继承实体类(concrete class)? 
+</li>
+<li>
+说出arrayList,Vector, linkedList的存储性能和特性
+</li>
+<li>
+设计4个线程，其中两个线程每次对j增加1，另外两个线程对j每次减少1。写出程序.
+</li>
+<li>
+Class.forName的作用?为什么要用? 
+</li>
+<li>
+abstract的method是否可同时是static,是否可同时是native，是否可同时是synchronized?
+</li>
+<li>
+启动一个线程是用run()还是start()? 
+</li>
+<li>
+构造器Constructor是否可被override?
+</li>
+<li>
+当一个线程进入一个对象的一个synchronized方法后，其它线程是否可进入此对象的其它方法?
+</li>
+<li>
+try {}里有一个return语句，那么紧跟在这个try后的finally {}里的code会不会被执行，什么时候被执行，在return前还是后? 
+</li>
+<li>
+swtich是否能作用在byte上，是否能作用在long上，是否能作用在String上?
+</li>
+<li>
+java的内存泄漏?
+</li>
+<li>
+编程题: 写一个Singleton出来
+</li>
+<li>
+编程题: 写一个利用反射输出任意类的构造方法,成员变量和方法
+</li>
+<li>
+编程题: 写利用scoket写一个通信的程序,分客户端和服务器端
+</li>
+<li>
+编程题: 写一个程序,从终端读取字符串,并写入到文件中
+</li>
+<li>
+编程题: 写一个程序,从键盘读取2个数字,并求出其2次方和3次方
+</li>
+<li>
+编程题: 写一个程序,判断终端输入的数字是否是2的阶次方
+</li>
+<li>
+编程题: 写一个程序,将一个类序列化
+</li>
+<li>
+编程题: 写一个程序,将数组类数字的所有组合列出
+</li>
+<li>
+编程题: 写一个程序,实现斐波那契数列的计算
+</li>
+<li>
+编程题: 写一个程序,计算一个字符串中各个字符出现的次数
+</li>
+<li>
+编程题:打印1 2 2 3 4 这4个数字所有不同的排列
+</li>
+<li>
+编程题:java的插入排序
+</li>
+<li>
+编程题:Java的冒泡排序
+</li>
+<li>
+编程题:java的选择排序
+</li>
+<li>
+编程题:Java的shell排序
+</li>
+<li>
+编程题:java的快速排序
+</li>
+<li>
+编程题:java的归并排序
+</li>
+<li>
+编程题:java的堆排序
+</li>
+<li>
+编程题:Java的二叉树算法
+</li>
+<li>
+编程题:java程序实现线程连接池功能
+</li>
+<li>
+编程题:给定一个C语言函数，要求实现在java类中进行调用
+</li>
+<li>
+编一段代码，实现在控制台输入一组数字后，排序后在控制台输出
+</li>
+<li>
+编程题:列出某个文件夹下所有的文件和文件夹
+</li>
+<li>
+编程题:删除某文件
+</li>
+<li>
+编程题:实现从文件中一次读出一个字符
+</li>
+</ol>
+</ul>
+<h2 id="toc_1.2">jsp</h2>
+<ul>
+<li>
+/jsp
+</li>
+</ul>
+<h2 id="toc_1.3">servlet</h2>
+<ul>
+<li>
+/servlet
+</li>
+<ol>
+<li>
+jsp有哪些内置对象?作用分别是什么? 
+</li>
+<li>
+jsp有哪些动作?作用分别是什么?
+</li>
+<li>
+JSP中动态INCLUDE与静态INCLUDE的区别？
+</li>
+<li>
+两种跳转方式分别是什么?有什么区别? 
+</li>
+<li>
+说一说Servlet的生命周期?
+</li>
+<li>
+JAVA SERVLET API中forward() 与redirect()的区别？
+</li>
+<li>
+Servlet的基本架构 ?
+</li>
+</ol>
+</ul>
+<h2 id="toc_1.4">struts</h2>
+<h2 id="toc_1.5">hibernate</h2>
+<ul>
+<li>
+/hibernate
+</li>
+</ul>
+<h2 id="toc_1.6">spring</h2>
+<ul>
+<li>
+/spring
+</li>
+</ul>
+<h2 id="toc_1.7">ssh</h2>
+<ul>
+<li>
+/ssh
+</li>
+</ul>
+<h2 id="toc_1.8">oracle</h2>
+<ul>
+<li>
+/Oracle
+</li>
+</ul>
+<h2 id="toc_1.9">sqlserver</h2>
+<ul>
+<li>
+/sqlserver
+</li>
+</ul>
+<h2 id="toc_1.10">xml</h2>
+<ul>
+<li>
+xml.java
+</li>
+<li>
+xml文件的读写.java
+</li>
+<li>
+xml有哪些解析技术?区别是什么?
+</li>
+<li>
+你在项目中用到了xml技术的哪些方面?如何实现的? 
+</li>
+<li>
+用jdom解析xml文件时如何解决中文问题?如何解析? 
+</li>
+</ul>
+<h2 id="toc_1.11">ibatis</h2>
+<h2 id="toc_1.12">mysql</h2>
+<h2 id="toc_1.13">tomcat/weblogic/resin</h2>
+<h2 id="toc_1.14">javascript/css/ajax/jquery</h2>
+<ul>
+<li>
+css.txt
+</li>
+<li>
+html基本语法.html
+</li>
+</ul>
+<h2 id="toc_1.15">linux</h2>
+<ul>
+<li>
+linux_note.txt
+</li>
+</ul>
+<h2 id="toc_1.16">其他</h2>
+<ul>
+<li>
+泛型DAO模式.java
+</li>
+<li>
+service-dao问题.java
+</li>
+<li>
+datapool.xml
+</li>
+<li>
+写一段Jdbc连Oracle的程序,并实现数据查询.
+</li>
+</ul>
+<h2 id="toc_1.17">面试相关</h2>
+<ul>
+<li>
+/review
+</li>
+<li>
+/面试题库
+</li>
+</ul>
+        </div>
+<div id="footer"><center>
+            Copyright@2010 arch Powered by <a href="http://vimwiki.googlecode.com/">Vimwiki</a>
+	 <script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.js"></script></center>
+        </div>
+    </body>
+</html>

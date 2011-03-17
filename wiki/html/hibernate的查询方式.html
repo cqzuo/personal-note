@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=gbk" /> 
+        <title>hibernate的查询方式</title>
+        <meta id="viewport" name="viewport" 
+            content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" /> 
+        <link rel="stylesheet" href="style.css" /> 
+        <link rel="apple-touch-icon" href="../images/apple-touch-icon.png" /> 
+		<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shCore.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCSharp.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrvushPhp.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushJScript.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushJava.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushVb.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushSql.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushXml.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushDelphi.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushPython.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushRuby.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCss.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCpp.js"></script> 
+		
+		<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter/styles/shCoreDefault.css"/> 
+		<script type="text/javascript">SyntaxHighlighter.all();</script> 
+
+		<script type="text/javascript" charset="utf-8"> 
+            window.onload = function() {
+                var header = document.getElementById('header').getElementsByTagName('h1')[0],
+                    old = document.getElementById('content').getElementsByTagName('h1')[0];
+                if (old) header.innerHTML = old.innerHTML;
+                setTimeout(function(){
+                    window.scrollTo(0, 1);
+                }, 100);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="header">
+            <a href="index.html" id="backButton">Index</a><!--<center><h1>hibernate的查询方式</h1></center> -->
+        </div>
+        <div id="content">
+<p>
+Hibernate的查询方法
+1: QBE (Query By Example) 
+   Criteria cri = session.createCriteria(Student.class); 
+   cri.add(Example.create(s)); //s是一个 Student 对象 
+   list cri.list();    
+   实质：创建一个模版，比如我有一个表serial 有一个  giftortoy 字段，我设置 serial.setgifttoy(\"2\"), 
+</p>
+<blockquote>
+则这个表中的所有的giftortoy 为 2 的数据都会出来 
+</blockquote>
+<p>
+QBC查询方式 
+</p>
+
+<p>
+QBC(Query By Criteria)查询方式是 Hibernate 提供的 “ 更加面向对象 ” 的一种检索方式。 QBC 在条件查询上比 HQL 查询更为灵活，而且支持运行时动态生成查询语句。 
+在Hibernate 应用中使用 QBC 查询通常经过 3 个步骤 
+  (1)使用 Session 实例的 createCriteria() 方法创建 Criteria 对象 
+  (2)使用工具类 Restrictions 的相关方法为 Criteria 对象设置查询对象 
+  (3)使用 Criteria 对象的 list() 方法执行查询，返回查询结果 
+Restrictions类的常用方法 
+Restrictions.eq(String propertyName,Object value) 
+等于 
+Restrictions.allEq(Map propertyNameValues) 
+使用Map key/value 进行多个等于的比对 
+Restrictions.gt(String propertyName, Object value) 
+大于 &gt;    (gt-----&gt;greater than) 
+Restrictions.ge(String propertyName, Object value) 
+大于等于 &gt;=    (ge-----&gt;greater equal) 
+Restrictions.It(String propertyName, Object value) 
+小于&lt; (It----&gt;less than) 
+Restrictions.Le(String propertyName, Object value) 
+小于等于&lt;= (le----&gt;less equal) 
+Restrictions.between(String propertyName, Object lo, Object hi) 
+对应SQL 语句的 Between 子句 
+Restrictions.like(String propertyName, Object value) 
+对应SQL 语句的 LIKE 子句 
+Restrictions.in(String propertyName, Collection value) 
+对应SQL 语句的 in 子句 
+Restrictions.and(Criterion lhs, Criterion rhs) 
+And关系 
+Restrictions.or(Criterion lhs, Criterion rhs) 
+Or关系 
+Restrictions.sqlRestriction(String sql,Object[] values,Type[] types) 
+SQL限定查询 
+</p>
+<blockquote>
+工具类Order 提供设置排序方式 
+</blockquote>
+<p>
+Order.asc(String propertyName) 
+升序排序 
+Order.desc(String propertyName) 
+降序排序 
+</p>
+<blockquote>
+工具类Projections 提供对查询结果进行统计与分组操作 
+</blockquote>
+<p>
+Porjections.avg(String propertyName) 
+求某属性的平均值 
+Projections.count(String propertyName) 
+统计某属性的数量 
+Projections.countDistinct(String propertyName) 
+统计某属性的不同值的数量 
+Projections.groupProperty(String propertyName) 
+指定一组属性值 
+Projections.max(String propertyName) 
+某属性的最大值 
+Projections.min(String propertyName) 
+某属性的最小值 
+Projections.projectionList() 
+创建一个新的projectionList 对象 
+Projections.rowCount() 
+查询结果集中记录的条数 
+Projections.sum(String propertyName) 
+返回某属性值的合计 
+</p>
+
+<p>
+QBE查询 
+</p>
+
+<p>
+   QBE查询就是检索与指定样本对象具有相同属性值的对象。因此 QBE 查询的关键就是样本对象的创建，样本对象中的所有非空属性均将作为查询条件。 QBE 查询的功能子集，虽然 QBE 没有 QBC 功能大，但是有些场合 QBE 使用起来更为方便。 
+</p>
+<blockquote>
+工具类Example 为 Criteria 对象指定样本对象作为查询条件 
+</blockquote>
+<p>
+Java代码   
+1  Session session = <a href="HibernateSessionFactory.html">HibernateSessionFactory</a>.getSessionFactory().openSession();   
+2  Transaction ts = session.beginTransaction();   
+3  Customer c =  new  Customer();   
+4  c.setCname("Hibernate");   
+5  Criteria criteria = session.createCriteria(Customer. class );   
+6  Criteria.add(Example.create(c));   
+7  Iterator it = criteria.list().iterator();   
+8  ts.commit();  
+9  <a href="HibernateSessionFactory.html">HibernateSessionFactory</a>.closeSession();  
+QBC分页查询 
+   Criteria为我们提供了两个有用的方法： setFirstResult(int firstResult) 和 setMaxResults(int maxResults). 
+setFirstResult(int firstResult)方法用于指定从哪一个对象开始检索（序号从 0 开始），默认为第一个对象（序号为 0 ）； setMaxResults(int maxResults) 方法用于指定一次最多检索出的对象数目，默认为所有对象。 
+Java代码   
+1  Session session = <a href="HibernateSessionFactory.html">HibernateSessionFactory</a>.getSessionFactory().openSession();   
+2  Transaction ts =  null ;   
+3  Criteria criteria = session.createCriteria(Order. class );   
+4  int  pageSize = 15;   
+5  int  pageNo = 1;   
+6  criteria.setFirstResult((pageNo-1)*pageSize);   
+7  criteria.setMaxResults(pageSize);   
+8  Iterator it = criteria.list().iterator();   
+9  ts.commit();   
+10  <a href="HibernateSessionFactory.html">HibernateSessionFactory</a>.closeSession(); 
+</p>
+
+<p>
+QBC复合查询 
+   复合查询就是在原有的查询基础上再进行查询。例如在顾客对定单的一对多关系中，在查询出所有的顾客对象后，希望在查询定单中money 大于 1000 的定单对象 
+<a href="DetachedCriteria.html">DetachedCriteria</a>  criteria= <a href="DetachedCriteria.html">DetachedCriteria</a> . forClass (Model. class ); 
+criteria.add(Restrictions. eq ( "userid" , userid)); 
+criteria.add(Restrictions. eq ( "state" , false )); 
+criteria.add(Restrictions. not ( Expression . eq ( "freeze" , false )  )); 
+criteria.addOrder( Order. desc ( "createtime" ) ); 
+return   modelDAO .findByCriteria(criteria); 
+Java代码 
+1  Session session = <a href="HibernateSessionFactory.html">HibernateSessionFactory</a>.getSessionFactory().openSession();   
+2  Transaction ts = session.beginTransaction();   
+3  Criteria cuscriteria = session.createCriteria(Customer. class );   
+4  Criteria ordCriteria = cusCriteria.createCriteria("orders");   
+5  ordCriteria.add(Restrictions.gt("money",  new  Double(1000)));   
+6  Iterator it = cusCriteria.list().iterator();   
+7  ts.commit();   
+8  <a href="HibernateSessionFactory.html">HibernateSessionFactory</a>.closeSession();  
+QBC离线查询 
+   离线查询又叫<a href="DetachedCriteria.html">DetachedCriteria</a> 查询，它可以在 Session 之外进行构造，只有在需要执行查询时才与 Session 绑定。 
+2: QBC (Query By Criteria) 主要有 Criteria,Criterion,Oder,Restrictions 类组成 
+   session = this.getSession(); 
+   Criteria cri = session.createCriteria(<a href="JdItemSerialnumber.html">JdItemSerialnumber</a>.class); 
+   Criterion cron = Restrictions.like(\"customer\",name); 
+   cri.add(cron); 
+   list = cri.list(); 
+   ============================== 
+   比较运算符 
+   HQL运算符                    QBC 运算符                      含义 
+</p>
+<blockquote>
+=                     Restrictions.eq()                  等于 
+&lt;&gt;                   Restrictions.not(Exprission.eq())  不等于 
+&gt;                     Restrictions.gt()                  大于 
+&gt;=                   Restrictions.ge()                  大于等于 
+&lt;                     Restrictions.lt()                  小于  [Page] 
+&lt;=                   Restrictions.le()                  小于等于 
+is null             Restrictions.isnull()              等于空值 
+is not null      Restrictions.isNotNull()           非空值 
+like                 Restrictions.like()                字符串模式匹配 
+and                Restrictions.and()                 逻辑与 
+and                Restrictions.conjunction()         逻辑与 
+or                   Restrictions.or()                  逻辑或 
+or                   Restrictions.disjunction()         逻辑或 
+not                  Restrictions.not()                 逻辑非 
+in(列表 )          Restrictions.in()                   等于列表中的某一个值  [Page] 
+</blockquote>
+<p>
+ont in(列表 )         Restrictions.not(Restrictions.in()) 不等于列表中任意一个值 
+</p>
+<blockquote>
+between x and y      Restrictions.between()             闭区间 xy 中的任意值 
+not between x and y  Restrictions.not(Restrictions..between()) 小于值 X 或者大于值 y 
+</blockquote>
+<p>
+3: HQL 
+   String hql = \"select s.name ,avg(s.age) from Student s group by s.name\"; 
+   Query query = session.createQuery(hql); 
+   list = query.list(); 
+   .... 
+4: 本地 SQL 查询 
+   session = sessionFactory.openSession(); 
+   tran = session.beginTransaction(); 
+   SQLQuery sq = session.createSQLQuery(sql); 
+   sq.addEntity(Student.class); 
+   list = sq.list(); 
+   tran.commit(); 
+5: QID  
+   Session的 get() 和 load() 方法提供了根据对象 ID 来检索对象的方式。该方式被用于事先知道了要检索对象 ID 的情况。  
+Hibernate： HQL/QBC 查询语言比较的用法 
+Hib的检索方式  1 、导航对象图检索方式。通过已经加载的对象，调用 .iterator() 方法可以得到 order 对象如果是首次执行此方法， Hib 会从数据库加载关联的 order 对象，否则就从缓存中得到。  2 、 OID 检索方式。通过 session 的 get ， load 方法知道了 OID 的情况下可以使用  3 、 HQL 检索方 
+</p>
+
+<p>
+Hib的检索方式 
+   1、导航对象图检索方式。通过已经加载的对象，调用 .iterator() 方法可以得到 order 对象如果是首次执行此方法， Hib 会从数据库加载关联的 order 对象，否则就从缓存中得到。 
+2、 OID 检索方式。通过 session 的 get ， load 方法知道了 OID 的情况下可以使用 
+3、 HQL 检索方式。使用面向对象的 HQL 查询语句 session 的 find 方法利用 HQL 来查询 
+4、 QBC 检索方式。利用 QBCAPI 来检索它是封装了基于字符串的查询语句 
+5、本地的 SQL 检索方式。使用本地数据库的 SQL 查询语句 Hib 会负责把检索到的 JDBC 结果集映射为持久化对象图。 
+  五种检索方式的使用场合和特点： 
+HQL ： 是面向对象的查询语言，同 SQL 有些相似是 Hib 中最常用的方式。 
+查询设定各种查询条件。 
+支持投影查询，检索出对象的部分属性。 
+支持分页查询，允许使用having 和 group by 
+提供内制的聚集函数，sum() ， min() ， max() 
+能调用用户的自定义SQL 
+支持子查询，嵌入式查询 
+支持动态绑定参数 
+建议使用Query 接口替换 session 的 find 方法。 
+</p>
+
+<p>
+Query Q = session.createQuery("from customer as c where c.name = :customerName" +"and c.age = :customerAge"); 
+query.setString("customerName" , "tom"); 
+   query.setInteger("customerAge" , "21"); 
+   list result = query.list(); 
+QBC : QBCAPI提供了另一种方式，主要是 Criteria 接口、 Criterion 接口和 Expression 类 
+Criteria criteria = session.createCriteria(customer.class); 
+   Criterion criterion1 =Expression.like("name","t%"); 
+   Criterion criterion2 =Expression.eq("age",new Integer(21)); 
+   Critera = criteria.add(criterion1) ; 
+   Critera = criteria.add(criterion2) ; 
+   list result = criteria.list(); 
+或是： list result = session.createCriteria(Customer.class).add(Expression.eq("this.name","tom")).list(); 
+SQL : 采用 HQL 和 QBC 检索时， Hib 生成 SQL 语句适用所有数据库。 
+Query query  =session.createSQLQuery("select {c.*} from customers c where c.name like : customername " + "and c.age =:customerage","c",customer.calss); 
+   query.setString("customername","tom"); 
+   query.setInteger("customerage","21"); 
+   list result = query.list(); 
+/////////////多态查询 
+   HQL ： session.createQuery("from employee"); 
+   QBC ： session.createCriteria(employee.class); 
+   HQL : session.createQuery("from hourlyEmployee"); 
+   QBC : session.createCriteria(hourlyEmployee.class); 
+下面的HQL 查询语句将检索出所有的持久化对象： 
+from java.lang.Object ; 
+from java.io.serializable ; 
+////////////查询的排序 
+1、查询结果按照客户姓名升序排列： 
+HQL ： 
+Query query = session.createQuery 
+("from customer c order by c.name"); 
+QBC ： 
+Criteria criteria = session.createCriteria(customer.class); 
+criteria.addOrder(order.asc("name")); 
+HQL : 
+Query query = session.createQuery("from customer c orderby c.name asc , c.age desc"); 
+QBC : 
+Criteria criteria =session.createCriteria(customer.class); 
+criteria.addOrder(order.asc ("name")); 
+criteria.addOrder(order.desc("age")); 
+import net.sf.hibernate.pression.Order 
+import mypack.Order 
+........... 
+Criteria criteria = session.createCritria (mypack.Order.class); 
+criteria.addOrder(net.sf.hibernate.Order.asc("name")); 
+///////////HQL语句的参数绑定 Query 接口 
+提供了绑定各种Hib 映射类型的方法。 
+setBinary() 
+setString() 
+setBoolean() 
+setByte() 
+setCalendar() 
+setCharacter() 
+setDate() 
+setDouble() 
+setText() 
+setTime() 
+setTimestamp() 
+setEntity() 
+//把参数与一个持久化类的事例绑定 
+lsit result = session.createQuery 
+("from order o where o.customer = :customer").setEntity("customer" , customer).list ; 
+setParameter() 
+//绑定任意类型的参数 
+setProperties() 
+//把命名参数与一个对象的属性值绑定 
+Query query = session.createQuery 
+("from customer c where c.name =:name " + "and c.age =:age" ); 
+Query.setProperties(customer);
+</p>
+
+<p>
+Java代码 
+1.public <a href="AlBasic.html">AlBasic</a> queryAlBasicByEtpsIdAndAnnlYear(String entityName, String etpsId, String annlYear) {   
+2.        if (etpsId == null || "".equals(etpsId) || annlYear == null || "".equals(annlYear))   
+3.            return null;   
+4.        <a href="DetachedCriteria.html">DetachedCriteria</a> dc = <a href="DetachedCriteria.html">DetachedCriteria</a>.forEntityName(entityName);   
+5.        dc.add(Restrictions.eq("etpsId", etpsId));   
+6.        dc.add(Restrictions.eq("annlYear", annlYear));   
+7.  
+8.        List result = findByCriteria(dc);   
+9.        if (result == null || result.size() == 0) {   
+10.            return null;   
+11.        }   
+12.        return (<a href="AlBasic.html">AlBasic</a>) result.get(0);   
+13.    }  
+</p>
+        </div>
+<div id="footer"><center>
+            Copyright@2010 arch Powered by <a href="http://vimwiki.googlecode.com/">Vimwiki</a>
+	 <script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.js"></script></center>
+        </div>
+    </body>
+</html>

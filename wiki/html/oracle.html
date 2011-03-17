@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=gbk" /> 
+        <title>oracle</title>
+        <meta id="viewport" name="viewport" 
+            content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" /> 
+        <link rel="stylesheet" href="style.css" /> 
+        <link rel="apple-touch-icon" href="../images/apple-touch-icon.png" /> 
+		<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shCore.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCSharp.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrvushPhp.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushJScript.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushJava.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushVb.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushSql.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushXml.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushDelphi.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushPython.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushRuby.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCss.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCpp.js"></script> 
+		
+		<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter/styles/shCoreDefault.css"/> 
+		<script type="text/javascript">SyntaxHighlighter.all();</script> 
+
+		<script type="text/javascript" charset="utf-8"> 
+            window.onload = function() {
+                var header = document.getElementById('header').getElementsByTagName('h1')[0],
+                    old = document.getElementById('content').getElementsByTagName('h1')[0];
+                if (old) header.innerHTML = old.innerHTML;
+                setTimeout(function(){
+                    window.scrollTo(0, 1);
+                }, 100);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="header">
+            <a href="index.html" id="backButton">Index</a><!--<center><h1>oracle</h1></center> -->
+        </div>
+        <div id="content">
+<div class="toc">
+<ul>
+<li><a href="#toc_0.0.1">oracle</a></li>
+<ul>
+<li><a href="#toc_0.0.1.1">基本操作</a></li>
+<li><a href="#toc_0.0.1.2">常用数据类型</a></li>
+<li><a href="#toc_0.0.1.3">查询语言SQL</a></li>
+</ul>
+</ul>
+</ul>
+</ul>
+</div>
+<h3 id="toc_0.0.1">oracle</h3>
+<h4 id="toc_0.0.1.1">基本操作</h4>
+<ol>
+<li>
+连接
+</li>
+<ul>
+<li>
+conn system/manager
+</li>
+<li>
+conn sys/change_on_install as sysdba
+</li>
+</ul>
+<li>
+访问数据库表
+</li>
+<ul>
+<li>
+select * from 用户名.表名
+</li>
+</ul>
+<li>
+查询当前用户
+</li>
+<ul>
+<li>
+show user;
+</li>
+</ul>
+<li>
+显示当前用户所有表
+</li>
+<ul>
+<li>
+show * from tab;
+</li>
+</ul>
+<li>
+查询表结构
+</li>
+<ul>
+<li>
+desc 表名
+</li>
+</ul>
+<li>
+回显上次名称
+</li>
+<ul>
+<li>
+/
+</li>
+</ul>
+<li>
+查询系统时间
+</li>
+<ul>
+<li>
+select sysdate from dual
+</li>
+</ul>
+</ol>
+<h4 id="toc_0.0.1.2">常用数据类型</h4>
+<ol>
+<li>
+number(4)
+</li>
+<li>
+varchar(20)
+</li>
+<li>
+date
+</li>
+<li>
+number(4,2)
+</li>
+</ol>
+<h4 id="toc_0.0.1.3">查询语言SQL</h4>
+<ol>
+<li>
+去重复
+</li>
+<ul>
+<li>
+select distinct
+</li>
+</ul>
+<li>
+使用别名
+</li>
+<ul>
+<li>
+select ** __
+</li>
+</ul>
+<li>
+加入字符串连接
+</li>
+<ul>
+<li>
+select A ||"连接字符串"|| C
+</li>
+</ul>
+<li>
+限定查询
+</li>
+<ul>
+<li>
+order by ***** asc/desc
+</li>
+<li>
+order by ***** asc,***** desc
+</li>
+</ul>
+<li>
+单行函数
+</li>
+<ul>
+<li>
+function name(列)
+</li>
+</ul>
+<li>
+字符函数
+</li>
+<ul>
+<li>
+upper()
+</li>
+<li>
+lower()
+</li>
+<li>
+initcap()
+</li>
+<li>
+substr()
+</li>
+<li>
+length()
+</li>
+<li>
+replace()
+</li>
+</ul>
+<li>
+数值函数
+</li>
+<ul>
+<li>
+round()
+</li>
+<li>
+trunc()
+</li>
+<li>
+mod()
+</li>
+<li>
+select mod(132,23) from dual
+</li>
+</ul>
+<li>
+日期函数
+</li>
+<ul>
+<li>
+select sysdate from dual
+</li>
+<li>
+round(sysdate-hiredate)
+</li>
+<li>
+add_mounth(hiredate,3)
+</li>
+<li>
+next_day(sysdate,'星期一')
+</li>
+<li>
+last_day(sysdate)
+</li>
+<li>
+转换函数
+</li>
+<ul>
+<li>
+to_char
+</li>
+<li>
+select to_char(sysdate,'yyyy-mm-dd') 日期 from dual
+</li>
+<li>
+select to_char(salary,'#99,999') 薪水from dual
+</li>
+<li>
+to_date
+</li>
+<ul>
+<li>
+select to_date('2009-12-12','yyyy-mm-dd') from dual
+</li>
+</ul>
+</ul>
+</ul>
+<li>
+通用函数
+</li>
+<ul>
+<li>
+nvl
+</li>
+<ul>
+<li>
+select nvl(列名,0) from dual
+</li>
+</ul>
+<li>
+decode
+</li>
+<ul>
+<li>
+select decode(job,'doctor','博士',kill,'杀手') from emp
+</li>
+</ul>
+<li>
+is null
+</li>
+<li>
+is not null
+</li>
+<li>
+and or
+</li>
+<li>
+not
+</li>
+<li>
+between A and B
+</li>
+<li>
+not between A and B
+</li>
+<li>
+in(值1,值2,...)
+</li>
+<li>
+not in(值1,值2,...)
+</li>
+<li>
+日期查询 between
+</li>
+<ul>
+<li>
+between '10-14日 -90' and '10-25日 -90'
+</li>
+</ul>
+<li>
+oracle对大小写敏感
+</li>
+<li>
+like
+</li>
+<ul>
+<li>
+% 任意长度内容
+</li>
+<li>
+_ 一个任意字符
+</li>
+</ul>
+<li>
+不等于 &lt;&gt; !==
+</li>
+</ul>
+<li>
+多表查询
+</li>
+<ul>
+<li>
+查询数据数量 
+</li>
+<ul>
+<li>
+select count(*) from 表名
+</li>
+</ul>
+<li>
+左连接
+</li>
+<ul>
+<li>
+where A.a = B.b(+)
+</li>
+</ul>
+<li>
+右连接
+</li>
+<ul>
+<li>
+where A.a(+) = B.b
+</li>
+</ul>
+<li>
+from 表A left join 表B on A.字段1 = B.字段2
+</li>
+<li>
+from 表A right join 表B on A.字段1 = B.字段2
+</li>
+</ul>
+<li>
+分组统计和分组函数
+</li>
+<ul>
+<li>
+count
+</li>
+<li>
+max
+</li>
+<li>
+min
+</li>
+<li>
+avg
+</li>
+<li>
+sum
+</li>
+<li>
+group by
+</li>
+<ul>
+<li>
+分组函数不能出现where
+</li>
+</ul>
+</ul>
+<li>
+数据库操作
+</li>
+<ul>
+<li>
+表的复制
+</li>
+<ul>
+<li>
+create table 表名1 as select * from 表名2
+</li>
+</ul>
+<li>
+事务管理
+</li>
+<ul>
+<li>
+commit
+</li>
+<li>
+rollback
+</li>
+</ul>
+</ul>
+</ol>
+        </div>
+<div id="footer"><center>
+            Copyright@2010 arch Powered by <a href="http://vimwiki.googlecode.com/">Vimwiki</a>
+	 <script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.js"></script></center>
+        </div>
+    </body>
+</html>

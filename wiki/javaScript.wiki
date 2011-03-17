@@ -1,0 +1,12 @@
+== 类型转换 ==
+ * 强制类型转换
+  # toString()
+  # parseInt()
+  # parseFloat()
+  # eval(字符表达式串)
+ * 自动转换
+  # var a = "2.23";
+  # var b = a - 2;
+   - 数值类型
+  # var c = a + 2;
+   - 字符类型 

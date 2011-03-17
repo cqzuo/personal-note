@@ -1,0 +1,62 @@
+== 延迟加载的对象 ==
+ - hibernate 2针对实体对象和集合
+ - hibernate 3同时提供了属性的延迟加载功能。
+ 其中对集合的延迟加载特性意义最为重大。
+==实体对象的延迟加载 ==
+1.在hibernate配置文件中的class指定
+集合类型的延迟加载：
+在set中指定lazy=true
+这样只有实际加载与对象相关联的集合对象的时候，再通过session从数据库中加载实际的数据集。
+Hibernate.initialize方法可以强制Hibernate立即加载关联的对象集，例如：
+Hibernate.initialize(user.getAddress());
+集合类型的缓存：
+如果为某个集合类设定了缓存，如
+<set 
+    name="address"
+    table="t_address"
+    lazy="true"
+    ......
+>
+    <cache usage="read-only"/>
+    <key column="user_id" />
+    <one-to-many class="cn.blogjava.TAddress" />
+</set>
+Hibernate对集合类型进行缓存的时候，分两部分保存。首先是这个集合中所有实体的id列表，其次才是各个实体对象。
+这里制定了cache usage="read-only"只会使得Hibernate对数据索引进行缓存。也就是说只缓存了集合中的数据索引，并不包含集合中的各个实体元素。
+如果指定cache usage="read-write"才会对集合中的实体进行缓存。
+
+属性的延迟加载：
+在property节点中声明lazy=true,而且还需要借助Hibernate类增强器对POJO类的二进制Class文件进行强化处理。
+
+ 
+
+hibernate中的Collection
+Hibernate对JDK Collention接口的独立实现：
+由于传统的Java Set, Map, List实现不能满足要求，Hibernate根据这些接口提供了自己的实现。
+Hibernate的实现：
+无序集：Set, Bag, Map
+有序集：List
+Bag相当于一个允许重复元素存在的Set。
+因为Hibernate是自己的Collection实现，所以如下语句会出错，
+Set hset = (HashSet)user.getAddresses();
+会在运行期报告一个java.lang.ClassCastException,因为实际上返回的是一个类型为org.hibernate.collention.Set的对象。
+所有我们在写POJO时，必须用JDK Collection Interface(如Set, Map)，而非特定的JDK Collection实现类(如HashSet, HashMap)声明Collection型属性的原因。例如：
+应该是private Set addresses;
+而不是private HashSet addresses;
+
+collection类型属性的保存过程。
+例如
+public class TUser implements Serializable {
+ private Set addresses = new HashSet();
+        ......
+}
+
+然后创建一个TUser实例后，就可以为其添加关联的address对象：
+TUser user = new TUser();
+TAddress addr = new TAddress();
+addr.setAddress("HongKong");
+user.getAddress().add(addr);
+session.save(user);
+user对象在经过Hibernate处理后发生了变化，首先，由于insert操作，产生了id值，并填充到user对象的id属性，另一方面Hibernate使用了自己的collection实现对user中的HashSet型addresses属性进行了替换，并用数据对其进行了填充。
+
+

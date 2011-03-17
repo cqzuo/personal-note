@@ -1,0 +1,95 @@
+4 提问及回复
+  4.1 确定要用到的表
+        4.1.1 首先问题和栏目划分,问题在二级栏目之下
+        4.1.2 增加item表中的数据
+               INSERT INTO item(itemname,itemcode) VALUES('JAVA SE',1);
+               INSERT INTO item(itemname,itemcode) VALUES('JAVA SE',2);
+               
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('面向对象',1,1);
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('多线程',1,2);
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('文件编程',1,3);
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('网络编程',1,4); 
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('AWT/SWING',1,5);
+               
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('JSP/SERVLET',2,1);
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('EJBS',2,2);
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('RMI/RMI-IIOP',2,3);
+   4.2 vo类 Item.java和 Subitem类
+       4.2.1 一个item栏目下有多个子栏目,一对多隐射
+Item.java
+package org.lxh.myzngt.vo;
+
+import java.util.Set;
+
+public class Item {
+	private int itemid ;
+	private String itemname ;
+	private int itemcode ;
+	private Set subitems ;
+	public int getItemcode() {
+		return itemcode;
+	}
+	public void setItemcode(int itemcode) {
+		this.itemcode = itemcode;
+	}
+	public int getItemid() {
+		return itemid;
+	}
+	public void setItemid(int itemid) {
+		this.itemid = itemid;
+	}
+	public String getItemname() {
+		return itemname;
+	}
+	public void setItemname(String itemname) {
+		this.itemname = itemname;
+	}
+	public Set getSubitems() {
+		return subitems;
+	}
+	public void setSubitems(Set subitems) {
+		this.subitems = subitems;
+	}
+	
+}
+
+Subitem.java
+package org.lxh.myzngt.vo;
+
+public class Subitem {
+	private int subid ;
+	private String subname ;
+	private String itemid ;
+	private int subcode ;
+	private Item item ;
+	public String getItemid() {
+		return itemid;
+	}
+	public void setItemid(String itemid) {
+		this.itemid = itemid;
+	}
+	public int getSubid() {
+		return subid;
+	}
+	public void setSubid(int subid) {
+		this.subid = subid;
+	}
+	public String getSubname() {
+		return subname;
+	}
+	public void setSubname(String subname) {
+		this.subname = subname;
+	}
+	public Item getItem() {
+		return item;
+	}
+	public void setItem(Item item) {
+		this.item = item;
+	}
+	public int getSubcode() {
+		return subcode;
+	}
+	public void setSubcode(int subcode) {
+		this.subcode = subcode;
+	}
+}

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=gbk" /> 
+        <title>j2se</title>
+        <meta id="viewport" name="viewport" 
+            content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" /> 
+        <link rel="stylesheet" href="style.css" /> 
+        <link rel="apple-touch-icon" href="../images/apple-touch-icon.png" /> 
+		<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shCore.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCSharp.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrvushPhp.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushJScript.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushJava.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushVb.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushSql.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushXml.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushDelphi.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushPython.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushRuby.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCss.js"></script> 
+		<script class="javascript" src="../SyntaxHighlighter/Scripts/shBrushCpp.js"></script> 
+		
+		<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter/styles/shCoreDefault.css"/> 
+		<script type="text/javascript">SyntaxHighlighter.all();</script> 
+
+		<script type="text/javascript" charset="utf-8"> 
+            window.onload = function() {
+                var header = document.getElementById('header').getElementsByTagName('h1')[0],
+                    old = document.getElementById('content').getElementsByTagName('h1')[0];
+                if (old) header.innerHTML = old.innerHTML;
+                setTimeout(function(){
+                    window.scrollTo(0, 1);
+                }, 100);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="header">
+            <a href="index.html" id="backButton">Index</a><!--<center><h1>j2se</h1></center> -->
+        </div>
+        <div id="content">
+<div class="toc">
+<ul>
+<li><a href="#toc_0.0.1">内部类</a></li>
+<ul>
+<li><a href="#toc_0.0.1.1">内部类和外部类的定义</a></li>
+<li><a href="#toc_0.0.1.2">内部类的特点</a></li>
+<li><a href="#toc_0.0.1.3">static 内部类</a></li>
+<li><a href="#toc_0.0.1.4">内部类使用</a></li>
+<li><a href="#toc_0.0.1.5">匿名内部类</a></li>
+</ul>
+<li><a href="#toc_0.0.2">流</a></li>
+<ul>
+<li><a href="#toc_0.0.2.1">从文件中读取数据写入流中</a></li>
+<li><a href="#toc_0.0.2.2">将流中的数据写入到文件中</a></li>
+<li><a href="#toc_0.0.2.3">缓冲文件流读取数据</a></li>
+<li><a href="#toc_0.0.2.4">缓冲文件流写入数据</a></li>
+<li><a href="#toc_0.0.2.5">文件编码</a></li>
+<li><a href="#toc_0.0.2.6">数据流</a></li>
+<li><a href="#toc_0.0.2.7">输出流</a></li>
+<li><a href="#toc_0.0.2.8">文件输出到控制台</a></li>
+<li><a href="#toc_0.0.2.9">从控制台获取数据</a></li>
+</ul>
+</ul>
+</ul>
+</ul>
+</div>
+<h3 id="toc_0.0.1">内部类</h3>
+<h4 id="toc_0.0.1.1">内部类和外部类的定义</h4>
+<h4 id="toc_0.0.1.2">内部类的特点</h4>
+<ol>
+<li>
+可以声明public protected private等访问限制
+</li>
+<li>
+可以声明为abstract类供其他内部类或外部类继承与扩展
+</li>
+<li>
+可以实现特定接口
+</li>
+<li>
+可以访问外部类的所有方法和属性
+</li>
+</ol>
+<h4 id="toc_0.0.1.3">static 内部类</h4>
+<ol>
+<li>
+非静态内部类不能定义静态属性或方法
+</li>
+<li>
+只能访问外部类的静态方法与属性
+</li>
+</ol>
+<h4 id="toc_0.0.1.4">内部类使用</h4>
+<ol>
+<li>
+外部类可以访问内部类的所有方法属性
+</li>
+<li>
+内部类访问外部属性与方法-- 外部类对象名.this.属性或方法名
+</li>
+<li>
+外部类访问内部类-- 外部对象名.new 内部类名()
+</li>
+<li>
+内部类可以声明在外部类的方法或语句块中
+</li>
+<ul>
+<li>
+内部类访问包含它的外部类的方法或语句块的局部变量或参数时,其必须是final
+</li>
+<li>
+外部类的其他方法和语句块无法访问声明在方法内部或语句块中的内部类
+</li>
+</ul>
+<li>
+如果其他类继承内部类,则在该类中必须提供一个以内部类的外部类对象作为参数的构造方法
+</li>
+</ol>
+<h4 id="toc_0.0.1.5">匿名内部类</h4>
+<ol>
+<li>
+作用
+</li>
+<ul>
+<li>
+使用内部类实现接口的功能
+</li>
+</ul>
+<li>
+特点
+</li>
+<ul>
+<li>
+匿名内部类可以创建接口,抽象类,普通类的对象
+</li>
+<li>
+匿名内部类创建接口时,必须实现接口所有方法
+</li>
+<li>
+如果匿名内部类需要传递参数,在参数中使用时,必须final
+</li>
+<li>
+可以给匿名内部类定义属性并初始化,使用{}
+</li>
+</ul>
+<li>
+使用
+</li>
+<ul>
+<li>
+传递参数
+<pre class="brush: java">
+class A
+{
+private String name;
+
+public A(int num)
+{
+	System.out.println("num is "+num);
+}
+public A(){}
+}
+
+class  B
+{
+private A getA(final int num)
+{
+	return new A(num){
+		public int getNum()
+		{
+			return num;
+		}
+	};
+}
+}
+</pre>
+</li>
+<li>
+实例化匿名内部类的属性
+<pre class="brush: java">
+	public A getA()
+	{
+		return	new A()
+	 	{
+			private int num = 0;
+			private String str;
+			{
+				str = "lord";
+			}
+		}
+	}
+</pre>
+</li>
+</ul>
+</ol>
+<h3 id="toc_0.0.2">流</h3>
+<h4 id="toc_0.0.2.1">从文件中读取数据写入流中</h4>
+<ul>
+<li>
+建立文件输入流 -- new <a href="FileInputStream.html">FileInputStream</a>("文件路径名称")
+</li>
+<li>
+从<a href="FileInputStream.html">FileInputStream</a>流中读取的数据可以存放在int类型变量中,再char(变量)来转换
+</li>
+<li>
+从流中读取数据 -- int c = in.read()
+</li>
+</ul>
+<h4 id="toc_0.0.2.2">将流中的数据写入到文件中</h4>
+<ul>
+<li>
+建立文件输出流 -- new <a href="FileOutputStream.html">FileOutputStream</a>("文件路径名称")
+</li>
+<li>
+将数据写入文件 -- out.write(从输出流中读出的int型变量);
+</li>
+</ul>
+<h4 id="toc_0.0.2.3">缓冲文件流读取数据</h4>
+<ul>
+<li>
+建立缓冲文件读取流 -- new <a href="BufferedReadaer.html">BufferedReadaer</a>(new <a href="FileReader.html">FileReader</a>("文件名路径"));
+</li>
+<li>
+读取文件-- br.readLine()
+</li>
+</ul>
+<h4 id="toc_0.0.2.4">缓冲文件流写入数据</h4>
+<ul>
+<li>
+建立缓冲文件写入流 -- new <a href="BufferedWriter.html">BufferedWriter</a>(new <a href="FileWriter.html">FileWriter</a>("文件名路径"));
+</li>
+<li>
+将字符串写入文件 -- bw.write(s);
+</li>
+<li>
+换行符 -- bw.newLine();
+</li>
+<li>
+将缓存一次写入文件 -- bw.flush();
+</li>
+</ul>
+<h4 id="toc_0.0.2.5">文件编码</h4>
+<ul>
+<li>
+new <a href="OutputStreamWriter.html">OutputStreamWriter</a>(new <a href="FileOutputStream.html">FileOutputStream</a>("文件名路径",true),"gb2312");
+</li>
+</ul>
+<h4 id="toc_0.0.2.6">数据流</h4>
+<ul>
+<li>
+<a href="ByteArrayOutputStream.html">ByteArrayOutputStream</a> <a href="DataOutputStream.html">DataOutputStream</a>
+</li>
+<ul>
+<li>
+bos.writeDouble()
+</li>
+<li>
+bos.writeBoolean()
+</li>
+</ul>
+<li>
+<a href="ByteArrayInputStream.html">ByteArrayInputStream</a> <a href="DataInputStream.html">DataInputStream</a>
+</li>
+<ul>
+<li>
+bis.readDouble()
+</li>
+<li>
+bis.readBoolean()
+</li>
+</ul>
+</ul>
+<h4 id="toc_0.0.2.7">输出流</h4>
+<ul>
+<li>
+建立打印输出流 <a href="PrintStream.html">PrintStream</a> ps = new <a href="PrintStream.html">PrintStream</a>(new <a href="FileOutputStream.html">FileOutputStream</a>("文件路径名"));
+</li>
+<li>
+设置输出对象 -- System.setOut(ps);
+</li>
+<li>
+打印 -- System.out.print(字符串);
+</li>
+</ul>
+<h4 id="toc_0.0.2.8">文件输出到控制台</h4>
+<ul>
+<li>
+设置输出到控制台 -- <a href="PrintStream.html">PrintStream</a> ps = System.out
+</li>
+</ul>
+<h4 id="toc_0.0.2.9">从控制台获取数据</h4>
+<ul>
+<li>
+从终端读取数据到<a href="BufferedReadaer.html">BufferedReadaer</a>中 -- new <a href="BufferedReadaer.html">BufferedReadaer</a>(new <a href="InputStreamReader.html">InputStreamReader</a>(System.in))
+</li>
+<li>
+从缓冲里中读取数据 -- br.readLine();
+</li>
+<li>
+建立打印输出流 -- new <a href="PrintWriter.html">PrintWriter</a>(new <a href="FileWriter.html">FileWriter</a>("文件路径名"),true)
+</li>
+<li>
+向打印流写入数据
+</li>
+<ul>
+<li>
+pw.write(字符串);
+</li>
+<li>
+pw.println(字符串);
+</li>
+</ul>
+</ul>
+        </div>
+<div id="footer"><center>
+            Copyright@2010 arch Powered by <a href="http://vimwiki.googlecode.com/">Vimwiki</a>
+	 <script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.js"></script></center>
+        </div>
+    </body>
+</html>

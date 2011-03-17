@@ -1,0 +1,2 @@
+svn checkout https://personal-note.googlecode.com/svn/trunk/ personal-note --username caohw80@gmail.com
+caohw80@gmail.com's googlecode.com password: eB3QY4ah3yU3

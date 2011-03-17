@@ -1,0 +1,246 @@
+linux笔记
+  linux usage
+  linux Administrator
+  Linux Shell Programming(脚本编程)
+  System Programming in linux(c c++编程)
+内核的基本功能
+  kernel's Basic Functions
+     hard/ware management
+     VFS(虚拟文件管理系统)
+     Memeory management
+     IO
+     Process management
+ linux的安装
+  磁盘分区
+** HASH表
+  主分区 装操作系统的分区
+  扩展分区 主分区和扩展分区一起只能有四个
+  逻辑分区 在扩展分区上可以再分多个逻辑分区
+Linux分区管理
+ /dev 所有设备文件所在的目录
+ /  根分区
+ /usr 应用软件存放位置
+ /home 用户目录 
+ /var 临时文件
+ /boot 启动文件
+ swap 交换分区
+  start x 启动到x windows界面
+  查看目录 ls
+  到指定目录  cd 目录
+  查询当前用户 whoami
+  hd Ide磁盘
+  sd sata磁盘
+  hda ide的第二个硬盘
+  hda1 ide的第一个磁盘的第一个分区
+  逻辑分区永远从5开始
+磁盘分区和挂载点
+  删除目录 rmdir 目录名
+  建立目录 mkdir 目录名
+  挂载命令 mount /dev/cdrom /mnt/cdr
+  卸载 umount /dev/cdrom
+mbr
+  位于第一个物理扇区 柱面0 磁头0 扇区1处
+  包含硬盘的主引导程序和硬盘分区表
+linux启动顺序
+  load bios (hardware information)
+  read MBR's config to find out the OS
+  load the kernel of the OS 
+  init process starts
+  execute /etc/rc/d/sysinit
+  start other modules (etc/modules.conf)
+  execute the run level scripts 系统分层启动
+    init n
+        0 系统停机
+	1 单用户工作
+	2 多用户无nfs
+	3 多用户有nfs
+	4 系统未使用,留给用户
+	5 图形界面
+	6 系统正常关闭并重新启动
+  execute /etc/rc.d/rc.local 
+  execute /bin/login
+  shell started
+ 退出terminal exit
+ 注销 logout
+ 关闭 shuodown
+ 连续5次 esc 显示所有可用命令
+ls 列出所有目录和文件
+ls -l 竖着排列
+ls -m 横着排列
+
+cd 进入目录
+mkdir 建立目录
+rmdir 删除目录
+rm -rf 目录名 删除目录和其下所有文件
+touch 文件名 创建指定文件
+tree 显示目录树
+more 分页显示文本文件内容
+cp  A B A复制B
+cp -r 复制目录
+mv A directory A移动到目录
+
+vi 常用命令
+vi fileName 创建文件并编辑
+两种模式: 命令模式 编辑模式
+ a  进入编辑模式
+ esc 返回命令模式
+ :w 存盘
+ :q 退出
+ :q! 不保存退出
+ cat 查看文件内容
+ tac 逆序查看文件内容
+ head -n fileName 查看开始的n行内容
+ tail -n  fileName 查看最后的n行内容
+ clear 清屏
+ find 查找文件 
+ grep 在指定的文本文件中查找指定字符串
+ whereis 命令名 看命令的路径(环境变量)
+ echo $PATH 查看环境变量
+ ln fileName linkName 将文件设置链接(硬链接)
+ ln-s fileName linkName 将文件设置链接(软链接)
+ 
+用户管理
+ adduser/useradd userName 添加用户
+ passwd userName 设定密码
+ /etc/
+ 
+ shell知识
+  bash
+   sh
+   csh
+   ksh
+
+添加组
+  groupadd groupName 添加组
+  默认情况下没有指定组添加的用户与当前用户组相同
+更改组
+usermod -g userName groupName 
+删除用户
+  删除用户 userdel userName
+  删除用户目录 rm -rf userName
+
+用户登陆
+ su userName 切换用户
+ pwd 查看当前目录
+ exit 退出该用户
+
+ 文件权限
+  四种 null read write executive
+ 分三组 
+    第一组 该作者权限
+    第二组 该作者同组权限
+    第三注 其他人权限
+ 更改权限 chmod 
+ chmod +x fileName 赋予可执行权限
+ chmod -x fileName 减去可执行权限
+ chmod 777 fileName 赋予全部权限
+ chmod 755 fileName 
+ 更改所有者
+  chown userName fileName
+ln 建立链接文件
+wc 统计指定文件的行数字数字符处
+
+管道
+ 将一个命令的的输入传递给另一个命令,作为另一个命令的输入
+  命令1 | 命令 2 | 命令3.....
+
+  例子:
+   ls -R | /etc | more 分页显示etc下文件和目录
+   cat /etc/passwd |wc 统计passwd 文件的字数
+   cat /etc/passwd | grep lrj 查看passwd文件中含有lrj的行
+   dmesg | grep eth0 查看启动信息中网卡
+   man bash | col -b>bash.txt 
+   ls -l | grep "^d" 只列出目录
+   ls -l * |grep "^-" |wc -l 查看当前目录下有多少文件
+重定向
+ stdin
+ stdout
+ > 把命令的结果输入到>右端的文件中
+ 2> 错误命令重定向
+ 
+在linux和其他机器之间共享文件
+ 在linux下建立一个ftpserver 通过windows上传
+ redhat下ftpserver配置安装
+ redhat vsftp配置
+  启动ftpserver
+   service vsftpd start
+  验证ftpserver是否启动
+   ftp localh ost
+  退出ftp
+   bye
+  关闭ftpserver
+   service vsftpd stop
+  查询Ip
+   ifconfig
+ 网卡的四种链接方法
+  bridged 桥接  
+  host-only 只跟本地机器组成私有网络 一般虚拟机选这个
+  custom  
+ 如果ping不通,可能情况
+  线路 防火墙
+ 如果ftp连不上,肯能情况
+  防火墙 ftpserver是否启动
+ 关闭linux下防火墙iptable
+  service iptable stop
+ 开启vsftpd的本地账户
+  vim /etc/vsftpd.conf
+  开启 local_enable=yes
+ 设置vsftpd的开机自启动;
+ 方法1: 在etc/rc.local 中加入/usr/local/bin/vsftpd& &表示后台启动
+ 方法2: chkconfig vsftpd on 
+  chkconfig --list| more
+  chkconfig --list|grep vsftpd 查看vsftpd的启动信息
+
+设置linux的默认启动级别
+  vi /etc/inittab
+  id:3:initdefault:
+
+远程登录服务
+  telnet 默认明文传输信息
+  ssh 加密传输
+  启动ssh服务 service sshd start
+  加入后台自动启动 chkconfig sshd on
+  win下 ssh客户端 最多的putty
+
+jdk的安装
+ 1 bin文件的安装
+  ./fileName.bin
+ 2 rmp安装
+ 3 源码安装 make makeinstall
+ 确认java安装 java -version
+ java 目录 /usr/java
+ classpath的设定
+ JAVA_HOME设定 
+   JAVA_HOME=/usr/java/jdk1.6/
+   export JAVA_HOME
+
+.gz 解压 gzip -d fileName.gz
+    -d 解压缩 -
+.tar 解压 tar -xvf fileName.tar
+    -x 解压缩 -v 显示详细过程
+文件夹改名
+  mv fileName1 fileName2
+
+sh文件启动 ./fileName.sh
+
+tomcat安装
+ 解压-->mv 到合适的位置(比如根目录)
+ 启动 ./start.sh
+ 检查是否启动成功 
+ps查看进程
+   ps -ef | grep 服务名
+关闭某服务 chkconfig iptable off;
+不能shuodown tomcat服务,否则会造成死机
+kill 进程号
+检查端口  
+常见问题 jdk和tomcat的版本冲突
+
+检查所有rpm格式安装的包
+  rpm -qa
+ 查看是否安装了某软件
+  rpm -qa | grep 软件名
+ 卸载rpm安装软件
+  rpm -e 包名
+rpm软件安装
+  rpm -ivh 文件名
+

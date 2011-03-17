@@ -1,0 +1,94 @@
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css" />
+<title>struts标签</title>
+<meta http-equiv="Content-Type" content="text/html; charset=" />
+</head>
+<body>
+
+<div class="toc">
+<ul>
+<li><a href="#toc_0.1">html</a></li>
+<ul>
+<li><a href="#toc_0.1.1">作用</a></li>
+<li><a href="#toc_0.1.2">使用固定属性名称的Struts 标签</a></li>
+<ul>
+<li><a href="#toc_0.1.2.1">id</a></li>
+<li><a href="#toc_0.1.2.2">name</a></li>
+<li><a href="#toc_0.1.2.3">property</a></li>
+<li><a href="#toc_0.1.2.4">scope</a></li>
+</ul>
+</ul>
+<li><a href="#toc_0.2">bean</a></li>
+<ul>
+<li><a href="#toc_0.2.1">作用</a></li>
+</ul>
+<li><a href="#toc_0.3">logic</a></li>
+<ul>
+<li><a href="#toc_0.3.1">作用</a></li>
+</ul>
+<li><a href="#toc_0.4">template</a></li>
+<ul>
+<li><a href="#toc_0.4.1">作用</a></li>
+</ul>
+<li><a href="#toc_0.5">nested</a></li>
+<ul>
+<li><a href="#toc_0.5.1">作用</a></li>
+</ul>
+<li><a href="#toc_0.6">html:multibox</a></li>
+<ul>
+<li><a href="#toc_0.6.1">用法</a></li>
+<ul>
+<li><a href="#toc_0.6.1.1">页面</a></li>
+<li><a href="#toc_0.6.1.2">action配置</a></li>
+</ul>
+</ul>
+</ul>
+</ul>
+</div>
+<p>
+struts的5个标签库
+<h2 id="toc_0.1">html</h2>
+<h3 id="toc_0.1.1">作用</h3>
+创建能够和struts框架和其他相应的Html标签交互的html输入表单
+<h3 id="toc_0.1.2">使用固定属性名称的Struts 标签</h3>
+<h4 id="toc_0.1.2.1">id</h4>
+命名自定义标签创建时的脚本变量名
+<h4 id="toc_0.1.2.2">name</h4>
+</p>
+<ul>
+<li>
+指出其关键字值的bean
+</li>
+</ul>
+<h4 id="toc_0.1.2.3">property</h4>
+<h4 id="toc_0.1.2.4">scope</h4>
+<h2 id="toc_0.2">bean</h2>
+<h3 id="toc_0.2.1">作用</h3>
+<p>
+在访问javaBeans及其属性以及定义一个新的bean时使用
+<h2 id="toc_0.3">logic</h2>
+<h3 id="toc_0.3.1">作用</h3>
+管理条件产生的输出和对象集产生的循环
+<h2 id="toc_0.4">template</h2>
+<h3 id="toc_0.4.1">作用</h3>
+tiles框架包已及取代
+<h2 id="toc_0.5">nested</h2>
+<h3 id="toc_0.5.1">作用</h3>
+增强对其他的struts标签的嵌套使用的能力
+<h2 id="toc_0.6">html:multibox</h2>
+<h3 id="toc_0.6.1">用法</h3>
+<h4 id="toc_0.6.1.1">页面</h4>
+</p>
+<pre class="brush: jsp">
+ &lt;html:form action="/checkbox.do" method="post"&gt;
+   &lt;html:multibox property="checkList" value="001"/&gt;001<br/>
+   &lt;html:multibox property="checkList" value="002"/&gt;002<br/>
+   &lt;html:multibox property="checkList" value="003"/&gt;003<br/>
+   &lt;html:submit /&gt;<br/>
+  &lt;/html:form&gt;
+</pre>
+<h4 id="toc_0.6.1.2">action配置</h4>
+
+</body>
+</html>

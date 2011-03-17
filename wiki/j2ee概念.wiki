@@ -1,0 +1,80 @@
+%toc
+==j2ee的基本概念==
+===java数据库信息系统上的实现===
+   * j2ee主要是指b/s结构的实现
+===一种框架和标准===
+   * 类似API 库的概念
+     - 设计模式
+   * 包罗了java的多种先进技术,最适合用mvc的方法来构建系统
+    - 表现层用jsp
+    - 控制层用Servlet和Session,用于实现业务逻辑
+    - Entity Bean对业务实体进行抽象
+    - jaas实现安全机制
+    - jndi用于查询资源
+    - jdbc和jta访问数据库和管理事务
+    - jms实现企业的消息处理
+    - javamail实现企业与外界联系
+==内容==
+===j2ee标准的三项子技术标准===
+====web技术====
+     - Jsp/Servlet
+     - {{{JavaBean}}} 
+       - 一种组件架构技术
+       -  java的核心基础部分
+       - 很多设计模式基于
+====ejb技术====
+     -  ejb是{{{JavaBean}}}的提升和规范
+     	-  企业信息系统开发中需要一个可伸缩的性能和事务,安全机制来保证系统平滑发展
+     -  {{{JavaBean}}}技术发展
+       - EJB
+       - JOPO 
+         - 普通的{{{JavaBeans}}},不依附于某种框架  
+====JMS====
+=== 技术应用内容 ===
+====容器====
+    - jsp/Servlet容器
+      - web应用需要Jsp/Servlet库的支持
+    - 分类
+      - WEB容器
+        - tomcat resin jboss
+      - EJB容器
+        - jboss websphere weblogic 
+==== 应用====
+===开发工具===
+  * netBeanse  clipse/myeclipse  deas
+  * j2ee开发工具需要指定j2ee容器
+===j2ee系统与数据库===
+  * 数据库连接通过jndi获得
+    - j2ee基本与数据库无关
+  * 耦合数据库Jdbc驱动的配置
+    - 不推荐与具体数据库耦合
+===框架===
+==== 解耦性====
+    -  系统的各个功能能够彻底脱离
+    -  作为衡量J2ee系统设计开发水平高低的标准
+==== 划分====
+    - 表现层
+      - web 
+    - 服务层
+      - ejb 
+    - 持久层
+      - ejb
+==== 服务层框架====
+   - 工厂模式/ioc的约束javaBeans形成服务层
+   - 框架选择
+    - javaBeans框架 轻量级系统
+    - ejb框架
+====表现层框架====
+    - 通过标签库实现
+    - struts jsf
+====持久层框架====
+    - 作用 
+      将数据库存储从服务层分离
+    - 分类
+     - 直接自己写Jdbc  ibatis
+     - 使用orm mapping技术  Hibernate/JDO
+     - EJB的实体Bean
+===j2ee开发的要点===
+ * Domain Model
+ * Patterns
+ * Framework

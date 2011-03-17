@@ -1,0 +1,9 @@
+首先,安装mysql server后，最好去下载MySql Administrator，用来编辑table的schema很方便，还有Mysql Query Browser编辑表的方法很简单。
+然后,下载最新版本的Mysql和java连接的jar，一定要使最近的. 然后把路径写入classpath里面，比如说我把它放在了C:\Program Files\Borland\JBuilder2005\jdk1.4\lib这个文件夹下，则我在classpath中加入C:\Program Files\Borland\JBuilder2005\jdk1.4\lib\mysql-connector-java-3.0.16-ga-bin.jar 
+好了，下面开始在jbuilder中进行设置了 
+1.在jbuilder主菜单中选择Tools-->Configure-->Libraries 
+2.再弹出的对话框中看左部，选择User Home，然后点击下面的New，再弹出的对话框中，把名称设置为Mysql,然后点击Add键，再弹出的文件夹对话框中选择C:\Program Files\Borland\JBuilder2005\jdk1.4\lib这个文件夹中的mysql-connector-java-3.0.16-ga-bin.jar文件，点击确定 
+3.点击确定退出Configure Libraries 
+4.在主菜单中点击Enterprise-->Enterprise Setup，在左边选择Database Driver，可以发现右面显示的没有Mysql,然后点击右边按钮Add，再弹出的对话框中选择User Home下的Mysql，好啦 
+5.来确定一下是否能连接拉，可以直接使用jbuilder提供的工具Database Pilot,点击Files-->New,设置 url:jdbc:mysql://localhost:3306/mysql(这个是要连接的数据库名称) driver: org.gjt.mm.mysql.Driver username 一般是root，这个要看你自己的设置了
+6.双击右边列表中的这个数据库连接，如果连接成功，那么你就可以在jbuilder中写代码手动连接咯，在Database Pilo里面可以输入sql语句，来检验是否能得到想要的结果:-) 博客网版权所有

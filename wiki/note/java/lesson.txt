@@ -1,0 +1,21 @@
+java常用类
+一 简单类型包装类
+1.用于将简单类型数值转换为对象类型
+2.包装类：byte-java.lang.Byte
+          short-java.lang.Short
+          int-java.lang.Integer
+          long-java.lang.Long
+          float-java.lang.Float
+          double-java.lang.Double
+          boolean-java.lang.Boolean
+          char-java.lang.Character
+3.继承结构         Object
+       Boolean     Character       Number
+                                Byte Short Float Double                            
+4.创建简单类型包装类
+ 构造方法 传简单类型（不包异常）
+  byte b = 10;
+  Byte bb = new Byte(b);
+  构造方法传 String
+  String s = "abc";
+  Integer io = new            

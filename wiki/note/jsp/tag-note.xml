@@ -1,0 +1,13 @@
+1.标签库的作用:
+   避免出现<%..%>之类的script代码,标签库的作用类似javaBean
+2.标签程序的组成:
+  标签的具体实现文件(*.java)
+  标签的描述文件(*.tld)
+  如果需要在web.xml中进行配置
+  在jsp中通过标签进行自定义的标签引用  
+doStartTage:表示标签的开始
+doStartEnd:表示标签的结束
+*.tld文件是标签的描述文件,对标签库的运行起绝对作用,*.tld也是xml文件
+  需要DTD SCHEMA支持
+3.在servlet中打印,则需要PrintWriter方法
+  在标签库中打印,则需要pageContext方法

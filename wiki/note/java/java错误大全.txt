@@ -1,0 +1,443 @@
+ java错误集合
+
+该错误集合是从网络上搜索到的别人的一些错误处理集合
+0、 需要标识符
+a) 不在函数内
+
+1、 非法表达式开始
+b) 可能:丢失括号 .
+
+2. no data found
+a) 可能:setInt(1,100)中,没有100这个值
+
+3. 找不到符号
+a) 可能:没导入包
+
+4. 指定了无效URL
+a) 可能:数据库名或IP错误,即连接出错
+
+5. 类路径没有找到
+a) 可能: ClassNotFoundException: oracle.jdbc.driver.OracleDriver
+b) 原因: 一般是指包名写错,或者没有import包,或者没有在类路径中找到jar文件
+c) 解决: 没有加载Oracle驱动jar,在.bash_profile中把ojdbc14.jar加进来
+
+6. 空指针异常
+a) 可能: 数据源错误 比如数据库名或IP错误
+
+7. 不能执行查询
+a) 可能: 数据库中表的问题,比如列名不存在
+
+8. invalid identity
+a) 可能: 列名出错
+
+9. 若在数据库中创建了 两个sequence ,运行时出现异常可能是先后执行了多次select语句,导致与原有的序列号产生冲突
+
+10. 表名或列名不存在
+a) 可能:表不存在或者没有插入数据到表中
+
+11. 不支持的类,类的版本错误
+a) 可能:没有导入jdk5.0,或者编译器仍为1.4
+
+12. MappingNotFoundException
+a) Maybe: In the Eclipse Not refersh , or not exist in the dirctory
+
+13. HibernateException: /hibernate.cfg.xml not found
+a) Maybe1: hibernate.cfg.xml not in the root directory
+b) Maybe2: Could not parse configuration .
+c) resolve: database not connect or use another database
+
+14. ConstraintViolationException
+a) Maybe: used a not true database
+
+15. 驱动没有找到 或者 JDBC Driver not found
+可能：连接数据库的驱动jar包不存在或者版本不一致，比如将旧的版本换成新的会造成该类错误
+
+16. 空指针异常 ， java.lang.NullPointerException
+a) 可能1：数据库连接出错，比如在hibernate.cfg.xml中的数据错误会导致异常。
+
+17. 数据插入异常 ，GenericJDBCException: could not insert
+a) 可能1：没有建立表或者表中没有任何数据
+b) 可能2：插入数据后没有执行提交语句：commit
+
+18. LazyInitializationException 或者延迟加载异常
+a) 可能1：没有在查询语句中加fetch
+
+19. IdentifierGenerationException
+a) 可能1：高位表没有初始化（比如hi_value中没有记录)
+
+20. could not initialize a collection: [hibernate.entity.Role.modules#32768] Syntax error: Encountered "-" at line 1, column 132.
+a) 错误原因：<set name="modules" table="module-role" lazy="false">红色字部分中“-”为非法字符，替换为module_role
+
+21. could not insert collection rows: [hibernate.entity.Module.roles#1]
+在Module.hbm.xml文件的如下配置中加入inverse=”true”
+<set name="roles" table="module_role" inverse="true">
+22．在部署Struts时，出现如下错误信息：
+HTTP Status 404 - Servlet action is not available
+
+type Status report
+message Servlet action is not available
+description The requested resource (Servlet action is not available) is not available.
+问题原因：
+1.、web.xml文件中未配置ActionServlet。
+2、struts-config.xml文件未配置你要访问的Action。
+3、你的jsp文件form标记中action属性的路径名称错误。
+4、非以上三种情况。
+针对以上4种情况相应的解决方案如下：
+1、在web.xml文件中加上ActionServlet的配置信息
+?????? /WEB-INF/struts-config.xml?
+?2、在struts-config.xml文件检查你要访问的Action配置文件。
+3、检查jsp文件form标记中action属性的路径名称是否与struts-config.xml文件中action标记的path属性的路径名称一致。
+4、非以上情况的解决办法就是检查web容器的log日志，如果时tomcat则检查下logs目录下的localhost_log文件，看里边是否记录有错误信息，然后根据错误信息提示将其纠正。
+23．java.lang.NoClassDefFoundError: org/apache/commons/beanutils/Converter
+缺少spring-framework-2.0.3\lib\jakarta-commons\commons-beanutils.jar
+24.
+ava 代码Caused by: java.lang.NoClassDefFoundError: org/objectweb/asm/Type
+缺少spring-framework-2.0.3\lib\asm\asm-2.2.2.jar包,版本不同,该包的名字有相应的区别
+java 代码Caused by: java.lang.NoClassDefFoundError: org/dom4j/DocumentException
+缺少spring-framework-2.0.3\lib\dom4j\dom4j-1.6.1.jar包,版本不同,该包的名字有相应的区别
+把这个包进去就可以了：\Spring206\lib\dom4j、dom4j-1.6.1.jar
+java 代码Caused by: java.lang.NoClassDefFoundError: org/apache/commons/collections/SequencedHashMap
+缺少spring-framework-2.0.3\lib\jakarta-commons\commons-collections.jar包,版本不同,该包的名字有相应的区别
+java 代码Caused by: java.lang.NoClassDefFoundError: net/sf/cglib/proxy/CallbackFilter
+缺少spring-framework-2.0.3\lib\cglib\cglib-nodep-2.1_3.jar包,版本不同,该包的名字有相应的区别
+java 代码Caused by: java.lang.NoClassDefFoundError: org/objectweb/asm/CodeVisitor
+缺少hibernate-3.2\lib\asm.jar包,版本不同,该包的名字有相应的区别
+java 代码
+org.hibernate.exception.SQLGrammarException: could not load an entity: [www.proudsoul.xml.User#1]
+JAVA工程与WEB工程包的区别:一个是asm.jar,一个是jta.jar
+java 代码Caused by: java.lang.NoClassDefFoundError: javax/transaction/TransactionManager
+缺少spring-framework-2.0.3\lib\j2ee\jta.jar包,版本不同,该包的名字有相应的区别此种错误请检查相应的***.hbm.xml配置文件的配置
+25,
+Exception in thread "main" org.springframework.dao.InvalidDataAccessResourceUsageException: could not get next sequence value; nested exception is org.hibernate.exception.SQLGrammarException: could not get next sequence value
+Caused by: org.hibernate.exception.SQLGrammarException: could not get next sequence value
+原因：没有加Sequence或者数据库的方言写错了
+26,
+我的配置文件
+<id name="id" column="id">
+<generator class="native" />
+</id>
+然后我运行保存一条数据进去
+The database returned no natively generated identity value
+就会报这个错误
+因为你native是根据看底层数据库的能力选择identity, sequence 或者hilo中的一个
+而我建表的时候id没有指定
+alter table `student` change `id` `id` int auto_increment
+我们把我们的表的结构小小的改动一下就没问题了
+27,
+UpdateManager 无法启动2007-08-09 15:21如果在应用程序安装过程中，暴力中断安装程序，会出现如下状况：1.apt-get remove 和dpkg --remove 无法删除软件 2.UpdateManager无法启动3.新立得软件包管理程序无法启动
+以上可能是deb损坏之类造成的
+sudo dpkg -r sqldveloper
+正在读取软件包列表... 完成
+正在分析软件包的依赖关系树... 完成
+E: 软件包 sqldeveloper 需要重新安装，但是我无法找到相应的安装文件。
+解决方法：1.从 /var/lib/dpkg/status 中把对应的段删掉
+重要：修改之前请先备份
+在status中找到你对应的包删除就OK了...
+28,
+Exception in thread "main" java.lang.NoClassDefFoundError: antlr/ANTLRException
+少了antlr-2.7.5H3.jar包,从D:\eclipse\eclipse\plugins\com.genuitec.org.hibernate.eclipse_4.1.1\myeclipse-data\3.0\lib
+29,
+Caused by:
+java.lang.NoClassDefFoundError: javax/transaction/Synchronization
+缺少Spring206\lib\j2ee\jta.jar
+30,
+Caused by:
+java.lang.IllegalArgumentException: Cannot convert value of type [$Proxy3] to required type [business.impl.PriceBiz] for property 'priceBiz': no matching editors or conversion strategy found
+在java类中设置priceBiz时应该设置的是接口PriceBizIf，而非实现类
+18, 数组越界
+可能1: 在命令行后面需要加入参数.
+可能2:加入的参数错误
+19, car is not mapped
+可能1: 在cfg.xml中没有增加映射的hbm.xml文件在<mapping.../>中
+20, 属性没有找到
+可能1: hbm.xml文件中的 <property name =""> 有问题, 也许是name的值与对应类中的成员名不一致
+21,SQLException: 无当前连接 可能1:在比如创建帐户时没有对相应的方法添加到<list>中去,比如这个没有加入:<value>newAccount</value>
+
+<bean id="transactionAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+<property name="advice">
+<ref bean="advice"/>
+</property>
+<property name="mappedNames">
+<list>
+<value>transfer</value>
+</list>
+</bean>
+22,SQLException: Syntax error: Encountered "table" at line 1, column 8.
+可能1;执行SQL时出现冲突,可能是SQL语句中使用了关键字作为变量来用,比如
+update order set balance=1000000;
+其中order被用作表名来使用,这是错误的,因为order是个关键字,用在order by中
+23, Servlet /Spring-WebMvc threw load() exception
+org.xml.sax.SAXParseException: Document root element "beans", must match DOCTYPE root "null".
+jar包的冲突,spring-1.2.6.jar和spring.jar出现在一个war的目录中:JBoss/server/all/deploy/Spring-WebMvc.war/WEB-INF/lib
+24, java.sql.SQLException: 当事务仍处于活动状态时，无法关闭连接。
+
+25 ,
+validateJarFile(/home/soft01/Tomcat/webapps/sms-token-struts/WEB-INF/lib/servlet-api.jar)
+Servlet /sms-struts-tiles threw load() exception
+java.lang.ClassNotFoundException: org.apache.struts.action.ActionServlet
+原因:在WEB-INF/lib/ 目录下有servlet-api.jar与/Tomcat/common/lib目录下的servlet-api.jar冲突了,把WEB-INF/lib/下的servlet-api.jar删除就可以了
+26,java.lang.ClassNotFoundException: org.springframework.web.struts.ContextLoaderPlugIn
+Marking servlet action as unavailable
+10:30:47,088 ERROR [/NetCT_OSS]:3953 - Servlet /NetCT_OSS threw load() exception
+javax.servlet.UnavailableException
+27,org.xml.sax.SAXParseException: Document root element "beans", must match DOCTYPE root "null".
+缺少MyEclipse/eclipse/plugins/com.genuitec.eclipse.springframework_5.5.0/data/2.0/dist/modules/spring-struts.jar
+28,Caused by: java.sql.BatchUpdateException: ORA-02291: integrity constraint (SD0702.FK82D343CF49A4B831) violated - parent key not found
+Caused by: org.hibernate.exception.ConstraintViolationException: Could not execute JDBC batch update
+有可能是ID生成策略的问题,我将它XML映射文件改成<generator class="increment" />就好了
+29,
+2007-08-19 16:21:43,290 ERROR [org.apache.catalina.core.ContainerBase.[Catalina].[localhost].[/OSS].[action]] - Servlet.service() for servlet action threw exception
+org.hibernate.NonUniqueObjectException: a different object with the same identifier value was already associated with the session: [entity.Module#2]
+java.util.ConcurrentModificationException
+原因:已经有对象拥有了所选择的module,用clear(),而不是remove();
+30,
+ERROR [org.apache.catalina.session.ManagerBase] - IOException while loading persisted sessions: java.io.InvalidClassException: entity.Module; local class incompatible: stream classdesc serialVersionUID = -5988350031935445758, local class serialVersionUID = -297934247726484429
+java.io.InvalidClassException: entity.Module; local class incompatible: stream classdesc serialVersionUID = -5988350031935445758, local class serialVersionUID = -297934247726484429
+在Module中加上一个关键字:transient
+31,
+Caused by: java.sql.BatchUpdateException: ORA-02292: integrity constraint (SD0702.SYS_C00132664) violated - child record found
+原因:有其他的表引用了该表的外建,所以报这个异常,如果没有引用就不会出现
+32,
+出现数组越界的时候,看看是不是循环时没有加=,比如:
+for(int i = 1; i<arr.length;i++)可以改成
+for(int i = 1; i<=arr.length;i++)
+
+1.如果使用Ant和Junit是被报找不到test,检查一下是否误用了private
+出错信息：
+<failure message="No tests found in test.AllTest" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: No tests found in test.AllTest
+该错误有个很特别的特点，当你不通过ant来运行测试，而是通过AllTest类来运行的话，可以正常运行。小心哦
+2.如果遇到报：表名无效，且jvm报严重错误，看看是不是用了数据库的保留关键字来做表名了，如User。
+3.使用ant时必须小心ant的classpath它用的不是IDE的classpath，小心!
+4.小心下边的异常，
+exception setting property value with CGLIB (set hibernate.cglib.use_reflection_optimizer=false for more info) setter of xp.bean.Users.?" type="net.sf.hibernate.PropertyAccessException">java.lang.ClassCastException at xp.bean.UsersMetaClass1.setPropertyValues(<generated>) at net.sf.hibernate.persister.AbstractEntityPersister.setPropertyValues
+上次出现该错错误的原因是:
+源文件里我的class类型为一个类Contact contact
+而跑到mapping里却成了Set,呵呵厉害。
+5.突然间冒出大量的NullPointException
+重新build一下看看先。
+6.="Flush during cascade is dangerous - this might occur if an object was deleted and then re-saved by cascade"
+7.Tapestry的出错信息：
+Class com.bookshop.Hello does not implement the IPage interface.
+location: context:/WEB-INF/Home.page, line 6
+原因：与显示有关的哪个java类没有从IPage家族继承。
+8.使用ant时给出的路径好象不允许出现空格。
+9. 由于使用ant时用junit做测试的话，classpath中出现j2ee.jar的话，问题多多。例如xml格式的log文件生成不了，莫名其妙的 NullPointException等。所以我设置了两个包个包含j2ee.jar，为编译用；一个没有,为junit用
+10.进行单元测试时，在查询返回后应马上assertNotNull()，这样可以更快速的定位NullPointException
+11.要使用ResourceBundle的话，要千万小心。必须用日志记录下它的状态。还有该属性文件应该放在classes下面。
+12. 当要显示任何页面时，都被提示无效，那么应该检查一下lib目录了，还有一些很奇怪的异常，例如你明明可以找到一个类但是服务器却提示 ClassNotDefException，那么估计是缺少了该类所必须的包了。或者多了不兼容的包，如, xdoclet系列包不被struts的lib目录所兼容
+13.编写clone时从Java编程思想(2nd)上学到的(732)：
+.引数传递过程中会自动产生别名(alias)。
+.没有局域对象(local objects)，只有局域性的(local)references。
+.reference受范围(scope)的限制，对象则否。
+.对象的寿命从来不是Java的讨论议题(因为有垃圾回收机制)
+14.try catch finally的域居然是分离的。
+15.jsp乱码的其中一个原因：charset="gb2312" 等号"="的两边不允许有空格。
+16.我的基于Displaytag的简单报表解决方案。
+http://displaytag.sourceforge.net/
+下载displaytag.jar和displaytag.tld
+displaytag.jar放在lib目录，而displaytag.tld放在WEB-INF目录，在web.xml中为displaytag.tld声明一下。
+<taglib>
+<taglib-uri>http://displaytag.org</taglib-uri>
+<taglib-location>/WEB-INF/displaytag.tld</taglib-location>
+</taglib>
+在jsp里使用前，加上
+<%@ taglib uri="http://displaytag.org" prefix="display" %>
+
+注意该软件有个bug，他要用的一个包common-lang.jar版本必须在2.0以上。
+如果碰到下面异常，则应坚持一下是否该包的版本问题。
+java.lang.NoSuchMethodError: org.apache.commons.lang.StringUtils.capitalize(Ljava/lang/String;)Ljava/lang/String;
+然后就可放心使用了
+<display:column property = "xxx"/>其中xxx为对象中的带有getter的变量>。
+定义表格的样子，用css定义。如
+TABLE.its THEAD TR {
+BACKGROUND-COLOR: #69c
+}
+TABLE.its TR.even {
+BACKGROUND-COLOR: #def
+}
+在使用分页时，可能会出现这种情况，点击其他页时，弹出下载窗口，让你下载当前jsp页面，这是因为你在当前页面读取了数据的缘故。解决办法为在action里读取数据而不是在jsp里。可以参考
+http://www.displaytag.org/example-paging.jsp?d-26189-p=2
+17.使用displaytag时，在一列中放入多个元素
+必须在display:table中定义一个id
+<display:table name = "allBooks" class = "its" pagesize = "5" id = "item">
+<display:column title = "操作">
+<a href = "/Bookshop/admin/bookManagement.do?action=view&id=<%=((Book)item).getId()%>" target = "_blank" >查看</a>
+<a href = "/Bookshop/admin/bookManagement.do?action=edit&id=<%=((Book)item).getId()%>">编辑</a>
+<a href = "/Bookshop/admin/bookManagement.do?action=delete&id=<%=((Book)item).getId()%>">删除</a>
+</display:column>
+要在displaytag中使用链接，必须具备paramId，否则不显示为链接
+<display:column property = "product.name" href = "viewDetailV2.0.jsp" title = "书名" paramId="item" paramProperty="product.id"/>
+可以这样使用display
+<display:column property = "product.id" title = "ID"/>
+其中product为对象
+18.<bean:write name = "xxxx" property = "xxx"/> 可以直接取到session.getAttribute()取到的东西。
+19.实验struts-upload例子时要注意的地方：
+1.If you would rather write this file to another file, please check here:
+这一行要打钩
+2.If you checked the box to write to a file, please specify the file path here:
+在这里要重命名如：c:\b.jpg
+上传成功的话，会出现提示 The file has been written to "c:\b.jpg"
+20.Hibernate的like可以这么用：
+Query query = session.createQuery("from src.persistent.Book as book where upper(book.name) like :name ");
+query.setString("name", "%");
+result = query.list();
+21.Hibernate出现 duplicate import : className
+异常也可能是因为忘了为持久类在configuration中addClass了
+
+22.<logic:iterate id = "author" name = "authors">
+name所引用的是session里的attribute。
+23.如果发现要出现询问下载的情况，有可能是因为要跳转的页面出现了问题。试试在要跳转到的页删掉
+<%@ page contentType="text/html; charset=gb2312"%>
+24.如果JSP页面跳转时出现下边的错误信息：
+The request sent by the client was syntactically incorrect (Invalid path /web/shoppingCart was requested).
+原因是struts-config的action = "x" 写成了 action = "x.do"
+25.在struts中，strut-config.xml中，forward时使用redirect = "true"可以将.do重定向为.jsp
+26.以后在判断相等性之前先用logger把两个值显示出来。
+27.从session里getAttribute后，修改并不需要重新setAttribute一次。
+28.在hibernate中使用subclass是一棵继承树共用一个表，仅生成个mapping。
+每个类中必须有discrimator-value。在最上层的类中必须声明：
+@hibernate.discriminator column = "class"。
+不可以将子类添加到configuration里去。(即不可addClass(子类))
+使用Xdoclet的建立subclass的例子(该类是父类)
+/**
+* @hibernate.class discriminator-value = "customer"
+* @hibernate.discriminator column = "class"
+*/
+而使用joined-subclass则是一类一表,也不许将子类添加进configuration里去。
+/**
+* @hibernate.joined-subclass
+* @hibernate.joined-subclass-key
+* column="customer_id"
+*/
+如果发现生成的mapping文件中joined-subclass的key column为空，那么可能是@hibernate.joined-subclass-key这句没有写对。
+用joined-subclass生成的表，仔细看。Member extends Customer
+create table Customer (
+id VARCHAR2(255) not null,
+name VARCHAR2(255),
+description VARCHAR2(255),
+primary key (id)
+)
+create table Member (
+customer_id VARCHAR2(255) not null,
+password VARCHAR2(255),
+primary key (customer_id)
+)
+29.在junit中尽量使用assertEquals代替assertTrue;
+30.Hibernate
+如果Child extends Parent
+那么from Parent as parent 也将会将Child选出来，而from Child as child 则不会选出Parent
+31.Hibernate
+使用hibernate的one-to-one时，应该两方向都set,否则会报save NullPointException
+parent.setChild(child);
+child.setParent(parent);
+32.Hibernate
+遇到下边的异常，估计是与因为外键出现了问题：
+java.lang.NullPointerException
+at net.sf.hibernate.persister.AbstractEntityPersister.getPropertyValue(AbstractEntityPersister.java:675)
+at net.sf.hibernate.id.ForeignGenerator.generate(ForeignGenerator.java:33)
+如:
+* @hibernate.id generator-class = "foreign"
+* @hibernate.generator-param name = "property" value = "customer"
+* @hibernate.one-to-one name = "custmoer" class = "src.persistent.Customer"
+value的值和one-to-one 中name的值不符，则会出现上边的异常。如果不显示指定name则默认取成员变量名
+如
+Customer a
+则name = "a" 需要小心的是不是类名。所以，以后最好显示指定名字为好。
+33.出现异常：
+Exceptionobject references an unsaved transient instance - save the transient instance before flushing: src.persistent.Product
+原因没有为某对象进行set设置， 如上边的这个就是某对象没有调用setProduct
+34.
+"xxx action = "/a" 不用.do和根目录名
+<a href = "b.do" 需要.do和根目录名
+35.
+Caused by: java.sql.SQLException: ORA-02291: 违反完整约束条件 (BOOKSHOP.FK4AAEE
+47687CCA6B) - 未找到父项关键字
+如果你觉得该做的e是出现这个问题，那么检查一下，是否将类的继承关系在hibernate的mapping中反映了出来。joined-subclass或subclass
+例如a extends b
+如果持久类c 需要Set的是持久类a，那么你把b传入，而b又没有在mapping中将父子关系反映出来的话，就会出现该异常
+36.使用DynaActionForm需要注意的问题
+在struts-config声明
+<form-bean name="memberloginForm" dynamic ="true" type="org.apache.struts.action.DynaActionForm">
+<form-property name = "name" type = "java.lang.String"/>
+<form-property name = "password" type = "java.lang.String"/>
+</form-bean>
+在Action里将form强制转化成DynaActionForm，然后get("属性名")就可以了
+37.那位大侠能给出一个用hibernate进行分页得实际例子，学习中！
+http://forum.hibernate.org.cn/viewtopic.php?t=1772
+Query q = s.find(".....");
+q.setFirstResult(10); // 从第11条记录开始
+q.setMaxResults(100); // 取出100条
+......
+38.struts的validate最简单实现
+1.首先准备好错误提示信息。
+xxx.properties 里
+errors.required={0} is required.(默认已有)
+2.Form必须从ValidatorForm继承
+3.不可以重载ValidatorForm的validate函数
+4.在validate.xml中为你想验证的表单进行验证设计。例如
+<form name="logonForm">
+<field property="userName" depends="required">
+<arg0 key="prompt.userName"/>
+(该参数将在显示错误信息是从xxx.properties读取prompt.userName,填入{}方括号里，取代0。如果是arg1将将填入{1}位置，以此类推。
+</field>
+</form>
+不需要在action里做任何处理。只管forward就行了。作为forward的目标页，不需要任何有关用于处理出错信息的处理。
+39.服务器报
+The requested resource (/xxxx/xxx.htm) is not available.的很奇怪的一个的可能原因
+在web.xml中定义的tld，没有找到
+或者是lib目录下的包太多出现了问题。
+如
+<taglib>
+<taglib-uri>/spring</taglib-uri>
+<taglib-location>/WEB-INF/spring.tld</taglib-location>
+</taglib>
+如WEB-INF目录下不存在spring.tld的话，就会报上边的错误
+40.
+spring的xxx-servlet.xml的使用SimpleFormController系列的类问题：
+<bean id = "priceIncreaseForm" class="PriceIncreaseFormController">
+<property name="sessionForm"><value>true</value></property>
+<property name="beanName"><value>priceIncrease</value></property>
+<property name="commandClass"><value>PriceIncrease</value></property>
+<property name="formView"><value>priceIncrease</value></property>
+<property name="successView"><value>hello</value></property>
+<property name="productManager">
+<ref bean="prodMan"/>
+</property>
+</bean>
+这里要注意几个问题：
+(1)上边的PriceIncrease是了类名，必须在classes里存在该类，否则报：
+PropertyVetoExceptionsException: 1 errors:-- ErrorCodedPropertyVetoException: message=[Failed to convert property value of type [java.lang.String] to required type [java.lang.Class] for property named 'commandClass'; nested exception is:
+java.lang.IllegalArgumentException: Invalid class name [PriceIncrease]: PriceIncrease]; errorCode=[typeMismatch]
+java.lang.IllegalArgumentException: Invalid class name [PriceIncrease]: PriceIncrease
+(2)<property name="formView"><value>priceIncrease</value></property>
+这一行必不可少，priceIncrease是页面的名字，他将会是prefix + priceIncrease + suffix
+如果缺少该行，则报：
+javax.servlet.ServletException: Error in ModelAndView object or View resolution encountered by servlet with name 'pocketSpring': View to render cannot be null with ModelAndView [ModelAndView: materialized View is [null]; Model=[{priceIncrease=PriceIncrease@148e798, org.springframework.validation.BindException.priceIncrease=org.springframework.validation.BindException: BindException: 0 errors}]]
+使用Errors的rejectValue相关问题：
+rejectValue(java.lang.String field, java.lang.String errorCode, java.lang.Object[] errorArgs, java.lang.String defaultMessage)
+Reject the given field of the current object, using the given error description.
+当前对象指的是xxx-servlet.xml中与validator类有联系的哪个对象。
+
+第一个是：当前对象的属性名，必须存在
+第二个是：将要从属性文件中读取的消息
+第三个是：传递给所读取的消息的参数，如：
+error.too-low=You have to specify a percentage higher than {0}!
+第四个是：当从属性文件中读取消息不成功时，所reject的值
+以后从request中读取parameter可以借用spring的RequestUtils包里的
+getStringParameter
+public static java.lang.String getStringParameter(javax.servlet.http.HttpServletRequest request,
+&bsp; java.lang.String name,
+java.lang.String defaultVal)
+Get a string parameter, with a fallback value. Never throws an exception. Can pass a distinguished value to default to enable checks of whether it was supplied.
+不会抛异常
+Hibernate的问题：2.1rc的问题
+INFO: cache provider: net.sf.ehcache.hibernate.Provider
+net.sf.hibernate.HibernateException: could not instantiate CacheProvider:
+解决办法，2.1rc比以前的版本多需要一个包
+ehcache.jar
+43.static的问题
+static函数只可以访问static成员变量。
+而static变量可以被任何成员函数访问。
+44.
+java.lang.NoClassDefFoundError: javax/transaction/Synchronization];
+需要添加JTA.jar 

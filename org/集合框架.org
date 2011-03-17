@@ -1,0 +1,100 @@
+* 框架概述
+** 作用
+ - 保存数量不确定的数据
+ - 保存有映射关系的数据
+** 与数组的区别
+ - 数量不确定
+ - 只能保存对象
+** 根接口
+ - Collection
+ - Map 
+  + 保存的数据为key不重复的key-value对
+* Collection接口和Iterator接口
+** Collection
+ - 常用方法 add,addAll,clear,contains,containAll,remove,removeAll,size,isEmpty,toArray,iterator,re-tainAll
+** Iterator
+ - 常用方法 next,hasNext,remove
+** forEach
+ - 也可以实现遍历集合
+* Set
+ - 元素无序且不能相同
+ - 比较值的方法是equal()而非"=="
+** HashSet
+ - 使用hash算法来存取集合中的元素
+ - 通过比较hashcode的值来比较对象
+ - 重写equals()时,必须同时重写hashcode()
+ - 如果放入Hashset集合的对象为可变对象,则可能无法准确访问
+*** LinkedHashSet
+ - 使用链表维护集合元素的顺序 
+** TreeSet
+ - 继承了SortedSet接口,确保集合元素处于排序状态
+ - 放入其中的元素必须是同一类型
+*** 常用方法
+ - first,last,lower,higher,subset,headSet,tailSet,comparator
+*** 排序
+**** 自然排序
+ - 将插入的元素通过compareTo()进行升序排列
+ - 放入TreeSet集合的对象必须实现Comparable接口
+**** 定制排序
+ - 通过接口Comparator
+** EnumSet
+ - 专为枚举类型设计
+ - 元素必须是枚举类型
+*** 对象的构造
+ - 通过对象的静态方法构造
+ - 方法
+  + allOf,noneOf,of,range,copyof(EnumSet),copyOf(Collection),complementOf
+** 集合的选择
+ - HashSet类的性能比TreeSet类和LinkedHashSet类的性能要好
+ - TreeSet在需要排序时才使用
+ - LinkedHashSet对象在遍历集合元素的时候要更快
+ - EnumSet类的性能最好
+ - EnumSet只能保存枚举类型对象
+ - Set实现类都不是线程安全的
+* List
+ - List是一个有序集合,每个元素都有对应的索引
+** List接口和ListIterator接口
+*** List接口
+ - 根据索引操作元素的方法
+  + 添加元素：add(Object),add(index,Object),addAll(Collection),addAll(index,Collection)
+  + 删除元素：remove(Object),removeAll(Collection),remove(index)
+  + 获取元素：get(index)
+  + 替换元素：set(index,Object)
+  + 截取元素：subList(fromIndex,toIndex)
+  + 返回索引值：indexOf(Object),lastIndexOf(Object)
+*** ListIterator接口
+ - 实现了Iterator的子接口
+ - 操作List的方法
+  + hasPrevious()
+  + previous()
+  + add()
+** ArrayList和Vector实现类
+ - 都是基于数组实现的
+ - 有属性capacity来记录数组的大小
+ - 方法
+  + ensureCapacity(minCapacity)
+  + trimToSize()
+*** Stack
+ - 是Vector的子接口,模拟栈结构
+ - 方法
+  + push(Object)
+  + pop()
+  + peek()
+** 固定长度的List
+*** ArrayList
+ - 可将数组和多个对象转换成一个List集合,但是不能插入和删除数据
+ - 只能遍历 
+** List集合类的选择
+ - 遍历集合时,ArrayList和Vector需要用get(),LinkedList使用迭代器
+ - 集合需要经常修改数据,则使用LinkedList
+ - 如果多线程访问对象,则使用Vector实现同步
+* Queue接口
+ - 模拟队列的接口
+ - 方法
+  + add(),offer(),element(),peek(),poll(),remove()
+** LinkedList实现类
+ - 可以当作双向队列,栈和List集合
+ - 插入删除性能好
+ - 遍历最好使用迭代器
+** PriorityQueue实现类
+ - 同TreeSet

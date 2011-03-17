@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>正则表达式</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011-02-17 16:12:45 "/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">正则表达式</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 元字符 </a></li>
+<li><a href="#sec-2">2 字符转义 </a></li>
+<li><a href="#sec-3">3 重复 </a></li>
+<li><a href="#sec-4">4 字符类 </a></li>
+<li><a href="#sec-5">5 分支条件 </a></li>
+<li><a href="#sec-6">6 反义 </a></li>
+<li><a href="#sec-7">7 分组 </a></li>
+<li><a href="#sec-8">8 后向引用 </a></li>
+<li><a href="#sec-9">9 零宽断言 </a></li>
+<li><a href="#sec-10">10 负向零宽断言 </a></li>
+<li><a href="#sec-11">11 注释 </a></li>
+<li><a href="#sec-12">12 贪婪与懒惰 </a></li>
+<li><a href="#sec-13">13 处理选项 </a></li>
+<li><a href="#sec-14">14 平衡组/递归匹配 </a></li>
+<li><a href="#sec-15">15 工具 </a></li>
+<li><a href="#sec-16">16 文档 </a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 元字符 </h2>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li>
+\b 代表单词的开头和结尾,匹配位置
+</li>
+<li>
+* 匹配除换行符外的任意字符
+</li>
+<li>
+\d 匹配数字
+</li>
+<li>
+\d{3} 匹配出现3个任意数字
+</li>
+</ul>
+
+<p>.  |  匹配除换行符以外的任意字符
+\w | 匹配字母或数字或下划线或汉字
+\s | 匹配任意的空白符
+\d | 匹配数字
+\b | 匹配单词的开始或结束
+^  | 匹配字符串的开始
+$  | 匹配字符串的结束
+</p><ul>
+<li>
+例子:
+中国电话: 0\d{2}-\d{8}
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 字符转义 </h2>
+<div class="outline-text-2" id="text-2">
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 重复 </h2>
+<div class="outline-text-2" id="text-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 字符类 </h2>
+<div class="outline-text-2" id="text-4">
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 分支条件 </h2>
+<div class="outline-text-2" id="text-5">
+
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 反义 </h2>
+<div class="outline-text-2" id="text-6">
+
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> 分组 </h2>
+<div class="outline-text-2" id="text-7">
+
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> 后向引用 </h2>
+<div class="outline-text-2" id="text-8">
+
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> 零宽断言 </h2>
+<div class="outline-text-2" id="text-9">
+
+</div>
+
+</div>
+
+<div id="outline-container-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> 负向零宽断言 </h2>
+<div class="outline-text-2" id="text-10">
+
+</div>
+
+</div>
+
+<div id="outline-container-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> 注释 </h2>
+<div class="outline-text-2" id="text-11">
+
+</div>
+
+</div>
+
+<div id="outline-container-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> 贪婪与懒惰 </h2>
+<div class="outline-text-2" id="text-12">
+
+</div>
+
+</div>
+
+<div id="outline-container-13" class="outline-2">
+<h2 id="sec-13"><span class="section-number-2">13</span> 处理选项 </h2>
+<div class="outline-text-2" id="text-13">
+
+</div>
+
+</div>
+
+<div id="outline-container-14" class="outline-2">
+<h2 id="sec-14"><span class="section-number-2">14</span> 平衡组/递归匹配 </h2>
+<div class="outline-text-2" id="text-14">
+
+</div>
+
+</div>
+
+<div id="outline-container-15" class="outline-2">
+<h2 id="sec-15"><span class="section-number-2">15</span> 工具 </h2>
+<div class="outline-text-2" id="text-15">
+
+<ul>
+<li>
+在线测试
+<ul>
+<li>
+<a href="http://regexpal.com/">http://regexpal.com/</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-16" class="outline-2">
+<h2 id="sec-16"><span class="section-number-2">16</span> 文档 </h2>
+<div class="outline-text-2" id="text-16">
+
+<p>. Any character except newline. 
+\. A period (and so on for \*, \(, \\, etc.) 
+^ The start of the string. 
+$ The end of the string. 
+\d,\w,\s A digit, word character [A-Za-z0-9<sub>]</sub>, or whitespace. 
+\D,\W,\S Anything except a digit, word character, or whitespace. 
+[abc] Character a, b, or c. 
+[a-z] a through z. 
+[<sup>abc]</sup> Any character except a, b, or c. 
+aa|bb Either aa or bb. 
+? Zero or one of the preceding element. 
+/* Zero or more of the preceding element. 
+</p><ul>
+<li>
+One or more of the preceding element. 
+</li>
+</ul>
+
+<p>{n} Exactly n of the preceding element. 
+{n,} n or more of the preceding element. 
+{m,n} Between m and n of the preceding element. 
+??,*?,+?,
+{n}?, etc. Same as above, but as few as possible. 
+(expr) Capture expr for use with \1, etc. 
+(?:expr) Non-capturing group. 
+(?=expr) Followed by expr. 
+(?!expr) Not followed by expr. 
+</p>
+</div>
+</div>
+<div id="postamble">
+<p class="author"> Author: 
+</p>
+<p class="date"> Date: 2011-02-17 16:12:45 </p>
+<p class="creator">HTML generated by org-mode 7.01 in emacs 24</p>
+</div>
+</div>
+</body>
+</html>

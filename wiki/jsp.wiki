@@ -1,0 +1,14 @@
+%toc
+=== jsp ===
+ # jsp内置对象?作用?
+ # jsp动作?作用?
+ # 2种跳转方式?
+ # 2种include方式?
+ # el表达式?
+  - ${expression}
+=== servlet ===
+ # 生命周期
+ # forward-redirect
+ # 基本框架
+ # jsp与servlet的区别联系
+ # 回话跟踪技术

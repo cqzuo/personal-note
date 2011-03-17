@@ -1,0 +1,93 @@
+css简介
+      概念
+	     cascading style sheets 层叠式样式表，用来设置网页的现实效果
+	分类
+	     内嵌样式  inline style
+	           以属性的方式直接在html标记中给出，用于设置该标记所定义信息的现实效果，只对所在的标记有效
+	     内部样式表 internal style sheet
+	           在html页面的头信息中给出，可以同时设置多个标记所定义信息的显示效果
+	     外部样式表 external style sheet
+	          将样式设置保存到独立的外部文件中，然后再要使用的这些样式的Html文件中进行引用
+	语法
+	      样式的优先级
+	           高-->低 ： inline --->inner ----->external---->browser default style
+	           重叠会覆盖
+	      组成
+	           选择器 selector
+	           属性名 property
+	           属性值 value
+	       注释 
+	          /**/
+	常用属性
+	        字体属性
+	              font-family 字体类型  Arial 宋体
+	              font-size 字体大小 pt px
+	              font-style 字体风格 normal italic oblique
+	              font-weight 字体重量 normal bold
+	              font 综合设置
+	        文本属性
+	              text-align 文本对齐方式
+	              text-indent 首行缩进
+	              line-height 行高
+	              letter-spacing 字际间隔
+	              color 字体颜色
+<style type=text/css>
+			.t1{text-align:center; text-indent:1cm; line-height:60px;color:green;letter-spacing:normal;}
+			.t2{text-align:center; text-indent:13cm; line-height:27pt;font-weight:bold;color:blue;letter-spacing:1em}
+		</style>
+	 css的长度单位
+	        绝对长度单位
+	             in 英寸
+	             cm
+	             mm
+	             pt 点 1/72英寸
+	             pc 12点
+	        相对长度
+	             em 元素的字体高度
+	             ex 字母的高度
+	             px 像素
+	             %
+	 	其他常用属性
+	 	     背景
+	 	         background-color
+	 	         background-image
+	 	         background-repeat
+	 	         background-position
+	 	         background
+	 	     边距
+	 	         margin-top
+	 	         margin-bottom
+	 	         margin-top
+	 	         margin-top
+	 	         margin-left
+	 	         margin-right
+	 	     边框
+	 	         border-style
+	 	         border-width
+	 	         border-color
+	 	         border
+	 	         border-top-width
+	 	     间隔
+	 	         padding-top
+	 	         padding-bottom
+	 	         padding-left
+	 	         padding
+	 	         padding-right
+div简介
+   是一个html标记用于表示一块可以显示html的区域（没有css的div和 p同）
+   css+div结构化布局
+       div标记基本用法
+	 block 块元素和inline 元素
+	     块元素 前后换行；块大小；块的定位；块的边框；块间距；块内和块边框的间隙
+	     行元素 位于当前行中，前后不换行，不单独定位， span
+	 可用 css的display属性设置修改元素的显示方式，其常用属性为 block inline none
+<p>前面的<span style="display:inline;font-size:40px;color:red">这部分与众不同</span>后面的<hr>
+		<p>前面的<span style="display:block;font-size:40px;color:red">这部分与众不同</span>后面的<hr>
+		<p>前面的<span style="display:none;font-size:40px;color:red">这部分与众不同</span>后面的<hr>
+		<p>前面的<div style="display:inline;font-size:40px;color:red">这部分与众不同</div>后面的<hr>
+		<p>前面的<div style="display:block;font-size:40px;color:red">这部分与众不同</div>后面的<hr>
+		<p>前面的<div style="display:none;font-size:40px;color:red">这部分与众不同</div>后面的<hr>
+	 css+div实现页面布局 
+	 
+实现行的一部分不同
+    <span style="font-size:40px;clolor:red">这部分与众不同</span>

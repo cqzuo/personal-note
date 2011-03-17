@@ -1,0 +1,91 @@
+1.数据源的基本概念
+  jdbc的操作过程
+    打开数据库连接
+    操作数据库
+    关闭数据库
+  为了不必要的资源浪费使用数据源来减少打开和关闭数据库的操作
+2.数据源的基本概念
+  通过Contection Pool控制多个control来管理多个数据库连接
+  通过datasource去管理connection pool
+  datasource被jndi绑定
+3.例子
+		<Context path="/test" docBase="f:\testweb\"
+		debug="5" reloadable="true" crossContext="true">//配置虚拟目录
+ 
+	 <Logger 
+className="org.apache.catalina.logger.FileLogger"
+				 
+prefix="localhost_MysqlTest_log." suffix=".txt"
+				 timestamp="true"/>
+				 
+	<Resource name="jdbc/mldn"  auth="Container" //在jndi上找查找的数据源的名字
+type="javax.sql.DataSource"/>
+	
+	<ResourceParams name="jdbc/mldn">
+		<parameter>
+			<name>factory</name>
+			
+<value>org.apache.commons.dbcp.BasicDataSourceFactory</value>
+		</parameter>
+		<parameter>
+			<name>maxActive</name>//最大连接数
+			<value>100</value>
+		</parameter>
+		<parameter>
+			<name>maxIdle</name>//最大维持数,保持30个连接
+			<value>30</value>
+		</parameter>
+		<parameter>
+			<name>maxWait</name>//最大连接时间
+			<value>5000</value>
+		</parameter>
+		<parameter>
+			<name>username</name>//用户名
+			<value>scott</value>
+		</parameter>
+		<parameter>
+			<name>password</name>//密码
+			<value>tiger</value>
+		</parameter>
+		<parameter>
+			<name>driverClassName</name>//驱动类名称
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</parameter>
+		<parameter>
+			<name>url</name>
+			<value>jdbc:oracle:thin:@localhost:1521:MLDN</value>//驱动连接地址
+		</parameter>
+	  </ResourceParams>
+	</Context>
+ tomcat服务器在查找时需要对名称进行定位:
+     在名称前加 java:comp/env/
+连接读取数据:
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page import="javax.sql.*"%>
+<%@ page import="javax.naming.*"%>
+<%@ page import="java.sql.*"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <body>
+  <%
+   try {
+    Context envContext = (Context) new InitialContext()//用InitialContext()方法建立一个Context对象
+      .lookup("java:/comp/env");
+    DataSource ds = (DataSource) envContext.lookup("jdbc/lord"); //用Context对象的lookup()方法查找配置,返回给DataSource的对象
+
+    Connection conn = ds.getConnection();//用DataSource对象的getConnection()方法获取连接,返回给Connection对象
+    Statement st = conn.createStatement();
+    ResultSet rs = st.executeQuery("select name from person");
+
+    while (rs.next()) {
+     out.println(rs.getString("name") + "<br>");
+    }
+   } catch (NamingException e) {
+    e.printStackTrace();
+   } catch (SQLException e) {
+    e.printStackTrace();
+   }
+  %>
+ </body>
+</html>
+

@@ -1,0 +1,95 @@
+Course.hbm.xml
+<hibernate-mapping>
+    <class name="com.hibernate.Course" table="COURSES">
+        <id name="id" type="integer">
+            <column name="ID" />
+            <generator class="increment" />
+        </id>
+        <property name="coursename" type="string">
+            <column name="COURSENAME" length="45" not-null="true" />
+        </property>
+        <property name="coursetime" type="string">
+            <column name="COURSETIME" length="45" not-null="true" />
+        </property>
+        <property name="classroom" type="string">
+            <column name="CLASSROOM" length="45" not-null="true" />
+        </property>
+        <set name="stu_cou" cascade="save-update" lazy="true" inverse="true">
+            <key>
+                <column name="COU_ID" not-null="true" />
+            </key>
+            <one-to-many class="com.hibernate.StudentCourse" />
+        </set>
+    </class>
+</hibernate-mapping>
+
+Student.hbm.xml
+<hibernate-mapping>
+    <class name="com.hibernate.Student" table="STUDENTS">
+        <id name="id" type="integer">
+            <column name="ID" />
+            <generator class="increment" />
+        </id>
+        <property name="username" type="string">
+            <column name="username" length="45" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="45" not-null="true" />
+        </property>
+         <property name="sex" type="string">
+            <column name="SEX" length="45" not-null="true" />
+        </property>
+        <property name="stuclass" type="string">
+            <column name="STUCLASS" not-null="true" />
+        </property>
+        <property name="major" type="string">
+            <column name="major" length="45" not-null="true" />
+        </property>
+        <set name="stu_cou" cascade="save-update" lazy="true" inverse="true">
+            <key>
+                <column name="STU_ID" not-null="true" />
+            </key>
+            <one-to-many class="com.hibernate.StudentCourse" />
+        </set>
+    </class>
+</hibernate-mapping>
+StudentCourse.hbm.xml
+<hibernate-mapping>
+    <class name="com.hibernate.StudentCourse" table="student_course">
+        <id name="id" type="integer">
+            <column name="ID" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="course" class="com.hibernate.Course">
+            <column name="COU_ID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="student" class="com.hibernate.Student">
+            <column name="STU_ID" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
+struts-config.xml
+<struts-config>
+  <data-sources />
+	<form-beans>
+		<form-bean name="RegFormBean" 
+				   type="com.formbean.RegFormBean"/>
+	</form-beans>
+  <global-exceptions />
+  <global-forwards />
+  <action-mappings >
+   
+    <action path="/actions/reg" 
+    		type="com.action.RegAction"
+    		name="RegFormBean"
+    		input="/reg.jsp">
+      <forward name="bad" 
+      		   path="/regbad.jsp" />		   
+      <forward name="success" 
+      		   path="/regok.jsp" />
+    </action>
+  </action-mappings>
+  <message-resources parameter="MessageResource"
+  					 null="false"/>
+</struts-config>
+

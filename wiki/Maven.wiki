@@ -1,0 +1,12 @@
+%toc
+= maven =
+== 环境搭配 ==
+ * PATH: bin目录
+== 项目搭建 ==
+ * app项目搭建
+  - 命令行下进入对应目录
+  - mvn archetype:create -DgroupId=com.lord.ajax -DartifactId=app
+ * web-app项目搭建
+  - 命令行下进入对应目录
+  - mvn archetype:create -DgroupId=com.lord.ajax -DartifactId=webapp -DarchetypeArtifactId=maven-archetype-webapp
+  - 在/main下新建/java

@@ -1,0 +1,139 @@
+%toc
+== ajax的技术核心 ==
+ - 异步的javaScript和xml
+ * 使用xhtml和css的基于标准的显示技术
+ * 使用dom进行动态显示和交互
+ * 使用xml和xslt进行数据交互和处理
+ * 使用XMLHTTPRequest进行异步数据检索
+ * 使用javaScript将以上技术融合
+== ajax的实例 ==
+ * 新建servlet
+  - 例子
+{{{class="brush:java"
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+
+public class ClassicServer extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        try{
+            response.setContentType("text/html;charset=GB2312");
+            PrintWriter out = response.getWriter();
+            String old = request.getParameter("name");
+            if(old == null || old.length() == 0){
+                out.println("用户名不能为空");
+            } else{
+                String name = new String(old.getBytes("ISO8859-1"));
+                if(name.equals("wangxingkui")){
+                    out.println("用户名[" + name + "]已经存在，请使用其他用户名");
+                } else{
+                    out.println("用户名[" + name + "]尚未存在，可以使用该用户名注册");
+                }
+            }
+            out.println("<br/><a href=\"index.html\">返回校验页面</a>");
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        doGet(request,response);
+    }
+ }
+}}}
+ - 配置servlet
+{{{class="brush: xml"
+<servlet>
+        <servlet-name>ClassicServer</servlet-name>
+        <servlet-class>ClassicServer</servlet-class>
+    </servlet>
+ <servlet-mapping>
+        <servlet-name>ClassicServer</servlet-name>
+        <url-pattern>/ClassicServer</url-pattern>
+    </servlet-mapping> 
+}}}
+ - 服务器端servlet
+{{{class="brush: java"
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLDecoder;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: ming
+ * Date: 2008-6-11
+ * Time: 11:11:34
+ * To change this template use File | Settings | File Templates.
+ */
+public class AJAXServer extends HttpServlet{
+    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+        doGet(httpServletRequest, httpServletResponse);
+    }
+
+    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+        try{
+//            request.setCharacterEncoding("UTF-8");
+//            response.setContentType("text/html;charset=gb18030");
+
+            httpServletResponse.setContentType("text/html;charset=utf-8");
+            PrintWriter out = httpServletResponse.getWriter();
+
+            Integer inte = (Integer) httpServletRequest.getSession().getAttribute("total");
+            int temp = 0;
+            if (inte == null) {
+                temp = 1;
+            } else {
+                temp = inte.intValue() + 1;
+            }
+            httpServletRequest.getSession().setAttribute("total",temp);
+
+            //1.取参数
+            String old = httpServletRequest.getParameter("name");
+            //String name = new String(old.getBytes("iso8859-1"),"UTF-8");
+            String name = URLDecoder.decode(old,"UTF-8");
+            //2.检查参数是否有问题
+            if(old == null || old.length() == 0){
+                out.println("用户名不能为空");
+            } else{
+//                String name = URLDecoder.decode(old,"UTF-8");
+//                byte[] by = old.getBytes("ISO8859-1");
+//                String name = new String(by,"utf-8");
+//                String name = URLDecoder.decode(old,"utf-8");
+                //3.校验操作
+//                String name = old;
+                if(name.equals("wangxingkui")){
+                    //4。和传统应用不同之处。这一步需要将用户感兴趣的数据返回给页面段，而不是将一个新的页面发送给用户
+                    //写法没有变化，本质发生了改变
+                    out.println("用户名[" + name + "]已经存在，请使用其他用户名, " + temp);
+                } else{
+                    out.println("用户名[" + name + "]尚未存在，可以使用该用户名注册, " + temp);
+                }
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        } 
+    }
+}
+ 
+}}}
+=== ajax流程 ===
+  * 取参数
+  * 校验参数
+  * 校验操作
+  * 将从数据库获取的数据返回到页面
+ - 
+== ajax的思维方式 ==
+ * 用户体验未中断
+ * 每次将信息发出之后会返回一个回调函数,XMLHTTPRequest找到它并执行函数中的代码
+ * 与传统模式的区别
+  - 按需取数据
+  - XMLHTTPRequest发送数据之后,返回的值在注册的回调函数中显示到页面上

@@ -1,0 +1,102 @@
+%toc
+=== oracle ===
+==== 基本操作 ====
+ # 连接
+  - conn system/manager
+  - conn sys/change_on_install as sysdba
+ # 访问数据库表
+  - select * from 用户名.表名
+ # 查询当前用户
+  - show user;
+ # 显示当前用户所有表
+  - show * from tab;
+ # 查询表结构
+  - desc 表名
+ # 回显上次名称
+  - /
+ # 查询系统时间
+  - select sysdate from dual
+==== 常用数据类型 ====
+ # number(4)
+ # varchar(20)
+ # date
+ # number(4,2)
+==== 查询语言SQL ====
+ # 去重复
+  - select distinct
+ # 使用别名
+  - select ** __
+ # 加入字符串连接
+  - select A ||"连接字符串"|| C
+ # 限定查询
+  - order by ***** asc/desc
+  - order by ***** asc,***** desc
+ # 单行函数
+  - function name(列)
+ # 字符函数
+  - upper()
+  - lower()
+  - initcap()
+  - substr()
+  - length()
+  - replace()
+ # 数值函数
+  - round()
+  - trunc()
+  - mod()
+  - select mod(132,23) from dual
+ # 日期函数
+  - select sysdate from dual
+  - round(sysdate-hiredate)
+  - add_mounth(hiredate,3)
+  - next_day(sysdate,'星期一')
+  - last_day(sysdate)
+  - 转换函数
+   * to_char
+   * select to_char(sysdate,'yyyy-mm-dd') 日期 from dual
+   * select to_char(salary,'#99,999') 薪水from dual
+   * to_date
+    * select to_date('2009-12-12','yyyy-mm-dd') from dual
+ # 通用函数
+  - nvl
+   * select nvl(列名,0) from dual
+  - decode
+   * select decode(job,'doctor','博士',kill,'杀手') from emp
+  - is null
+  - is not null
+  - and or
+  - not
+  - between A and B
+  - not between A and B
+  - in(值1,值2,...)
+  - not in(值1,值2,...)
+  - 日期查询 between
+   - between '10-14日 -90' and '10-25日 -90'
+  - oracle对大小写敏感
+  - like
+   - % 任意长度内容
+   - _ 一个任意字符
+  - 不等于 <> !==
+ # 多表查询
+  - 查询数据数量 
+   - select count(*) from 表名
+  - 左连接
+   - where A.a = B.b(+)
+  - 右连接
+   - where A.a(+) = B.b
+  - from 表A left join 表B on A.字段1 = B.字段2
+  - from 表A right join 表B on A.字段1 = B.字段2
+ # 分组统计和分组函数
+  - count
+  - max
+  - min
+  - avg
+  - sum
+  - group by
+   - 分组函数不能出现where
+ # 数据库操作
+  - 表的复制
+   - create table 表名1 as select * from 表名2
+  - 事务管理
+   - commit
+   - rollback

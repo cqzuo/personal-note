@@ -1,0 +1,464 @@
+
+(ssh)一个简单的struts，hibernate例子以及struts,hibernate集成
+Posted on 2008-10-19 17:56 qin 阅读(1116) 评论(2)  编辑  收藏 所属分类: J2EE***学习历程
+
+最近在学几个常用框架的集成，下面是一个关于struts+hibernate的集成的例子，大家都知道，任何一个复杂的东西，都是从简单开始的，所以我先说一个struts+hibernate集成，然后再进一步了解，希望对这方面爱好的能有所帮助
+一、新建一个项目（如ssh）
+二、加入该项目对struts的支持，就是相关struts包，（右击你新建的项目－>MyEclipse，选add struts.........）
+三、添加了对struts支持后，然后在struts-config.xml文件里右击，新建－>form action and jsp选项，那样就可以把这三个文件新建好 register1.jsp,Register1Action.java,Register1Form.java（你可以把这三个文件发布到tomcat 进行测试），测试成功就可以执行下一步
+四、新建一个表sstest表，有字段id,username,password,id为主健和自动增1
+五，同样的方法添加对hibernate支持
+六、对新建的数据表进行hibernate进行映射,打开myhibernate视图，右击你sstest表->选hibernate revers engineering选项，然后把Sstest.hbm.xml文件映射到hibernateDao包中，同时选中工具 hibernate mapping file...,  java data object.....,  java data access object dao...选项，先中这几个文件就可以产生下列几个.java文件:BaseHibernateDAO. ,HibernateSessionFactory ,IBaseHibernateDAO, Sstest,SstestDAO,最后你对你的代码进行测试，测试成功，进行下一步
+七、好了，关于struts和hibernate代码基本上差不好了，下面来看一直代码，代码为蓝色的就是集成的地方,主要是看Register1Action代码,其它的代码都是自动生成的
+相关代码如下：
+register1.jsp
+
+<%@ page language="java" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%> 
+<html>
+ <head>
+  <title>JSP for Register1Form form</title>
+ </head>
+ <body>
+  <html:form action="/register1">
+   password : <html:password property="password"/><html:errors property="password"/><br/>
+   username : <html:text property="username"/><html:errors property="username"/><br/>
+   <html:submit/><html:cancel/>
+  </html:form>
+ </body>
+</html>
+
+Register1Action.java 
+
+package com.yourcompany.struts.action;
+
+import hibernateDao.Sstest;
+import hibernateDao.SstestDAO;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.hibernate.Transaction;
+
+import com.yourcompany.struts.form.Register1Form;
+
+public class Register1Action extends Action {
+ //数据dao
+ SstestDAO sd;
+ public Register1Action() {
+  // TODO Auto-generated constructor stub
+  setSd(new SstestDAO());
+ }
+ public ActionForward execute(ActionMapping mapping, ActionForm form,
+   HttpServletRequest request, HttpServletResponse response) {
+  Register1Form register1Form = (Register1Form) form;// TODO Auto-generated method stub
+  //输出客户端的用户名
+  response.setCharacterEncoding("GB2312");
+  System.out.println("register1Form.name\t"+register1Form.getUsername());
+  /*
+   * 数据库操作
+   * */
+  Sstest st = new Sstest(); 
+  st.setUsername(register1Form.getUsername());
+  st.setPassword(register1Form.getPassword());
+  //dao对象
+  SstestDAO sd = getSd();
+  Transaction tran = sd.getSession().beginTransaction(); //开始事务
+  sd.save(st);
+  tran.commit();
+  //请求转发到success
+  return mapping.findForward("success");
+ }
+ //数据dao，get，set方法
+ public void setSd(SstestDAO sd) {
+  this.sd = sd;
+ }
+ public SstestDAO getSd() {
+  return sd;
+ }
+}
+
+Register1Form.java
+package com.yourcompany.struts.form;
+
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+
+public ActionErrors validate(ActionMapping mapping,
+   HttpServletRequest request) {
+  // TODO Auto-generated method stub
+  return null;
+ }
+
+ public void reset(ActionMapping mapping, HttpServletRequest request) {
+  // TODO Auto-generated method stub
+  this.username = "qin";
+ }
+
+ public String getPassword() {
+  return password;
+ }
+
+ public void setPassword(String password) {
+  this.password = password;
+ }
+
+ public String getUsername() {
+  return username;
+ }
+
+ public void setUsername(String username) {
+  this.username = username;
+ }
+}
+如果你觉得你的代码自动生成有问题的话，你可以参考下列代码
+
+BaseHibernateDAO.java
+
+package hibernateDao;
+
+import org.hibernate.Session;
+
+public class BaseHibernateDAO implements IBaseHibernateDAO {
+ 
+ public Session getSession() {
+  return HibernateSessionFactory.getSession();
+ } 
+}
+HibernateSessionFactory.java
+
+package hibernateDao;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.cfg.Configuration;
+
+public class HibernateSessionFactory {
+
+   private static String CONFIG_FILE_LOCATION = "/hibernate.cfg.xml";
+ private static final ThreadLocal<Session> threadLocal = new ThreadLocal<Session>();
+    private  static Configuration configuration = new Configuration();
+    private static org.hibernate.SessionFactory sessionFactory;
+    private static String configFile = CONFIG_FILE_LOCATION;
+
+ static {
+     try {
+   configuration.configure(configFile);
+   sessionFactory = configuration.buildSessionFactory();
+  } catch (Exception e) {
+   System.err
+     .println("%%%% Error Creating SessionFactory %%%%");
+   e.printStackTrace();
+  }
+    }
+    private HibernateSessionFactory() {
+    } 
+    public static Session getSession() throws HibernateException {
+        Session session = (Session) threadLocal.get();
+
+  if (session == null || !session.isOpen()) {
+   if (sessionFactory == null) {
+    rebuildSessionFactory();
+   }
+   session = (sessionFactory != null) ? sessionFactory.openSession()
+     : null;
+   threadLocal.set(session);
+  }
+
+        return session;
+    }
+ public static void rebuildSessionFactory() {
+  try {
+   configuration.configure(configFile);
+   sessionFactory = configuration.buildSessionFactory();
+  } catch (Exception e) {
+   System.err
+     .println("%%%% Error Creating SessionFactory %%%%");
+   e.printStackTrace();
+  }
+ }
+    public static void closeSession() throws HibernateException {
+        Session session = (Session) threadLocal.get();
+        threadLocal.set(null);
+
+        if (session != null) {
+            session.close();
+        }
+    }
+
+
+ public static org.hibernate.SessionFactory getSessionFactory() {
+  return sessionFactory;
+ }
+
+
+ public static void setConfigFile(String configFile) {
+  HibernateSessionFactory.configFile = configFile;
+  sessionFactory = null;
+ }
+
+ public static Configuration getConfiguration() {
+  return configuration;
+ }
+
+}
+
+IBaseHibernateDAO.java
+
+package hibernateDao;
+
+import org.hibernate.Session;
+
+
+/**
+ * Data access interface for domain model
+ * @author MyEclipse Persistence Tools
+ */
+public interface IBaseHibernateDAO {
+ public Session getSession();
+}
+
+     Sstest.java
+
+package hibernateDao;
+
+ublic class Sstest implements java.io.Serializable {
+
+ // Fields
+
+ private Integer id;
+ private String username;
+ private String password;
+
+ // Constructors
+
+ /** default constructor */
+ public Sstest() {
+ }
+
+ /** full constructor */
+ public Sstest(String username, String password) {
+  this.username = username;
+  this.password = password;
+ }
+
+ // Property accessors
+
+ public Integer getId() {
+  return this.id;
+ }
+
+ public void setId(Integer id) {
+  this.id = id;
+ }
+
+ public String getUsername() {
+  return this.username;
+ }
+
+ public void setUsername(String username) {
+  this.username = username;
+ }
+
+ public String getPassword() {
+  return this.password;
+ }
+
+ public void setPassword(String password) {
+  this.password = password;
+ }
+
+}
+
+SstestDAO.java
+
+package hibernateDao;
+
+import java.util.List;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.LockMode;
+import org.hibernate.Query;
+import org.hibernate.criterion.Example;
+
+public class SstestDAO extends BaseHibernateDAO {
+ private static final Log log = LogFactory.getLog(SstestDAO.class);
+ // property constants
+ public static final String USERNAME = "username";
+ public static final String PASSWORD = "password";
+
+ public void save(Sstest transientInstance) {
+  log.debug("saving Sstest instance");
+  try {
+   getSession().save(transientInstance);
+   log.debug("save successful");
+  } catch (RuntimeException re) {
+   log.error("save failed", re);
+   throw re;
+  }
+ }
+
+ public void delete(Sstest persistentInstance) {
+  log.debug("deleting Sstest instance");
+  try {
+   getSession().delete(persistentInstance);
+   log.debug("delete successful");
+  } catch (RuntimeException re) {
+   log.error("delete failed", re);
+   throw re;
+  }
+ }
+
+ public Sstest findById(java.lang.Integer id) {
+  log.debug("getting Sstest instance with id: " + id);
+  try {
+   Sstest instance = (Sstest) getSession().get("hibernateDao.Sstest",
+     id);
+   return instance;
+  } catch (RuntimeException re) {
+   log.error("get failed", re);
+   throw re;
+  }
+ }
+
+ public List findByExample(Sstest instance) {
+  log.debug("finding Sstest instance by example");
+  try {
+   List results = getSession().createCriteria("hibernateDao.Sstest")
+     .add(Example.create(instance)).list();
+   log.debug("find by example successful, result size: "
+     + results.size());
+   return results;
+  } catch (RuntimeException re) {
+   log.error("find by example failed", re);
+   throw re;
+  }
+ }
+
+ public List findByProperty(String propertyName, Object value) {
+  log.debug("finding Sstest instance with property: " + propertyName
+    + ", value: " + value);
+  try {
+   String queryString = "from Sstest as model where model."
+     + propertyName + "= ?";
+   Query queryObject = getSession().createQuery(queryString);
+   queryObject.setParameter(0, value);
+   return queryObject.list();
+  } catch (RuntimeException re) {
+   log.error("find by property name failed", re);
+   throw re;
+  }
+ }
+
+ public List findByUsername(Object username) {
+  return findByProperty(USERNAME, username);
+ }
+
+ public List findByPassword(Object password) {
+  return findByProperty(PASSWORD, password);
+ }
+
+ public List findAll() {
+  log.debug("finding all Sstest instances");
+  try {
+   String queryString = "from Sstest";
+   Query queryObject = getSession().createQuery(queryString);
+   return queryObject.list();
+  } catch (RuntimeException re) {
+   log.error("find all failed", re);
+   throw re;
+  }
+ }
+
+ public Sstest merge(Sstest detachedInstance) {
+  log.debug("merging Sstest instance");
+  try {
+   Sstest result = (Sstest) getSession().merge(detachedInstance);
+   log.debug("merge successful");
+   return result;
+  } catch (RuntimeException re) {
+   log.error("merge failed", re);
+   throw re;
+  }
+ }
+
+ public void attachDirty(Sstest instance) {
+  log.debug("attaching dirty Sstest instance");
+  try {
+   getSession().saveOrUpdate(instance);
+   log.debug("attach successful");
+  } catch (RuntimeException re) {
+   log.error("attach failed", re);
+   throw re;
+  }
+ }
+
+ public void attachClean(Sstest instance) {
+  log.debug("attaching clean Sstest instance");
+  try {
+   getSession().lock(instance, LockMode.NONE);
+   log.debug("attach successful");
+  } catch (RuntimeException re) {
+   log.error("attach failed", re);
+   throw re;
+  }
+ }
+}
+
+Sstest.hbm.xml
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+    Mapping file autogenerated by MyEclipse Persistence Tools
+-->
+<hibernate-mapping>
+    <class name="hibernateDao.Sstest" table="sstest" schema="dbo" catalog="manager">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="increment" />
+        </id>
+        <property name="username" type="java.lang.String">
+            <column name="username" length="10" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="password" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>
+struts-config.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+  <data-sources />
+  <form-beans >
+    <form-bean name="register1Form" type="com.yourcompany.struts.form.Register1Form" />
+
+  </form-beans>
+
+  <global-exceptions />
+  <global-forwards />
+  <action-mappings >
+    <action
+      attribute="register1Form"
+      input="/form/register1.jsp"
+      name="register1Form"
+      path="/register1"
+      scope="request"
+      type="com.yourcompany.struts.action.Register1Action">
+      <forward name="failed" path="/error.jsp" />
+      <forward name="success" path="/success.jsp" />
+    </action>
+
+  </action-mappings>
+
+  <message-resources parameter="com.yourcompany.struts.ApplicationResources" />
+</struts-config>

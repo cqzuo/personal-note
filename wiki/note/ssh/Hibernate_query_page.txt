@@ -1,0 +1,487 @@
+实现在Hibernate中的分页查询原理解读
+
+Hibernate 可以实现分页查询，例如：
+从第2万条开始取出100条记录
+ 
+　Query  q  =  session.createQuery("from  Cat  as  c");
+　　q.setFirstResult(20000);
+　　q.setMaxResults(100);
+　　List  l  =  q.list();
+　　
+那么Hibernate底层如何实现分页的呢？实际上Hibernate的查询定义在net.sf.hibernate.loader.Loader这个类里面，仔细阅读该类代码，就可以把问题彻底搞清楚。
+Hibernate2.0.3的Loader源代码第480行以下：
+ 
+if(useLimit)sql=dialect.getLimitString(sql);
+PreparedStatement st=session.getBatcher().prepareQueryStatement(sql,scrollable);
+如果相应的数据库定义了限定查询记录的sql语句，那么直接使用特定数据库的sql语句。
+然后来看net.sf.hibernate.dialect.MySQLDialect:
+ 
+public  boolean  supportsLimit()  {
+　　return  true;
+　　}
+　　public  String  getLimitString(String  sql)  {
+　　StringBuffer  pagingSelect  =  new  StringBuffer(100);
+　　pagingSelect.append(sql);
+　　pagingSelect.append("  limit  ?,  ?");
+　　return  pagingSelect.toString();
+　　}
+　　
+这是MySQL的专用分页语句，再来看net.sf.hibernate.dialect.Oracle9Dialect:
+　
+public  boolean  supportsLimit()  {
+　　return  true;
+　　}
+　　
+　　public  String  getLimitString(String  sql)  {
+　　StringBuffer  pagingSelect  =  new  StringBuffer(100);
+　　pagingSelect.append("select * from(select row_.*, rownum rownum_ from(");
+　　pagingSelect.append(sql);
+　　pagingSelect.append(") row_ where rownum  <=  ?) where rownum_ > ?");
+　　return  pagingSelect.toString();
+　　}
+　
+Oracle采用嵌套3层的查询语句结合rownum来实现分页，这在Oracle上是最快的方式，如果只是一层或者两层的查询语句的rownum不能支持order by。
+除此之外，Interbase，PostgreSQL，HSQL也支持分页的sql语句，在相应的Dialect里面，大家自行参考。
+如果数据库不支持分页的SQL语句，那么根据在配置文件里面
+#hibernate.jdbc.use_scrollable_resultset true
+默认是true，如果你不指定为false，那么Hibernate会使用JDBC2.0的scrollable result来实现分页，看Loader第430行以下：
+ 
+if  (  session.getFactory().useScrollableResultSets()  )  {
+　　//  we  can  go  straight  to  the  first  required  row
+　　rs.absolute(firstRow);
+　　}
+　　else  {
+　　//  we  need  to  step  through  the  rows  one  row  at  a  time  (slow)
+　　for  (  int  m=0;  m<firstRow;  m++  )  rs.next();
+　　}
+　　
+如果支持scrollable result，使用ResultSet的absolute方法直接移到查询起点，如果不支持的话，使用循环语句，rs.next一点点的移过去。
+可见使用Hibernate，在进行查询分页的操作上，是具有非常大的灵活性，Hibernate会首先尝试用特定数据库的分页sql，如果没用，再尝试Scrollable，如果不行，最后采用rset.next()移动的办法。
+在查询分页代码中使用Hibernate的一大好处是，既兼顾了查询分页的性能，同时又保证了代码在不同的数据库之间的可移植性
+==============================================
+spring+struts+hibernate分页  完整版，项目使用中
+longxx888 原创   更新：2008-01-20 19:33:13  版本: 1.0   
+
+package com.yizhou.common.test;
+
+/**
+ * 　　
+ * Copyright @ 2008 YIZHOU SOFTWARE Co. Ltd.
+ * All right reserved.
+ *
+ * @author xuxinlong
+ *
+ *  mail: longxx888@163.com
+ *  
+ */
+public class PageBean {
+    private int count = 0; // 记录总数
+
+    private int pageSize = 20; // 每页显示记录数
+
+    private int pageCount = 0; // 总页数
+
+    private int page = 1; // 当前页数
+
+    private String totalCountSQL;// 得到总记录数sql语句
+
+    private String listSQL;// 得到查询记录sql语句
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        if (pageSize != 0) {
+            pageCount = count / pageSize;
+            if (count % pageSize != 0) {
+                pageCount++;
+            }
+        }
+        this.count = count;
+    }
+
+    public String getListSQL() {
+        return listSQL;
+    }
+
+    public void setListSQL(String listSQL) {
+        this.listSQL = listSQL;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public String getTotalCountSQL() {
+        return totalCountSQL;
+    }
+
+    public void setTotalCountSQL(String totalCountSQL) {
+        this.totalCountSQL = totalCountSQL;
+    }
+
+}
+
+新建个接口
+package com.yizhou.common.test;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * 
+ * Copyright @ 2008 NANJING YIZHOU SOFTWARE Co. Ltd.
+ * All right reserved.
+ *
+ * @author xuxinlong
+ *
+ *  mail: longxx888@163.com
+ *  
+ */
+public interface PaginateInterface extends Serializable {
+    public List getList(PageBean page);
+
+    public String getToolsMenu(PageBean page);
+
+    public Long getTotalCount(PageBean p, String str[], Object ob2[])
+            throws Exception;
+
+    public Long getTotalCount(PageBean page) throws Exception;
+
+    public List getList(PageBean page, String str[], Object ob2[])
+            throws Exception;
+}
+
+package com.yizhou.common.test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+/**
+ *分页核心类
+ * Copyright @ 2008 NANJING YIZHOU SOFTWARE Co. Ltd.
+ * All right reserved.
+ *
+ * @author xuxinlong
+ *
+ *  mail: longxx888@163.com
+ *  
+ */
+public class Paginate extends HibernateDaoSupport implements PaginateInterface {
+    /**   
+      * 显示用的分页信息   
+      */   
+     public String getToolsMenu(PageBean p) {   
+      StringBuffer str = new StringBuffer("");   
+      int next, prev;   
+      prev = p.getPage() - 1;   
+      next = p.getPage() + 1;   
+       
+      if (p.getPage() > 1) {   
+       str   
+         .append("<a href=\"#\" onclick=\"document.forms(0).jumpPage.value=1;document.forms(0).submit();\">首页</a> ");   
+      } else {   
+          //str.append("<a href=\"#\">首页</a> ");
+          str.append("首页 ");
+      }   
+      if (p.getPage() > 1) {   
+       str.append("<a href=\"#\" onclick='document.forms(0).jumpPage.value="   
+         + prev + ";document.forms(0).submit();'>上页</a> ");   
+      } else {   
+          //str.append("<a href=\"#\">上页</a> ");   
+          str.append("上页 ");   
+      }   
+      if (p.getPage() < p.getPageCount()) {   
+       str.append("<a href=\"#\" onclick='document.forms(0).jumpPage.value="   
+         + next + ";document.forms(0).submit();'>下页</a> ");   
+      } else {   
+        //str.append("<a href=\"#\" >下页</a> ");   
+          str.append("下页 ");
+      }   
+      if (p.getPageCount() > 1 && p.getPage() != p.getPageCount()) {   
+       str.append("<a href=\"#\"  onclick='document.forms(0).jumpPage.value="   
+         + p.getPageCount()   
+         + ";document.forms(0).submit();'>末页</a>  ");   
+      } else {   
+       //str.append("<a href=\"#\" >末页</a>  ");
+         str.append("末页  ");
+      }   
+      str.append(" 共" + p.getCount() + "条记录");   
+      str   
+        .append("  每页<SELECT size=1 name=pagesize onchange='this.form.jumpPage.value=1;this.form.pageSize.value=this.value;this.form.submit();'>");   
+       
+      if (p.getPageSize() == 3) {   
+       str.append("<OPTION value=3 selected>3</OPTION>");   
+      } else {   
+       str.append("<OPTION value=3>3</OPTION>");   
+      }   
+       
+      if (p.getPageSize() == 10) {   
+       str.append("<OPTION value=10 selected>10</OPTION>");   
+      } else {   
+       str.append("<OPTION value=10>10</OPTION>");   
+      }   
+      if (p.getPageSize() == 20) {   
+       str.append("<OPTION value=20 selected>20</OPTION>");   
+      } else {   
+       str.append("<OPTION value=20>20</OPTION>");   
+      }   
+      if (p.getPageSize() == 50) {   
+       str.append("<OPTION value=50 selected>50</OPTION>");   
+      } else {   
+       str.append("<OPTION value=50>50</OPTION>");   
+      }   
+      if (p.getPageSize() == 100) {   
+       str.append("<OPTION value=100 selected>100</OPTION>");   
+      } else {   
+       str.append("<OPTION value=100>100</OPTION>");   
+      }   
+      str.append("</SELECT>");   
+      str.append("条 分" + p.getPageCount() + "页显示 转到");   
+      str   
+        .append("<SELECT size=1 name=Pagelist onchange='this.form.jumpPage.value=this.value;this.form.submit();'>");   
+      for (int i = 1; i < p.getPageCount() + 1; i++) {   
+       if (i == p.getPage()) {   
+        str.append("<OPTION value=" + i + " selected>" + i   
+          + "</OPTION>");   
+       } else {   
+        str.append("<OPTION value=" + i + ">" + i + "</OPTION>");   
+       }   
+      }   
+      str.append("</SELECT>页");   
+      str.append("<INPUT type=hidden  value=" + p.getPage()   
+        + " name=\"pages\" > ");   
+      str.append("<INPUT type=hidden  value=" + p.getPageSize()   
+        + " name=\"pageSize\"> ");   
+      return str.toString();   
+     }   
+     /**
+      * 获取总条数
+      */
+     public Long getTotalCount(PageBean p) throws Exception {
+      List list = getHibernateTemplate().find(p.getTotalCountSQL());   
+      long count = 0;   
+      if (list.size() > 0) {   
+       count = new Long(""+list.get(0));   
+      }   
+      return count;   
+     }   
+     /**
+      * 查询信息进行分页
+      */
+     public List getList(final PageBean p) {
+          return this.getHibernateTemplate().executeFind(new HibernateCallback(){
+             public Object doInHibernate(Session session){
+                 Query q = session.createQuery(p.getListSQL());
+                  q.setFirstResult((p.getPage() - 1) * p.getPageSize());   
+                  q.setMaxResults(p.getPageSize());   
+                       return q.list();
+            }
+        });
+     }   
+     /**
+      * 查询信息进行分页  带有参数的
+      */
+     public List getList(final PageBean p,final String str[], final Object ob2[]) {   
+         return this.getHibernateTemplate().executeFind(new HibernateCallback(){
+             public Object doInHibernate(Session session){
+                 Query q = session.createQuery(p.getListSQL());
+                 if(str!=null){
+                      for (int i = 0; i < str.length; i++) {   
+                       q.setParameter(str[i], ob2[i]);   
+                      }   
+                 }
+                 q.setFirstResult((p.getPage() - 1) * p.getPageSize());   
+                 q.setMaxResults(p.getPageSize());   
+                 return q.list();  
+            }
+        });     
+     }   
+     /**
+      * 获取总条数   带有参数的
+      */ 
+     public Long getTotalCount(PageBean p, String str[], Object ob2[])throws Exception { 
+         List list=new ArrayList();
+         if(str!=null && str.length>0){
+             list = getHibernateTemplate().findByNamedParam(p.getTotalCountSQL(), str, ob2);
+         }else{
+             list=this.getHibernateTemplate().find(p.getTotalCountSQL());
+         }
+         long count = 0;   
+         if (list.size() > 0) {   
+           count = (Long)list.get(0);   
+          }   
+          return count;   
+    }   
+}
+Action的调用
+package com.yizhou.common.test;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+/**
+ * 分页代码示例 调用
+ * Copyright @ 2008 NANJING YIZHOU SOFTWARE Co. Ltd.
+ * All right reserved.
+ *
+ * @author xuxinlong
+ *
+ */
+public class SplitPageAction extends Action {
+
+    private PaginateInterface pageinate;
+    public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        
+        HttpSession session=request.getSession();
+        Object obj=session.getAttribute("KDUser");
+        if(obj!=null){
+            PageBean pb=new PageBean();
+            String jumpPage=request.getParameter("jumpPage");    
+            String pageSize=request.getParameter("pageSize");
+            if(jumpPage!=null && !"".equals(jumpPage) && pageSize!=null && !"".equals(pageSize)){    
+                pb.setPageSize(new Integer(pageSize));
+            }else{
+                jumpPage="1";
+            }
+            String strSqlCnt="select count(*) from TUsertable";
+            String strSqlInfo="select u from TUsertable u";
+            
+            pb.setTotalCountSQL(strSqlCnt);
+            pb.setListSQL(strSqlInfo);
+            pb.setPage(new Integer(jumpPage));
+            
+            pb.setCount(this.pageinate.getTotalCount(pb).intValue());
+            List listUser=this.pageinate.getList(pb);
+            request.setAttribute("info", this.pageinate.getToolsMenu(pb));
+            request.setAttribute("listUser", listUser);
+            
+        return mapping.findForward("pagelist");
+        }
+        return mapping.findForward("error");
+    }
+    public PaginateInterface getPageinate() {
+        return pageinate;
+    }
+    public void setPageinate(PaginateInterface pageinate) {
+        this.pageinate = pageinate;
+    }
+    
+}
+spring文件配置
+
+    <bean id="pageinate" class="com.kingdo.common.test.Paginate">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean>
+    <bean name="/splitPage" class="com.kingdo.common.test.SplitPageAction" singleton="false">
+        <property name="pageinate">
+            <ref bean="pageinate" />
+        </property>
+    </bean>
+
+JSP中使用
+
+<%@ page language="java" pageEncoding="utf-8"%>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+ 
+<html>
+<head>
+
+
+    <title>分页演示</title>
+    
+    <link href="css/list.css" rel="stylesheet" type="text/css" />
+<link href="css/table.css" rel="stylesheet" type="text/css" />
+
+</head>
+  
+<body> <center><font size="5">分页演示</font></center>
+ <form action="splitPage.do" method="post" name="splitPageForm">
+ <input type="hidden" name="jumpPage">
+ <table width="96%" class="center" border="0" cellpadding="0" cellspacing="0">
+ <tr class="table_tr">
+ <td >
+
+<table class="yizhou_table" ">
+  <tr class="table_tr"  >
+    <th class="table_c_01">用户ID</th>
+    <th class="table_c_01">用户名</th>
+    <th class="table_c_01">姓名</th>
+    <th class="table_c_01">邮箱</th>    
+    <th class="table_c_01">性别</th>
+    <th class="table_c_01">年龄</th>
+    <th class="table_c_01">手机</th>
+  </tr>
+ <logic:notEmpty name="listUser">
+ <logic:iterate id="detial" name="listUser">
+  <tr>    
+    <td  height="20"> ${detial.userid}</td>   
+    <td> ${detial.username}</td>
+    <td> ${detial.uname}</td>
+    <td> ${detial.email}</td>
+    <td> ${detial.sex}</td>
+    <td> ${detial.age}</td>
+    <td> ${detial.mtel}</td>
+  </tr>
+</logic:iterate>
+</logic:notEmpty>
+ <tr>
+ 
+ 
+  <td colspan="7" align="right" align="left" class="table_c_02" height=28 >
+    ${info}
+ </td>
+ </tr>
+</table>
+
+</td></tr></table>
+</form>
+</body>
+</html> 
+
+
+
+
+
+
+
+
+
+
+

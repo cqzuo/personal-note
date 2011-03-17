@@ -1,0 +1,153 @@
+第一步：下载j2sdk和tomcat：到sun官方站点
+    最新的jdk为1.6.04，tomcat为6.0，建议jdk1.4以上，tomcat4.0以上
+第二步：安装和配置你的j2sdk和tomcat：执行j2sdk和tomcat的安装程序，然后设置按照路径进行安装即可。
+1.安装j2sdk以后，需要配置一下环境变量，在我的电脑->属性->高级->环境变量->系统变量中添加以下环境变量(假定你的j2sdk安装在c:\j2sdk1.4.2）： 
+JAVA_HOME=c:\j2sdk1.4.2 
+classpath=.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;（.;一定不能少，因为它代表当前路径) 
+path=%JAVA_HOME%\bin 
+ 接着可以写一个简单的java程序来测试J2SDK是否已安装成功： 
+public class Test{ 
+public static void main(String args[]){ 
+System.out.println("This is a test program."); 
+} 
+} 
+将上面的这段程序保存为文件名为Test.java的文件。 
+然后打开命令提示符窗口，cd到你的Test.java所在目录，然后键入下面的命令  
+javac Test.java 
+java Test  
+此时如果看到打印出来This is a test program.的话说明安装成功了，如果没有打印出这句话，你需要仔细检查一下你的配置情况。 
+2.安装Tomcat后，在我的电脑->属性->高级->环境变量->系统变量中添加以下环境变量(假定你的tomcat安装在c:\tomcat）： 
+CATALINA_HOME：c:\tomcat
+CATALINA_BASE：c:\tomcat
+TOMCAT_HOME: C:\Tomcat
+然后修改环境变量中的classpath，把tomat安装目录下的common\lib下的servlet.jar追加到classpath中去，修改后的classpath如下： 
+classpath=.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;%CATALINA_HOME%\common\lib\servlet-api.jar; 
+接着可以启动tomcat，在IE中访问http://localhost:8080，如果看到tomcat的欢迎页面的话说明安装成功了。 
+第三步：建立自己的jsp app目录 
+1.到Tomcat的安装目录的webapps目录，可以看到ROOT，examples, tomcat-docs之类Tomcat自带的的目录； 
+2.在webapps目录下新建一个目录，起名叫myapp； 
+3.myapp下新建一个目录WEB-INF，注意，目录名称是区分大小写的； 
+4.WEB-INF下新建一个文件web.xml，内容如下： 
+<?xml version="1.0" encoding="ISO-8859-1"?> 
+<!DOCTYPE web-app 
+PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" 
+"http://java.sun.com/dtd/web-app_2_3.dtd"> 
+<web-app> 
+<display-name>My Web Application</display-name> 
+<description> 
+A application for test. 
+</description> 
+</web-app> 
+5.在myapp下新建一个测试的jsp页面，文件名为index.jsp，文件内容如下： 
+<html>
+<body>
+<center> 
+Now time is: <%=new java.util.Date()%> 
+</center>
+</body>
+</html> 
+6.重启Tomcat 
+7.打开浏览器，输入http://localhost:8080/myapp/index.jsp 看到当前时间的话说明就成功了。
+第四步：建立自己的Servlet：
+写入你的第一个Servlet:
+在你新建的Application myapp/WEB-INF/classes/test目录下新建HelloWorld.java
+package test;
+import java.io.*;
+ import javax.servlet.*;
+ import javax.servlet.http.*;
+ public class HelloWorld extends HttpServlet
+  {
+    public void doGet(HttpServletRequest request,HttpServletResponse response)th
+rows ServletException,IOException
+   {
+    response.setContentType("text/html"); 
+    PrintWriter out = response.getWriter();
+    out.println("<html><head><title>");
+    out.println("This is my first Servlet");
+    out.println("</title></head><body>");
+    out.println("<h1>Hello,World!</h1>");
+    out.println("</body></html>");
+   
+   }
+   }
+然后照样用javac HelloWorld.java来编译这个文件，如果出现无法import javax.servl
+et.*
+   那么就是应该把C:\Tomcat\common\lib里面的servlet-api.jar文件拷贝到C:\JDK\jre\lib\ext中，再次编译，就没有问题了！
+   然后在Tomcat目录里面的C:\Tomcat\webapps\myapp里面按如下的文件结构：
+   myapp\index.jsp
+   myapp\WEB-INF\classes\test\HelloWorld.class(把上面生成的HelloWorld.class文件放在这个
+里面)
+ 然后在浏览器中输入http://localhost:8080/myapp/HelloWorld,于是Server众望所归的报错了:Error 404--Not Found 
+ 怎么回事呢？
+Servlet必须使用C:\Tomcat\webapps\myapp\WEB-INF这个目录下面的web.xml文件进行注册，
+用EditPlus打开这个web.xml文件，
+在<web-app></web-app>添加下面这段程序:
+<servlet>
+    <servlet-name>HelloWorld</servlet-name>
+    <servlet-class>test.HelloWorld</servlet-class>
+ </servlet>
+ <servlet-mapping>
+    <servlet-name>HelloWorld</servlet-name>
+    <url-pattern>/HelloWorld</url-pattern>
+   </servlet-mapping>
+ 为什么呢？
+ 因为 这样的结构
+   <servlet>
+   <servlet-name>HelloWorld</servlet-name>
+   <servlet-class>test.HelloWorld</servlet-class>//类的路径
+   </servlet>
+表示指定包含的servlet类.
+而以下的结构
+   <servlet-mapping>
+     <servlet-name>HelloWorld</servlet-name>
+    <url-pattern>/HelloWorld</url-pattern>
+   </servlet-mapping>
+ 表示指定HelloServlet应当映射到哪一种URL模式。
+在修改web.xml完毕过后，重新启动Server，然后再输入http://localhost:8080/myapp/HelloWorld,，那么偌大一个Hello,World!等
+着你呢，恭喜你!
+第五步：建立自己java Bean
+1. 在你新建的Application myapp/WEB-INF/classes/test目录下新建TestBean.java
+package test;
+public class TestBean
+{
+    private String name =null;
+    public TestBean(String nameInit){
+        this.name = nameInit;
+    }
+    public void setName(String newName){
+        this.name=newName;
+    }
+    public String getName(){
+        return this.name;
+    }
+}
+然后照样用javac TestBean.java来编译这个文件。
+2.然后在你新建的应用程序目录myapp下新建一个新的jsp文件：testBean.jsp
+<%@ page import="test.TestBean" %>
+<html>
+<head>
+<title>Test Bean</title>
+</head>
+<body>
+<center>
+<%
+   TestBean testBean = new TestBean("Http://yexin218.cublog.cn");
+ %>
+Java Bean Test:
+    The author's blog address is<%=testBean.getName()%>
+</center>
+</body>
+</html>
+好了，确定各个文件的位置：
+myapp\index.jsp
+myapp\testBean.jsp
+myapp\WEB-INF\web.xml
+myapp\WEB-INF\classes\test\HelloWorld.class
+myapp\WEB-INF\classes\test\TestBean.class
+3.重启Tomcat如果需要的话，在浏览器输入:http://localhost:8080/myapp/testBean.jsp 幸运的话就会看到:
+Java Bean Test: The author's blog address isHttp://yexin218.cublog.cn 
+这样就完成了整个Tomcat下的jsp、servlet和javabean的配置。 
+第六步：配置虚拟目录
+打开 Tomcat6.0\conf\server.xml 文件，在 <Host> 和 </Host> 之间加入
+<Context path="/myapp" docBase="D:\myapp" debug="0" reloadable="true" crossContext="true" />
+<Context path="服务名称" docBase="物理路径"/>

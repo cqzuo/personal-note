@@ -1,0 +1,158 @@
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css" />
+<title>登录问题</title>
+<meta http-equiv="Content-Type" content="text/html; charset=" />
+</head>
+<body>
+
+<div class="toc">
+<ul>
+<li><a href="#toc_1">登录的实现</a></li>
+<ul>
+<li><a href="#toc_1.1">前台页面</a></li>
+<li><a href="#toc_1.2">action</a></li>
+<li><a href="#toc_1.3">相关对象</a></li>
+</ul>
+</ul>
+</div>
+<h1 id="toc_1">登录的实现</h1>
+<h2 id="toc_1.1">前台页面</h2>
+<ol>
+<li>
+转向Action的form
+<pre class="brush: xml">
+ &lt;form action="${pageContext.request.contextPath}/user/LoginAction.action" method="post"&gt;
+</pre>
+</li>
+<li>
+登录
+<pre class="brush: xml">
+&lt;td class="textbox"&gt; 
+	用户名:&amp;nbsp;&lt;input type="text" name="user.username" style="width: 10em" maxlength="20" id="username"/&gt;
+&lt;/td&gt;
+&lt;td&gt;
+	密&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;码:&amp;nbsp;&lt;input type="password" name="user.password" style="width: 10em" maxlength="20" id="password"/&gt;
+&lt;/td&gt;
+</pre>
+</li>
+<li>
+注:
+</li>
+<ul>
+<li>
+jsp页面向action传值的方式有3种
+</li>
+<ol>
+<li>
+直接使用默认的action传值
+</li>
+<li>
+自定义vo
+</li>
+<li>
+使用ModelDriven
+</li>
+</ol>
+</ul>
+</ol>
+<h2 id="toc_1.2">action</h2>
+<ol>
+<li>
+action的配置
+<pre class="brush: xml">
+&lt;struts&gt;
+&lt;!-- 用户维护 --&gt;
+&lt;package name="user" namespace="/user" extends="globle"&gt;
+	&lt;!-- 登录start --&gt;
+	&lt;action name="LoginAction_*" class="loginAction" method="{1}"&gt;
+		&lt;result name="login_success"&gt;/WEB-INF/page/index.jsp&lt;/result&gt;
+		&lt;result name="frameMenu_success"&gt;/WEB-INF/page/FrameMenu.jsp&lt;/result&gt;
+		&lt;result name="frameHead_success"&gt;/WEB-INF/page/FrameHeader.jsp&lt;/result&gt;
+		&lt;result name="frameMain_success"&gt;/WEB-INF/page/FrameMain.jsp&lt;/result&gt;
+	&lt;/action&gt;
+	&lt;!-- 登录end --&gt;
+	&lt;action name="UserAction_*" class="userAction" method="{1}"&gt;
+		&lt;result name="userList_success"&gt;/WEB-INF/page/user/userList.jsp&lt;/result&gt;
+		&lt;result name="addUserUI_success"&gt;/WEB-INF/page/user/addUserUI.jsp&lt;/result&gt;
+		&lt;result name="goUserList_success" type="redirect"&gt;UserAction.action&lt;/result&gt;
+		&lt;result name="userDetail_success"&gt;/WEB-INF/page/user/userDetail.jsp&lt;/result&gt;
+		&lt;result name="userRolesList_success"&gt;/WEB-INF/page/user/userRolesList.jsp&lt;/result&gt;
+		&lt;result name="projectManagerList_success"&gt;/WEB-INF/page/user/projectManagerList.jsp&lt;/result&gt;
+	&lt;/action&gt;
+&lt;/package&gt;	
+&lt;/struts&gt; 
+</pre>
+</li>
+<li>
+action的编写
+</li>
+<ul>
+<li>
+execute方法
+<pre class="brush: java">
+	public String execute() {
+String result = "message";
+String whereStatement = "o.username=?1 and o.password=?2";
+List&lt;Object&gt; whereParam = new ArrayList&lt;Object&gt;();
+whereParam.add(this.user.getUsername());
+whereParam.add(this.user.getPassword());
+QueryResult&lt;User&gt; qr = userService.getScrollData(User.class,
+		whereStatement, whereParam);
+if (qr.getResultList() != null &amp;&amp; qr.getResultList().size() &gt; 0) {
+	User u = qr.getResultList().get(0);
+	ActionContext.getContext().getSession().put("user", u);
+	result = "login_success";
+
+return result;
+	
+
+</pre>
+</li>
+</ul>
+</ol>
+<h2 id="toc_1.3">相关对象</h2>
+<ol>
+<li>
+User对象
+<pre class="brush: java">
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	/** 用户编号, 唯一, 非空字符串, 不能修改, 长度为10 **/
+	@Column(unique = true, nullable = false, length = 10)
+	private String userNo;
+
+	/** 用户名, 唯一, 非空字符串, 长度为16 **/
+	@Column(nullable = false, unique = true, length = 16)
+	private String username;
+
+	/** 用户密码 , 非空字符串, 长度为16 **/
+	@Column(nullable = false, length = 16)
+	private String password;
+
+	/** 真实姓名, 10位非空字符串 **/
+	@Column(length = 10, nullable = false)
+	private String realName;
+
+	/** 所属机构 **/
+	@ManyToOne(cascade = CascadeType.REFRESH, optional = false)
+	@JoinColumn(name = "organization_id")
+	private Organization organization;
+
+	/** 用户与角色关系的维护实体,被维护端 **/
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
+	private Set&lt;UsersRoles&gt; usersRoleses = new HashSet&lt;UsersRoles&gt;();
+	/** 人员关系 **/
+	@OneToOne(cascade = CascadeType.REMOVE, mappedBy = "projectManager")
+	private Relation relation;
+
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
+	private Set&lt;StepsProcessers&gt; stepsProcessers = new HashSet&lt;StepsProcessers&gt;();
+	
+</pre>
+</li>
+</ol>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+ * 使用
+  - 在jsp头文件加上 <%@ taglib prefix="s" uri="/struts-tags" %>
+ * 标签用法
+  - <s:a href=""/> 
+  - <s:action name=""/>
+  - <s:actionerror/>
+  - <s:actionmessage/>
+  - <s:append></s:append>
+   # 添加一个值到list,相当于list.add();
+  - <s:autocompleter></s:autocompleter>
+   # 自动完成<s:combobox>标签的内容,是个ajax
+  - <s:bean name=""/>
+  - <s:checkbox/>
+   # 复选框
+  - <s:checkboxlist list=""/>
+   # 多选框
+  - <s:combobox list=""/>
+   # 下拉框
+  - <s:component/>
+   # 图形组件
+  - <s:date/>
+  - <s:datetimepicker/>
+   # 日期输入框
+  - <s:debug/>
+   # 显示错误信息
+  - <s:div/>
+   # 表示一个块
+  - <s:doubleselect list="" doubleName="" doubleList=""/>
+   # 双下拉框
+  - <s:if test=""/>
+  - <s:elseif test=""/>
+  - <s:else></s:else>
+   # 3个标签一起,表示条件判断
+  - <s:fielderror>
+   # 显示文件错误信息
+  - <s:file></s:file>
+   # 文件上传
+  - <s:form action=""/>
+  - <s:iterator/>
+  - <s:generator separator="" val=""/>
+   # 和<s:iterator>一起使用来表示集合遍历
+  - <s:i18n name=""/>
+   # 加载资源包到值栈
+  - <s:inclue value=""/>
+   # 包含一个servlet或jsp页面输出
+  - <s:inputtransferselect list=""/>
+   # 获取form输入
+  - <s:lable>
+   # 只读标签
+  - <s:merge>
+   # 合并遍历集合出来的值
+  - <s:optgroup/>
+   # 获取标签
+  - <s:optiontransferselect doubleList="" doubleName=""/>
+   # 左右选择框
+  - <s:param/>
+   # 提供参数
+  - <s:password/>
+  - <s:property/>
+  - <s:push value=""/>
+   # value的值压到栈中,使property标签能够取到value值
+  - <s:radio list=""/>
+  - <s:reset/>
+  - <s:select list=""/>
+  - <s:set name=""/>
+   # 给变量赋值
+  - <s:sort comparator=""/>
+   # 通过属性给list分类
+  - <s:submit/>
+  - <s:subset>
+   # 为遍历集合输出子集
+  - <s:tabbedPanel id=""/>
+   # 表格框
+  - <s:table/>
+  - <s:text name=""/>
+  - <s:textfiled/>
+  - <s:token/>
+   # 拦截器
+  - <s:tree/>
+  - <s:treenode lable=""/>
+   # 树的结构
+  - <s:updownselect list=""/>
+   # 多选择框
+  - <s:url/>

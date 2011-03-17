@@ -1,0 +1,2375 @@
+4 提问及回复
+  4.1 确定要用到的表
+        4.1.1 首先问题和栏目划分,问题在二级栏目之下
+        4.1.2 增加item表中的数据
+               INSERT INTO item(itemname,itemcode) VALUES('JAVA SE',1);
+               INSERT INTO item(itemname,itemcode) VALUES('JAVA SE',2);
+               
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('面向对象',1,1);
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('多线程',1,2);
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('文件编程',1,3);
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('网络编程',1,4); 
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('AWT/SWING',1,5);
+               
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('JSP/SERVLET',2,1);
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('EJBS',2,2);
+               INSERT INTO subitem(subname,itemid,subcode) VALUES('RMI/RMI-IIOP',2,3);
+   4.2 vo类 Item.java和 Subitem类
+       4.2.1 一个item栏目下有多个子栏目,一对多隐射
+       	     在子表对应的vo类中添加Set型父表对应vo类,并声称setter() getter()方法
+Item.java
+package org.lxh.myzngt.vo;
+
+import java.util.Set;
+
+public class Item {
+	private int itemid ;
+	private String itemname ;
+	private int itemcode ;
+	private Set subitems ;
+	public int getItemcode() {
+		return itemcode;
+	}
+	public void setItemcode(int itemcode) {
+		this.itemcode = itemcode;
+	}
+	public int getItemid() {
+		return itemid;
+	}
+	public void setItemid(int itemid) {
+		this.itemid = itemid;
+	}
+	public String getItemname() {
+		return itemname;
+	}
+	public void setItemname(String itemname) {
+		this.itemname = itemname;
+	}
+	public Set getSubitems() {
+		return subitems;
+	}
+	public void setSubitems(Set subitems) {
+		this.subitems = subitems;
+	}
+	
+}
+      4.2.2 在父表对应的vo类中添加子表对应的vo类,并声称setter(),getter()方法
+Subitem.java
+package org.lxh.myzngt.vo;
+
+public class Subitem {
+	private int subid ;
+	private String subname ;
+	private String itemid ;
+	private int subcode ;
+	private Item item ;
+	public String getItemid() {
+		return itemid;
+	}
+	public void setItemid(String itemid) {
+		this.itemid = itemid;
+	}
+	public int getSubid() {
+		return subid;
+	}
+	public void setSubid(int subid) {
+		this.subid = subid;
+	}
+	public String getSubname() {
+		return subname;
+	}
+	public void setSubname(String subname) {
+		this.subname = subname;
+	}
+	public Item getItem() {
+		return item;
+	}
+	public void setItem(Item item) {
+		this.item = item;
+	}
+	public int getSubcode() {
+		return subcode;
+	}
+	public void setSubcode(int subcode) {
+		this.subcode = subcode;
+	}
+}
+      4.3 用MyEclipse生成各个数据表的vo对象
+question.hbm.xml
+Subitem.hbm.xml
+item.hbm.xml
+Answer.hbm.xml
+	4.3.1 去掉hbm文件中的catalog属性，并在subitem的set标签中添加
+	cascade="all" table="subitem"
+      4.4 写question.jsp
+<%@ page contentType="text/html;charset=gbk"%>
+<%@ page import="java.util.*"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
+<html:html lang="true">
+<head>
+<title>MLDN —— 我的智囊团</title>
+<META NAME="Generator"
+	CONTENT="Struts + Spring + Hibernate + MySQL + Tomcat + CP">
+<META NAME="Author" CONTENT="李兴华">
+<META NAME="Keywords" CONTENT="智囊团,SSH,tomcat,mysql">
+<META NAME="Description" CONTENT="MLDN旗下网站 —— www.zhinangtuan.net.cn">
+</head>
+<body>
+<center>
+<jsp:include flush="true" page="../../inc/template.jsp">
+	<jsp:param name="url" value="../../" />
+	</jsp:include>
+<!--从在线编辑器eWebEditor中获取内容并赋值给document-->
+<SCRIPT language="javascript">
+function subchk()
+{
+    document.questionForm.content.value= window.eWebEditor1.getPureHtml();
+}
+</SCRIPT>
+<%
+ int temp = 0;
+ %>
+ <!--如果在request中有all非空,则执行如下操作-->
+ <logic:present name="all" scope="request">
+ <Script language="javascript">
+	 var subitemlength;	 //二级栏目数组的长度
+	 item_id= new Array();	//用一个Array数组来存放item的Id号
+	 sub_id=new Array(); //用一个Array数组来存放sub的id号
+	 sub_name=new Array(); //用一个Array数组来存放subitem的名称
+
+	 //将从request中获取的item的id号,sub的id号和名称subname分别迭代赋值给item_id,sub_id,subname数组 
+	 <logic:iterate id="item" scope="request" name="all" indexId="ind">
+		<logic:iterate id="sub" name="item" property="subitems">
+			item_id[<%=temp%>]=new Array("${item.itemid}");
+			sub_id[<%=temp%>]=new Array("${sub.subid}");
+			sub_name[<%=temp%>]=new Array("${sub.subname}");
+			<%temp++ ;%>
+		</logic:iterate>
+	 </logic:iterate>
+	 subitemlength=29;//二级栏目数组的长度
+	 //根据所选一级栏目动态改变所对应的二级栏目
+	 function changSubitem(itemid,subid)
+	 {
+	     var subtemp=0;//添加二级栏目时数组的下标
+	     var index=subid.length;//取得subid的个数并传给index
+	     //删除原来二级栏目的选项,在进行下一个选择时清空选择项
+	     for (i=index-1;i>=0;i--)
+		 {
+		     subid.options[i]=null;
+		 }
+	     var itemindex=itemid.selectedIndex;//所选的一级栏目	
+	     //添加所选一级栏目所对应的二级栏目
+	     for (i=0;i<subitemlength;i++)
+		 {
+		     if (itemid.options[itemindex].value==item_id[i])
+			 {
+			     subid.options[subtemp]=new Option(sub_name[i],sub_id[i]);
+			     subtemp=subtemp+1;
+			 }
+		 }	  
+	 }
+</script>
+//传递给已经在spring中注册的struts的/jsp/ques/question.do,实际地址为quesionForm
+    <html:form action="jsp/ques/question.do" method="post" onsubmit="subchk()">
+	 标题：<html:text property="title"></html:text>
+		 <br>	  
+		 		 栏目：
+       //当在select表单中选择时,就会激活 changSubitem函数,并传递当前页面的questionForm中的itemid和subid参数
+		 <select name="itemid"
+			 onchange="changSubitem(document.questionForm.itemid,document.questionForm.subid)">
+       //参数为从request对象中提取的名称为item的iterate数组
+			 <logic:iterate id="item" name="all" scope="request">
+			 <option value=${item.itemid } selected>${item.itemname}</option>
+			 </logic:iterate>
+		 </select>
+		 <select name="subid">
+		 </select>
+		 <script language="javascript">
+			 document.questionForm.itemid[0].selected=true ;
+			 document.questionForm.itemid.onchange() ;
+		 </script>
+		 <br>
+		 内容：<br><textarea name="content" style="display:none"></textarea>
+		 <IFRAME ID="eWebEditor1" src="edit/editor.html" frameborder="0"
+			 scrolling="no" width="467" height="200"></IFRAME>
+		 <br>
+		 悬赏分数：<html:text property="offerscore"></html:text>
+			 <br>
+		验证码：<html:text property="checkcode"></html:text>
+				 <img src="../image.jsp">
+				 <br>
+				 <input type="hidden" name="status" value="insert">
+				 <input type="hidden" name="type" value="1">
+				 <input type="hidden" name="userid" value="${userid}">
+				 <input type="hidden" name="grade" value="${grade}">
+				 <html:submit value="提问"></html:submit>
+				 <html:reset value="重置"></html:reset>
+</html:form>
+</logic:present>
+</center>
+</body>
+</html:html>
+
+
+  4.5 QuestionAction的建立
+      4.5.1  QuestionAction的建立
+/*
+ * Generated by MyEclipse Struts
+ * Template path: templates/java/JavaClass.vtl
+ */
+package org.lxh.myzngt.struts.action;
+
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.actions.DispatchAction;
+import org.lxh.myzngt.dao.IQuestionDAO;
+import org.lxh.myzngt.struts.form.QuestionForm;
+import org.lxh.myzngt.vo.Question;
+
+/**
+ * MyEclipse Struts Creation date: 07-01-2007
+ * 
+ * XDoclet definition:
+ * 
+ * @struts.action path="/question" name="questionForm"
+ *                input="/form/question.jsp" scope="request" validate="true"
+ */
+public class QuestionAction extends DispatchAction {
+	private IQuestionDAO iquestiondao;
+
+	/*
+	 * Generated Methods
+	 */
+
+	/**
+	 * Method execute
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return ActionForward
+	 */
+	public ActionForward insert(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		QuestionForm questionForm = (QuestionForm) form;
+		String ccode = (String) request.getSession().getAttribute("ccode");
+		String checkcode = questionForm.getCheckcode();
+		if (!(checkcode.equals(ccode))) {
+			ActionMessages errors = new ActionMessages();
+			errors.add("checkcode", new ActionMessage("checkcode.error"));
+			super.saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+		Question que = new Question();
+		que.setTitle(questionForm.getTitle());
+		que.setContent(questionForm.getContent());
+		que.setItemid(Integer.parseInt(questionForm.getItemid()));
+		que.setSubid(Integer.parseInt(questionForm.getSubid()));
+		que.setGrade(org.lxh.myzngt.util.IntegralGrade.getInstance()
+				.getGradeInfo(Integer.parseInt(questionForm.getGrade())));
+		que.setUserid(questionForm.getUserid());
+		que.setOfferscore(Integer.parseInt(questionForm.getOfferscore()));
+		que.setQuestiontime(new Date());
+		que.setStatus(1);
+		que.setAcceptflag(2);
+		que.setCommenflag(0);
+		try {
+			this.iquestiondao.insert(que);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mapping.findForward("insertdo");
+	}
+
+	public ActionForward selectid(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+//		QuestionForm questionForm = (QuestionForm) form;
+//		Question q = null;
+//		try {
+//			// 更新浏览次数
+//			this.iquestiondao.updateClickcount(Integer.parseInt(questionForm
+//					.getQid()));
+//			q = this.iquestiondao.queryById(Integer.parseInt(questionForm
+//					.getQid()));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		if (q != null) {
+//			request.setAttribute("question", q);
+//		}
+//
+		return mapping.findForward("showquestion");
+	}
+
+	public ActionForward aa(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		QuestionForm questionForm = (QuestionForm) form;
+		return null;
+	}
+
+	public IQuestionDAO getIquestiondao() {
+		return iquestiondao;
+	}
+
+	public void setIquestiondao(IQuestionDAO iquestiondao) {
+		this.iquestiondao = iquestiondao;
+	}
+}
+      4.5.2 QuestionForm的建立
+/*
+ * Generated by MyEclipse Struts
+ * Template path: templates/java/JavaClass.vtl
+ */
+package org.lxh.myzngt.struts.form;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+
+/**
+ * MyEclipse Struts Creation date: 07-01-2007
+ * 
+ * XDoclet definition:
+ * 
+ * @struts.form name="questionForm"
+ */
+public class QuestionForm extends ActionForm {
+	/*
+	 * Generated fields
+	 */
+
+	/** qid property */
+	private String qid;
+
+	/** questiontime property */
+	private String questiontime;
+
+	/** commenflag property */
+	private String commenflag;
+
+	/** title property */
+	private String title;
+
+	/** content property */
+	private String content;
+
+	/** status property */
+	private String status;
+
+	/** grade property */
+	private String grade;
+
+	/** itemid property */
+	private String itemid;
+
+	/** subid property */
+	private String subid;
+
+	/** userid property */
+	private String userid;
+
+	/** acceptflag property */
+	private String acceptflag;
+
+	/** offerscore property */
+	private String offerscore;
+
+	/** clickcount property */
+	private String clickcount;
+
+	private String checkcode;
+
+	private int type;
+
+	// 1：表示进行增加操作
+	// 2：表示查看问题
+
+	/*
+	 * Generated Methods
+	 */
+
+	/**
+	 * Method validate
+	 * 
+	 * @param mapping
+	 * @param request
+	 * @return ActionErrors
+	 */
+	public ActionErrors validate(ActionMapping mapping,
+			HttpServletRequest request) {
+		ActionErrors errors = new ActionErrors();
+		if (type == 1) {
+			if (this.title == null || "".equals(this.title)) {
+				errors.add("title", new ActionMessage("question.title.null"));
+			}
+			if (this.content == null || "".equals(this.content)) {
+				errors.add("content",
+						new ActionMessage("question.content.null"));
+			}
+			if (!(this.offerscore == null || "".equals(this.offerscore))) {
+				if (!this.offerscore.matches("\\d*")) {
+					errors.add("offerscore", new ActionMessage(
+							"question.offerscore.error"));
+				}
+			}
+			if (this.checkcode == null || "".equals(this.checkcode)) {
+				errors.add("checkcode", new ActionMessage("checkcode.null"));
+			}
+			if (this.offerscore == null || "".equals(this.offerscore)) {
+				this.offerscore = "5";
+			}
+		}
+		/*
+		if (type == 2) {
+			if (this.qid == null || "".equals(this.qid)) {
+				errors.add("qid", new ActionMessage("question.qid.null"));
+			}
+		}
+		*/
+		return errors;
+	}
+
+	/**
+	 * Method reset
+	 * 
+	 * @param mapping
+	 * @param request
+	 */
+	public void reset(ActionMapping mapping, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * Returns the qid.
+	 * 
+	 * @return String
+	 */
+	public String getQid() {
+		return qid;
+	}
+
+	/**
+	 * Set the qid.
+	 * 
+	 * @param qid
+	 *            The qid to set
+	 */
+	public void setQid(String qid) {
+		this.qid = qid;
+	}
+
+	/**
+	 * Returns the questiontime.
+	 * 
+	 * @return String
+	 */
+	public String getQuestiontime() {
+		return questiontime;
+	}
+
+	/**
+	 * Set the questiontime.
+	 * 
+	 * @param questiontime
+	 *            The questiontime to set
+	 */
+	public void setQuestiontime(String questiontime) {
+		this.questiontime = questiontime;
+	}
+
+	/**
+	 * Returns the commenflag.
+	 * 
+	 * @return String
+	 */
+	public String getCommenflag() {
+		return commenflag;
+	}
+
+	/**
+	 * Set the commenflag.
+	 * 
+	 * @param commenflag
+	 *            The commenflag to set
+	 */
+	public void setCommenflag(String commenflag) {
+		this.commenflag = commenflag;
+	}
+
+	/**
+	 * Returns the title.
+	 * 
+	 * @return String
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * Set the title.
+	 * 
+	 * @param title
+	 *            The title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
+	 * Returns the content.
+	 * 
+	 * @return String
+	 */
+	public String getContent() {
+		return content;
+	}
+
+	/**
+	 * Set the content.
+	 * 
+	 * @param content
+	 *            The content to set
+	 */
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	/**
+	 * Returns the status.
+	 * 
+	 * @return String
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * Set the status.
+	 * 
+	 * @param status
+	 *            The status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	/**
+	 * Returns the grade.
+	 * 
+	 * @return String
+	 */
+	public String getGrade() {
+		return grade;
+	}
+
+	/**
+	 * Set the grade.
+	 * 
+	 * @param grade
+	 *            The grade to set
+	 */
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	/**
+	 * Returns the itemid.
+	 * 
+	 * @return String
+	 */
+	public String getItemid() {
+		return itemid;
+	}
+
+	/**
+	 * Set the itemid.
+	 * 
+	 * @param itemid
+	 *            The itemid to set
+	 */
+	public void setItemid(String itemid) {
+		this.itemid = itemid;
+	}
+
+	/**
+	 * Returns the subid.
+	 * 
+	 * @return String
+	 */
+	public String getSubid() {
+		return subid;
+	}
+
+	/**
+	 * Set the subid.
+	 * 
+	 * @param subid
+	 *            The subid to set
+	 */
+	public void setSubid(String subid) {
+		this.subid = subid;
+	}
+
+	/**
+	 * Returns the userid.
+	 * 
+	 * @return String
+	 */
+	public String getUserid() {
+		return userid;
+	}
+
+	/**
+	 * Set the userid.
+	 * 
+	 * @param userid
+	 *            The userid to set
+	 */
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	/**
+	 * Returns the acceptflag.
+	 * 
+	 * @return String
+	 */
+	public String getAcceptflag() {
+		return acceptflag;
+	}
+
+	/**
+	 * Set the acceptflag.
+	 * 
+	 * @param acceptflag
+	 *            The acceptflag to set
+	 */
+	public void setAcceptflag(String acceptflag) {
+		this.acceptflag = acceptflag;
+	}
+
+	/**
+	 * Returns the offerscore.
+	 * 
+	 * @return String
+	 */
+	public String getOfferscore() {
+		return offerscore;
+	}
+
+	/**
+	 * Set the offerscore.
+	 * 
+	 * @param offerscore
+	 *            The offerscore to set
+	 */
+	public void setOfferscore(String offerscore) {
+		this.offerscore = offerscore;
+	}
+
+	/**
+	 * Returns the clickcount.
+	 * 
+	 * @return String
+	 */
+	public String getClickcount() {
+		return clickcount;
+	}
+
+	/**
+	 * Set the clickcount.
+	 * 
+	 * @param clickcount
+	 *            The clickcount to set
+	 */
+	public void setClickcount(String clickcount) {
+		this.clickcount = clickcount;
+	}
+
+	public String getCheckcode() {
+		return checkcode;
+	}
+
+	public void setCheckcode(String checkcode) {
+		this.checkcode = checkcode;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+}
+    4.6 AnswerAction的建立
+    	4.6.1 AnswerForm的建立
+/*
+ * Generated by MyEclipse Struts
+ * Template path: templates/java/JavaClass.vtl
+ */
+package org.lxh.myzngt.struts.form;
+
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+
+/**
+ * MyEclipse Struts Creation date: 07-01-2007
+ * 
+ * XDoclet definition:
+ * 
+ * @struts.form name="answerForm"
+ */
+public class AnswerForm extends ActionForm {
+	/*
+	 * Generated fields
+	 */
+
+	/** qid property */
+	private String qid;
+
+	/** anstime property */
+	private String anstime;
+
+	/** userid property */
+	private String userid;
+
+	/** quesans property */
+	private String quesans;
+
+	/** aid property */
+	private String aid;
+
+	/** status property */
+	private String status;
+
+	/** grade property */
+	private String grade;
+
+	private String checkcode;
+
+	private int type;
+
+	// 1：表示增加回答
+
+	/*
+	 * Generated Methods
+	 */
+
+	/**
+	 * Method validate
+	 * 
+	 * @param mapping
+	 * @param request
+	 * @return ActionErrors
+	 */
+	public ActionErrors validate(ActionMapping mapping,
+			HttpServletRequest request) {
+		ActionErrors errors = new ActionErrors();
+		if (type == 1) {
+			if (this.checkcode == null || "".equals(this.checkcode)) {
+				errors.add("checkcode", new ActionMessage("checkcode.null"));
+			}
+			if (this.quesans == null || "".equals(this.quesans)) {
+				errors.add("quesans", new ActionMessage("answer.quesans.null"));
+			}
+			if (this.qid == null || "".equals(this.qid)) {
+				errors.add("qid",new ActionMessage("")) ;
+			}
+		}
+		return errors;
+	}
+
+	/**
+	 * Method reset
+	 * 
+	 * @param mapping
+	 * @param request
+	 */
+	public void reset(ActionMapping mapping, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * Returns the qid.
+	 * 
+	 * @return String
+	 */
+	public String getQid() {
+		return qid;
+	}
+
+	/**
+	 * Set the qid.
+	 * 
+	 * @param qid
+	 *            The qid to set
+	 */
+	public void setQid(String qid) {
+		this.qid = qid;
+	}
+
+	/**
+	 * Returns the anstime.
+	 * 
+	 * @return String
+	 */
+	public String getAnstime() {
+		return anstime;
+	}
+
+	/**
+	 * Set the anstime.
+	 * 
+	 * @param anstime
+	 *            The anstime to set
+	 */
+	public void setAnstime(String anstime) {
+		this.anstime = anstime;
+	}
+
+	/**
+	 * Returns the userid.
+	 * 
+	 * @return String
+	 */
+	public String getUserid() {
+		return userid;
+	}
+
+	/**
+	 * Set the userid.
+	 * 
+	 * @param userid
+	 *            The userid to set
+	 */
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	/**
+	 * Returns the quesans.
+	 * 
+	 * @return String
+	 */
+	public String getQuesans() {
+		return quesans;
+	}
+
+	/**
+	 * Set the quesans.
+	 * 
+	 * @param quesans
+	 *            The quesans to set
+	 */
+	public void setQuesans(String quesans) {
+		this.quesans = quesans;
+	}
+
+	/**
+	 * Returns the aid.
+	 * 
+	 * @return String
+	 */
+	public String getAid() {
+		return aid;
+	}
+
+	/**
+	 * Set the aid.
+	 * 
+	 * @param aid
+	 *            The aid to set
+	 */
+	public void setAid(String aid) {
+		this.aid = aid;
+	}
+
+	/**
+	 * Returns the status.
+	 * 
+	 * @return String
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * Set the status.
+	 * 
+	 * @param status
+	 *            The status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	/**
+	 * Returns the grade.
+	 * 
+	 * @return String
+	 */
+	public String getGrade() {
+		return grade;
+	}
+
+	/**
+	 * Set the grade.
+	 * 
+	 * @param grade
+	 *            The grade to set
+	 */
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	public String getCheckcode() {
+		return checkcode;
+	}
+
+	public void setCheckcode(String checkcode) {
+		this.checkcode = checkcode;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+}
+        4.6.2 AnswerAction的建立
+/*
+ * Generated by MyEclipse Struts
+ * Template path: templates/java/JavaClass.vtl
+ */
+package org.lxh.myzngt.struts.action;
+
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.actions.DispatchAction;
+import org.lxh.myzngt.dao.IAnswerDAO;
+import org.lxh.myzngt.dao.IUserDAO;
+import org.lxh.myzngt.struts.form.AnswerForm;
+import org.lxh.myzngt.vo.Answer;
+import org.lxh.myzngt.vo.Question;
+
+/**
+ * MyEclipse Struts Creation date: 07-01-2007
+ * 
+ * XDoclet definition:
+ * 
+ * @struts.action path="/answer" name="answerForm" input="/form/answer.jsp"
+ *                parameter="status" scope="request" validate="true"
+ */
+public class AnswerAction extends DispatchAction {
+	private IAnswerDAO ianswerdao;
+
+	private IUserDAO iuserdao;
+
+	/*
+	 * Generated Methods
+	 */
+
+	/**
+	 * Method execute
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return ActionForward
+	 */
+	public ActionForward insert(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		AnswerForm answerForm = (AnswerForm) form;
+		String ccode = (String) request.getSession().getAttribute("ccode");
+		String checkcode = answerForm.getCheckcode();
+		if (!(checkcode.equals(ccode))) {
+			ActionMessages errors = new ActionMessages();
+			errors.add("checkcode", new ActionMessage("checkcode.error"));
+			super.saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+		// 增加用户的个人积分
+		Answer ans = new Answer();
+		ans.setAnstime(new Date());
+		ans.setQuesans(answerForm.getQuesans());
+		ans.setUserid(answerForm.getUserid());
+		ans.setGrade(org.lxh.myzngt.util.IntegralGrade.getInstance()
+				.getGradeInfo(Integer.parseInt(answerForm.getGrade())));
+		ans.setStatus(2);
+		Question q = new Question() ;
+		q.setQid(Integer.parseInt(answerForm.getQid())) ;
+		ans.setQuestion(q) ;
+		try {
+			this.ianswerdao.insert(ans);
+			this.iuserdao.addIntegral(answerForm.getUserid(), 5);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mapping.findForward("insertdo");
+	}
+
+	public ActionForward aa(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		AnswerForm answerForm = (AnswerForm) form;
+		String ccode = (String) request.getSession().getAttribute("ccode");
+		String checkcode = answerForm.getCheckcode();
+		if (!(checkcode.equals(ccode))) {
+			ActionMessages errors = new ActionMessages();
+			errors.add("checkcode", new ActionMessage("checkcode.error"));
+			super.saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+		return null;
+	}
+
+	public IAnswerDAO getIanswerdao() {
+		return ianswerdao;
+	}
+
+	public void setIanswerdao(IAnswerDAO ianswerdao) {
+		this.ianswerdao = ianswerdao;
+	}
+
+	public IUserDAO getIuserdao() {
+		return iuserdao;
+	}
+
+	public void setIuserdao(IUserDAO iuserdao) {
+		this.iuserdao = iuserdao;
+	}
+}
+   4.7 question.jsp页面联动的实现
+	4.7.1 IitemDAO.java接口
+package org.lxh.myzngt.dao;
+
+import java.util.List;
+
+import org.lxh.myzngt.vo.Item;
+
+public interface IItemDAO {
+	// 得到全部的栏目
+	public List queryAll() throws Exception;
+
+	// 删除栏目
+	public void delete(int itemid) throws Exception;
+
+	// 更新栏目
+	public void update(Item item) throws Exception;
+
+	// 按栏目ID查询
+	public Item queryById(int itemid) throws Exception;
+	
+	// 增加新栏目
+	public void insert(Item item) throws Exception ;
+}
+
+	4.7.2 ISubItemDAO.java接口
+package org.lxh.myzngt.dao;
+
+import org.lxh.myzngt.vo.Subitem;
+
+public interface ISubitemDAO {
+	// 删除栏目
+	public void delete(int subid) throws Exception;
+
+	// 更新栏目
+	public void update(Subitem subitem) throws Exception;
+
+	// 增加新栏目
+	public void insert(Subitem subitem) throws Exception;
+}
+	4.7.3 IItemDAO的实现类 IItemDAOImpl.java
+package org.lxh.myzngt.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.lxh.myzngt.dao.IItemDAO;
+import org.lxh.myzngt.vo.Item;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+public class IItemDAOImpl extends HibernateDaoSupport implements IItemDAO {
+
+	public List queryAll() throws Exception {
+		String hql = "FROM Item AS i";
+		List all = super.getSession().createQuery(hql).list();
+		return all;
+	}
+
+	public void delete(int itemid) throws Exception {
+		String hql = "DELETE FROM Item WHERE itemid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, itemid);
+		q.executeUpdate();
+	}
+
+	public void insert(Item item) throws Exception {
+		super.getSession().save(item);
+	}
+
+	public Item queryById(int itemid) throws Exception {
+		Item item = null;
+		String hql = "FROM Item AS i WHERE i.itemid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, itemid);
+		List all = q.list();
+		if (all.size() > 0) {
+			item = (Item) all.get(0);
+		}
+		return item;
+	}
+
+	public void update(Item item) throws Exception {
+		String hql = "UPDATE Item SET itemname=?,itemcode=? WHERE itemid=?" ;
+		Query q = super.getSession().createQuery(hql) ;
+		q.setString(0, item.getItemname()) ;
+		q.setInteger(1, item.getItemcode()) ;
+		q.setInteger(2, item.getItemid()) ;
+		q.executeUpdate() ;
+	}
+
+}
+
+	4.7.4 ISubitemDAO的实现类 ISubitemDAOImpl.java
+	实现了HibernateDaoSupport接口
+package org.lxh.myzngt.dao.impl;
+
+import org.hibernate.Query;
+import org.lxh.myzngt.dao.ISubitemDAO;
+import org.lxh.myzngt.vo.Subitem;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+public class ISubitemDAOImpl extends HibernateDaoSupport implements ISubitemDAO {
+
+	public void delete(int subid) throws Exception {
+		String hql = "DELETE FROM Subitem WHERE subid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, subid);
+		q.executeUpdate();
+
+	}
+
+	public void insert(Subitem subitem) throws Exception {
+		super.getSession().save(subitem);
+	}
+
+	public void update(Subitem subitem) throws Exception {
+		String hql = "UPDATE Subitem SET subname=?,subcode=? WHERE subid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, subitem.getSubname());
+		q.setInteger(1, subitem.getSubcode());
+		q.setInteger(2, subitem.getSubid());
+		q.executeUpdate();
+	}
+}
+	4.8 在spring中注册dao
+	<bean id="iitemdao" class="org.lxh.myzngt.dao.IItemDAO"
+		abstract="true">
+	</bean>
+	<bean id="iquestiondao" class="org.lxh.myzngt.dao.IQuestionDAO"
+		abstract="true">
+	</bean>
+	<bean id="ianswerdao" class="org.lxh.myzngt.dao.IAnswerDAO"
+		abstract="true">
+	</bean>
+	<bean id="isubitemdao" class="org.lxh.myzngt.dao.ISubitemDAO"
+		abstract="true">
+	<bean id="isubitemdaoimpl"
+		class="org.lxh.myzngt.dao.impl.ISubitemDAOImpl"
+		parent="isubitemdao">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean id="ianswerdaoimpl"
+		class="org.lxh.myzngt.dao.impl.IAnswerDAOImpl" parent="ianswerdao">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean id="iquestiondaoimpl"
+		class="org.lxh.myzngt.dao.impl.IQuestionDAOImpl" parent="iquestiondao">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean id="iitemdaoimpl" class="org.lxh.myzngt.dao.impl.IItemDAOImpl" parent="iitemdao">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean name="/jsp/ques/item"
+		class="org.lxh.myzngt.struts.action.ItemAction" singleton="true">
+		<property name="iitemdao">
+			<ref bean="iitemdaoimpl" />
+		</property>
+	</bean>
+	<bean name="/jsp/ques/question"
+		class="org.lxh.myzngt.struts.action.QuestionAction">
+		<property name="iquestiondao">
+			<ref bean="iquestiondaoimpl" />
+		</property>
+	</bean>
+	<bean name="/jsp/ques/answer"
+		class="org.lxh.myzngt.struts.action.AnswerAction">
+		<property name="ianswerdao">
+			<ref bean="ianswerdaoimpl" />
+		</property>
+		<property name="iuserdao">
+			<ref bean="iuserdaoimpl" />
+		</property>
+	</bean>
+	4.9在struts-config.xml中配置转向信息
+		<action attribute="questionForm" input="/jsp/errors.jsp"
+			name="questionForm" parameter="status" path="/jsp/ques/question"
+			scope="request" type="org.lxh.myzngt.struts.action.QuestionAction">
+			<forward name="insertdo" path="/jsp/ques/question_do.jsp"></forward>
+		</action>
+		<action attribute="answerForm" input="/jsp/errors.jsp"
+			name="answerForm" parameter="status" path="/jsp/ques/answer"
+			scope="request" type="org.lxh.myzngt.struts.action.AnswerAction">
+			<forward name="insertdo" path="/jsp/ques/answer_do.jsp"></forward>
+		</action>
+		<action attribute="itemForm" input="/jsp/errors.jsp"
+			name="itemForm" parameter="status" path="/jsp/ques/item"
+			scope="request" type="org.lxh.myzngt.struts.action.ItemAction">
+			<forward name="question" path="/jsp/ques/question.jsp"></forward>
+	4.9 ItemAction
+	    4.9.1 ItemForm
+	    	  4.9.1.1 添加验证
+		  4.9.1.2 添加type及setter() getter()方法来实现DispatchAction
+/*
+ * Generated by MyEclipse Struts
+ * Template path: templates/java/JavaClass.vtl
+ */
+package org.lxh.myzngt.struts.form;
+
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+
+/** 
+ * MyEclipse Struts
+ * Creation date: 07-01-2007
+ * 
+ * XDoclet definition:
+ * @struts.form name="itemForm"
+ */
+public class ItemForm extends ActionForm {
+	/*
+	 * Generated fields
+	 */
+
+	/** itemcode property */
+	private String itemcode;
+
+	/** itemname property */
+	private String itemname;
+
+	/** itemid property */
+	private String itemid;
+	
+	private int type ;
+	// 1：查询全部，都不验证
+
+	/*
+	 * Generated Methods
+	 */
+
+	/** 
+	 * Method validate
+	 * @param mapping
+	 * @param request
+	 * @return ActionErrors
+	 */
+	public ActionErrors validate(ActionMapping mapping,
+			HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/** 
+	 * Method reset
+	 * @param mapping
+	 * @param request
+	 */
+	public void reset(ActionMapping mapping, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+	}
+
+	/** 
+	 * Returns the itemcode.
+	 * @return String
+	 */
+	public String getItemcode() {
+		return itemcode;
+	}
+
+	/** 
+	 * Set the itemcode.
+	 * @param itemcode The itemcode to set
+	 */
+	public void setItemcode(String itemcode) {
+		this.itemcode = itemcode;
+	}
+
+	/** 
+	 * Returns the itemname.
+	 * @return String
+	 */
+	public String getItemname() {
+		return itemname;
+	}
+
+	/** 
+	 * Set the itemname.
+	 * @param itemname The itemname to set
+	 */
+	public void setItemname(String itemname) {
+		this.itemname = itemname;
+	}
+
+	/** 
+	 * Returns the itemid.
+	 * @return String
+	 */
+	public String getItemid() {
+		return itemid;
+	}
+
+	/** 
+	 * Set the itemid.
+	 * @param itemid The itemid to set
+	 */
+	public void setItemid(String itemid) {
+		this.itemid = itemid;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+}
+	4.9.2 ItemAction
+	      4.9.2.1 将查询结果存到Request的session中
+/*
+ * Generated by MyEclipse Struts
+ * Template path: templates/java/JavaClass.vtl
+ */
+package org.lxh.myzngt.struts.action;
+
+import java.util.Iterator;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.actions.DispatchAction;
+import org.lxh.myzngt.dao.IItemDAO;
+import org.lxh.myzngt.struts.form.ItemForm;
+import org.lxh.myzngt.vo.Item;
+import org.lxh.myzngt.vo.Subitem;
+
+/**
+ * MyEclipse Struts Creation date: 07-01-2007
+ * 
+ * XDoclet definition:
+ * 
+ * @struts.action path="/item" name="itemForm" input="/form/item.jsp"
+ *                parameter="status" scope="request" validate="true"
+ */
+public class ItemAction extends DispatchAction {
+	private IItemDAO iitemdao;
+
+	/*
+	 * Generated Methods
+	 */
+
+	/**
+	 * Method execute
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return ActionForward
+	 */
+	public ActionForward selectall(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		List all = null;
+		try {
+			all = this.iitemdao.queryAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("all", all);
+		return mapping.findForward("question");
+	}
+
+	public ActionForward aa(ActionMapping mapping, ActionForm form,  
+			HttpServletRequest request, HttpServletResponse response) {
+		ItemForm itemForm = (ItemForm) form;
+
+		return null;
+	}
+
+	public IItemDAO getIitemdao() {
+		return iitemdao;
+	}
+
+	public void setIitemdao(IItemDAO iitemdao) {
+		this.iitemdao = iitemdao;
+	}
+}
+   4.9.3 将 IItemDAO IItemDAOImpl 注册到spring中(applicationContext.xml)
+   	 见4.8
+    4.9.4 将struts注册到spring中
+    	 见4.8
+/*
+   错误: 页面出现404错误
+   tomcat报错:后台出错
+   解决: 新建一个test类来绕开tomcat服务器,查看相关信息
+   原因: 有些hbm.xml还没有建立对应的vo类,spring在初始化时无法初始化
+*/
+   4.10 opensesion的配置
+保证数据库一直连接着不被关闭
+在web.xml中配置
+	<filter>
+		<filter-name>opensession</filter-name>
+		<filter-class>
+			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>opensession</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+/*
+  错误: tomcat报错 session关闭,登录后其他操作提示数据库未打开,session关闭
+  解决: 在web.xml中添加filter OpenSession
+*/
+4.11 log4j的 配置
+class目录下:
+# For JBoss: Avoid to setup Log4J outside $JBOSS_HOME/server/default/deploy/log4j.xml!
+# For all other servers: Comment out the Log4J listener in web.xml to activate Log4J.
+log4j.rootLogger=INFO, stdout, logfile
+
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d %p [%c] - %m%n
+
+log4j.appender.logfile=org.apache.log4j.RollingFileAppender
+log4j.appender.logfile.File=d:/znt.log
+log4j.appender.logfile.MaxFileSize=512KB
+# Keep three backup files.
+log4j.appender.logfile.MaxBackupIndex=3
+# Pattern to output: date priority [category] - message
+log4j.appender.logfile.layout=org.apache.log4j.PatternLayout
+log4j.appender.logfile.layout.ConversionPattern=%d %p [%c] - %m%n
+/*
+   错误: 提示属性出现错误
+   原因:vo类中属性设置出现错误 int型写成了String型
+*/
+ 4.12 在线编辑器
+       将在线编辑器文件夹复制到指定的jsp/ques/下
+  4.13 在QuestionForm中添加type属性
+  4.14 写后台的Question的dao IQuestiondao接口
+  IQuestionDAO.java
+  package org.lxh.myzngt.dao;
+
+import java.util.List;
+
+import org.lxh.myzngt.vo.Question;
+
+public interface IQuestionDAO {
+	// 根据Item查找全部的问题数量
+	public int getByItemCount(int itemid) throws Exception;
+
+	// 根据itemid查找全部的问题数量
+	public int getBySubCount(int subid) throws Exception;
+
+	// 根据推荐查找全部的问题数量
+	public int getByCommenCount(int commen) throws Exception;
+
+	// 根据状态查找全部的问题数量
+	public int getByStatusCount(int status) throws Exception;
+
+	// 根据模糊查询查找全部的问题数量
+	public int getByLikeCount(String cond) throws Exception;
+
+	// 增加问题
+	public void insert(Question question) throws Exception;
+
+	// 查找推荐问题
+	// 1：推荐
+	// 0：不推荐
+	public List queryByCommemflag(int commenflag, int currentPage, int lineSize)
+			throws Exception;
+
+	// 按解决装查找问题
+	// 1：未解决
+	// 2：已解决
+	// 3：无满意答案
+	public List queryByStatus(int status, int currentPage, int lineSize)
+			throws Exception;
+
+	// 根据ID取出内容
+	public Question queryById(int qid) throws Exception;
+
+	// 修改浏览次数
+	public void updateClickcount(int qid) throws Exception;
+
+	// 按一级栏目检索
+	public List queryByItem(int itemid, int currentPage, int lineSize)
+			throws Exception;
+
+	// 按二级栏目检索
+	public List queryBySub(int subid, int currentPage, int lineSize)
+			throws Exception;
+
+	// 模糊查询
+	public List queryByLike(String cond, int currentPage, int lineSize)
+			throws Exception;
+
+	// 列出一个用户提出的全部问题
+	public List queryByUserId(String userid, int currentPage, int lineSize)
+			throws Exception;
+
+	// 求出一个用户问题的数量
+	public int getByUseridCount(String userid) throws Exception;
+
+	// 列出用户回答过的问题
+	public List queryByUserAnswer(String userid, int currentPage, int lineSize);
+
+	// 列出用户回答过的问题的数量
+	public int getByUserAnswer(String userid) throws Exception;
+
+	// 列出一个用户被采纳的问题
+	public List queryByAccept(String userid, int status, int currentPage,
+			int lineSize) throws Exception;
+
+	// 列出一个用户被采纳问题的数量
+	public int getByAccept(String userid, int status) throws Exception;
+
+	// 答案是否已采纳够
+	public void updateAccept(int qid, int accept) throws Exception;
+
+	// 设置答案状态：不满意、未解决、已解决
+	public void updateStatus(int qid, int status) throws Exception;
+
+	// 删除问题
+	public void delete(int qid) throws Exception;
+
+	// 列出全部数据
+
+	public List queryAll(int currentPage, int lineSize) throws Exception;
+
+	// 得到全部的数据大小
+	public int getAllCount() throws Exception;
+	
+	// 设置推荐问题
+	public void updateCommen(int qid,int commen) throws Exception ;
+}
+  4.15 写Question和Answer的vo类
+    4.15.1 在Answer.java中有一个Question的属性对象
+    4.15.2 在Question.java中有一个Set类型的Answer对象
+  package org.lxh.myzngt.vo;
+
+import java.util.Date;
+import java.util.Set;
+
+public class Question {
+	private int qid ;
+	private String title ;
+	private String content ;
+	private int itemid ;
+	private int subid ;
+	private String userid ;
+	private String grade ;
+	private int offerscore ;
+	private int status ;
+	private Date questiontime ;
+	private int clickcount ;
+	private int acceptflag ;
+	private int commenflag ;
+	
+	private Set answers ;
+	
+	public int getAcceptflag() {
+		return acceptflag;
+	}
+	public void setAcceptflag(int acceptflag) {
+		this.acceptflag = acceptflag;
+	}
+	public int getClickcount() {
+		return clickcount;
+	}
+	public void setClickcount(int clickcount) {
+		this.clickcount = clickcount;
+	}
+	public int getCommenflag() {
+		return commenflag;
+	}
+	public void setCommenflag(int commenflag) {
+		this.commenflag = commenflag;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public int getItemid() {
+		return itemid;
+	}
+	public void setItemid(int itemid) {
+		this.itemid = itemid;
+	}
+	public int getOfferscore() {
+		return offerscore;
+	}
+	public void setOfferscore(int offerscore) {
+		this.offerscore = offerscore;
+	}
+	public int getQid() {
+		return qid;
+	}
+	public void setQid(int qid) {
+		this.qid = qid;
+	}
+	public Date getQuestiontime() {
+		return questiontime;
+	}
+	public void setQuestiontime(Date questiontime) {
+		this.questiontime = questiontime;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public int getSubid() {
+		return subid;
+	}
+	public void setSubid(int subid) {
+		this.subid = subid;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+	public Set getAnswers() {
+		return answers;
+	}
+	public void setAnswers(Set answers) {
+		this.answers = answers;
+	}
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+}
+Answer.java
+package org.lxh.myzngt.vo;
+
+import java.util.Date;
+
+public class Answer {
+	private int aid ;
+	private String quesans ;
+	private String userid ;
+	private String grade ;
+	private Date anstime ;
+	private int status ;
+	private int qid ;
+	
+	private Question question ;
+	
+	public int getAid() {
+		return aid;
+	}
+	public void setAid(int aid) {
+		this.aid = aid;
+	}
+	public Date getAnstime() {
+		return anstime;
+	}
+	public void setAnstime(Date anstime) {
+		this.anstime = anstime;
+	}
+
+	public int getQid() {
+		return qid;
+	}
+	public void setQid(int qid) {
+		this.qid = qid;
+	}
+	public String getQuesans() {
+		return quesans;
+	}
+	public void setQuesans(String quesans) {
+		this.quesans = quesans;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+	public Question getQuestion() {
+		return question;
+	}
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+}
+  4.16 生成vo类对应的hbm.xml文件
+    在对应的name为Answer的set属性hbm.xml文件中,添加table="answer"
+    4.16.1 将hbm.xml文件添加到spring中
+      在applicationContext.xml中添加
+<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<!-- 表示允许自动提交 -->
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<!-- 显示sql语句 -->
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>org/lxh/myzngt/vo/Admin.hbm.xml</value>
+				<value>org/lxh/myzngt/vo/User.hbm.xml</value>
+				<value>org/lxh/myzngt/vo/Item.hbm.xml</value>
+				<value>org/lxh/myzngt/vo/Subitem.hbm.xml</value>
+				<value>org/lxh/myzngt/vo/Answer.hbm.xml</value>
+				<value>org/lxh/myzngt/vo/Question.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+  4.17 为Question和Answer建立action
+    4.17.1 Myeclipse自动生成ActionForm和Action
+    4.17.2 修改生成的Action
+    QuestionAction.java
+    /*
+ * Generated by MyEclipse Struts
+ * Template path: templates/java/JavaClass.vtl
+ */
+package org.lxh.myzngt.struts.action;
+
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.actions.DispatchAction;
+import org.lxh.myzngt.dao.IQuestionDAO;
+import org.lxh.myzngt.struts.form.QuestionForm;
+import org.lxh.myzngt.vo.Question;
+
+/**
+ * MyEclipse Struts Creation date: 07-01-2007
+ * 
+ * XDoclet definition:
+ * 
+ * @struts.action path="/question" name="questionForm"
+ *                input="/form/question.jsp" scope="request" validate="true"
+ */
+public class QuestionAction extends DispatchAction {
+	private IQuestionDAO iquestiondao;
+
+	/*
+	 * Generated Methods
+	 */
+
+	/**
+	 * Method execute
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return ActionForward
+	 */
+	public ActionForward insert(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		QuestionForm questionForm = (QuestionForm) form;
+		String ccode = (String) request.getSession().getAttribute("ccode");
+		String checkcode = questionForm.getCheckcode();
+		if (!(checkcode.equals(ccode))) {
+			ActionMessages errors = new ActionMessages();
+			errors.add("checkcode", new ActionMessage("checkcode.error"));
+			super.saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+		Question que = new Question();
+		que.setTitle(questionForm.getTitle());
+		que.setContent(questionForm.getContent());
+		que.setItemid(Integer.parseInt(questionForm.getItemid()));
+		que.setSubid(Integer.parseInt(questionForm.getSubid()));
+		que.setGrade(org.lxh.myzngt.util.IntegralGrade.getInstance()
+				.getGradeInfo(Integer.parseInt(questionForm.getGrade())));
+		que.setUserid(questionForm.getUserid());
+		que.setOfferscore(Integer.parseInt(questionForm.getOfferscore()));
+		que.setQuestiontime(new Date());
+		que.setStatus(1);
+		que.setAcceptflag(2);
+		que.setCommenflag(0);
+		try {
+			this.iquestiondao.insert(que);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mapping.findForward("insertdo");
+	}
+
+	public ActionForward selectid(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+//		QuestionForm questionForm = (QuestionForm) form;
+//		Question q = null;
+//		try {
+//			// 更新浏览次数
+//			this.iquestiondao.updateClickcount(Integer.parseInt(questionForm
+//					.getQid()));
+//			q = this.iquestiondao.queryById(Integer.parseInt(questionForm
+//					.getQid()));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		if (q != null) {
+//			request.setAttribute("question", q);
+//		}
+//
+		return mapping.findForward("showquestion");
+	}
+
+	public ActionForward aa(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		QuestionForm questionForm = (QuestionForm) form;
+		return null;
+	}
+
+	public IQuestionDAO getIquestiondao() {
+		return iquestiondao;
+	}
+
+	public void setIquestiondao(IQuestionDAO iquestiondao) {
+		this.iquestiondao = iquestiondao;
+	}
+}
+Answer.java
+/*
+ * Generated by MyEclipse Struts
+ * Template path: templates/java/JavaClass.vtl
+ */
+package org.lxh.myzngt.struts.action;
+
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.actions.DispatchAction;
+import org.lxh.myzngt.dao.IAnswerDAO;
+import org.lxh.myzngt.dao.IUserDAO;
+import org.lxh.myzngt.struts.form.AnswerForm;
+import org.lxh.myzngt.vo.Answer;
+import org.lxh.myzngt.vo.Question;
+
+/**
+ * MyEclipse Struts Creation date: 07-01-2007
+ * 
+ * XDoclet definition:
+ * 
+ * @struts.action path="/answer" name="answerForm" input="/form/answer.jsp"
+ *                parameter="status" scope="request" validate="true"
+ */
+public class AnswerAction extends DispatchAction {
+	private IAnswerDAO ianswerdao;
+
+	private IUserDAO iuserdao;
+
+	/*
+	 * Generated Methods
+	 */
+
+	/**
+	 * Method execute
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return ActionForward
+	 */
+	public ActionForward insert(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		AnswerForm answerForm = (AnswerForm) form;
+		String ccode = (String) request.getSession().getAttribute("ccode");
+		String checkcode = answerForm.getCheckcode();
+		if (!(checkcode.equals(ccode))) {
+			ActionMessages errors = new ActionMessages();
+			errors.add("checkcode", new ActionMessage("checkcode.error"));
+			super.saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+		// 增加用户的个人积分
+		Answer ans = new Answer();
+		ans.setAnstime(new Date());
+		ans.setQuesans(answerForm.getQuesans());
+		ans.setUserid(answerForm.getUserid());
+		ans.setGrade(org.lxh.myzngt.util.IntegralGrade.getInstance()
+				.getGradeInfo(Integer.parseInt(answerForm.getGrade())));
+		ans.setStatus(2);
+		Question q = new Question() ;
+		q.setQid(Integer.parseInt(answerForm.getQid())) ;
+		ans.setQuestion(q) ;
+		try {
+			this.ianswerdao.insert(ans);
+			this.iuserdao.addIntegral(answerForm.getUserid(), 5);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mapping.findForward("insertdo");
+	}
+
+	public ActionForward aa(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		AnswerForm answerForm = (AnswerForm) form;
+		String ccode = (String) request.getSession().getAttribute("ccode");
+		String checkcode = answerForm.getCheckcode();
+		if (!(checkcode.equals(ccode))) {
+			ActionMessages errors = new ActionMessages();
+			errors.add("checkcode", new ActionMessage("checkcode.error"));
+			super.saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+		return null;
+	}
+
+	public IAnswerDAO getIanswerdao() {
+		return ianswerdao;
+	}
+
+	public void setIanswerdao(IAnswerDAO ianswerdao) {
+		this.ianswerdao = ianswerdao;
+	}
+
+	public IUserDAO getIuserdao() {
+		return iuserdao;
+	}
+
+	public void setIuserdao(IUserDAO iuserdao) {
+		this.iuserdao = iuserdao;
+	}
+}
+  4.17.3 修改生成的ActionForm,添加验证
+  QuestionForm.java
+  public ActionErrors validate(ActionMapping mapping,
+			HttpServletRequest request) {
+		ActionErrors errors = new ActionErrors();
+		if (type == 1) {
+			if (this.title == null || "".equals(this.title)) {
+				errors.add("title", new ActionMessage("question.title.null"));
+			}
+			if (this.content == null || "".equals(this.content)) {
+				errors.add("content",
+						new ActionMessage("question.content.null"));
+			}
+			if (!(this.offerscore == null || "".equals(this.offerscore))) {
+				if (!this.offerscore.matches("\\d*")) {
+					errors.add("offerscore", new ActionMessage(
+							"question.offerscore.error"));
+				}
+			}
+			if (this.checkcode == null || "".equals(this.checkcode)) {
+				errors.add("checkcode", new ActionMessage("checkcode.null"));
+			}
+			if (this.offerscore == null || "".equals(this.offerscore)) {
+				this.offerscore = "5";
+			}
+		}
+		/*
+		if (type == 2) {
+			if (this.qid == null || "".equals(this.qid)) {
+				errors.add("qid", new ActionMessage("question.qid.null"));
+			}
+		}
+		*/
+		return errors;
+	}
+  AnswerForm.java
+  	public ActionErrors validate(ActionMapping mapping,
+			HttpServletRequest request) {
+		ActionErrors errors = new ActionErrors();
+		if (type == 1) {
+			if (this.checkcode == null || "".equals(this.checkcode)) {
+				errors.add("checkcode", new ActionMessage("checkcode.null"));
+			}
+			if (this.quesans == null || "".equals(this.quesans)) {
+				errors.add("quesans", new ActionMessage("answer.quesans.null"));
+			}
+			if (this.qid == null || "".equals(this.qid)) {
+				errors.add("qid",new ActionMessage("")) ;
+			}
+		}
+		return errors;
+	}
+  4.18 实现IQuesionDAO的接口实现类
+  	  IQuestionDAOImpl.java
+package org.lxh.myzngt.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.lxh.myzngt.dao.IQuestionDAO;
+import org.lxh.myzngt.vo.Question;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+public class IQuestionDAOImpl extends HibernateDaoSupport implements
+		IQuestionDAO {
+
+	public void insert(Question question) throws Exception {
+		super.getSession().save(question);
+	}
+
+	public List queryByCommemflag(int commenflag, int currentPage, int lineSize)
+			throws Exception {
+		List all = null;
+		String hql = "FROM Question AS q WHERE q.commenflag=? ORDER BY q.questiontime desc";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, commenflag);
+		q.setFirstResult((currentPage - 1) * lineSize);
+		q.setMaxResults(lineSize);
+		all = q.list();
+		return all;
+	}
+
+	public List queryByStatus(int status, int currentPage, int lineSize)
+			throws Exception {
+		List all = null;
+		String hql = "FROM Question AS q WHERE q.status=? ORDER BY q.questiontime desc";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, status);
+		q.setFirstResult((currentPage - 1) * lineSize);
+		q.setMaxResults(lineSize);
+		all = q.list();
+		return all;
+	}
+
+	public Question queryById(int qid) throws Exception {
+		Question que = null;
+		String hql = "FROM Question AS q WHERE q.qid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, qid);
+		List all = q.list();
+		if (all.size() > 0) {
+			que = (Question) all.get(0);
+		}
+		return que;
+	}
+
+	public void updateClickcount(int qid) throws Exception {
+		String hql = "UPDATE Question SET clickcount=clickcount+1 WHERE qid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, qid);
+		q.executeUpdate();
+	}
+
+	public List queryByItem(int itemid, int currentPage, int lineSize)
+			throws Exception {
+		List all = null;
+		String hql = "FROM Question AS q WHERE q.itemid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, itemid);
+		q.setFirstResult((currentPage - 1) * lineSize);
+		q.setMaxResults(lineSize);
+		all = q.list();
+		return all;
+	}
+
+	public List queryByLike(String cond, int currentPage, int lineSize)
+			throws Exception {
+		List all = null;
+		String hql = "FROM Question AS q WHERE q.title LIKE ? OR q.content LIKE ?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, "%" + cond + "%");
+		q.setString(1, "%" + cond + "%");
+		q.setFirstResult((currentPage - 1) * lineSize);
+		q.setMaxResults(lineSize);
+		all = q.list();
+		return all;
+	}
+
+	public List queryBySub(int subid, int currentPage, int lineSize)
+			throws Exception {
+		List all = null;
+		String hql = "FROM Question AS q WHERE q.subid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, subid);
+		q.setFirstResult((currentPage - 1) * lineSize);
+		q.setMaxResults(lineSize);
+		all = q.list();
+		return all;
+	}
+
+	public int getByCommenCount(int commen) throws Exception {
+		int count = 0;
+		String hql = "SELECT COUNT(q.qid) FROM Question AS q WHERE q.commenflag=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, commen);
+		List all = q.list();
+		Integer i = (Integer)all.get(0);
+		count = i.intValue();
+		return count;
+	}
+
+	public int getByItemCount(int itemid) throws Exception {
+		int count = 0;
+		String hql = "SELECT COUNT(q.qid) FROM Question AS q WHERE q.itemid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, itemid);
+		List all = q.list();
+		Integer i = (Integer)all.get(0);
+		count = i.intValue();
+		return count;
+	}
+
+	public int getByLikeCount(String cond) throws Exception {
+		int count = 0;
+		String hql = "SELECT COUNT(q.qid) FROM Question AS q WHERE q.title LIKE ? OR q.content LIKE ?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, "%" + cond + "%");
+		q.setString(1, "%" + cond + "%");
+		List all = q.list();
+		Integer i = (Integer)all.get(0);
+		count = i.intValue();
+		return count;
+	}
+
+	public int getByStatusCount(int status) throws Exception {
+		int count = 0;
+		String hql = "SELECT COUNT(q.qid) FROM Question AS q WHERE q.status=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, status);
+		List all = q.list();
+		Integer i = (Integer)all.get(0);
+		count = i.intValue();
+		return count;
+	}
+
+	public int getBySubCount(int subid) throws Exception {
+		int count = 0;
+		String hql = "SELECT COUNT(q.qid) FROM Question AS q WHERE q.subid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, subid);
+		List all = q.list();
+		Integer i = (Integer)all.get(0);
+		count = i.intValue();
+		return count;
+	}
+
+	public int getByUseridCount(String userid) throws Exception {
+		int count = 0;
+		String hql = "SELECT COUNT(q.qid) FROM Question AS q WHERE q.userid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, userid);
+		List all = q.list();
+		Integer i = (Integer)all.get(0);
+		count = i.intValue();
+		return count;
+	}
+
+	public List queryByUserId(String userid, int currentPage, int lineSize)
+			throws Exception {
+		List all = null;
+		String hql = "From Question AS q WHERE q.userid=? ";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, userid);
+		q.setFirstResult((currentPage - 1) * lineSize);
+		q.setMaxResults(lineSize);
+		all = q.list();
+		return all;
+	}
+
+	public int getByUserAnswer(String userid) throws Exception {
+		int count = 0;
+		String hql = "SELECT COUNT(q.qid) FROM Question AS q WHERE q.qid IN (SELECT a.qid FROM Answer AS a WHERE a.userid=?)";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, userid);
+		List all = q.list();
+		Integer i = (Integer)all.get(0);
+		count = i.intValue();
+		return count;
+	}
+
+	public List queryByUserAnswer(String userid, int currentPage, int lineSize) {
+		List all = null;
+		String hql = "From Question AS q WHERE q.qid IN (SELECT a.qid FROM Answer AS a WHERE a.userid=?)";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, userid);
+		q.setFirstResult((currentPage - 1) * lineSize);
+		q.setMaxResults(lineSize);
+		all = q.list();
+		return all;
+	}
+
+	public int getByAccept(String userid, int status) throws Exception {
+		int count = 0;
+		String hql = "SELECT COUNT(q.qid) FROM Question AS q WHERE q.qid IN (SELECT a.qid FROM Answer AS a WHERE a.userid=? AND status=?)";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, userid);
+		q.setInteger(1, status);
+		List all = q.list();
+		Integer i = (Integer) q.list().get(0);
+		count = i.intValue();
+		return count;
+	}
+
+	public List queryByAccept(String userid, int status, int currentPage,
+			int lineSize) throws Exception {
+		List all = null;
+		String hql = "From Question AS q WHERE q.qid IN (SELECT a.qid FROM Answer AS a WHERE a.userid=? AND status=?)";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, userid);
+		q.setInteger(1, status);
+		q.setFirstResult((currentPage - 1) * lineSize);
+		q.setMaxResults(lineSize);
+		all = q.list();
+		return all;
+	}
+
+	public void updateAccept(int qid, int accept) throws Exception {
+		String hql = "UPDATE Question SET acceptflag=? WHERE qid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, accept);
+		q.setInteger(1, qid);
+		q.executeUpdate();
+	}
+
+	public void updateStatus(int qid, int status) throws Exception {
+		String hql = "UPDATE Question SET status=? WHERE qid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, status);
+		q.setInteger(1, qid);
+		q.executeUpdate();
+
+	}
+
+	public void updateCommen(int qid, int commen) throws Exception {
+		String hql = "UPDATE Question SET commenflag=? WHERE qid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, commen);
+		q.setInteger(1, qid);
+		q.executeUpdate();
+	}
+
+	public void delete(int qid) throws Exception {
+		String hql = "DELETE FROM Question WHERE qid=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setInteger(0, qid);
+		q.executeUpdate();
+	}
+
+	public int getAllCount() throws Exception {
+		int count = 0;
+		String hql = "SELECT COUNT(q.qid) FROM Question AS q";
+		Query q = super.getSession().createQuery(hql);
+		List all = q.list();
+		Integer i = (Integer)all.get(0);
+		count = i.intValue();
+		return count;
+	}
+
+	public List queryAll(int currentPage, int lineSize) throws Exception {
+		List all = null;
+		String hql = "FROM Question AS q";
+		Query q = super.getSession().createQuery(hql);
+		q.setFirstResult((currentPage - 1) * lineSize);
+		q.setMaxResults(lineSize);
+		all = q.list() ;
+		return all;
+	}
+
+}
+
+  	  

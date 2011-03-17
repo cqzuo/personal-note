@@ -1,0 +1,104 @@
+%toc
+= 登录的实现 =
+== 前台页面 ==
+ # 转向Action的form
+{{{class="brush: xml"
+ <form action="${pageContext.request.contextPath}/user/LoginAction.action" method="post">
+}}}
+ # 登录
+ {{{class="brush: xml"
+ <td class="textbox"> 
+		用户名:&nbsp;<input type="text" name="user.username" style="width: 10em" maxlength="20" id="username"/>
+ </td>
+ <td>
+		密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input type="password" name="user.password" style="width: 10em" maxlength="20" id="password"/>
+ </td>
+ }}}
+ # 注:
+  - jsp页面向action传值的方式有3种
+   # 直接使用默认的action传值
+   # 自定义vo
+   # 使用ModelDriven
+== action ==
+ # action的配置
+ {{{class="brush: xml"
+ <struts>
+	<!-- 用户维护 -->
+	<package name="user" namespace="/user" extends="globle">
+		<!-- 登录start -->
+		<action name="LoginAction_*" class="loginAction" method="{1}">
+			<result name="login_success">/WEB-INF/page/index.jsp</result>
+			<result name="frameMenu_success">/WEB-INF/page/FrameMenu.jsp</result>
+			<result name="frameHead_success">/WEB-INF/page/FrameHeader.jsp</result>
+			<result name="frameMain_success">/WEB-INF/page/FrameMain.jsp</result>
+		</action>
+		<!-- 登录end -->
+		<action name="UserAction_*" class="userAction" method="{1}">
+			<result name="userList_success">/WEB-INF/page/user/userList.jsp</result>
+			<result name="addUserUI_success">/WEB-INF/page/user/addUserUI.jsp</result>
+			<result name="goUserList_success" type="redirect">UserAction.action</result>
+			<result name="userDetail_success">/WEB-INF/page/user/userDetail.jsp</result>
+			<result name="userRolesList_success">/WEB-INF/page/user/userRolesList.jsp</result>
+			<result name="projectManagerList_success">/WEB-INF/page/user/projectManagerList.jsp</result>
+		</action>
+	</package>	
+ </struts> 
+ }}}
+ # action的编写
+  - execute方法
+  {{{class="brush: java"
+	public String execute() {
+		String result = "message";
+		String whereStatement = "o.username=?1 and o.password=?2";
+		List<Object> whereParam = new ArrayList<Object>();
+		whereParam.add(this.user.getUsername());
+		whereParam.add(this.user.getPassword());
+		QueryResult<User> qr = userService.getScrollData(User.class,
+				whereStatement, whereParam);
+		if (qr.getResultList() != null && qr.getResultList().size() > 0) {
+			User u = qr.getResultList().get(0);
+			ActionContext.getContext().getSession().put("user", u);
+			result = "login_success";
+		}
+		return result;
+	}
+  
+  }}}
+== 相关对象 ==
+ # User对象
+  {{{class="brush: java"
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	/** 用户编号, 唯一, 非空字符串, 不能修改, 长度为10 **/
+	@Column(unique = true, nullable = false, length = 10)
+	private String userNo;
+
+	/** 用户名, 唯一, 非空字符串, 长度为16 **/
+	@Column(nullable = false, unique = true, length = 16)
+	private String username;
+
+	/** 用户密码 , 非空字符串, 长度为16 **/
+	@Column(nullable = false, length = 16)
+	private String password;
+
+	/** 真实姓名, 10位非空字符串 **/
+	@Column(length = 10, nullable = false)
+	private String realName;
+
+	/** 所属机构 **/
+	@ManyToOne(cascade = CascadeType.REFRESH, optional = false)
+	@JoinColumn(name = "organization_id")
+	private Organization organization;
+
+	/** 用户与角色关系的维护实体,被维护端 **/
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
+	private Set<UsersRoles> usersRoleses = new HashSet<UsersRoles>();
+	/** 人员关系 **/
+	@OneToOne(cascade = CascadeType.REMOVE, mappedBy = "projectManager")
+	private Relation relation;
+
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
+	private Set<StepsProcessers> stepsProcessers = new HashSet<StepsProcessers>();
+  	
+  }}}

@@ -1,0 +1,130 @@
+1.数据源问题的解决
+   1.1 驱动的下载,复制到项目的Lib文件夹和tomcat的lib文件夹中
+   1.2 在tomcat的conf/context.xml中配置
+<Context path="/test" docBase="C:\Tomcat 6.0\webapps\test"
+		debug="5" reloadable="true" crossContext="true"> 
+    <WatchedResource>WEB-INF/web.xml</WatchedResource> 
+    <Resource name="jdbc/mldn" auth="Container" type="javax.sql.DataSource" 
+     maxActive="100" maxIdle="30" maxWait="10000" username="root" password="19801224" driverClassName="org.gjt.mm.mysql.Driver" 
+     url="jdbc:mysql://localhost:3306/mldn"/>
+</Context>
+   1.3 在applicationContext.xml中注入dataSource
+	<bean id="dataSource"
+		class="org.springframework.jndi.JndiObjectFactoryBean"
+		destroy-method="close">
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/mldn</value>
+		</property>
+	</bean>
+--------------------------------
+2.乱码的解决
+    2.1 编写过滤器 EncodingFilter
+public class EncodingFilter implements Filter
+{
+        private String charset = null;
+        public void destory(){}
+        public void doFilter(ServletRequest req,ServletResponse resp,FilterChain chain) throws IOException,ServletException
+        {
+                req.setCharacterEnconding(this.charset);
+                chain.doFilter(req,resp);
+        }
+        public voit init(ServletConfig config)
+        {
+                this.charset=config.getInitParamer("charset");
+        }
+}
+   2.2 在web.xml中添加servlet
+<filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>org.ssh.test.filter.EncodingFilter</filter-class>
+        <init-param>
+                <param-name>charset</param-name>
+                <parma-value>gbk</param-value>
+        </init-param>
+</filter>
+<filter-mapping>
+        <filter-name>encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+</filter-mapping>
+--------------------------------------
+3.错误信息的页面显示
+   3.1 在Struts目录建立一个applicationResources.property文件
+   3.2 在Action中建立ActionMessage对象和ActionErrors对象
+new ActionErrors errors = new ActionErrors();
+errors.add("信息",new ActionMessage("applicationResources.property文件中的出错返回信息"));
+-------------------------------------
+4.将form表单提交的数据存储到user对象中
+User user = new User();
+user.setUserId(userForm.getUserId());
+5.页面的跳转	
+mapping.findForward("struts-config.xml中配置好的跳转参数");
+6.用户登陆后将信息存储在session中
+super.getSession().saveAttritute("userid",user.getUserId());
+------------------------------------
+7.主页面的跳转
+<html>
+<head>
+	<title>MLDN —— 我的智囊团</title>
+	<META NAME="Generator" CONTENT="Struts + Spring + Hibernate + MySQL + Tomcat + CP">
+	<META NAME="Author" CONTENT="李兴华">
+	<META NAME="Keywords" CONTENT="李兴华,MLDN,智囊团,SSH,tomcat,mysql">
+	<META NAME="Description" CONTENT="MLDN旗下网站 —— www.zhinangtuan.net.cn">
+	<META HTTP-EQUIV="refresh" CONTENT="0;URL=jsp/index.do?status=list">
+</head>
+<body>
+</body>
+</html>
+6.用户登陆后等级的返回
+	public boolean login(User user) throws Exception {
+		boolean flag = false;
+		String hql = "FROM User AS u WHERE u.userid=? AND u.userpwd=?";
+		Query q = super.getSession().createQuery(hql);
+		q.setString(0, user.getUserid());
+		q.setString(1, user.getUserpwd());
+		List all = q.list();
+		if (all.size() > 0) {
+			flag = true;
+			User t = (User) all.get(0);
+			user.setGrade(t.getGrade());//从查询返回的user对象中提取该用户的等级
+		}
+		return flag;
+	}
+7.判断验证码是否正确
+		UserForm userForm = (UserForm) form;
+		String ccode = (String) request.getSession().getAttribute("ccode");
+		String checkcode = userForm.getCheckcode();
+		if (!(checkcode.equals(ccode))) {
+			ActionMessages errors = new ActionMessages();
+			errors.add("checkcode", new ActionMessage("checkcode.error"));
+			super.saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+8.多个vo类对应spring配置
+  在applicationContext.xml中的sessionFactory的bean中配置
+  <bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<!-- 表示允许自动提交 -->
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<!-- 显示sql语句 -->
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>org/lxh/myzngt/vo/Admin.hbm.xml</value>
+				<value>org/lxh/myzngt/vo/User.hbm.xml</value>
+				<value>org/lxh/myzngt/vo/Item.hbm.xml</value>
+				<value>org/lxh/myzngt/vo/Subitem.hbm.xml</value>
+				<value>org/lxh/myzngt/vo/Answer.hbm.xml</value>
+				<value>org/lxh/myzngt/vo/Question.hbm.xml</value>
+			</list>
+		</property>
+	</bean>  

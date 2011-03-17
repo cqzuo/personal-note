@@ -1,0 +1,217 @@
+  线程池
+  为什么要用线程池？
+  诸如 Web 服务器、数据库服务器、文件服务器或邮件服务器之类的许多服务器应用程序都面向处理来自某些远程来源的大量短小的任务。请求以某种方式到达服务器，这种方式可能是通过网络协议（例如 HTTP、FTP 或 POP）、通过 JMS 队列或者可能通过轮询数据库。不管请求如何到达，服务器应用程序中经常出现的情况是：单个任务处理的时间很短而请求的数目却是巨大的。
+  构建服务器应用程序的一个过于简单的模型应该是：每当一个请求到达就创建一个新线程，然后在新线程中为请求服务。实际上，对于原型开发这种方法工作得很好，但如果试图部署以这种方式运行的服务器应用程序，那么这种方法的严重不足就很明显。每个请求对应一个线程（thread-per-request）方法的不足之一是：为每个请求创建一个新线程的开销很大；为每个请求创建新线程的服务器在创建和销毁线程上花费的时间和消耗的系统资源要比花在处理实际的用户请求的时间和资源更多。
+  除了创建和销毁线程的开销之外，活动的线程也消耗系统资源。在一个 JVM 里创建太多的线程可能会导致系统由于过度消耗内存而用完内存或“切换过度”。为了防止资源不足，服务器应用程序需要一些办法来限制任何给定时刻处理的请求数目。
+  线程池为线程生命周期开销问题和资源不足问题提供了解决方案。通过对多个任务重用线程，线程创建的开销被分摊到了多个任务上。其好处是，因为在请求到达时线程已经存在，所以无意中也消除了线程创建所带来的延迟。这样，就可以立即为请求服务，使应用程序响应更快。而且，通过适当地调整线程池中的线程数目，也就是当请求的数目超过某个阈值时，就强制其它任何新到的请求一直等待，直到获得一个线程来处理为止，从而可以防止资源不足。
+
+  线程池的替代方案
+  线程池远不是服务器应用程序内使用多线程的唯一方法。如同上面所提到的，有时，为每个新任务生成一个新线程是十分明智的。然而，如果任务创建过于频繁而任务的平均处理时间过短，那么为每个任务生成一个新线程将会导致性能问题。
+  另一个常见的线程模型是为某一类型的任务分配一个后台线程与任务队列。AWT 和 Swing 就使用这个模型，在这个模型中有一个 GUI 事件线程，导致用户界面发生变化的所有工作都必须在该线程中执行。然而，由于只有一个 AWT 线程，因此要在 AWT 线程中执行任务可能要花费相当长时间才能完成，这是不可取的。因此，Swing 应用程序经常需要额外的工作线程，用于运行时间很长的、同 UI 有关的任务。
+  每个任务对应一个线程方法和单个后台线程（single-background-thread）方法在某些情形下都工作得非常理想。每个任务一个线程方法在只有少量运行时间很长的任务时工作得十分好。而只要调度可预见性不是很重要，则单个后台线程方法就工作得十分好，如低优先级后台任务就是这种情况。然而，大多数服务器应用程序都是面向处理大量的短期任务或子任务，因此往往希望具有一种能够以低开销有效地处理这些任务的机制以及一些资源管理和定时可预见性的措施。线程池提供了这些优点。
+
+  工作队列
+  就线程池的实际实现方式而言，术语“线程池”有些使人误解，因为线程池“明显的”实现在大多数情形下并不一定产生我们希望的结果。术语“线程池”先于 Java 平台出现，因此它可能是较少面向对象方法的产物。然而，该术语仍继续广泛应用着。
+  虽然我们可以轻易地实现一个线程池类，其中客户机类等待一个可用线程、将任务传递给该线程以便执行、然后在任务完成时将线程归还给池，但这种方法却存在几个潜在的负面影响。例如在池为空时，会发生什么呢？试图向池线程传递任务的调用者都会发现池为空，在调用者等待一个可用的池线程时，它的线程将阻塞。我们之所以要使用后台线程的原因之一常常是为了防止正在提交的线程被阻塞。完全堵住调用者，如在线程池的“明显的”实现的情况，可以杜绝我们试图解决的问题的发生。
+  我们通常想要的是同一组固定的工作线程相结合的工作队列，它使用 wait() 和 notify() 来通知等待线程新的工作已经到达了。该工作队列通常被实现成具有相关监视器对象的某种链表。清单 1 显示了简单的合用工作队列的示例。尽管 Thread API 没有对使用 Runnable 接口强加特殊要求，但使用 Runnable 对象队列的这种模式是调度程序和工作队列的公共约定。
+  清单 1. 具有线程池的工作队列
+  public class WorkQueue{ private final int nThreads; private final PoolWorker[] threads; private final LinkedList queue; public WorkQueue(int nThreads) { this.nThreads = nThreads; queue = new LinkedList(); threads = new PoolWorker[nThreads]; for (int i=0; i<nThreads; i++) { threads[i] = new PoolWorker(); threads[i].start(); } } public void execute(Runnable r) { synchronized(queue) { queue.addLast(r); queue.notify(); } } private class PoolWorker extends Thread { public void run() { Runnable r; while (true) { synchronized(queue) { while (queue.isEmpty()) { try { queue.wait(); } catch (InterruptedException ignored) { } } r = (Runnable) queue.removeFirst(); } // If we don't catch RuntimeException, // the pool could leak threads try { r.run(); } catch (RuntimeException e) { // You might want to log something here } } } }}
+
+  您可能已经注意到了清单 1 中的实现使用的是 notify() 而不是 notifyAll() 。大多数专家建议使用 notifyAll() 而不是 notify() ，而且理由很充分：使用 notify() 具有难以捉摸的风险，只有在某些特定条件下使用该方法才是合适的。另一方面，如果使用得当， notify() 具有比 notifyAll() 更可取的性能特征；特别是， notify() 引起的环境切换要少得多，这一点在服务器应用程序中是很重要的。
+  清单 1 中的示例工作队列满足了安全使用 notify() 的需求。因此，请继续，在您的程序中使用它，但在其它情形下使用 notify() 时请格外小心。
+  　J2SE 5.0中的java.util.concurrent程序包提供了一个新的线程框架组件，这个框架组件处理了与建立、执行和管理线程相关的很多低层细节信息。
+  　　如果你使用C、C++或Java先前的版本进行多线程编程，就知道在代码中管理线程是多么头疼的事情。在单线程程序中，代码中引起应用程序失败的bug 每次都在同一个点出现。但是在多线程程序中，只有某些原因遇到一起的时候才会出现失败。由于预见可能引发应用程序失败的所有条件是非常困难的，所以多线程编程是有挑战性的。有些程序员从根本上避免这种挑战，而另外一些--聪明的解决问题的人员--则一直坐在他们的计算机面前直到问题解决。
+  　　J2SE 5.0平台包含了一个新的并发工具程序包。这个程序包中的类替并发类（concurrent classe）或并发设计中使用的应用程序建立阻塞（blocking）。该并发工具包含下面一些内容：
+  　　· 高性能的、灵活的线程池
+  　　· 异步执行事务的框架组件
+  　　· 为并发访问优化过的集合类宿主（host）
+  线程池类为 java.util.concurrent.ThreadPoolExecutor，常用构造方法为：
+  ThreadPoolExecutor(int corePoolSize, int maximumPoolSize,
+  long keepAliveTime, TimeUnit unit,
+  BlockingQueue<Runnable> workQueue,
+  RejectedExecutionHandler handler)
+  corePoolSize： 线程池维护线程的最少数量
+  maximumPoolSize：线程池维护线程的最大数量
+  keepAliveTime： 线程池维护线程所允许的空闲时间
+  unit： 线程池维护线程所允许的空闲时间的单位
+  workQueue： 线程池所使用的缓冲队列
+  handler： 线程池对拒绝任务的处理策略
+  一个任务通过 execute(Runnable)方法被添加到线程池，任务就是一个 Runnable类型的对象，任务的执行方法就是 Runnable类型对象的run()方法。
+  当一个任务通过execute(Runnable)方法欲添加到线程池时：
+  如果此时线程池中的数量小于corePoolSize，即使线程池中的线程都处于空闲状态，也要创建新的线程来处理被添加的任务。
+  如果此时线程池中的数量等于 corePoolSize，但是缓冲队列 workQueue未满，那么任务被放入缓冲队列。
+  如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量小于maximumPoolSize，建新的线程来处理被添加的任务。
+  如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量等于maximumPoolSize，那么通过 handler所指定的策略来处理此任务。
+  也就是：处理任务的优先级为：
+  核心线程corePoolSize、任务队列workQueue、最大线程maximumPoolSize，如果三者都满了，使用handler处理被拒绝的任务。
+  当线程池中的线程数量大于 corePoolSize时，如果某线程空闲时间超过keepAliveTime，线程将被终止。这样，线程池可以动态的调整池中的线程数。
+  unit可选的参数为java.util.concurrent.TimeUnit中的几个静态属性：
+  NANOSECONDS、MICROSECONDS、MILLISECONDS、SECONDS。
+  workQueue我常用的是：java.util.concurrent.ArrayBlockingQueue
+  handler有四个选择：
+  ThreadPoolExecutor.AbortPolicy()
+  抛出java.util.concurrent.RejectedExecutionException异常
+  ThreadPoolExecutor.CallerRunsPolicy()
+  重试添加当前的任务，他会自动重复调用execute()方法
+  ThreadPoolExecutor.DiscardOldestPolicy()
+  抛弃旧的任务
+  ThreadPoolExecutor.DiscardPolicy()
+  抛弃当前的任务
+  　　Executor（执行器）框架组件
+  　　Executor框架组件提供了一个简单的、标准的、可扩充的类，它提供了一些有用的功能，如果没有这些功能，我们要手工实现这些它们，会觉得十分单调和困难。该框架组件使调用、调度和执行的操作标准化了。它通过一组执行策略为控制异步事务提供了支持。
+  　　Executor接口执行已提交的可以运行的事务。它提供了一条途径，允许我们把事务提交从事务执行机制中分离出来。程序员通常使用Executor代替显式地（explicitly）建立线程。Executor接口也提供事务的同步和异步执行。
+  　　对于同步执行，使用下面的命令：
+  Class MySynExecutor implements Executor{
+  　public void execute(Runnable r) {
+  　　r.run();
+  　}　
+  }
+  　　对于异步执行，使用下面的命令：
+  Class MyASynExecutor implements Executor{
+  　public void execute(Runnable r) {
+  　　new Thread(r).start();
+  　}
+  }
+  　　ExecutorService（执行器服务）类
+  　　ExecutorService类为管理一个或多个异步事务的终止和跟踪事务执行的过程提供了方法。代码下载中的 MyExecutorService.java文件演示了管理事务终止的过程。它初始化了大小为三个的线程池，然后依次添加了线程。当线程的数量达到线程池的大小限制时，它调用关闭（shutdown）方法。在调用shutdown()方法之后，这个线程池不再接受新事务的执行。在等待十秒以后，该线程池调用shutDownNow()。这个方法会尽最大的努力来终止所有运行中的事务。在示例中，应用程序试图终止运行中的线程失败了。
+  　　ScheduledExecutorService（调度执行器服务）
+  　　ScheduledExecutorService类是我的最喜欢的类。它对于调度那些周期性执行的事务非常方便，而周期性执行的事务对于清除工作（例如清除你的应用程序建立的临时文件等等）尤其有用。下载代码中的MyScheduledExecutorService.java文件通过每五秒钟发出" 嘟嘟"一声演示了调度的过程：
+  final Runnable beeper = new Runnable() {
+  　public void run() { System.out.println("beep"); }
+  };
+  final ScheduledFuture beeperHandle =scheduler.scheduleAtFixedRate(beeper, 1, 5, SECONDS);
+  　在Java的早期版本中，查询运行中的线程状态，以及使线程在执行之后返回一个值是非常困难的。由于run（运行）方法返回void，你必须编写大量的代码从线程中返回一个值。使用过这种方法的程序员肯定了解其痛苦的经历。
+  　　你可以使用Future接口或者FutureTask类从异步执行的线程中得到一个返回值。Future接口提供了检查计算过程是否完成、检索计算结果或终止计算过程的一些方法。FutureTask类提供了Future接口方法的基本实现（implementation）。只有计算过程完成以后才能检索结果；如果计算过程没有完成，get方法会被阻塞（block）。
+  　　下载代码中的MyStringReverser.java文件演示了FutureTask类的使用，并提供了一个容易理解的示例。它以每秒钟一个字符的速度从后向前显示提交的字符串，同时主线程检测事务是否完成了：
+  while(!future.isDone()){
+  　System.out.println("Task not yet completed.");
+  　try{
+  　　Thread.currentThread().sleep(500);
+  　}catch(InterruptedException ie){
+  　　System.out.println("Will check after 1/2 sec.");
+  　}
+  }
+  　　在事务完成以后，就使用get方法从Future对象中检索结果：
+  System.out.println("Here is result..."+future.get());
+  　　ThreadPoolExecutor（线程池执行器）
+  　　有了ThreadPoolExecutor类之后你可以编写自己的服务器了。这个类为配置和调整服务器提供了很多的特性，与很多大规模的企业级EJB服务器相似。下面是它的一些配置参数：
+  　　· 核心和最大的线程池大小
+  　　通过把corePoolSize和maximumPoolSize设置为相同的值，你就可以建立一个大小固定的线程池了。通过把 maximumPoolSize设置为一个极大的值（例如Integer.MAX_VALUE），你就可以允许线程池容纳任意数量的并发事务了。
+  　　· 根据需要构造
+  　　在默认情况下，只有在新事务要求的时候，ThreadPoolExecutor才开始建立和启动核心的线程，但是你可以使用prestartCoreThread或prestartAllCoreThreads动态地重载它。
+  　　· 保持活动的时间
+  　　如果线程池中当前线程的数量超过了corePoolSize，那么这些超过的线程的空闲时间大于keepAliveTime的时候，它们就会被终止。
+  　　· 排队
+  　　排队遵循下面的规则：
+  　　· 如果正在运行的线程数量少于corePoolSize，Executor总会添加新线程而不会排队。
+  　　· 如果corePoolSize或更多数量的线程在运行，Executor总会对请求进行排队而不会添加新线程。
+  　　· 如果某个请求不能参与排队，就会建立新线程，除非线程数量超过了maximumPoolSize（在超过的情况下，该事务会被拒绝）。
+  　　· Hook方法
+  　　这个类提供了beforeExecute()和afterExecute() hook方法，它们分别在每个事务执行之前和之后被调用。为了使用它们，你必须建立这个类的子类（因为这些方法是受保护的）。
+  　　下载代码中的MyThreadPoolExecutor.java提供了一些监视多种配置参数的详细示例。你可以发现随着每个事务的增加和完成，线程池和队列大小在不断变化。你可以修改代码中的设置信息。 并发集合
+  　　JDK 1.5提供了下面一些集合实现，它们是被设计为用于多线程环境的：
+  　　· ConcurrentHashMap
+  　　· CopyOnWriteArrayList
+  　　· CopyOnWriteArraySet
+  　　ConcurrentHashMap类为检索和更新（update）可调整的预期的并发性提供了完整的线程安全的（thread-safe）并发性支持。CopyOnWriteArraySet是一组线程安全的变量集合，CopyOnArrayList是一个线程安全的数组列表（ArrayList）变量。在修改原始的数组或集合之前，它们中的每一个都会把下层的数组或集合复制一份。其结果是，读取的速度很快，而更新的速度很慢。
+  并发集合类为Iterator（迭代子）提供快照式的数据（即使下层数据发生了改变，在Iterator中也不会反映出来）。
+  　　同步器（Synchronizer）
+  　　JDK 1.5还提供了一些高级类，例如Semaphore、CountDownLatch和CyclicBarrier，还有一个用于同步的Exchanger（交换器）类。本文没有介绍这些类的详细的分析和使用信息，因为理解它们需要一些理论背景。
+  一般用法举例
+  //------------------------------------------------------------
+  //TestThreadPool.java
+  import java.io.Serializable;
+  import java.util.concurrent.ArrayBlockingQueue;
+  import java.util.concurrent.ThreadPoolExecutor;
+  import java.util.concurrent.TimeUnit;
+  public class TestThreadPool {
+  private static int produceTaskSleepTime = 2;
+  private static int consumeTaskSleepTime = 2000;
+  private static int produceTaskMaxNumber = 10;
+  public static void main(String[] args) {
+  //构造一个线程池
+  ThreadPoolExecutor threadPool = new ThreadPoolExecutor(2, 4, 3,
+  TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(3),
+  new ThreadPoolExecutor.DiscardOldestPolicy());
+  for(int i=1;i<=produceTaskMaxNumber;i++){
+  try {
+  //产生一个任务，并将其加入到线程池
+  String task = "task@ " + i;
+  System.out.println("put " + task);
+  threadPool.execute(new ThreadPoolTask(task));
+  //便于观察，等待一段时间
+  Thread.sleep(produceTaskSleepTime);
+  } catch (Exception e) {
+  e.printStackTrace();
+  }
+  }
+  }
+  /**
+  * 线程池执行的任务
+  * @author hdpan
+  */
+  public static class ThreadPoolTask implements Runnable,Serializable{
+  private static final long serialVersionUID = 0;
+  //保存任务所需要的数据
+  private Object threadPoolTaskData;
+  ThreadPoolTask(Object tasks){
+  this.threadPoolTaskData = tasks;
+  }
+  public void run(){
+  //处理一个任务，这里的处理方式太简单了，仅仅是一个打印语句
+  System.out.println("start .."+threadPoolTaskData);
+  try {
+  ////便于观察，等待一段时间
+  Thread.sleep(consumeTaskSleepTime);
+  } catch (Exception e) {
+  e.printStackTrace();
+  }
+  threadPoolTaskData = null;
+  }
+  public Object getTask(){
+  return this.threadPoolTaskData;
+  }
+  }
+  }
+  //------------------------------------------------------------
+  说明：
+  1、在这段程序中，一个任务就是一个Runnable类型的对象，也就是一个ThreadPoolTask类型的对象。
+  2、一般来说任务除了处理方式外，还需要处理的数据，处理的数据通过构造方法传给任务。
+  3、在这段程序中，main()方法相当于一个残忍的领导，他派发出许多任务，丢给一个叫 threadPool的任劳任怨的小组来做。
+  这个小组里面队员至少有两个，如果他们两个忙不过来，任务就被放到任务列表里面。
+  如果积压的任务过多，多到任务列表都装不下(超过3个)的时候，就雇佣新的队员来帮忙。但是基于成本的考虑，不能雇佣太多的队员，至多只能雇佣 4个。
+  如果四个队员都在忙时，再有新的任务，这个小组就处理不了了，任务就会被通过一种策略来处理，我们的处理方式是不停的派发，直到接受这个任务为止(更残忍！呵呵)。
+  因为队员工作是需要成本的，如果工作很闲，闲到 3SECONDS都没有新的任务了，那么有的队员就会被解雇了，但是，为了小组的正常运转，即使工作再闲，小组的队员也不能少于两个。
+  4、通过调整 produceTaskSleepTime和 consumeTaskSleepTime的大小来实现对派发任务和处理任务的速度的控制，改变这两个值就可以观察不同速率下程序的工作情况。
+  5、通过调整4中所指的数据，再加上调整任务丢弃策略，换上其他三种策略，就可以看出不同策略下的不同处理方式。
+  6、对于其他的使用方法，参看jdk的帮助，很容易理解和使用。
+  使用线程池的风险
+  虽然线程池是构建多线程应用程序的强大机制，但使用它并不是没有风险的。用线程池构建的应用程序容易遭受任何其它多线程应用程序容易遭受的所有并发风险，诸如同步错误和死锁，它还容易遭受特定于线程池的少数其它风险，诸如与池有关的死锁、资源不足和线程泄漏。
+  死锁
+  任何多线程应用程序都有死锁风险。当一组进程或线程中的每一个都在等待一个只有该组中另一个进程才能引起的事件时，我们就说这组进程或线程 死锁了。死锁的最简单情形是：线程 A 持有对象 X 的独占锁，并且在等待对象 Y 的锁，而线程 B 持有对象 Y 的独占锁，却在等待对象 X 的锁。除非有某种方法来打破对锁的等待（Java 锁定不支持这种方法），否则死锁的线程将永远等下去。
+  虽然任何多线程程序中都有死锁的风险，但线程池却引入了另一种死锁可能，在那种情况下，所有池线程都在执行已阻塞的等待队列中另一任务的执行结果的任务，但这一任务却因为没有未被占用的线程而不能运行。当线程池被用来实现涉及许多交互对象的模拟，被模拟的对象可以相互发送查询，这些查询接下来作为排队的任务执行，查询对象又同步等待着响应时，会发生这种情况。
+  资源不足
+  线程池的一个优点在于：相对于其它替代调度机制（有些我们已经讨论过）而言，它们通常执行得很好。但只有恰当地调整了线程池大小时才是这样的。线程消耗包括内存和其它系统资源在内的大量资源。除了 Thread 对象所需的内存之外，每个线程都需要两个可能很大的执行调用堆栈。除此以外，JVM 可能会为每个 Java 线程创建一个本机线程，这些本机线程将消耗额外的系统资源。最后，虽然线程之间切换的调度开销很小，但如果有很多线程，环境切换也可能严重地影响程序的性能。
+  如果线程池太大，那么被那些线程消耗的资源可能严重地影响系统性能。在线程之间进行切换将会浪费时间，而且使用超出比您实际需要的线程可能会引起资源匮乏问题，因为池线程正在消耗一些资源，而这些资源可能会被其它任务更有效地利用。除了线程自身所使用的资源以外，服务请求时所做的工作可能需要其它资源，例如 JDBC 连接、套接字或文件。这些也都是有限资源，有太多的并发请求也可能引起失效，例如不能分配 JDBC 连接。
+  并发错误
+  线程池和其它排队机制依靠使用 wait() 和 notify() 方法，这两个方法都难于使用。如果编码不正确，那么可能丢失通知，导致线程保持空闲状态，尽管队列中有工作要处理。使用这些方法时，必须格外小心；即便是专家也可能在它们上面出错。而最好使用现有的、已经知道能工作的实现，例如在下面的 无须编写您自己的池中讨论的 util.concurrent 包。
+  线程泄漏
+  各种类型的线程池中一个严重的风险是线程泄漏，当从池中除去一个线程以执行一项任务，而在任务完成后该线程却没有返回池时，会发生这种情况。发生线程泄漏的一种情形出现在任务抛出一个 RuntimeException 或一个 Error 时。如果池类没有捕捉到它们，那么线程只会退出而线程池的大小将会永久减少一个。当这种情况发生的次数足够多时，线程池最终就为空，而且系统将停止，因为没有可用的线程来处理任务。
+  有些任务可能会永远等待某些资源或来自用户的输入，而这些资源又不能保证变得可用，用户可能也已经回家了，诸如此类的任务会永久停止，而这些停止的任务也会引起和线程泄漏同样的问题。如果某个线程被这样一个任务永久地消耗着，那么它实际上就被从池除去了。对于这样的任务，应该要么只给予它们自己的线程，要么只让它们等待有限的时间。
+  请求过载
+  仅仅是请求就压垮了服务器，这种情况是可能的。在这种情形下，我们可能不想将每个到来的请求都排队到我们的工作队列，因为排在队列中等待执行的任务可能会消耗太多的系统资源并引起资源缺乏。在这种情形下决定如何做取决于您自己；在某些情况下，您可以简单地抛弃请求，依靠更高级别的协议稍后重试请求，您也可以用一个指出服务器暂时很忙的响应来拒绝请求。
+  有效使用线程池的准则
+  只要您遵循几条简单的准则，线程池可以成为构建服务器应用程序的极其有效的方法：
+  不要对那些同步等待其它任务结果的任务排队。这可能会导致上面所描述的那种形式的死锁，在那种死锁中，所有线程都被一些任务所占用，这些任务依次等待排队任务的结果，而这些任务又无法执行，因为所有的线程都很忙。
+  在为时间可能很长的操作使用合用的线程时要小心。如果程序必须等待诸如 I/O 完成这样的某个资源，那么请指定最长的等待时间，以及随后是失效还是将任务重新排队以便稍后执行。这样做保证了：通过将某个线程释放给某个可能成功完成的任务，从而将最终取得 某些进展。
+  理解任务。要有效地调整线程池大小，您需要理解正在排队的任务以及它们正在做什么。它们是 CPU 限制的（CPU-bound）吗？它们是 I/O 限制的（I/O-bound）吗？您的答案将影响您如何调整应用程序。如果您有不同的任务类，这些类有着截然不同的特征，那么为不同任务类设置多个工作队列可能会有意义，这样可以相应地调整每个池。
+  调整池的大小
+  调整线程池的大小基本上就是避免两类错误：线程太少或线程太多。幸运的是，对于大多数应用程序来说，太多和太少之间的余地相当宽。
+  请回忆：在应用程序中使用线程有两个主要优点，尽管在等待诸如 I/O 的慢操作，但允许继续进行处理，并且可以利用多处理器。在运行于具有 N 个处理器机器上的计算限制的应用程序中，在线程数目接近 N 时添加额外的线程可能会改善总处理能力，而在线程数目超过 N 时添加额外的线程将不起作用。事实上，太多的线程甚至会降低性能，因为它会导致额外的环境切换开销。
+  线程池的最佳大小取决于可用处理器的数目以及工作队列中的任务的性质。若在一个具有 N 个处理器的系统上只有一个工作队列，其中全部是计算性质的任务，在线程池具有 N 或 N+1 个线程时一般会获得最大的 CPU 利用率。
+  对于那些可能需要等待 I/O 完成的任务（例如，从套接字读取 HTTP 请求的任务），需要让池的大小超过可用处理器的数目，因为并不是所有线程都一直在工作。通过使用概要分析，您可以估计某个典型请求的等待时间（WT）与服务时间（ST）之间的比例。如果我们将这一比例称之为 WT/ST，那么对于一个具有 N 个处理器的系统，需要设置大约 N*(1+WT/ST) 个线程来保持处理器得到充分利用。
+  处理器利用率不是调整线程池大小过程中的唯一考虑事项。随着线程池的增长，您可能会碰到调度程序、可用内存方面的限制，或者其它系统资源方面的限制，例如套接字、打开的文件句柄或数据库连接等的数目。
+
+
+
+

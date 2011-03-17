@@ -1,0 +1,108 @@
+* jpa注解
+** 要点
+*** 实体
+*** 表名
+*** 主键
+** 实体的标识
+ - @Entity
+#+BEGIN_SRC java
+   @Entity //标识这个pojo是一个jpa实体    
+   public class Users implements Serializable {    
+}  
+#+END_SRC
+** 表名
+ - @Table(name="")
+#+BEGIN_SRC
+   @Entity    
+   @Table(name = "users") //指定表名为users    
+   public class Users implements Serializable {    
+ }  
+#+END_SRC
+** 常用字段类型
+ - @Column(name="")
+  + unique 是否唯一
+  + nullable 是否可以为空
+  + insertable 是否可以插入
+  + columnDefinition 定义建表时创建此列的DDL
+  + secondaryTable 从表名称
+***  设置时间类型
+ - @Temporal(TemproalType.DATE)
+#+BEGIN_SRC
+   @Column(name = "user_code", nullable = false, length=32)//设置属性userCode对应的字段为user_code，长度为32，非空    
+   private String userCode;    
+   @Column(name = "user_wages", nullable = true, precision=12, scale=2)//设置属性wages对应的字段为user_wages，12位数字可保留两位小数，可以为空    
+   private double wages;    
+   @Temporal(TemporalType.DATE)//设置为时间类型    
+   private Date joinDate;   
+#+END_SRC
+** 排序
+ - OrderBy(name="")
+#+BEGIN_SRC
+   @Table(name = "USERS")    
+   public class User {    
+   @OrderBy(name = "group_name ASC, name DESC")    
+   private List books = new ArrayList();    
+   } 
+#+END_SRC
+** 主键Id
+ - @Id
+ - @GeneratedValue(stratety=GenerationType.SEQUENCE)
+  + 使用Sequence来实现表主键自增
+ - @GeneratedValue(stratety=GenerationType.IDENTITY)
+  + 主键自增
+ - @GeneratedValue(stratety=GenerationType.TABLE)
+  + 通过一个表来实现自增
+** 复杂映射关系
+*** 一对多关联
+ - 主POJO
+#+BEGIN_SRC java
+   @Entity
+   @Table(name="T_ONE")
+   public class One implements Serializable {  
+   @Id
+   @Column(name="id" nullable="false")
+   private String oneId;  
+   @Column(length="32")
+   private String description; 
+   @OneToMany(cascade=CascadeType.ALL,mappedBy="id")
+   private Collection<Many> manyCollection; 
+   }
+#+END_SRC
+  - 子POJO类
+#+BEGIN_SRC java
+    @Entity    
+    @Table(name = "T_MANY")    
+    public class Many implements Serializable {    
+    private static final long serialVersionUID = 1L;    
+    @Id    
+    @Column(name = "MANY_ID", nullable = false)    
+    private String manyId;    
+    @Column(name = "DESCRIPTION")    
+    private String description;    
+    @JoinColumn(name = "ONE_ID", referencedColumnName = "ONE_ID")//设置对应数据表的列名和引用的数据表的列名    
+    @ManyToOne//设置在“一方”pojo的外键字段上    
+    private One oneId;
+#+END_SRC
+*** 多对多关联
+* jpa所依赖的包(hibernate)
+** hibernate核心包
+ - hibernate3.jar
+ - cglib.jar
+ - requried目录下所有的包
+** 注解
+ - hibernate-annotations.jar
+ - ejb3-persistence.jar
+ - hibernate-commons-annoatations.jar
+** 针对jpa的实现包 
+ - hibernate-entitymanage.jar
+ - log4j.jar
+ - slf4j-log4j.jar
+* jpa配置文件
+ - 放在META-INF目录下persistence.xml
+* 策略
+ - 先配置文件和实体Bean,再生成表
+* jpa实例配置
+** jpa项目创建
+ - 导入Jar包(数据库连接jar包)
+ - 导入persistence.xml模板文件
+ -  

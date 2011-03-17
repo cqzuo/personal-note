@@ -1,0 +1,65 @@
+----------------------实体类标记的问题----------------------
+1. 如何标示一个类将要被持久化?
+在一个类前面添加 @Entity
+2. id前的标识?
+在id的get方法上标注
+@Id @GeneratedValue(strategy=生成策略,geneator="生成器名称")
+@SequenceGeneator(name="",sequenceName="",allocationSize=)
+3. 如何将一个持久化类与数据库对象联系起来?
+在持久化类前添加标识
+@Entity
+@Table(name="表名")
+4. 如何设置持久化类对应数据库表中的列的信息
+在对应属性的get方法前添加标识
+@Column(name="列名",length="长度",nullable="是否允许为空")
+5. 如何设置日期类型的属性
+@Temporal(TemporalType.DATE)
+6. 如何设置枚举类型的字符串
+@Enumerated(EnumType.STRING)
+@Column(length=5,nullable=false)
+7. 不让某个属性持久化如何处理
+在该属性的get放过前添加@Transient
+8. 大文本字段如何处理
+@Lob
+9. 如何设置延迟加载
+@Basic(fetch=FetchType.LAZY)
+J----------------------PA的使用----------------------
+引入EntityManagerFactory对象
+EntityManger em = Persistences.createEntityManagerFactory("配置的jpa名称").createEntityManager();
+使用EntityManager对象来进行各种持久化操作
+1 如何开启和关闭事务
+em.getTransaction().begin();
+em.getTransaction().commit();
+2 如何保存一个对象?
+em.persist(可持久化的对象);
+3. 删除对象
+em.remove(对象名);
+4. 加载对象
+使用get方法加载
+  对象类名 对象名 = em.find(对象类名.class,查询条件);
+  如果对象不存在会返回Null
+使用load加载
+  对象类名 对象名 = em.getReference(对象类名.class,查询条件);
+  如果不存在则会报异常
+5. 更新对象
+ 对象类名 对象名 = em.find(对象类名.class,查询条件);
+  if(对象!==null)
+  {
+      em.getTransaction().begin();
+      对象操作
+      em.getTransaction().commit();
+  }
+ 6. 设置对象的游离状态
+  em.clear();
+  不再与数据库的联系
+ 7. 将游离的对象更新同步到数据库
+ em.merge();
+ ----------------------JPQL查询----------------------
+ 1. 如何设置查询的参数
+ Query query = em.createQuery("SELECT p FROM Person p WHERE p.属性名称=:参数名称 ")
+  Query query = em.createQuery("SELECT p FROM Person p WHERE p.属性名称=:1 ")
+ query.setParameter("参数名",参数值);
+  query.setParameter(1,参数值);
+ 2. 如何获取结果
+  List result = (List)query.getResultList();
+  对象类名 对象 = (对象类名)query.getSingleResult(); 

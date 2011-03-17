@@ -1,0 +1,238 @@
+局部类 
+在一个函数体内定义的类称为局部类。局部类中只能使用它的外围作用域中的对象和函数进行联系，因为外围作用域中的变量与该局部类的对象无关。在定义局部类时需要注意：局部类中不能说明静态成员函数，并且所有成员函数都必须定义在类体内。在实践中，局部类是很少使用的。下面是一个局部类的例子。
+
+int a;
+void fun()
+{
+static int s;
+class A
+{
+public:
+void init(int i) { s = i; }
+};
+A m;
+m.init(10);
+}
+
+嵌套类
+
+在一个类中定义的类称为嵌套类，定义嵌套类的类称为外围类。
+
+定义嵌套类的目的在于隐藏类名，减少全局的标识符，从而限制用户能否使用该类建立对象。这样可以提高类的抽象能力，并且强调了两个类(外围类和嵌套类)之间的主从关系。下面是一个嵌套类的例子：
+
+class A
+{
+public:
+class B
+{
+public:
+…
+private:
+…
+};
+void f();
+private:
+int a;
+}
+
+其中，类B是一个嵌套类，类A是外围类，类B定义在类A的类体内。
+
+对嵌套类的若干说明：
+
+1、从作用域的角度看，嵌套类被隐藏在外围类之中，该类名只能在外围类中使用。如果在外围类的作用域内使用该类名时，需要加名字限定。
+
+2、从访问权限的角度来看，嵌套类名与它的外围类的对象成员名具有相同的访问权限规则。不能访问嵌套类的对象中的私有成员函数，也不能对外围类的私有部分中的嵌套类建立对象。
+
+3、嵌套类中的成员函数可以在它的类体外定义。
+
+4、嵌套类中说明的成员不是外围类中对象的成员，反之亦然。嵌套类的成员函数对外围类的成员没有访问权，反之亦然。国此，在分析嵌套类与外围类的成员访问关系时，往往把嵌套类看作非嵌套类来处理。这样，上述的嵌套类可写成如下格式：
+
+class A
+{
+public:200
+void f();
+private:
+int a;
+};
+
+class B
+{
+public:
+…
+private:
+…
+};
+
+由引可见，嵌套类仅仅是语法上的嵌入。
+
+5、在嵌套类中说明的友元对外围类的成员没有访问权。
+
+6、如果嵌套类比较复杂，可以只在外围类中对嵌套类进行说明，关于嵌套的详细的内容可在外围类体外的文件域中进行定义。
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+引用：
+前言：
+本来是想总结一下inner class 的用法，但是却发现这几位颇为亲近。索性一起拉出来溜溜。
+写作目的：
+跟 static , final, inner class 搞好关系，以便将来遇见了，就像用if ,else一样，一清二楚。
+文中的术语定义以java language spec为准。
+
+先想想，要关注的是那些地方？
+1。语法。 （code, 我们吃饭的家伙）
+2。语义。 （其实写代码也就是为了这个）
+3。怎么用简单，可人的结构来表达语义。（这也是每个程序员追求的）
+语义无限的，语法是Limited, 我们要理解不同的语法所表现的语义，这是本文的重点。
+
+1。final 篇
+final 做为一个独立的存在，也表现的与众不同。一般情况都可以理解为 can't be changed.
+1)final data: 实现constant语义。说明这个值：在编译时不会变；在运行时也不能被改变。
+在java中，提供了blank final：允许大家将初始化的动作延迟到constructor中。这是极限，有编译器保证。
+2)final parameter: 同上语义。
+3)final method:
+a)防止子类overriden.(注：这个角度，private 隐含了final语义） b)efficiency: 允许编译器转换调用为inline call.
+4)final class: 拒绝inherited.
+
+2。static 篇
+1。定义：static is modifier.本想找一个权威的定义给大家，才发现此物没有特定范围。也就意味着可能明天还有新的用法，也说明了语言的无限扩展性。不得以，我们只好在此注明：以下用法为java 1.5 之前的说明：
+
+闲言碎语：这 static 可不得了，跟谁沾上整个就变质了。如果你想标榜独立个性，请用。static 一上，就表明 “我是人民的公仆，你只要找得着我，就可以让我为您服务“。它属于定义层次，在jvm层次独一无二。从另一个角度上，它只能用于成员定义。我们不能定义一个 top-level class 为static.
+public static class Outest { // compile error
+...;
+}
+
+装载：
+因为static成员（include field, method, nested class)是在存储在类定义层次的，只要任何与其类相关的操作，均会产生它的初始化动作。（也就意味着，它已经准备就绪，你只要想用就用。classname.staticMember）
+
+所有的static object/primitive and static block，按照先来后到的顺序执行初始化操作。
+与其他一样。
+
+可以用在：
+1）static import (static import ...)
+single-static-import declaration: import static TypeName.Identifier 使得访问标识得以简化。（简单，无二义）
+2) static initializer: (static {}):
+完成一段初始化操作.常见用法：
+3) static field: (static type field)
+static field : 别名：class variable ;
+non-static fileds: 别名：instance variable.
+4) static method: (static type method())
+同上。
+5）static member type.( member class & member interface:
+此处放在 nested class 部分讲解)
+
+jvm是实现这些java程序语义的根源：类变量是作为类型信息的一部分存储在方法区（jvm放置类定义的内存结构）。jvm在使用类之前，必须在方法区中为这些类变量分配空间。所以类变量是所有类实例共享的，即使没有任何类实例，它也可以被访问。这些变量只与类有关。
+
+下面是重头戏：nested class.
+3。nested class 篇
+说到类定义，我们先看看有那些值得关注的：
+在java中，类声明的表现形式可以分为两种：
+1）top level class:
+2）nested class：
+define: nestd class is any class whose declaration occurs within the body of another class or interface.
+top level class is a class that is not a nested class.
+
+而在nested class 我们需要特殊关注的是inner class, local class, anonymous class的用法。
+在讨论下面两种特殊定义时，我们先看看一个重要概念：inner class.
+1）An inner class is a nested class that is not explicitly or implicitly declared
+static. Inner classes may not declare static initializers or member interfaces.
+Inner classes may not declare static members, unless they are compile-time
+constant fields。（对内部类的限制：不能声明static 初始化操作）
+在这里我要澄清一点：Nested class != inner class， inner class 是一种特殊的 Nested class.Bruce 大叔在thinking java 3rd中混肴了这两个概念。（汗，直到写此文时我才究正过来，还好我写得时候把 java language spec和 jvm spec 拿来参考）
+看看inner class 的表现形式吧。
+/* 普通的情况 */
+class HasStatic{
+static int j = 100;
+|
+class Outer{
+class Inner extends HasStatic {
+static final int x = 3; // ok - compile-time constant
+static int y = 4; // compile-time error, an inner class
+}
+static class NestedButNotInner {
+static int z = 5; // ok, not an inner class
+}
+interface NeverInner{} // interfaces are never inner
+}
+
+
+2）local class: is a nested class that is not a member of any class and that has a name. all local classes are inner classes. local class 不能用public, protected, private, or static声明（编译错误）.
+从定义中我们可以看出，它的生命期是 block scope.比较local variable的形式，就不难理解其语义。同样你也不能用modifier(public/static etc.)去定义一个局部变量。
+e.p
+class Test {
+public static void main (String[] args) {
+int i ;
+// public class Local{} : compile error: illegal start of expression
+class Local {
+{
+for (int i = 0; i < 10; i++) {
+System.out.println(i);
+}
+}
+
+public void p() {
+System.out.println("call local class p():");
+}
+}
+Local l = new Local();
+l.p();
+}
+}
+3）anonymous class：is automatically derived from a class instance creation expression by the compiler.
+：1.never abstract; 2.inner class; 3.never static; 4.impicitly final.
+interface Contents{};
+public class Parcel6 {
+public Contents cont() {
+return new Contents() {
+private int i = 11;
+public int value() { return i; }
+};
+}
+public static void main(String[] args) {
+Parcel6 p = new Parcel6();
+Contents c = p.cont();
+}
+} ///:~
+
+这个看似神秘的结构，让你将类的定义和构建过程融为一体。实际上它实现的语义是：
+class MyContents implements Contents {
+private int i = 11;
+public int value() { return i; }
+}
+return new MyContents();
+（impicitly final）这样大家就一目了然了吧。
+
+看了以上或简单，或复杂的类定义。也许大家都有些头痛。为什么java提供如此丰富的类定义方式呢？不如让我们问问自己，我们定义类的目的是什么？是为了让我们的程序拥有更好的逻辑结构。类定义是信息组织的形式。java语言给我们提供了在各个的实现阶段允许我们去做信息的封装，真正是everything is object.这些是我们应该高兴的事才对。它绝不是负担，只是给我们更多的选择空间。
+
+语义特点：（以下inner class is thinkingInjava3th 中的定义，可以看作本文所定义的nested class）
+Each inner class can independently inherit from an implementation. Thus, the inner class is not limited by whether the outer class is already inheriting from an implementation.
+（是不是看到了点什么，多继承！！visitor pattern！！）
+1。 The inner class can have multiple instances, each with its own state information that is independent of the information in the outer class object. 一个独立的实体，诞生于某个更大的实体中（外部实体），却可以用外部实体的资源（请联想寄生虫:<）
+2。 In a single outer class you can have several inner classes, each of which implement the same interface or inherit from the same class in a different way. （可以有不同种类的寄生虫）
+3。The point of creation of the inner class object is not tied to the creation of the outer class object.
+（它的创建过程并不系于外部对象的创建）
+4。There is no potentially confusing “is-a” relationship with the inner class; it’s a separate entity.
+（于外部类无inherit关系）
+
+
+经过以上的说明，你是否头脑中更清晰了些：
+Inner class 常见用法：
+Closures & Callbacks
+1.在java中可以利用Inner class 实现Closure（闭包） 和 Callback（回调） 语义：
+Closure的定义：（我试图从不同侧面来阐述这个概念）
+Martin Fowler :Essentially a closure is a block of code that can be passed as an argument to a function call.
+Bruce：A closure is a callable object that retains information from the scope in which it was created.
+那什么时候使用它呢？它有什么优点呢？
+打个比方：让你去照看小孩：你是想要婴儿还是小学生呢？我想大多数人会选择小学生。为什么？因为小学生可以自己吃饭，自己上厕所，自己洗澡。这两个对象的实现，你更偏向哪一个呢？
+
+call back:With a callback, some other object is given a piece of information that allows it to call back into the originating object at some later point. (顺藤摸瓜，制造一个可控的接口）
+
+本文来自CSDN博客，转载请标明出处：http://blog.csdn.net/jemmy/archive/2007/06/04/1638296.aspx

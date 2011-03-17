@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>spring注解ioc实现</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011-01-30 15:55:48 "/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">spring注解ioc实现</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 注解的优点 </a></li>
+<li><a href="#sec-2">2 使用@Autowired注释 </a>
+<ul>
+<li><a href="#sec-2_1">2.1 说明: </a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 使用JSR-250注释 </a>
+<ul>
+<li><a href="#sec-3_1">3.1 @Resource </a></li>
+<li><a href="#sec-3_2">3.2 @PostConstruct </a></li>
+<li><a href="#sec-3_3">3.3 @PreDestroy </a></li>
+<li><a href="#sec-3_4">3.4 使用&lt;context:annotation-config/&gt;简化配置 </a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 使用@Component注释 </a></li>
+<li><a href="#sec-5">5 使用特殊语义注释 </a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 注解的优点 </h2>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li>
+充分利用了java的反射机制,减少了配置的工作<br/>
+</li>
+<li>
+注释和代码在一个文件内,有助于增强程序的内聚性<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 使用@Autowired注释 </h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2_1" class="outline-3">
+<h3 id="sec-2_1"><span class="section-number-3">2.1</span> 说明: </h3>
+<div class="outline-text-3" id="text-2_1">
+
+<ul>
+<li>
+可以对类成员变量,方法及构造函数进行标注,完成自动装配的工作<br/>
+</li>
+<li>
+autowired注解的简单例子<br/>
+<ul>
+<li>
+实体类中注解添加 <br/>
+
+<p><br/>
+</p></li>
+</ul>
+</li>
+</ul>
+
+
+<pre class="src src-java"> <span style="color: #fa8072;">package</span> com.<span style="color: #7fffd4;">baobaotao</span>;
+<span style="color: #fa8072;">import</span> <span style="color: #7fffd4;">org</span>.<span style="color: #7fffd4;">springframework</span>.<span style="color: #7fffd4;">beans</span>.<span style="color: #7fffd4;">factory</span>.<span style="color: #7fffd4;">annotation</span>.<span style="color: #9acd32; font-weight: bold;">Autowired</span>;
+
+<span style="color: #fa8072;">public</span> <span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">Boss</span> {
+
+    <span style="color: #0000ff;">@Autowired</span>
+    <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">Car</span> <span style="color: #7fffd4; font-weight: bold;">car</span>;
+
+    <span style="color: #0000ff;">@Autowired</span>
+    <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">Office</span> <span style="color: #7fffd4; font-weight: bold;">office</span>;
+<span style="color: #add8e6;">/*</span><span style="color: #add8e6;">
+ 1. Spring &#36890;&#36807;&#19968;&#20010; BeanPostProcessor &#23545; @Autowired &#36827;&#34892;&#35299;&#26512;
+ 2. &#22768;&#26126; AutowiredAnnotationBeanPostProcessor Bean
+*/</span>
+</pre>
+
+
+<ul>
+<li>
+配置文件<br/>
+
+<p><br/>
+</p></li>
+</ul>
+
+
+<pre class="src src-xml"> &lt;?<span style="color: #fa8072;">xml</span> <span style="color: #ffa07a;">version="1.0" encoding="UTF-8" </span>?&gt;
+&lt;<span style="color: #7fffd4; font-weight: bold;">beans</span> <span style="color: #98fb98; font-weight: bold;">xmlns</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">http://www.springframework.org/schema/beans</span><span style="color: #ffa07a;">"</span>
+    <span style="color: #98fb98; font-weight: bold;">xmlns</span>:<span style="color: #7fffd4; font-weight: bold;">xsi</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">http://www.w3.org/2001/XMLSchema-instance</span><span style="color: #ffa07a;">"</span>
+    <span style="color: #98fb98; font-weight: bold;">xsi</span>:<span style="color: #7fffd4; font-weight: bold;">schemaLocation</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">http://www.springframework.org/schema/beans 
+ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span><span style="color: #ffa07a;">"</span>&gt;
+
+    <span style="color: #add8e6;">&lt;!--</span><span style="color: #add8e6;"> &#35813; BeanPostProcessor &#23558;&#33258;&#21160;&#36215;&#20316;&#29992;&#65292;&#23545;&#26631;&#27880; @Autowired &#30340; Bean &#36827;&#34892;&#33258;&#21160;&#27880;&#20837; </span><span style="color: #add8e6;">--&gt;</span>
+    &lt;<span style="color: #7fffd4; font-weight: bold;">bean</span> <span style="color: #7fffd4; font-weight: bold;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">org.springframework.beans.factory.annotation.
+        AutowiredAnnotationBeanPostProcessor</span><span style="color: #ffa07a;">"</span>/&gt;
+
+    <span style="color: #add8e6;">&lt;!--</span><span style="color: #add8e6;"> &#31227;&#38500; boss Bean &#30340;&#23646;&#24615;&#27880;&#20837;&#37197;&#32622;&#30340;&#20449;&#24687; </span><span style="color: #add8e6;">--&gt;</span>
+    &lt;<span style="color: #7fffd4; font-weight: bold;">bean</span> <span style="color: #7fffd4; font-weight: bold;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">boss</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">com.baobaotao.Boss</span><span style="color: #ffa07a;">"</span>/&gt;
+
+    &lt;<span style="color: #7fffd4; font-weight: bold;">bean</span> <span style="color: #7fffd4; font-weight: bold;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">office</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">com.baobaotao.Office</span><span style="color: #ffa07a;">"</span>&gt;
+        &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">officeNo</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">001</span><span style="color: #ffa07a;">"</span>/&gt;
+    &lt;/<span style="color: #7fffd4; font-weight: bold;">bean</span>&gt;
+    &lt;<span style="color: #7fffd4; font-weight: bold;">bean</span> <span style="color: #7fffd4; font-weight: bold;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">car</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">com.baobaotao.Car</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">scope</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">singleton</span><span style="color: #ffa07a;">"</span>&gt;
+        &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">brand</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;"> &#32418;&#26071; CA72</span><span style="color: #ffa07a;">"</span>/&gt;
+        &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">price</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">2000</span><span style="color: #ffa07a;">"</span>/&gt;
+    &lt;/<span style="color: #7fffd4; font-weight: bold;">bean</span>&gt;
+&lt;/<span style="color: #7fffd4; font-weight: bold;">beans</span>&gt;
+</pre>
+
+
+<ul>
+<li>
+将@Autowired注释标注在Setter方法上<br/>
+<ul>
+<li>
+例子<br/>
+
+<p><br/>
+<pre class="src src-java"><span style="color: #fa8072;">package</span> com.<span style="color: #7fffd4;">baobaotao</span>;
+<span style="color: #fa8072;">public</span> <span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">Boss</span> {
+    <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">Car</span> <span style="color: #7fffd4; font-weight: bold;">car</span>;
+    <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">Office</span> <span style="color: #7fffd4; font-weight: bold;">office</span>;
+
+     <span style="color: #0000ff;">@Autowired</span>
+    <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">void</span> <span style="color: #7fffd4; font-weight: bold;">setCar</span>(<span style="color: #9acd32; font-weight: bold;">Car</span> <span style="color: #7fffd4; font-weight: bold;">car</span>) {
+        <span style="color: #fa8072;">this</span>.car = car;
+    }
+
+    <span style="color: #0000ff;">@Autowired</span>
+    <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">void</span> <span style="color: #7fffd4; font-weight: bold;">setOffice</span>(<span style="color: #9acd32; font-weight: bold;">Office</span> <span style="color: #7fffd4; font-weight: bold;">office</span>) {
+        <span style="color: #fa8072;">this</span>.office = office;
+    }
+}
+ <span style="color: #add8e6;">/*</span><span style="color: #add8e6;">
+  1. @Autowired &#23558;&#26597;&#25214;&#34987;&#26631;&#27880;&#30340;&#26041;&#27861;&#30340;&#20837;&#21442;&#31867;&#22411;&#30340; Bean
+  2. &#35843;&#29992;&#26041;&#27861;&#33258;&#21160;&#27880;&#20837;&#36825;&#20123; Bean
+  */</span>
+</pre>
+
+
+</p></li>
+</ul>
+</li>
+<li>
+异常<br/>
+<ul>
+<li>
+如果找不到合适的bean,会抛出BeanCreattionException异常<br/>
+<ul>
+<li>
+避免报错的方法 @Autowired(required=false)<br/>
+</li>
+</ul>
+</li>
+<li>
+如果找到多个匹配的bean,也会抛出BeanCreationException异常<br/>
+<ul>
+<li>
+解决方法: 使用@Qualifier("bean名称")来指定注入bean的名称<br/>
+</li>
+<li>
+例子<br/>
+
+<p><br/>
+</p></li>
+</ul>
+
+
+<pre class="src src-java">   <span style="color: #fa8072;">public</span> <span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">Boss</span> {
+    <span style="color: #0000ff;">@Autowired</span>
+    <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">Car</span> <span style="color: #7fffd4; font-weight: bold;">car</span>;
+
+    <span style="color: #0000ff;">@Autowired</span>
+    <span style="color: #0000ff;">@Qualifier</span>(<span style="color: #ffa07a;">"office"</span>)
+    <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">Office</span> <span style="color: #7fffd4; font-weight: bold;">office</span>;
+    &#8230;
+}
+</pre>
+
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 使用JSR-250注释 </h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3_1" class="outline-3">
+<h3 id="sec-3_1"><span class="section-number-3">3.1</span> @Resource </h3>
+<div class="outline-text-3" id="text-3_1">
+
+<ul>
+<li>
+按byName自动注入Bean<br/>
+</li>
+<li>
+例子<br/>
+
+<p><br/>
+<pre class="src src-java"><span style="color: #fa8072;">package</span> com.<span style="color: #7fffd4;">baobaotao</span>;
+<span style="color: #fa8072;">import</span> <span style="color: #7fffd4;">javax</span>.<span style="color: #7fffd4;">annotation</span>.<span style="color: #9acd32; font-weight: bold;">Resource</span>;
+<span style="color: #fa8072;">public</span> <span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">Boss</span> {
+    <span style="color: #add8e6;">// </span><span style="color: #add8e6;">&#33258;&#21160;&#27880;&#20837;&#31867;&#22411;&#20026; Car &#30340; Bean
+</span>    <span style="color: #0000ff;">@Resource</span>
+    <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">Car</span> <span style="color: #7fffd4; font-weight: bold;">car</span>;
+    <span style="color: #add8e6;">// </span><span style="color: #add8e6;">&#33258;&#21160;&#27880;&#20837; bean &#21517;&#31216;&#20026; office &#30340; Bean
+</span>    <span style="color: #0000ff;">@Resource</span>(name = <span style="color: #ffa07a;">"office"</span>)
+    <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">Office</span> <span style="color: #7fffd4; font-weight: bold;">office</span>;
+}
+</pre>
+
+
+</p></li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3_2" class="outline-3">
+<h3 id="sec-3_2"><span class="section-number-3">3.2</span> @PostConstruct </h3>
+<div class="outline-text-3" id="text-3_2">
+
+<ul>
+<li>
+bean在初始化完成之后的操作<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3_3" class="outline-3">
+<h3 id="sec-3_3"><span class="section-number-3">3.3</span> @PreDestroy </h3>
+<div class="outline-text-3" id="text-3_3">
+
+<ul>
+<li>
+bean在销毁前执行的操作<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3_4" class="outline-3">
+<h3 id="sec-3_4"><span class="section-number-3">3.4</span> 使用&lt;context:annotation-config/&gt;简化配置 </h3>
+<div class="outline-text-3" id="text-3_4">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 使用@Component注释 </h2>
+<div class="outline-text-2" id="text-4">
+
+<ul>
+<li>
+完全使用注释来设置bean之间的装配<br/>
+</li>
+<li>
+例子<br/>
+<ul>
+<li>
+要注入的bean类中<br/>
+
+<p><br/>
+</p></li>
+</ul>
+</li>
+</ul>
+
+
+<pre class="src src-java"> <span style="color: #fa8072;">package</span> com.<span style="color: #7fffd4;">baobaotao</span>;
+ <span style="color: #fa8072;">import</span> <span style="color: #7fffd4;">org</span>.<span style="color: #7fffd4;">springframework</span>.<span style="color: #7fffd4;">stereotype</span>.<span style="color: #9acd32; font-weight: bold;">Component</span>;
+ <span style="color: #0000ff;">@Component</span>
+ <span style="color: #fa8072;">public</span> <span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">Car</span> {
+    &#8230;
+}
+</pre>
+
+
+<ul>
+<li>
+被注入的类中<br/>
+
+<p><br/>
+</p></li>
+</ul>
+
+
+<pre class="src src-java"> <span style="color: #fa8072;">package</span> com.<span style="color: #7fffd4;">baobaotao</span>;
+<span style="color: #fa8072;">import</span> <span style="color: #7fffd4;">org</span>.<span style="color: #7fffd4;">springframework</span>.<span style="color: #7fffd4;">beans</span>.<span style="color: #7fffd4;">factory</span>.<span style="color: #7fffd4;">annotation</span>.<span style="color: #9acd32; font-weight: bold;">Autowired</span>;
+<span style="color: #fa8072;">import</span> <span style="color: #7fffd4;">org</span>.<span style="color: #7fffd4;">springframework</span>.<span style="color: #7fffd4;">beans</span>.<span style="color: #7fffd4;">factory</span>.<span style="color: #7fffd4;">annotation</span>.<span style="color: #9acd32; font-weight: bold;">Required</span>;
+<span style="color: #fa8072;">import</span> <span style="color: #7fffd4;">org</span>.<span style="color: #7fffd4;">springframework</span>.<span style="color: #7fffd4;">beans</span>.<span style="color: #7fffd4;">factory</span>.<span style="color: #7fffd4;">annotation</span>.<span style="color: #9acd32; font-weight: bold;">Qualifier</span>;
+<span style="color: #fa8072;">import</span> <span style="color: #7fffd4;">org</span>.<span style="color: #7fffd4;">springframework</span>.<span style="color: #7fffd4;">stereotype</span>.<span style="color: #9acd32; font-weight: bold;">Component</span>;
+
+<span style="color: #0000ff;">@Component</span>(<span style="color: #ffa07a;">"boss"</span>)
+<span style="color: #fa8072;">public</span> <span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">Boss</span> {
+    <span style="color: #0000ff;">@Autowired</span>
+    <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">Car</span> <span style="color: #7fffd4; font-weight: bold;">car</span>;
+
+    <span style="color: #0000ff;">@Autowired</span>
+    <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">Office</span> <span style="color: #7fffd4; font-weight: bold;">office</span>;
+    &#8230;
+}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 使用特殊语义注释 </h2>
+<div class="outline-text-2" id="text-5">
+
+</div>
+</div>
+<div id="postamble">
+<p class="author"> Author: 
+</p>
+<p class="date"> Date: 2011-01-30 15:55:48 </p>
+<p class="creator">HTML generated by org-mode 7.01 in emacs 24</p>
+</div>
+</div>
+</body>
+</html>

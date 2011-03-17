@@ -1,0 +1,150 @@
+#+OPTIONS: "\t"
+struts1整合hibernate3
+* struts1优点
+** 解决的问题
+*** Model2的缺点
+**** 必须为每个用户请求写一个控制器
+**** 业务庞大时会有很多的控制器
+*** 实现
+**** 所有的请求都到一个中央控制器(ActionServlet)统一处理
+**** 有利维护工作,增强了系统扩展性
+* struts流程
+** 初始化流程
+**** 加载ActionServlet(取决于Servlet容器)
+***** 根据配置文件的<load-on-startup>标签决定是容器启动时加载还是第一次请求来到时加载
+**** 加载并初始化struts的配置文件struts-config.xml
+***** 把每个<action>标签的内容生成ActionMapping对象存放在内存中
+***** 将每个<form-bean>标签都生成ActionFormBean对象放在内存中
+***** 加载并初始化消息文件到内存中
+** 基本工作流程
+**** 请求到来时,在内存中找与之匹配的ActionMapping对象
+***** 找到后进入下一步骤
+***** 找不到抛出错误信息
+**** 找到ActionMapping对象对应的formBean,并创建实例,将请求的信息填充到对象中
+**** 根据配置的validate属性决定是否进行表单验证
+***** 如果需要就执行formBean的validate方法
+****** 如果返回null或不包含ActionMessage对象的ActionErrors对象,则表示验证通过
+******  如果不通过则根据struts.xml中配置的input标签属性跳转到相应的错误页面
+**** 通过验证后配置映射对象并创建该Action对象,执行execute()完成业务逻辑操作,返回ActionForward对象
+**** ActionServlet根据返回的ActionForward对象,生成动态页面并响应客户端
+* struts1整合spring3例子
+** 建立工程
+*** 创建新web project
+*** 加载struts
+*** 项目配置修正
+**** web.xml
+***** <web-app>属性全部删除
+***** 添加本工程的标签定义库
+- <taglib>
+   <taglib-uri>tld文件路径名称</taglib-uri>
+   <taglib-location>同上</taglib-location>
+  </taglib>
+** 完善工程
+*** 添加画面
+**** index
+***** 添加指令<%@ taglib uri="" prefix=""%>
+***** 资源信息 <bean:message key=""/>
+***** 链接 <html:link page=""/>
+**** login
+***** <html:form action="/action名称" method="post" focus="userName">
+***** <html:text property=""/>
+*** 修改struts-config.xml
+**** <form-beans>
+ <form-beans>
+   <form-bean name="" type=""/>
+ </form-beans>
+**** action-mapping中配置action
+ <action path="" type="" name="" scope="">
+   <forward name="" path=""/>
+ </action>
+**** 资源文件
+ <message-resources parmeter="资源文件名称">
+*** 添加formbean和actionbean
+**** 继承ActionForm
+**** 继承Action
+***** 重写execute方法
+*** 添加menu画面
+** 调试工程
+** tomcat配置mysql数据库连接池
+*** 配置server.xml
+#+BEGIN_SRC xml
+<Context path="" docBase="">
+ <Resource name="" auth="" type=""/>
+ <ResourceParams name="">
+   <parameter><name=""/></parameter>
+ </ResourceParams>
+</Context>
+#+END_SRC
+*** 配置web.xml
+#+BEGIN_SRC xml
+<Resource-ref>
+  <res-ref-name>上面定义的数据源</res-ref-name>
+</Resource-ref>
+#+END_SRC
+*** 访问数据库
+#+BEGIN_SRC java
+Context ctx = new InitialContext()
+DataSource ds = (DataSource)ctx.lookup("数据库路径")
+Connection conn = ds.getConnection();
+Statement stmt = conn.createStatementZ();
+ResultSet rs = stmt.executeQuery();
+conn.close();
+#+END_SRC
+*** jsp页面
+**** 数据源的名字java:comp/env/jdbc/数据源名称
+** tomcat配置Hibernate3应用
+*** 建立数据库连接池
+**** 添加Hibernate3应用支持
+ - hibernate.cfg.xml文件一定要放在根目录 src下
+ - 通过Hibernate3 Configuration来配置数据库
+  - DataSource
+  - Dialect
+  - show_sql 
+**** 创建SessionFactory
+#+BEGIN_SRC java
+// 单例模式创建 SessionFactory和Session
+ public class HibernateUtil
+{
+  private static final SessionFactory sessionFactory;
+  static{
+    try{
+     sessionFactory = new Configuration().configure().buildSessionFactory();
+    }catch(Throwable ex)
+  {
+    throw new ExceptionInitializerError("ex");
+  }
+  }
+  public static final ThreadLocal session = new ThreadLocal();
+  public static Session currentSession()
+  {
+    Session s = (Session)session.get();
+    if(s==null)
+   {
+     s = sessionFactory.openSession();
+    session.set(s);
+   }
+   return s;
+  }
+
+ public static void closeSession()
+ {
+  Session s = (Session)session.get();
+  if(s!==null)
+  {
+    s.close();
+  }
+  session.set(null);
+ }
+}
+#+END_SRC
+**** 编辑数据库连接驱动
+**** 创建Hibernate Mapping
+*** 使用Hibernate进行数据连接
+**** session获取
+ - org.hibernate.Session s = HibernateUtil.currentSession();
+**** 查询的实现
+ - org.hibernate.Query query = s.createQuery();
+ - 获取查询对象
+  - 对象类名 对象名 = (对象类名)query.List().get(0);
+**** 关闭session
+ - HibernateUtil.closeSession();

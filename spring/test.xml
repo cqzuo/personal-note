@@ -1,0 +1,263 @@
+1. <bean id="" name="" abstract="true"/>
+2. @Configurable("Bean的id属性")
+3. <aop:spring-configured></aop:spring-configured>
+
+1. extends java.beans.PropertyEditorSupport
+ setAsText()
+ getAsText()
+ 2. 注册到 org.springframework.beans.factory.config.CustomEditorConfigurer 中
+ <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+   <property name="customEditors">
+      <entry key="自定义属性编辑器的完整路径名称">
+          <bean id="自定义编辑器名称" class="同上key的值"/>
+      </entry>
+   </property>
+ </bean>
+ 
+ 1.  aop作用:交叉事务的模块化
+ 2. jdbc DataSourceTransactionManager  --<property id="dataSource" ref="dataSource"/>
+    hibernate HibernateTransactionManager -- <property id="sessionFactory" ref="sessionFactory"/>
+    
+这是一个简单的例子
+
+1. 在mySQL中建立一张USER表。
+
+CREATE TABLE USER ( 
+    user_id CHAR(32) NOT NULL PRIMARY KEY, 
+    name VARCHAR(16) NOT NULL, 
+    sex CHAR(1), 
+    age INT 
+);
+
+2. 建立一个pojo
+
+package com.xy;
+
+public class User { 
+    private String id; 
+    private String name; 
+    private char sex; 
+    private int age; 
+
+    public int getAge() { 
+        return age; 
+    } 
+
+    public String getId() { 
+        return id; 
+    } 
+
+    public String getName() { 
+        return name; 
+    } 
+
+    public char getSex() { 
+        return sex; 
+    } 
+
+    public void setAge(int i) { 
+        age = i; 
+    } 
+
+    public void setId(String string) { 
+        id = string; 
+    } 
+
+    public void setName(String string) { 
+        name = string; 
+    } 
+
+    public void setSex(char c) { 
+        sex = c; 
+    } 
+}
+
+3. hibernate.cfg.xml文件
+
+<?xml version='1.0' encoding='utf-8'?> 
+<!DOCTYPE hibernate-configuration 
+    PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN" 
+    "http://hibernate.sourceforge.net/hibernate-configuration-2.0.dtd"> 
+
+<hibernate-configuration> 
+
+    <session-factory> 
+
+        <!-- 显示实际操作数据库时的SQL --> 
+        <property name="show_sql">true</property> 
+        <!-- SQL方言，这里设定的是MySQL --> 
+        <property name="dialect">net.sf.hibernate.dialect.MySQLDialect</property> 
+        <!-- JDBC驱动程式 --> 
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property> 
+        <!-- JDBC URL --> 
+        <property name="connection.url">jdbc:mysql://localhost/jiejie</property> 
+        <!-- 用户名 --> 
+        <property name="connection.username">root</property> 
+        <!-- 密码--> 
+        <property name="connection.password"></property> 
+
+        <!-- 映射文件 --> 
+        <mapping resource="User.hbm.xml"/> 
+
+    </session-factory> 
+
+</hibernate-configuration> 
+
+4. User.hbm.xml
+
+<?xml version="1.0"?> 
+<!DOCTYPE hibernate-mapping 
+    PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd"> 
+
+<hibernate-mapping> 
+
+    <class name="com.xy.User" table="USER"> 
+
+        <id name="id" type="string" unsaved-value="null"> 
+            <column name="user_id" sql-type="char(32)" /> 
+            <generator class="uuid.hex"/> 
+        </id> 
+
+        <property name="name" type="string" not-null="true"> 
+            <column name="name" length="16" not-null="true"/> 
+        </property> 
+
+        <property name="sex" type="char"/> 
+
+        <property name="age" type="int"/> 
+
+    </class> 
+
+</hibernate-mapping>
+
+5. 测试文件
+
+package com.xy;
+
+import java.util.List;
+import java.util.ListIterator;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import net.sf.hibernate.*;
+import net.sf.hibernate.cfg.*;
+<!--
+  1. session的获取  
+     Session session = new Configuration().configrue().buildSessionFactory().openSession()
+  2. session的操作
+    session.find()
+    session.close()
+-->
+public class HibernateTest {
+ private static Log log = LogFactory.getLog(HibernateTest.class); 
+ public void find() {
+  SessionFactory sessionFactory;
+  try {
+   sessionFactory = new Configuration().configure()
+     .buildSessionFactory();
+
+   Session session = sessionFactory.openSession();
+
+   List users = session.find("from User");
+
+   session.close();
+   sessionFactory.close();
+
+   for (ListIterator iterator = users.listIterator(); iterator
+     .hasNext();) {
+    User user = (User) iterator.next();
+    System.out.println(user.getName() + "\n\tAge: " + user.getAge()
+      + "\n\tSex: " + user.getSex());
+   }
+  } catch (HibernateException e) {
+   // TODO Auto-generated catch block
+   e.printStackTrace();
+  }
+
+ }
+
+ public void insert() {
+
+  SessionFactory sessionFactory;
+  try {
+   sessionFactory = new Configuration().configure()
+     .buildSessionFactory();
+
+   User user = new User();
+   user.setName("caterpillar");
+   user.setSex('M');
+   user.setAge(23);
+
+   Session session = sessionFactory.openSession();
+   Transaction tx = session.beginTransaction();
+   session.save(user);
+   tx.commit();
+   session.close();
+   sessionFactory.close();
+
+   System.out.println("插入数据OK!请在MySQL查看结果！");
+  } catch (HibernateException e) {
+   // TODO Auto-generated catch block
+   e.printStackTrace();
+  }
+ }
+
+ public static void main(String[] args) throws HibernateException {
+
+  new HibernateTest().find();
+  new HibernateTest().insert();
+
+ }
+}
+ibatis
+1. sqlMap-Config.xml
+  配置 transactionManger
+  <transactionManager type="jdbc">
+      <property name="" value=""/>
+  </transactionManager>
+  <sqlMap resource=""/>
+2. 关联配置xml
+<sqlMap namespace="Account">
+<slqMap namespace="">
+  <select id="" parmeterClass="" resultClass=""">sql语句</select>
+  <insert id="" parmeterClass="">sql语句</insert>
+  <select id="getAccount" parameterClass="java.lang.String" resultClass="example.Account">
+    select * from Account where username = #value#
+  </select>
+
+  <insert id="createAccount" parameterClass="example.Account">
+    insert into Account (username, password)
+    values ( #username#, #password# )
+  </insert>
+</sqlMap>
+
+3. 映射类
+ pojo类
+4. 使用ibatis
+com.ibatis.sqlmap.client.SqlMapClient sqlMap = null;
+  try {
+      java.io.Reader reader = com.ibatis.common.resources.Resources.getResourceAsReader ("sql-map-config.xml");
+      Reader reader = Resouces.getResourceAsReader("ibatis配置文件");
+      sqlMap = SqlMapClientBuilder.buildSqlMapClient(reader);
+      sqlMap = SqlMapClientBuilder.buildSqlMapClient(reader);
+  } catch (Exception e) {
+      e.printStackTrace();
+  }
+ 5. 操作
+try {
+     Account accout = (Account)sqlMap.queryForObject("getAccount", "admin");
+     对象类名 对象名 = (对象类名)sqlMap.queryForObject("在配置文件中配置的查询属性","参数值")
+
+sqlMap.queryForObject("","")     ...
+sqlMap.insert("","")
+sqlMap.insert("","")
+ }  
+插入
+try {
+       Account account = new Account();
+       account.setUsername("micheal");
+       account.setPassword("1234");
+       sqlMap.insert("createAccount", account);
+   }

@@ -1,0 +1,48 @@
+%toc
+= jQuery核心 =
+== 核心方法 ==
+ # jQuery(expression, [context])
+  - 接收一个保护css选择器的字符串来匹配一组元素
+  - 简写为$()
+  - 会在指定的上下文中去查找匹配信息
+  - 例子:查找第一个form中的radio元素
+  {{{class="brush: js"
+   $("input:radio",document.forms[0])
+ }}}
+ # jQueryjQuery(html, [ownerDocument])
+  - 根据提供的原始HTML标记字符串,动态创建由jQuery对象包装的DOM元素
+  - 如果html字符串含有"字符,需转义\
+  - 例子
+ {{{class="brush: js"
+ $("<li><div id=\"gname\">我是测试</div></li>").appendTo("form");
+ }}}
+ # jQuery(html, props)
+  - 根据提供的原始 HTML 标记字符串，动态创建由 jQuery 对象包装的 DOM 元素。同时设置一系列的属性、事件等
+  - 例子:在form中添加一个text类型的input标签,并设置聚焦和离焦时的方法
+ {{{class="brush: js"
+$("<input>", {
+  type: "text",
+  val: "Test",
+  focusin: function() {
+    $(this).addClass("active");
+  },
+  focusout: function() {
+    $(this).removeClass("active");
+  }
+}).appendTo("form"); 
+ }}}
+ # jQuery(elements)
+  - 将一个或多个DOM元素转化为jQuery对象
+  - 例子为指定的元素设置css
+ {{{class="brush: js"
+ $(document.body).css( "background", "black" );
+ }}}
+ # jQuery(callback)
+  - $(document).ready()的简写
+  - 参数function为当DOM加载完成后要执行的函数
+  - 例子
+ {{{class="brush: js"
+ $(document).ready(function(){
+    $("<li><div id=\"gname\">我是测试</div></li>").appendTo("form");
+   });
+ }}}

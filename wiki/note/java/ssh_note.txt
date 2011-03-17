@@ -1,0 +1,339 @@
+ssh的配置(不完全)
+1.加入ssh框架
+spring2.0
+  aop
+  core
+  persistense core library
+  persistense jdbc library
+  web
+  test suppor library
+hibernate
+  core
+  advanced suport
+  annotation entity(注释体)
+struts1.2
+2.三个配置文件
+web.xml
+  过滤器的配置(可以用spring的过滤器)
+  默认页面的设置
+applicationContext.xml(spring配置信息)
+ <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">			<property name="sessionFactory">
+           <ref bean="sessionFactory"/>										</property>
+</bean>																													
+<bean id="persondao" class="com.ssh.impel.PersonDAOImpel">							<property name="hibernateTemplate">
+	<ref bean="hibernateTemplate"/>
+    </property>
+ </bean>
+ <bean name="/pserson" class="com.ssh.struts.action.PsersonAction">
+	   <property name="persondao">
+		  <ref bean="persondao"/>
+	   </property>
+ </bean>
+struts-config.xml(struts配置信息)
+hibernate.cfg.xml(hibernate配置信息)
+表名.hbm.xml(数据库映射类配置信息)
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+ssh配置流程
+数据连接是mysql(连接池 Connection pool)
+	1.在myeclipse中数据库的连接设置
+	2.JNDI配置
+	    DataSource:java:comp/env/jdbc/myssh
+1.几个配置文件
+applicationContext.xml
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE beans PUBLIC "-//SPRING//DTDBEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans> 
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/myssh</value>
+		</property>
+	</bean>
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+			</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect </prop>
+				<!-- 表示允许自动提交 --> 
+				<prop key="hibernate.connection.autocommit">true</prop> 
+				<!-- 显示 sql 语句 --> <prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean> 
+	加入 hibernate模板支持 
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate"> 
+	<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+			</property>
+	</bean>
+</beans>
+分析：dataSource配置(连接数据库)
+	  sessionFactory配置(将hibernateTemplate,dataSource注入到sessionFactory中,这样可以直接在action中使用它们)
+	  hibernateTemplate配置
+web.xml配置
+<?xml version="1.0" encoding="UTF-8"?> <web-app
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.4"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value> /WEB-INF/classes/applicationContext.xml</param-value>
+	</context-param>
+	<servlet>
+		<servlet-name>context</servlet-name>
+		<servlet-class>org.springframework.web.context.ContextLoaderServlet </servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet> 
+		<servlet-name>action</servlet-name>
+		<servlet-class> org.apache.struts.action.ActionServlet </servlet-class>
+		<init-param> 
+			<param-name>config</param-name>
+			<param-value>/WEB-INF/struts-config.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name> 
+			<param-value>3</param-value>
+		</init-param>
+		<init-param>
+			<param-name>detail</param-name>
+			<param-value>3</param-value>
+		</init-param> 
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+</web-app>
+分析:配置spring配置文件的位置(applicationContext.xml位置)
+struts-config.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//ApacheSoftware Foundation//DTD Struts Configuration 1.2//EN""http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config> 
+	<data-sources />
+	<form-beans />
+	<global-exceptions />
+	<global-forwards />
+	<action-mappings />
+	<controller processorClass="org.springframework.web.struts.DelegatingRequestProcessor">
+	</controller>
+	<message-resources parameter="dj.fantlam.myssh.struts.ApplicationResources" />
+	和 spring 进行整合,这是 struts 添加外插件的方法
+	<plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+		<set-property property="contextConfigLocation" value="/WEB-INF/classes/applicationContext.xml">
+		</plug-in>
+	</struts-config>
+分析:控制器controller配置DelegatingRequestProcessor
+     struts添加的插件ContextLoaderPlugIn,定位spring配置文件applicationContext.xml的位置
+过滤器(EncodingFilter.java)
+package dj.fantlam.myssh.filter;
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException; 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+public class EncodingFilter	implements Filter 
+{
+	    private String charset = null;
+		public void 
+			destroy()
+			{ // TODO Auto­generated method stub
+			}
+		public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2) throws IOException, ServletException
+		{ // TODO Auto­generated 
+			method stub arg0.setCharacterEncoding(this.charset); 
+			arg2.doFilter(arg0, arg1);
+		}
+		public void init(FilterConfig arg0) 
+			throws ServletException
+			{ // TODO Auto­generated method stub 
+				this.charset=arg0.getInitParameter("charset");				
+			}
+} 
+分析:将filter添加到web.xml
+<filter>
+   <filter­name>encoding</filter­name> 
+   <filter­class> dj.fantlam.myssh.filter.EncodingFilter 
+   </filter­class> 
+   <init­param>
+   <param­name>charset</param­name> 
+   <param­value>gbk</param­value> 
+   </init­param>
+</filter> 
+<filter mapping> 
+   <filter­name>encoding</filter­name> 
+   <url­pattern>/*</url­pattern> 
+</filter­mapping> 
+servlet.xml中数据源的配置
+<Context path="/myssh" docBase="E:\JAVA\SSHworkspace\MySSH\WebRoot" debug="5" reloadable="true" crossContext="true"> 
+	<Logger className="org.apache.catalina.logger.FileLogger" prefix="localhost_MysqlTest_log." suffix=".txt" timestamp="true"/> 
+	<Resource name="jdbc/myssh" auth="Container" type="javax.sql.DataSource"/>
+	<ResourceParams name="jdbc/myssh"> 
+		<parameter> 
+			<name>factory</name> 
+			<value>org.apache.commons.dbcp.BasicDataSourceFactory</value> 
+		</parameter>
+		<parameter> 
+			<name>maxActive</name> 
+			<value>100</value> 
+		</parameter> 
+		<parameter> 
+			<name>maxIdle</name> 
+			<value>30</value> 
+		</parameter>
+		<parameter>
+			<name>maxWait</name> 
+			<value>5000</value> 
+		</parameter>
+		<parameter>
+			<name>username</name>
+			<value>root</value> 
+		</parameter>
+		<parameter> 
+			<name>password</name> 
+			<value>123456</value>
+			</parameter> <parameter> 
+			<name>driverClassName</name>
+			<value>org.gjt.mm.mysql.Driver</value> 
+		</parameter>
+		<parameter> 
+			<name>url</name> 
+			<value>jdbc:mysql://localhost:3306/myssh</value>
+		</parameter> 
+	</ResourceParams> 
+</Context>
+2.加入struts(extends DispatchAction)
+struts-config.xml
+<?xml version="1.0" encoding="UTF­8"?>
+<!DOCTYPE struts­config PUBLIC "­//Apache Software Foundation//DTD 
+Struts Configuration 1.2//EN" 
+"http://struts.apache.org/dtds/struts­config_1_2.dtd">
+<struts­config>
+	<data­sources />
+	<form­beans >
+		<form­bean name="userForm" 
+			type="dj.fantlam.myssh.struts.form.UserForm" />
+	</form­beans>
+	<global­exceptions />
+	<global­forwards />
+	<action­mappings >
+		<action
+			attribute="userForm"
+			input="/jsp/errors.jsp"
+			name="userForm"
+			parameter="status"
+			path="/jsp/user"
+			scope="request"
+			type="dj.fantlam.myssh.struts.action.UserAction" />
+		<forward name="regsuc" path="/jsp/index.jsp" />
+		<forward name="regfail" path="/jsp/register.jsp"></forward>
+	</action­mappings>
+	<controller 
+		processorClass="org.springframework.web.struts.DelegatingRequestPro
+		cessor"></controller>
+	<message­resources
+		parameter="dj.fantlam.myssh.struts.ApplicationResources" />
+	<plug­in
+		className="org.springframework.web.struts.ContextLoaderPlugIn">
+		<set­property property="contextConfigLocation"
+			value="/WEB­INF/classes/applicationContext.xml" />
+	</plug­in>
+</struts­config>
+3.添加register.jsp(IDE自动生成)errors.jsp
+<body>
+	<center>
+		<jsp:include flush="true" page="inc/template.html"/>
+		<h1>程序出现了以下错误</h1>
+		<html:errors/>
+			<p2><<a href="#" onclick="history.back()">返回上一页</a></p2>
+		</center>
+	</body
+register.jsp
+<%@ page contentType="text/html;charset=gbk"%>
+<%@ page import="java.util.*"%>
+<%@ taglib uri="http://struts.apache.org/tags­bean" prefix="bean" 
+%>
+<%@ taglib uri="http://struts.apache.org/tags­html" prefix="html" 
+%>
+<%@ taglib uri="http://struts.apache.org/tags­logic" prefix="logic" 
+%>
+<%@ taglib uri="http://struts.apache.org/tags­tiles" prefix="tiles" 
+%>
+<html:html lang="true">
+	<head>
+		<title>MLDN</title>
+		<META NAME="Generator" CONTENT="Struts + Spring + Hibernate + 
+		MySQL + Tomcat + CP">
+		<META NAME="Author" CONTENT="fantlam">
+		<META NAME="Keywords" CONTENT="SSH,tomcat,mysql">
+		<META NAME="Description" CONTENT=" http://fantlam.blogbus.com">
+	</head>
+	<body>
+		<center>
+			<jsp:include flush="true" page="inc/template.html"/>
+			<h1>用户注册</h1>
+			<html:form action="" method="post">
+				用户 ID:<html:text property="userid"></html:text>
+					用户密码:<html:password property="userpwd"></html:password>
+						确认密码:<html:password property="confirmpwd"></html:password> 
+							丢失密码提示问题:<html:text property="userques"></html:text>
+								丢失密码问题答案:<html:text property="userans"></html:text>
+									验证码:<html:text property="checkcode"></html:text>
+										<img src="image.jsp"><br>
+										对于 property 的属性如”checkcode”对应于 Userform.java 的 checkcode 属性,并要生
+										成 setter 和 getter 方法,如果 userform 没有呢页面就呈现不出
+										<input type="hidden" name="status" value="register">对应
+										UserAction.java
+										public ActionForward register()
+										<input type="hidden" name="type" value="1">
+										<html:submit value="注册"></html:submit>
+											<html:reset value="重置"></html:reset>
+												</html:form>
+											</center>
+										</body>
+										</html:html>
+UserForm.java
+private String confirmpwd;
+private String checkcode;   
+private int type;
+// 1:表示注册功能
+// 2:表示登陆
+// 3:表示忘记密码,确认用户是否存在
+// 4:表示修改密码
+public ActionErrors validate(ActionMapping mapping,
+		HttpServletRequest request) {
+	//Struts 前台表单的验证,根据 type 做不同的验证
+	ActionErrors errors = new ActionErrors();
+	if (type == 1) {
+		if (this.userid == null || "".equals(this.userid)) {
+			errors.add("userid", new ActionMessage("user.userid.null"));
+		}
+		if (this.userpwd == null || "".equals(this.userpwd)) {
+			errors.add("userpwd", new ActionMessage("user.userpwd.null"));
+		} else {
+			if (!(this.userpwd.equals(this.confirmpwd))) {
+				errors.add("confpwd", new ActionMessage(
+							"user.confpwd.error"));
+			}
+		}
+		if (this.userques == null || "".equals(this.userques)) {
+			errors.add("userques", new 
+					ActionMessage("user.userques.null"));
+		}
+		if (this.userans == null || "".equals(this.userans)) {
+			errors.add("userans", new ActionMessage("user.userans.null"));
+		}
+		if(this.checkcode==null||"".equals(this.checkcode)){
+			errors.add("checkcode", new 
+					ActionMessage("user.checkcode.null"));
+		}
+	}
+	return errors;
+}
+
+
+
