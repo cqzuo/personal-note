@@ -37,20 +37,35 @@
 *** Object类
  - 属性
   + Constructor
+    * 对创建对象的函数的引用
   + Prototype
+   * 对创建对象的对象原型的引用
  - 方法
   + HasOwnProperty
+   * 判断对象是否含有某个属性
   + IsProtoTypeOf
+   * 判断该对象是否是某个对象的原型
   + PropertyIsEnumerable
+   * 判断该属性是否可以使用for in语句
   + ToString
   + ValueOf
 *** Boolean
 *** Number
   + toFixed(Number n)
+   * 指定小数位的字符串
   + toExponential
+   * 科学计数法形式字符串
   + toPrecision
+   * 最具意义的指数形式
 *** String
+  + charAt(index)
+    * 返回指定位置字符
 ** 运算符
- 
+*** 一元运算符
+ - delete 
+  + 删除以前定义的对象属性和方法的引用
+  + 只能删除开发者自定义的属性和方法
+ - void
+  + 
 ** 语句
 ** 函数

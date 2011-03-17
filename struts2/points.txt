@@ -61,7 +61,7 @@
   资源文件中使用OGNL
 	****=${A}####
   在jsp页面设置参数值
-	<s:set name="A" value0="Value"></s:set>
+	<s:set name="A" value="Value"></s:set>
 	<s:text name="A">
 		<s:param value="Value"/>
 	</s:text>

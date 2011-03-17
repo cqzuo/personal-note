@@ -347,7 +347,7 @@ ssh复习
  List Map Properties Set
 **** 空值 
  <null/>
-*** Bean的自`动装配
+*** Bean的自动装配
 **** 装配类型
  name type constructor auto
 **** 实现
