@@ -49,13 +49,13 @@ em.remove(对象名);
       对象操作
       em.getTransaction().commit();
   }
- 6. 设置对象的游离状态
+6. 设置对象的游离状态
   em.clear();
   不再与数据库的联系
- 7. 将游离的对象更新同步到数据库
+7. 将游离的对象更新同步到数据库
  em.merge();
  ----------------------JPQL查询----------------------
- 1. 如何设置查询的参数
+1. 如何设置查询的参数
  Query query = em.createQuery("SELECT p FROM Person p WHERE p.属性名称=:参数名称 ")
   Query query = em.createQuery("SELECT p FROM Person p WHERE p.属性名称=:1 ")
  query.setParameter("参数名",参数值);
