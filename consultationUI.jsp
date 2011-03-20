@@ -12,29 +12,6 @@
 		<script type="text/javascript" src="${pageContext.request.contextPath}/script/htlib.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/script/jquery.min.js"></script>
 		<script type="text/javascript">
-		 function getAbsPosition(obj) {
-		    var r = {
-		        left: obj.offsetLeft,
-		        top : obj.offsetTop
-		    };
-		    r.left = obj.offsetLeft;
-		    r.top  = obj.offsetTop;
-		    if(obj.offsetParent) {
-		        var tmp = getAbsPosition(obj.offsetParent);
-		        r.left += tmp.left;
-		        r.top  += tmp.top;
-		    }
-		    return r;
-		  }
-		  //设置元素的样式
-		  function gettable(obj) {
-		    var pos = getAbsPosition(obj);
-		    pos.top += obj.offsetHeight;
-		    document.getElementById('abstractname').style.top = pos.top + "px";
-		    document.getElementById('abstractname').style.left = pos.left + "px";
-		    document.getElementById('abstractname').style.width = obj.offsetWidth + "px";
-		  }
-				
 			function showbankChildren(obj, selectNode) {
 				ht.ajax(
 					function(value) {
@@ -200,19 +177,16 @@
 				//给文本框添加键盘按下并弹起的事件
 				wordInput.keyup(abstractname);
 			});
-			
-			function quzhi(event){
-				alert("cao");
-				var name = $("#abstractname").value();
-				alert(name);
+			function quzhi(){
+				var name = $("#enterprisename").val();
 				var params = {
-					"consulation.enterprisename":name
+					"consulation.enterpriseName":name
 					};
 				$.ajax({
 					type: "POST",
 					url: "${pageContext.request.contextPath }/control/consultation/ConsultationAction_findEnterprise.action",
 					data: params,
-					success: function(data){
+					success: function(values){
 						var enobject = new Array();
 						enobject = values.split(",");
 						var typeName = $("#typeName");
@@ -315,7 +289,6 @@
 								//让现在高亮的内容变成红色
 								autoNodes.eq(highlightindex).css("background-color", "#CEE8F1");
 								wordInput.val(autoNodes.eq(highlightindex).text());
-								quzhi();
 							} else {
 								//向下
 								var autoNodes = autoNode.children("div");
@@ -331,7 +304,6 @@
 								//让现在高亮的内容变成红色
 								autoNodes.eq(highlightindex).css("background-color", "#CEE8F1");
 								wordInput.val(autoNodes.eq(highlightindex).text());
-								quzhi();
 							}
 						
 						} 
