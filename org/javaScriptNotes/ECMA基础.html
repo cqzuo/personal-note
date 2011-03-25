@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>ECMA基础</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011-03-25 17:31:43 "/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">ECMA基础</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 ECMAscript </a>
+<ul>
+<li><a href="#sec-1_1">1.1 语法 </a></li>
+<li><a href="#sec-1_2">1.2 变量 </a></li>
+<li><a href="#sec-1_3">1.3 关键字 </a></li>
+<li><a href="#sec-1_4">1.4 保留字 </a></li>
+<li><a href="#sec-1_5">1.5 原始类型和引用值 </a></li>
+<li><a href="#sec-1_6">1.6 原始类型 </a></li>
+<li><a href="#sec-1_7">1.7 转换 </a></li>
+<li><a href="#sec-1_8">1.8 引用类型 </a>
+<ul>
+<li><a href="#sec-1_8_1">1.8.1 Object类 </a></li>
+<li><a href="#sec-1_8_2">1.8.2 Boolean </a></li>
+<li><a href="#sec-1_8_3">1.8.3 Number </a></li>
+<li><a href="#sec-1_8_4">1.8.4 String </a></li>
+</ul>
+</li>
+<li><a href="#sec-1_9">1.9 运算符 </a>
+<ul>
+<li><a href="#sec-1_9_1">1.9.1 一元运算符 </a></li>
+</ul>
+</li>
+<li><a href="#sec-1_10">1.10 语句 </a></li>
+<li><a href="#sec-1_11">1.11 函数 </a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> ECMAscript </h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1_1" class="outline-3">
+<h3 id="sec-1_1"><span class="section-number-3">1.1</span> 语法 </h3>
+<div class="outline-text-3" id="text-1_1">
+
+<ul>
+<li>
+区分大小写
+</li>
+<li>
+弱类型变量
+</li>
+<li>
+每行结尾的分号可无
+</li>
+<li>
+注释同Java
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1_2" class="outline-3">
+<h3 id="sec-1_2"><span class="section-number-3">1.2</span> 变量 </h3>
+<div class="outline-text-3" id="text-1_2">
+
+<ul>
+<li>
+用var定义
+</li>
+<li>
+第一个字符必须是字母下划线或美元符号
+</li>
+<li>
+其它字符可以是下划线,字母和数字
+</li>
+<li>
+使用变量前可以不用声明
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1_3" class="outline-3">
+<h3 id="sec-1_3"><span class="section-number-3">1.3</span> 关键字 </h3>
+<div class="outline-text-3" id="text-1_3">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_4" class="outline-3">
+<h3 id="sec-1_4"><span class="section-number-3">1.4</span> 保留字 </h3>
+<div class="outline-text-3" id="text-1_4">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_5" class="outline-3">
+<h3 id="sec-1_5"><span class="section-number-3">1.5</span> 原始类型和引用值 </h3>
+<div class="outline-text-3" id="text-1_5">
+
+<ul>
+<li>
+堆 
+</li>
+<li>
+栈
+</li>
+<li>
+String类型是原始类型
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1_6" class="outline-3">
+<h3 id="sec-1_6"><span class="section-number-3">1.6</span> 原始类型 </h3>
+<div class="outline-text-3" id="text-1_6">
+
+<ul>
+<li>
+Undefineed,Null,Boolean,Number,String 
+</li>
+<li>
+typeof
+<ul>
+<li>
+返回数据的类型
+</li>
+</ul>
+</li>
+<li>
+当声明的变量为初始化时
+</li>
+<li>
+isFinit() 
+<ul>
+<li>
+确保该数不是无穷大
+</li>
+</ul>
+</li>
+<li>
+NaN
+<ul>
+<li>
+非数
+</li>
+</ul>
+</li>
+<li>
+字符串由单双引号声明
+</li>
+<li>
+所有的类型都有lenth属性和toString()方法
+</li>
+<li>
+对字符类型有效的有parseInt()和parseFloat()
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1_7" class="outline-3">
+<h3 id="sec-1_7"><span class="section-number-3">1.7</span> 转换 </h3>
+<div class="outline-text-3" id="text-1_7">
+
+<ul>
+<li>
+Boolean
+</li>
+<li>
+String
+</li>
+<li>
+Number
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1_8" class="outline-3">
+<h3 id="sec-1_8"><span class="section-number-3">1.8</span> 引用类型 </h3>
+<div class="outline-text-3" id="text-1_8">
+
+<ul>
+<li>
+var o = new Object
+<ul>
+<li>
+可以不用()
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+<div id="outline-container-1_8_1" class="outline-4">
+<h4 id="sec-1_8_1"><span class="section-number-4">1.8.1</span> Object类 </h4>
+<div class="outline-text-4" id="text-1_8_1">
+
+<ul>
+<li>
+属性
+<ul>
+<li>
+Constructor
+<ul>
+<li>
+对创建对象的函数的引用
+</li>
+</ul>
+</li>
+<li>
+Prototype
+<ul>
+<li>
+对创建对象的对象原型的引用
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+方法
+<ul>
+<li>
+HasOwnProperty
+<ul>
+<li>
+判断对象是否含有某个属性
+</li>
+</ul>
+</li>
+<li>
+IsProtoTypeOf
+<ul>
+<li>
+判断该对象是否是某个对象的原型
+</li>
+</ul>
+</li>
+<li>
+PropertyIsEnumerable
+<ul>
+<li>
+判断该属性是否可以使用for in语句
+</li>
+</ul>
+</li>
+<li>
+ToString
+</li>
+<li>
+ValueOf
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1_8_2" class="outline-4">
+<h4 id="sec-1_8_2"><span class="section-number-4">1.8.2</span> Boolean </h4>
+<div class="outline-text-4" id="text-1_8_2">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_8_3" class="outline-4">
+<h4 id="sec-1_8_3"><span class="section-number-4">1.8.3</span> Number </h4>
+<div class="outline-text-4" id="text-1_8_3">
+
+<ul>
+<li>
+toFixed(Number n)
+<ul>
+<li>
+指定小数位的字符串
+</li>
+</ul>
+</li>
+<li>
+toExponential
+<ul>
+<li>
+科学计数法形式字符串
+</li>
+</ul>
+</li>
+<li>
+toPrecision
+<ul>
+<li>
+最具意义的指数形式
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1_8_4" class="outline-4">
+<h4 id="sec-1_8_4"><span class="section-number-4">1.8.4</span> String </h4>
+<div class="outline-text-4" id="text-1_8_4">
+
+<ul>
+<li>
+charAt(index)
+<ul>
+<li>
+返回指定位置字符
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1_9" class="outline-3">
+<h3 id="sec-1_9"><span class="section-number-3">1.9</span> 运算符 </h3>
+<div class="outline-text-3" id="text-1_9">
+
+
+</div>
+
+<div id="outline-container-1_9_1" class="outline-4">
+<h4 id="sec-1_9_1"><span class="section-number-4">1.9.1</span> 一元运算符 </h4>
+<div class="outline-text-4" id="text-1_9_1">
+
+<ul>
+<li>
+delete 
+<ul>
+<li>
+删除以前定义的对象属性和方法的引用
+</li>
+<li>
+只能删除开发者自定义的属性和方法
+</li>
+</ul>
+</li>
+<li>
+void
+<ul>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1_10" class="outline-3">
+<h3 id="sec-1_10"><span class="section-number-3">1.10</span> 语句 </h3>
+<div class="outline-text-3" id="text-1_10">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_11" class="outline-3">
+<h3 id="sec-1_11"><span class="section-number-3">1.11</span> 函数 </h3>
+<div class="outline-text-3" id="text-1_11">
+
+</div>
+</div>
+</div>
+<div id="postamble">
+<p class="author"> Author: 
+</p>
+<p class="date"> Date: 2011-03-25 17:31:43 </p>
+<p class="creator">HTML generated by org-mode 7.01 in emacs 24</p>
+</div>
+</div>
+</body>
+</html>

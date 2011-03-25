@@ -27,7 +27,7 @@
  - 字符串由单双引号声明
  - 所有的类型都有lenth属性和toString()方法
  - 对字符类型有效的有parseInt()和parseFloat()
-** 转换
+** 强制转换
  - Boolean
  - String
  - Number
