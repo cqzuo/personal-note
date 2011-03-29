@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>json</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011-03-29 17:08:27 "/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">json</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 json简介 </a>
+<ul>
+<li><a href="#sec-1_1">1.1 javaScript Object Notation </a>
+<ul>
+<li><a href="#sec-1_1_1">1.1.1 描述 </a></li>
+<li><a href="#sec-1_1_2">1.1.2 优点 </a></li>
+<li><a href="#sec-1_1_3">1.1.3 结构 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 json数据格式解析 </a>
+<ul>
+<li><a href="#sec-2_1">2.1 简单类型数据 </a>
+<ul>
+<li><a href="#sec-2_1_1">2.1.1 字符 </a></li>
+<li><a href="#sec-2_1_2">2.1.2 数值 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2_2">2.2 对象数据 </a>
+<ul>
+<li><a href="#sec-2_2_1">2.2.1 数组格式 </a></li>
+<li><a href="#sec-2_2_2">2.2.2 复杂嵌套 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 javaScript处理json数据 </a>
+<ul>
+<li><a href="#sec-3_1">3.1 javaScript处理json例子 </a></li>
+<li><a href="#sec-3_2">3.2 接收从服务器传递来的json数据 </a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 服务器端输出json格式数据 </a>
+<ul>
+<li><a href="#sec-4_1">4.1 string对象转为json数据 </a></li>
+<li><a href="#sec-4_2">4.2 数值转为json类型 </a></li>
+<li><a href="#sec-4_3">4.3 Boolean转为json类型 </a></li>
+<li><a href="#sec-4_4">4.4 数组编码为json </a></li>
+<li><a href="#sec-4_5">4.5 map编码为json </a></li>
+<li><a href="#sec-4_6">4.6 统一方法 </a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 输出json数据 </a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> json简介 </h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1_1" class="outline-3">
+<h3 id="sec-1_1"><span class="section-number-3">1.1</span> javaScript Object Notation </h3>
+<div class="outline-text-3" id="text-1_1">
+
+
+</div>
+
+<div id="outline-container-1_1_1" class="outline-4">
+<h4 id="sec-1_1_1"><span class="section-number-4">1.1.1</span> 描述 </h4>
+<div class="outline-text-4" id="text-1_1_1">
+
+<ul>
+<li>
+一种轻量级的数据交换格式
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1_1_2" class="outline-4">
+<h4 id="sec-1_1_2"><span class="section-number-4">1.1.2</span> 优点 </h4>
+<div class="outline-text-4" id="text-1_1_2">
+
+<ul>
+<li>
+文本格式保存
+</li>
+<li>
+数据传输性能比xml要高出很多
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1_1_3" class="outline-4">
+<h4 id="sec-1_1_3"><span class="section-number-4">1.1.3</span> 结构 </h4>
+<div class="outline-text-4" id="text-1_1_3">
+
+<ul>
+<li>
+Name-Value  键值对
+</li>
+<li>
+Value 有序列表
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> json数据格式解析 </h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2_1" class="outline-3">
+<h3 id="sec-2_1"><span class="section-number-3">2.1</span> 简单类型数据 </h3>
+<div class="outline-text-3" id="text-2_1">
+
+
+</div>
+
+<div id="outline-container-2_1_1" class="outline-4">
+<h4 id="sec-2_1_1"><span class="section-number-4">2.1.1</span> 字符 </h4>
+<div class="outline-text-4" id="text-2_1_1">
+
+<ul>
+<li>
+除了" \ / 和控制符外,其他unicode直接输出
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2_1_2" class="outline-4">
+<h4 id="sec-2_1_2"><span class="section-number-4">2.1.2</span> 数值 </h4>
+<div class="outline-text-4" id="text-2_1_2">
+
+<ul>
+<li>
+同其他语言
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2_2" class="outline-3">
+<h3 id="sec-2_2"><span class="section-number-3">2.2</span> 对象数据 </h3>
+<div class="outline-text-3" id="text-2_2">
+
+
+</div>
+
+<div id="outline-container-2_2_1" class="outline-4">
+<h4 id="sec-2_2_1"><span class="section-number-4">2.2.1</span> 数组格式 </h4>
+<div class="outline-text-4" id="text-2_2_1">
+
+<ul>
+<li>
+["abc",12345,fase,null]
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2_2_2" class="outline-4">
+<h4 id="sec-2_2_2"><span class="section-number-4">2.2.2</span> 复杂嵌套 </h4>
+<div class="outline-text-4" id="text-2_2_2">
+
+<ul>
+<li>
+{"name":"json","address":{"city":"dalian","street":"xigang"}}
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> javaScript处理json数据 </h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3_1" class="outline-3">
+<h3 id="sec-3_1"><span class="section-number-3">3.1</span> javaScript处理json例子 </h3>
+<div class="outline-text-3" id="text-3_1">
+
+
+
+
+<pre class="src src-js"><span style="color: #fa8072;">function</span> <span style="color: #7fffd4; font-weight: bold;">handleJson</span>() { 
+ <span style="color: #fa8072;">var</span> <span style="color: #7fffd4; font-weight: bold;">j</span>={<span style="color: #ffa07a;">"name"</span>:<span style="color: #ffa07a;">"Michael"</span>,<span style="color: #ffa07a;">"address"</span>:
+     {<span style="color: #ffa07a;">"city"</span>:<span style="color: #ffa07a;">"Beijing"</span>,<span style="color: #ffa07a;">"street"</span>:<span style="color: #ffa07a;">" Chaoyang Road "</span>,<span style="color: #ffa07a;">"postcode"</span>:100025}
+ }; 
+ document.write(j.name); 
+ document.write(j.address.city); 
+}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3_2" class="outline-3">
+<h3 id="sec-3_2"><span class="section-number-3">3.2</span> 接收从服务器传递来的json数据 </h3>
+<div class="outline-text-3" id="text-3_2">
+
+
+
+
+<pre class="src src-js"><span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">Ajax.Request</span>(<span style="color: #ffa07a;">"http://url"</span>, { 
+ method: <span style="color: #ffa07a;">"get"</span>, 
+ <span style="color: #7fffd4; font-weight: bold;">onSuccess</span>: <span style="color: #fa8072;">function</span>(<span style="color: #7fffd4; font-weight: bold;">transport</span>) { 
+   <span style="color: #fa8072;">var</span> <span style="color: #7fffd4; font-weight: bold;">json</span> = transport.responseText.evalJSON(); 
+   <span style="color: #add8e6;">// </span><span style="color: #add8e6;">TODO: document.write(json.xxx); 
+</span> } 
+});
+</pre>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 服务器端输出json格式数据 </h2>
+<div class="outline-text-2" id="text-4">
+
+
+</div>
+
+<div id="outline-container-4_1" class="outline-3">
+<h3 id="sec-4_1"><span class="section-number-3">4.1</span> string对象转为json数据 </h3>
+<div class="outline-text-3" id="text-4_1">
+
+
+
+
+<pre class="src src-java"><span style="color: #fa8072;">static</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">string2Json</span>(<span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">s</span>) { 
+   <span style="color: #9acd32; font-weight: bold;">StringBuilder</span> <span style="color: #7fffd4; font-weight: bold;">sb</span> = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">StringBuilder</span>(s.length()+20); 
+   sb.append(<span style="color: #ffa07a;">'\"'</span>); 
+   <span style="color: #fa8072;">for</span> (<span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">i</span>=0; i&lt;s.length(); i++) { 
+       <span style="color: #9acd32; font-weight: bold;">char</span> <span style="color: #7fffd4; font-weight: bold;">c</span> = s.charAt(i); 
+       <span style="color: #fa8072;">switch</span> (c) { 
+       <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">'\"'</span>: 
+           sb.append(<span style="color: #ffa07a;">"\\\""</span>); 
+           <span style="color: #fa8072;">break</span>; 
+       <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">'\\'</span>: 
+           sb.append(<span style="color: #ffa07a;">"\\\\"</span>); 
+           <span style="color: #fa8072;">break</span>; 
+       <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">'/'</span>: 
+           sb.append(<span style="color: #ffa07a;">"\\/"</span>); 
+           <span style="color: #fa8072;">break</span>; 
+       <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">'\b'</span>: 
+           sb.append(<span style="color: #ffa07a;">"\\b"</span>); 
+           <span style="color: #fa8072;">break</span>; 
+       <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">'\f'</span>: 
+           sb.append(<span style="color: #ffa07a;">"\\f"</span>); 
+           <span style="color: #fa8072;">break</span>; 
+       <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">'\n'</span>: 
+           sb.append(<span style="color: #ffa07a;">"\\n"</span>); 
+           <span style="color: #fa8072;">break</span>; 
+       <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">'\r'</span>: 
+           sb.append(<span style="color: #ffa07a;">"\\r"</span>); 
+           <span style="color: #fa8072;">break</span>; 
+       <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">'\t'</span>: 
+           sb.append(<span style="color: #ffa07a;">"\\t"</span>); 
+           <span style="color: #fa8072;">break</span>; 
+       <span style="color: #fa8072;">default</span>: 
+           sb.append(c); 
+       } 
+   } 
+   sb.append(<span style="color: #ffa07a;">'\"'</span>); 
+   <span style="color: #fa8072;">return</span> sb.toString(); 
+} 
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4_2" class="outline-3">
+<h3 id="sec-4_2"><span class="section-number-3">4.2</span> 数值转为json类型 </h3>
+<div class="outline-text-3" id="text-4_2">
+
+
+
+
+<pre class="src src-java"><span style="color: #fa8072;">static</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">number2Json</span>(<span style="color: #9acd32; font-weight: bold;">Number</span> <span style="color: #7fffd4; font-weight: bold;">number</span>) { 
+   <span style="color: #fa8072;">return</span> number.toString(); 
+}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4_3" class="outline-3">
+<h3 id="sec-4_3"><span class="section-number-3">4.3</span> Boolean转为json类型 </h3>
+<div class="outline-text-3" id="text-4_3">
+
+
+
+
+<pre class="src src-js"><span style="color: #fa8072;">static</span> String boolean2Json(Boolean bool) { 
+   <span style="color: #fa8072;">return</span> bool.toString(); 
+} 
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4_4" class="outline-3">
+<h3 id="sec-4_4"><span class="section-number-3">4.4</span> 数组编码为json </h3>
+<div class="outline-text-3" id="text-4_4">
+
+
+
+
+<pre class="src src-java"><span style="color: #fa8072;">static</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">array2Json</span>(<span style="color: #9acd32; font-weight: bold;">Object</span>[] <span style="color: #7fffd4; font-weight: bold;">array</span>) { 
+   <span style="color: #fa8072;">if</span> (array.length==0) 
+       <span style="color: #fa8072;">return</span> <span style="color: #ffa07a;">"[]"</span>; 
+   <span style="color: #9acd32; font-weight: bold;">StringBuilder</span> <span style="color: #7fffd4; font-weight: bold;">sb</span> = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">StringBuilder</span>(array.length &lt;&lt; 4); 
+   sb.append(<span style="color: #ffa07a;">'['</span>); 
+   <span style="color: #fa8072;">for</span> (<span style="color: #9acd32; font-weight: bold;">Object</span> <span style="color: #7fffd4; font-weight: bold;">o</span> : array) { 
+       sb.append(toJson(o)); 
+       sb.append(<span style="color: #ffa07a;">','</span>); 
+   } 
+   <span style="color: #add8e6;">// </span><span style="color: #add8e6;">&#23558;&#26368;&#21518;&#28155;&#21152;&#30340; ',' &#21464;&#20026; ']': 
+</span>   sb.setCharAt(sb.length()-1, <span style="color: #ffa07a;">']'</span>); 
+   <span style="color: #fa8072;">return</span> sb.toString(); 
+} 
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4_5" class="outline-3">
+<h3 id="sec-4_5"><span class="section-number-3">4.5</span> map编码为json </h3>
+<div class="outline-text-3" id="text-4_5">
+
+
+
+
+<pre class="src src-java"><span style="color: #fa8072;">static</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">map2Json</span>(<span style="color: #9acd32; font-weight: bold;">Map</span>&lt;<span style="color: #9acd32; font-weight: bold;">String</span>, <span style="color: #9acd32; font-weight: bold;">Object</span>&gt; map) { 
+    <span style="color: #fa8072;">if</span> (map.isEmpty()) 
+        <span style="color: #fa8072;">return</span> <span style="color: #ffa07a;">"{}"</span>; 
+    <span style="color: #9acd32; font-weight: bold;">StringBuilder</span> <span style="color: #7fffd4; font-weight: bold;">sb</span> = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">StringBuilder</span>(map.size() &lt;&lt; 4); 
+    sb.append(<span style="color: #ffa07a;">'{'</span>); 
+    <span style="color: #9acd32; font-weight: bold;">Set</span>&lt;<span style="color: #9acd32; font-weight: bold;">String</span>&gt; keys = map.keySet(); 
+    <span style="color: #fa8072;">for</span> (<span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">key</span> : keys) { 
+        <span style="color: #9acd32; font-weight: bold;">Object</span> <span style="color: #7fffd4; font-weight: bold;">value</span> = map.get(key); 
+        sb.append(<span style="color: #ffa07a;">'\"'</span>); 
+        sb.append(key); 
+        sb.append(<span style="color: #ffa07a;">'\"'</span>); 
+        sb.append(<span style="color: #ffa07a;">':'</span>); 
+        sb.append(toJson(value)); 
+        sb.append(<span style="color: #ffa07a;">','</span>); 
+    } 
+    <span style="color: #add8e6;">// </span><span style="color: #add8e6;">&#23558;&#26368;&#21518;&#30340; ',' &#21464;&#20026; '}': 
+</span>    sb.setCharAt(sb.length()-1, <span style="color: #ffa07a;">'}'</span>); 
+    <span style="color: #fa8072;">return</span> sb.toString(); 
+ } 
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4_6" class="outline-3">
+<h3 id="sec-4_6"><span class="section-number-3">4.6</span> 统一方法 </h3>
+<div class="outline-text-3" id="text-4_6">
+
+
+
+
+<pre class="src src-java"><span style="color: #fa8072;">public</span> <span style="color: #fa8072;">static</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">toJson</span>(<span style="color: #9acd32; font-weight: bold;">Object</span> <span style="color: #7fffd4; font-weight: bold;">o</span>) { 
+   <span style="color: #fa8072;">if</span> (o==<span style="color: #7fffd4;">null</span>) 
+       <span style="color: #fa8072;">return</span> <span style="color: #ffa07a;">"null"</span>; 
+   <span style="color: #fa8072;">if</span> (o <span style="color: #fa8072;">instanceof</span> String) 
+       <span style="color: #fa8072;">return</span> string2Json((<span style="color: #9acd32; font-weight: bold;">String</span>)o); 
+   <span style="color: #fa8072;">if</span> (o <span style="color: #fa8072;">instanceof</span> Boolean) 
+       <span style="color: #fa8072;">return</span> boolean2Json((<span style="color: #9acd32; font-weight: bold;">Boolean</span>)o); 
+   <span style="color: #fa8072;">if</span> (o <span style="color: #fa8072;">instanceof</span> Number) 
+       <span style="color: #fa8072;">return</span> number2Json((<span style="color: #9acd32; font-weight: bold;">Number</span>)o); 
+   <span style="color: #fa8072;">if</span> (o <span style="color: #fa8072;">instanceof</span> Map) 
+       <span style="color: #fa8072;">return</span> map2Json((Map&lt;String, Object&gt;)o); 
+   <span style="color: #fa8072;">if</span> (o <span style="color: #fa8072;">instanceof</span> Object[]) 
+       <span style="color: #fa8072;">return</span> array2Json((<span style="color: #9acd32; font-weight: bold;">Object</span>[])o); 
+   <span style="color: #fa8072;">throw</span> <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">RuntimeException</span>(<span style="color: #ffa07a;">"Unsupported type: "</span> + o.getClass().getName()); 
+} 
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 输出json数据 </h2>
+<div class="outline-text-2" id="text-5">
+
+
+
+
+<pre class="src src-java">response.setContentType(<span style="color: #ffa07a;">"application/json;charset=UTF-8"</span>); 
+response.setCharacterEncoding(<span style="color: #ffa07a;">"UTF-8"</span>); 
+<span style="color: #9acd32; font-weight: bold;">PrintWriter</span> <span style="color: #7fffd4; font-weight: bold;">pw</span> = response.getWriter(); 
+pw.write(JsonUtil.toJson(obj)); 
+pw.flush();
+</pre>
+
+
+</div>
+</div>
+<div id="postamble">
+<p class="author"> Author: 
+</p>
+<p class="date"> Date: 2011-03-29 17:08:27 </p>
+<p class="creator">HTML generated by org-mode 7.01 in emacs 24</p>
+</div>
+</div>
+</body>
+</html>
