@@ -1,16 +1,29 @@
+* jpa是什么
+** 定义
+*** sun提出的java的持久化规范
+** 作用
+*** 为开发者提供一种对象/关系映射工具来管理Java应用中的关系数据
+*** 简化当前的持久化工作和整合orm技术
+** 优点
+*** 吸收了当前各种orm框架的优点
+** 技术点
+*** orm元数据
+*** java持久化API
+*** 查询语言
 * jpa注解
-** 要点
+** 添加注解的位置
 *** 实体
 *** 表名
 *** 主键
-** 实体的标识
+** 注解的添加
+*** 实体的标识
  - @Entity
 #+BEGIN_SRC java
    @Entity //标识这个pojo是一个jpa实体    
    public class Users implements Serializable {    
 }  
 #+END_SRC
-** 表名
+*** 表名
  - @Table(name="")
 #+BEGIN_SRC
    @Entity    
@@ -18,14 +31,14 @@
    public class Users implements Serializable {    
  }  
 #+END_SRC
-** 常用字段类型
- - @Column(name="")
-  + unique 是否唯一
-  + nullable 是否可以为空
-  + insertable 是否可以插入
-  + columnDefinition 定义建表时创建此列的DDL
-  + secondaryTable 从表名称
-***  设置时间类型
+*** 常用字段类型
+  - @Column(name="")
+   + unique 是否唯一
+   + nullable 是否可以为空
+   + insertable 是否可以插入
+   + columnDefinition 定义建表时创建此列的DDL
+   + secondaryTable 从表名称
+*** 设置时间类型
  - @Temporal(TemproalType.DATE)
 #+BEGIN_SRC
    @Column(name = "user_code", nullable = false, length=32)//设置属性userCode对应的字段为user_code，长度为32，非空    
@@ -35,7 +48,7 @@
    @Temporal(TemporalType.DATE)//设置为时间类型    
    private Date joinDate;   
 #+END_SRC
-** 排序
+*** 排序
  - OrderBy(name="")
 #+BEGIN_SRC
    @Table(name = "USERS")    
@@ -44,15 +57,15 @@
    private List books = new ArrayList();    
    } 
 #+END_SRC
-** 主键Id
- - @Id
- - @GeneratedValue(stratety=GenerationType.SEQUENCE)
-  + 使用Sequence来实现表主键自增
- - @GeneratedValue(stratety=GenerationType.IDENTITY)
-  + 主键自增
- - @GeneratedValue(stratety=GenerationType.TABLE)
-  + 通过一个表来实现自增
-** 复杂映射关系
+*** 主键Id
+  - @Id
+  - @GeneratedValue(stratety=GenerationType.SEQUENCE)
+   + 使用Sequence来实现表主键自增
+  - @GeneratedValue(stratety=GenerationType.IDENTITY)
+   + 主键自增
+  - @GeneratedValue(stratety=GenerationType.TABLE)
+   + 通过一个表来实现自增
+** 复杂映射注解
 *** 一对多关联
  - 主POJO
 #+BEGIN_SRC java
@@ -99,10 +112,53 @@
  - slf4j-log4j.jar
 * jpa配置文件
  - 放在META-INF目录下persistence.xml
+#+BEGIN_SRC xml 
+<?xml version="1.0"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+	<persistence-unit name="DECG" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.connection.username" value="root" />
+			<property name="hibernate.connection.password" value="root" />
+			<property name="hibernate.connection.url"
+				value="jdbc:mysql://localhost:3306/DECG_NEW?useUnicode=true&amp;characterEncoding=UTF-8" />
+			<property name="hibernate.max_fetch_depth" value="3" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.jdbc.fetch_size" value="18" />
+			<property name="hibernate.jdbc.batch_size" value="10" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="false" />
+		</properties>
+	</persistence-unit>
+ </persistence>
+#+END_SRC 
+** 配置解析
+*** <jpa-data-source>
+ - 配置全局事务
+*** <persistence-unit name="" transaction-type="RESOURCE_LOCAL"> 
+ - 本地事务
+*** <persistence-unit name="" transaction-type="JTA"> 
+ - 全局事务，一般在应用服务器中
 * 策略
  - 先配置文件和实体Bean,再生成表
 * jpa实例配置
 ** jpa项目创建
  - 导入Jar包(数据库连接jar包)
- - 导入persistence.xml模板文件
- -  
+ - 导入persistence.xml模板
+** jpa的使用
+ - 例子
+#+BEGIN_SRC java
+   public static void main(String args[]){
+   EntityManagerFactory factory = Persistence.createEntityManagerFactory("实体的名称");
+   EntityManager em = factory.createEntityManager();
+   em.getTransaction().begin();
+   // 实体类的各种操作(增删改查)
+   em.getTransaction().commit();
+   factory.close();
+   }
+#+END_SRC
