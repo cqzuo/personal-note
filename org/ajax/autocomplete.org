@@ -45,5 +45,10 @@
  - var keyCode = myEvent.keyCode;
 **** 在指定的动作代码下进行ajax提交
  - keyCode>=65 && keyCode<=90 && keyCode==8 && keyCode==48 && keyCode==13
+ - 65-90标识为字母字符
+ - 8 标识BackSpace
+ - 48 标识 braceright 
+ - 13 标识 Enter
 *** ajax提交关键字
+**** 
 *** 返回方法
