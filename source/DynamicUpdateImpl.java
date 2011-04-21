@@ -51,7 +51,7 @@ public class DynamicUpdateImpl extends DaoSupport implements DynamicUpdate {
 			List<Object> updatedFieldNames = new ArrayList<Object>();
 			List<Object> idFieldName = new ArrayList<Object>();
 			List<Object> idFieldValue = new ArrayList<Object>();
-			
+			//遍历老对象的所有属性,如果新老属性的主键值不同,则将属性的值和名称放入List<Object>对象中
 			int k = 0;
 			// 拿到老对象的所有声明的值域,放到Field对象数组中
 			Field[] hisObjFields = hisObjClazz.getDeclaredFields();
@@ -62,42 +62,57 @@ public class DynamicUpdateImpl extends DaoSupport implements DynamicUpdate {
 				String hisObjFieldName = hisObjField.getName();
 				//读取属性的id注释
 				Id id = hisObjField.getAnnotation(Id.class);
-				//取出老对象的属性在新对象中的对应的属性值
+				//取出老对象的属性在新对象中的对应的属性对象
 				Field newObjField = newObjClazz.getDeclaredField(hisObjFieldName);
-				//如果该属性的id注释为空,执行
+				//如果该属性不是id主键,执行如下操作
 				if(id != null) {
 				//读取老对象中该属性的是否可读性
 					boolean flag = hisObjField.isAccessible();
-				//设置该属性的可读属性
+				//设置访问该属性时不检查访问权限,即private和protect也可以访问
 					hisObjField.setAccessible(true);
+					//取得该老对象中该属性的值,放入Object对象中
 					Object hisObjValue = hisObjField.get(hisObj);
+					//设置老对象属性的访问权限,值设置为原来权限
 					hisObjField.setAccessible(flag);
-					
+					//将属性的名称放入List<Object>中
 					idFieldName.add(hisObjFieldName);
+					//将属性的值放入List<Object>中
 					idFieldValue.add(hisObjValue);
-				} else {
-					
+				} else {//如果该属性是id主键,则执行如下操作
+					//取得该属性的访问权限设置
 					boolean flag = hisObjField.isAccessible();
+					//取消该属性的访问权限
 					hisObjField.setAccessible(true);
+					//取得该老对象中该属性的值,放入Object对象中
 					Object hisObjValue = hisObjField.get(hisObj);
+					//设置老对象属性的访问权限,值设置为原来权限
 					hisObjField.setAccessible(flag);
-					
+					//取得新对象属性的访问权限
 					flag = newObjField.isAccessible();
+					//取消该属性的访问权限
 					newObjField.setAccessible(true);
+					//取得该新对象中该属性的值,放入Object对象中
 					Object newObjValue = newObjField.get(newObj);
+					//设置新对象属性的访问权限,值设置为原来权限
 					newObjField.setAccessible(flag);
-					
+					//如果老对象的主键属性和新对象的主键属性不等,则执行如下操作
 					if(!hisObjValue.equals(newObjValue)) {
+						//将新对象的属性值放入List<Object>对象updatedValues中
 						updatedValues.add(newObjValue);
+						//将新对象的属性名称放入List<Object>对象updatedFieldNames中
 						updatedFieldNames.add(hisObjFieldName);
 					}
 				}
 				
 			}
-			
+			//根据上面的比对结果拼sql语句
+			//定义一个空String对象jpql
 			String jpql = "";
+			//定义一个StringBuilder对象sb
 			StringBuilder sb = new StringBuilder(100);
+			//设置更新的对象  相当于 update 实体类名 o set 
 			sb.append(" update ").append(getEntityName(hisObjClazz)).append(" o set ");
+			// 遍历
 			for (int i = 0; i < updatedFieldNames.size(); i++) {
 				sb.append(" o.").append(updatedFieldNames.get(i)).append(" = ?").append(i+1).append(",");
 				k++;
