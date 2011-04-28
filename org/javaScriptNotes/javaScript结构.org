@@ -1,4 +1,3 @@
-javaScript高级结构
 * javaScript概述
 ** 实现
 *** ECMAscript

@@ -69,3 +69,29 @@
   + 
 ** 语句
 ** 函数
+ - return 之后的语句不会被执行
+ - 一个函数额可以多个return 
+ - 可以用return来退出函数
+*** 无重载
+ - 函数不能重载
+ - 同名函数会执行最后一个
+*** arguments对象
+ - 无需明确指出参数名就可以访问
+  + arguments[0] 表示第一个参数
+  + arguments.length 表示参数的个数
+- 使用 arguments 模拟函数重载
+#+BEGIN_SRC js
+ function sayHello()
+ {
+    if(arguments.length==1)
+   {
+      return arguments[0] + 10;
+  }
+   if(arguments.length==2)
+   {
+      return arguments[0] + 20;
+  }
+ }
+#+END_SRC
+*** function类
+ - 所有的函数都是function类的实例
