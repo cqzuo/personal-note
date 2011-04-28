@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>jpa</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011-04-26 18:29:27 "/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">jpa</h1>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 jpa是什么 </a>
+<ul>
+<li><a href="#sec-1_1">1.1 定义 </a>
+<ul>
+<li><a href="#sec-1_1_1">1.1.1 sun提出的java的持久化规范 </a></li>
+</ul>
+</li>
+<li><a href="#sec-1_2">1.2 作用 </a>
+<ul>
+<li><a href="#sec-1_2_1">1.2.1 为开发者提供一种对象/关系映射工具来管理Java应用中的关系数据 </a></li>
+<li><a href="#sec-1_2_2">1.2.2 简化当前的持久化工作和整合orm技术 </a></li>
+</ul>
+</li>
+<li><a href="#sec-1_3">1.3 优点 </a>
+<ul>
+<li><a href="#sec-1_3_1">1.3.1 吸收了当前各种orm框架的优点 </a></li>
+</ul>
+</li>
+<li><a href="#sec-1_4">1.4 技术点 </a>
+<ul>
+<li><a href="#sec-1_4_1">1.4.1 orm元数据 </a></li>
+<li><a href="#sec-1_4_2">1.4.2 java持久化API </a></li>
+<li><a href="#sec-1_4_3">1.4.3 查询语言 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 jpa注解 </a>
+<ul>
+<li><a href="#sec-2_1">2.1 添加注解的位置 </a>
+<ul>
+<li><a href="#sec-2_1_1">2.1.1 实体 </a></li>
+<li><a href="#sec-2_1_2">2.1.2 表名 </a></li>
+<li><a href="#sec-2_1_3">2.1.3 主键 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2_2">2.2 注解的添加 </a>
+<ul>
+<li><a href="#sec-2_2_1">2.2.1 实体的标识 </a></li>
+<li><a href="#sec-2_2_2">2.2.2 表名 </a></li>
+<li><a href="#sec-2_2_3">2.2.3 常用字段类型 </a></li>
+<li><a href="#sec-2_2_4">2.2.4 设置时间类型 </a></li>
+<li><a href="#sec-2_2_5">2.2.5 排序 </a></li>
+<li><a href="#sec-2_2_6">2.2.6 主键Id </a></li>
+</ul>
+</li>
+<li><a href="#sec-2_3">2.3 复杂映射注解 </a>
+<ul>
+<li><a href="#sec-2_3_1">2.3.1 一对多关联 </a></li>
+<li><a href="#sec-2_3_2">2.3.2 多对多关联 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 jpa所依赖的包(hibernate) </a>
+<ul>
+<li><a href="#sec-3_1">3.1 hibernate核心包 </a></li>
+<li><a href="#sec-3_2">3.2 注解 </a></li>
+<li><a href="#sec-3_3">3.3 针对jpa的实现包 </a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 jpa配置文件 </a>
+<ul>
+<li><a href="#sec-4_1">4.1 配置解析 </a>
+<ul>
+<li><a href="#sec-4_1_1">4.1.1 &lt;jpa-data-source&gt; </a></li>
+<li><a href="#sec-4_1_2">4.1.2 &lt;persistence-unit name="" transaction-type="RESOURCE<sub>LOCAL</sub>"&gt; </a></li>
+<li><a href="#sec-4_1_3">4.1.3 &lt;persistence-unit name="" transaction-type="JTA"&gt; </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 策略 </a></li>
+<li><a href="#sec-6">6 jpa实例配置 </a>
+<ul>
+<li><a href="#sec-6_1">6.1 jpa项目创建 </a></li>
+<li><a href="#sec-6_2">6.2 jpa的使用 </a></li>
+<li><a href="#sec-6_3">6.3 说明 </a>
+<ul>
+<li><a href="#sec-6_3_1">6.3.1 默认是根据实体类的属性名称来命名数据库中列名的 </a></li>
+<li><a href="#sec-6_3_2">6.3.2 </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> jpa是什么 </h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1_1" class="outline-3">
+<h3 id="sec-1_1"><span class="section-number-3">1.1</span> 定义 </h3>
+<div class="outline-text-3" id="text-1_1">
+
+
+</div>
+
+<div id="outline-container-1_1_1" class="outline-4">
+<h4 id="sec-1_1_1"><span class="section-number-4">1.1.1</span> sun提出的java的持久化规范 </h4>
+<div class="outline-text-4" id="text-1_1_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1_2" class="outline-3">
+<h3 id="sec-1_2"><span class="section-number-3">1.2</span> 作用 </h3>
+<div class="outline-text-3" id="text-1_2">
+
+
+</div>
+
+<div id="outline-container-1_2_1" class="outline-4">
+<h4 id="sec-1_2_1"><span class="section-number-4">1.2.1</span> 为开发者提供一种对象/关系映射工具来管理Java应用中的关系数据 </h4>
+<div class="outline-text-4" id="text-1_2_1">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_2_2" class="outline-4">
+<h4 id="sec-1_2_2"><span class="section-number-4">1.2.2</span> 简化当前的持久化工作和整合orm技术 </h4>
+<div class="outline-text-4" id="text-1_2_2">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1_3" class="outline-3">
+<h3 id="sec-1_3"><span class="section-number-3">1.3</span> 优点 </h3>
+<div class="outline-text-3" id="text-1_3">
+
+
+</div>
+
+<div id="outline-container-1_3_1" class="outline-4">
+<h4 id="sec-1_3_1"><span class="section-number-4">1.3.1</span> 吸收了当前各种orm框架的优点 </h4>
+<div class="outline-text-4" id="text-1_3_1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1_4" class="outline-3">
+<h3 id="sec-1_4"><span class="section-number-3">1.4</span> 技术点 </h3>
+<div class="outline-text-3" id="text-1_4">
+
+
+</div>
+
+<div id="outline-container-1_4_1" class="outline-4">
+<h4 id="sec-1_4_1"><span class="section-number-4">1.4.1</span> orm元数据 </h4>
+<div class="outline-text-4" id="text-1_4_1">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_4_2" class="outline-4">
+<h4 id="sec-1_4_2"><span class="section-number-4">1.4.2</span> java持久化API </h4>
+<div class="outline-text-4" id="text-1_4_2">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_4_3" class="outline-4">
+<h4 id="sec-1_4_3"><span class="section-number-4">1.4.3</span> 查询语言 </h4>
+<div class="outline-text-4" id="text-1_4_3">
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> jpa注解 </h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2_1" class="outline-3">
+<h3 id="sec-2_1"><span class="section-number-3">2.1</span> 添加注解的位置 </h3>
+<div class="outline-text-3" id="text-2_1">
+
+
+</div>
+
+<div id="outline-container-2_1_1" class="outline-4">
+<h4 id="sec-2_1_1"><span class="section-number-4">2.1.1</span> 实体 </h4>
+<div class="outline-text-4" id="text-2_1_1">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_1_2" class="outline-4">
+<h4 id="sec-2_1_2"><span class="section-number-4">2.1.2</span> 表名 </h4>
+<div class="outline-text-4" id="text-2_1_2">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_1_3" class="outline-4">
+<h4 id="sec-2_1_3"><span class="section-number-4">2.1.3</span> 主键 </h4>
+<div class="outline-text-4" id="text-2_1_3">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2_2" class="outline-3">
+<h3 id="sec-2_2"><span class="section-number-3">2.2</span> 注解的添加 </h3>
+<div class="outline-text-3" id="text-2_2">
+
+
+</div>
+
+<div id="outline-container-2_2_1" class="outline-4">
+<h4 id="sec-2_2_1"><span class="section-number-4">2.2.1</span> 实体的标识 </h4>
+<div class="outline-text-4" id="text-2_2_1">
+
+<ul>
+<li>@Entity
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2_2_2" class="outline-4">
+<h4 id="sec-2_2_2"><span class="section-number-4">2.2.2</span> 表名 </h4>
+<div class="outline-text-4" id="text-2_2_2">
+
+<ul>
+<li>@Table(name="")
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2_2_3" class="outline-4">
+<h4 id="sec-2_2_3"><span class="section-number-4">2.2.3</span> 常用字段类型 </h4>
+<div class="outline-text-4" id="text-2_2_3">
+
+<ul>
+<li>@Column(name="")
+<ul>
+<li>unique 是否唯一
+</li>
+<li>nullable 是否可以为空
+</li>
+<li>insertable 是否可以插入
+</li>
+<li>columnDefinition 定义建表时创建此列的DDL
+</li>
+<li>secondaryTable 从表名称
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2_2_4" class="outline-4">
+<h4 id="sec-2_2_4"><span class="section-number-4">2.2.4</span> 设置时间类型 </h4>
+<div class="outline-text-4" id="text-2_2_4">
+
+<ul>
+<li>@Temporal(TemproalType.DATE)
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2_2_5" class="outline-4">
+<h4 id="sec-2_2_5"><span class="section-number-4">2.2.5</span> 排序 </h4>
+<div class="outline-text-4" id="text-2_2_5">
+
+<ul>
+<li>OrderBy(name="")
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2_2_6" class="outline-4">
+<h4 id="sec-2_2_6"><span class="section-number-4">2.2.6</span> 主键Id </h4>
+<div class="outline-text-4" id="text-2_2_6">
+
+<ul>
+<li>@Id
+</li>
+<li>@GeneratedValue(stratety=GenerationType.SEQUENCE)
+<ul>
+<li>使用Sequence来实现表主键自增
+</li>
+</ul>
+</li>
+<li>@GeneratedValue(stratety=GenerationType.IDENTITY)
+<ul>
+<li>主键自增
+</li>
+</ul>
+</li>
+<li>@GeneratedValue(stratety=GenerationType.TABLE)
+<ul>
+<li>通过一个表来实现自增
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2_3" class="outline-3">
+<h3 id="sec-2_3"><span class="section-number-3">2.3</span> 复杂映射注解 </h3>
+<div class="outline-text-3" id="text-2_3">
+
+
+</div>
+
+<div id="outline-container-2_3_1" class="outline-4">
+<h4 id="sec-2_3_1"><span class="section-number-4">2.3.1</span> 一对多关联 </h4>
+<div class="outline-text-4" id="text-2_3_1">
+
+<ul>
+<li>主POJO
+<ul>
+<li>子POJO类
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2_3_2" class="outline-4">
+<h4 id="sec-2_3_2"><span class="section-number-4">2.3.2</span> 多对多关联 </h4>
+<div class="outline-text-4" id="text-2_3_2">
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> jpa所依赖的包(hibernate) </h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3_1" class="outline-3">
+<h3 id="sec-3_1"><span class="section-number-3">3.1</span> hibernate核心包 </h3>
+<div class="outline-text-3" id="text-3_1">
+
+<ul>
+<li>hibernate3.jar
+</li>
+<li>cglib.jar
+</li>
+<li>requried目录下所有的包
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3_2" class="outline-3">
+<h3 id="sec-3_2"><span class="section-number-3">3.2</span> 注解 </h3>
+<div class="outline-text-3" id="text-3_2">
+
+<ul>
+<li>hibernate-annotations.jar
+</li>
+<li>ejb3-persistence.jar
+</li>
+<li>hibernate-commons-annoatations.jar
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3_3" class="outline-3">
+<h3 id="sec-3_3"><span class="section-number-3">3.3</span> 针对jpa的实现包 </h3>
+<div class="outline-text-3" id="text-3_3">
+
+<ul>
+<li>hibernate-entitymanage.jar
+</li>
+<li>log4j.jar
+</li>
+<li>slf4j-log4j.jar
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> jpa配置文件 </h2>
+<div class="outline-text-2" id="text-4">
+
+<ul>
+<li>放在META-INF目录下persistence.xml
+
+
+
+<pre class="src src-xml">&lt;?<span style="color: #fa8072;">xml</span> <span style="color: #7fffd4; font-weight: bold;">version</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">1.0</span><span style="color: #ffa07a;">"</span>?&gt;
+&lt;<span style="color: #7fffd4; font-weight: bold;">persistence</span> <span style="color: #98fb98; font-weight: bold;">xmlns</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">http://java.sun.com/xml/ns/persistence</span><span style="color: #ffa07a;">"</span>
+        <span style="color: #98fb98; font-weight: bold;">xmlns</span>:<span style="color: #7fffd4; font-weight: bold;">xsi</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">http://www.w3.org/2001/XMLSchema-instance</span><span style="color: #ffa07a;">"</span>
+        <span style="color: #98fb98; font-weight: bold;">xsi</span>:<span style="color: #7fffd4; font-weight: bold;">schemaLocation</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd</span><span style="color: #ffa07a;">"</span>
+        <span style="color: #7fffd4; font-weight: bold;">version</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">1.0</span><span style="color: #ffa07a;">"</span>&gt;
+        &lt;<span style="color: #7fffd4; font-weight: bold;">persistence-unit</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">DECG</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">transaction-type</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">RESOURCE_LOCAL</span><span style="color: #ffa07a;">"</span>&gt;
+                &lt;<span style="color: #7fffd4; font-weight: bold;">provider</span>&gt;org.hibernate.ejb.HibernatePersistence&lt;/<span style="color: #7fffd4; font-weight: bold;">provider</span>&gt;
+                &lt;<span style="color: #7fffd4; font-weight: bold;">properties</span>&gt;
+                        &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">hibernate.dialect</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">org.hibernate.dialect.MySQL5Dialect</span><span style="color: #ffa07a;">"</span> /&gt;
+                        &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">hibernate.connection.driver_class</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">com.mysql.jdbc.Driver</span><span style="color: #ffa07a;">"</span> /&gt;
+                        &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">hibernate.connection.username</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">root</span><span style="color: #ffa07a;">"</span> /&gt;
+                        &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">hibernate.connection.password</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">root</span><span style="color: #ffa07a;">"</span> /&gt;
+                        &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">hibernate.connection.url</span><span style="color: #ffa07a;">"</span>
+                                <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">jdbc:mysql://localhost:3306/DECG_NEW?useUnicode=true</span><span style="color: #7fffd4;">&amp;</span><span style="color: #7fffd4;">amp</span><span style="color: #7fffd4;">;</span><span style="color: #ffa07a;">characterEncoding=UTF-8</span><span style="color: #ffa07a;">"</span> /&gt;
+                        &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">hibernate.max_fetch_depth</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">3</span><span style="color: #ffa07a;">"</span> /&gt;
+                        &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">hibernate.hbm2ddl.auto</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">update</span><span style="color: #ffa07a;">"</span> /&gt;
+                        &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">hibernate.jdbc.fetch_size</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">18</span><span style="color: #ffa07a;">"</span> /&gt;
+                        &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">hibernate.jdbc.batch_size</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">10</span><span style="color: #ffa07a;">"</span> /&gt;
+                        &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">hibernate.show_sql</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">true</span><span style="color: #ffa07a;">"</span> /&gt;
+                        &lt;<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">hibernate.format_sql</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">false</span><span style="color: #ffa07a;">"</span> /&gt;
+                &lt;/<span style="color: #7fffd4; font-weight: bold;">properties</span>&gt;
+        &lt;/<span style="color: #7fffd4; font-weight: bold;">persistence-unit</span>&gt;
+ &lt;/<span style="color: #7fffd4; font-weight: bold;">persistence</span>&gt;
+</pre>
+
+
+</li>
+</ul>
+
+</div>
+
+<div id="outline-container-4_1" class="outline-3">
+<h3 id="sec-4_1"><span class="section-number-3">4.1</span> 配置解析 </h3>
+<div class="outline-text-3" id="text-4_1">
+
+
+</div>
+
+<div id="outline-container-4_1_1" class="outline-4">
+<h4 id="sec-4_1_1"><span class="section-number-4">4.1.1</span> &lt;jpa-data-source&gt; </h4>
+<div class="outline-text-4" id="text-4_1_1">
+
+<ul>
+<li>配置全局事务
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-4_1_2" class="outline-4">
+<h4 id="sec-4_1_2"><span class="section-number-4">4.1.2</span> &lt;persistence-unit name="" transaction-type="RESOURCE<sub>LOCAL</sub>"&gt; </h4>
+<div class="outline-text-4" id="text-4_1_2">
+
+<ul>
+<li>本地事务
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-4_1_3" class="outline-4">
+<h4 id="sec-4_1_3"><span class="section-number-4">4.1.3</span> &lt;persistence-unit name="" transaction-type="JTA"&gt; </h4>
+<div class="outline-text-4" id="text-4_1_3">
+
+<ul>
+<li>全局事务，一般在应用服务器中
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 策略 </h2>
+<div class="outline-text-2" id="text-5">
+
+<ul>
+<li>先配置文件和实体Bean,再生成表
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> jpa实例配置 </h2>
+<div class="outline-text-2" id="text-6">
+
+
+</div>
+
+<div id="outline-container-6_1" class="outline-3">
+<h3 id="sec-6_1"><span class="section-number-3">6.1</span> jpa项目创建 </h3>
+<div class="outline-text-3" id="text-6_1">
+
+<ul>
+<li>导入Jar包(数据库连接jar包)
+</li>
+<li>导入persistence.xml模板
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-6_2" class="outline-3">
+<h3 id="sec-6_2"><span class="section-number-3">6.2</span> jpa的使用 </h3>
+<div class="outline-text-3" id="text-6_2">
+
+<ul>
+<li>例子
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-6_3" class="outline-3">
+<h3 id="sec-6_3"><span class="section-number-3">6.3</span> 说明 </h3>
+<div class="outline-text-3" id="text-6_3">
+
+
+</div>
+
+<div id="outline-container-6_3_1" class="outline-4">
+<h4 id="sec-6_3_1"><span class="section-number-4">6.3.1</span> 默认是根据实体类的属性名称来命名数据库中列名的 </h4>
+<div class="outline-text-4" id="text-6_3_1">
+
+</div>
+
+</div>
+
+<div id="outline-container-6_3_2" class="outline-4">
+<h4 id="sec-6_3_2"><span class="section-number-4">6.3.2</span> </h4>
+<div class="outline-text-4" id="text-6_3_2">
+
+</div>
+</div>
+</div>
+</div>
+<div id="postamble">
+<p class="author">Author: </p>
+<p class="creator">Org version 7.5 with Emacs version 23</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+</div>
+</div>
+</body>
+</html>
