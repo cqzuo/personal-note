@@ -101,4 +101,5 @@
  - 例子
 ** 说明
 *** 默认是根据实体类的属性名称来命名数据库中列名的
-*** 
+*** 一端定义级联
+ - CascadeType.PERSIST/MERGE/REFRESH/DELETE等等
