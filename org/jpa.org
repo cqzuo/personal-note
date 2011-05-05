@@ -15,6 +15,7 @@
 *** 实体
 *** 表名
 *** 主键
+*** 其他属性
 ** 注解的添加
 *** 实体的标识
  - @Entity
@@ -91,9 +92,50 @@
  - 本地事务
 *** <persistence-unit name="" transaction-type="JTA"> 
  - 全局事务，一般在应用服务器中
-* 策略
+* tips
+** 流程策略 
  - 先配置文件和实体Bean,再生成表
-* jpa实例配置
+** 主键 
+ - jpa不支持UUID这种主键生成方式
+ - 只能为Integer类型的主键提供自增长
+ - String类型的主键配置为 @Id
+ - 自增长的配置
+  + @GeneratedValue
+** 级联
+*** REFRESH
+ - 保证该当前数据是最新的数据
+ - refresh()方法重新获取数据
+*** MERGE
+ - 如果有该记录,则更新,没有则新增
+ - merge()来执行更新/保存操作
+*** PERSIST
+ - 保存数据
+ - persist()方法保存数据
+*** REMOVE
+ - 删除记录
+ - remove()执行删除操作
+** 延迟加载
+*** fetch
+ - EAGER
+  + 立即加载
+ - LAZY
+  + 延迟加载
+ - class
+ - 如果是多的一方,将默认为延迟加载
+** 维护/被维护端配置
+ - mappedBy
+  + 定义多的一方实体类中来维护一的一方的属性
+ - jpa中没有明确定义维护与被维护端
+** 可选项
+ - optional
+  + true 该属性可为空
+  + false 该属性必须存在
+** 表的名称
+ - @Table(name="表名称")
+** 手动生成UUID的方法
+ -  String id = UUID.randromUUID().toString();
+** 
+* jpa开发环境的配置
 ** jpa项目创建
  - 导入Jar包(数据库连接jar包)
  - 导入persistence.xml模板
@@ -103,17 +145,31 @@
 *** 默认是根据实体类的属性名称来命名数据库中列名的
 *** 一端定义级联
  - CascadeType.PERSIST/MERGE/REFRESH/DELETE等等
-
-* jpa数据层持久开发
-** 概述
-*** 什么是数据持久化
-**** 序列化
-**** jdbc
-**** 对象关系映射
-**** 对象数据库
-**** java数据对象
-**** ejb
-*** java数据持久化
-*** jpa
-*** orm
-**** 对象关系映射模型
+* 一对多和多对一配置
+** 一对多关联
+*** 使用集合类存放多的一方
+*** 注解的添加
+ - @OneToMany(Cascade="CascadeType....")
+ - fetch=fetchType....
+ - mappedBy="order"
+ - 需要配置的项目
+  + OneToMany注解
+  + 级联 Cascade
+  + 延迟加载配置
+  + 维护/被维护端配置
+** 多对一关联
+*** 直接使用一的一方类型作为多方的属性
+*** 注解的添加
+ - @ManyToOne(Cascade="CascadeType...")
+ - optional=true
+ - JoinColumn(name="")
+ - 要配置的项目
+ + 可选级联
+   + 级联更新 CascadeType.MERGE
+   + 级联刷新 CascadeType.REFRESH
+ + optional
+  + 表示该属性可以为空
+ + 外键关联配置 
+* 一对一双向关联配置
+** 属性设置
+ - 各自在实体类中添加关联的外键(实体类互相作为对方的属性)
