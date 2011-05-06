@@ -66,8 +66,15 @@
   + 删除以前定义的对象属性和方法的引用
   + 只能删除开发者自定义的属性和方法
  - void
-  + 
-** 语句
+  + 让方法返回 Undefineed值
+  + void(window.open("about:blank")
+ - instanceOf
+  + 判断是否为某个类型的对象
+  + a instanceOf string
+ - ++/-- 自加/自减
+  + 前自加/前自减
+  + 后自加/后自减
+** 语句 
 ** 函数
  - return 之后的语句不会被执行
  - 一个函数额可以多个return 
