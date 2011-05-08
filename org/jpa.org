@@ -126,6 +126,9 @@
  - mappedBy
   + 定义多的一方实体类中来维护一的一方的属性
  - jpa中没有明确定义维护与被维护端
+ - @JoinColumn
+  + 一般在关系维护端建立外键
+  + 在关系被维护端使用mappedBy
 ** 可选项
  - optional
   + true 该属性可为空
@@ -134,7 +137,6 @@
  - @Table(name="表名称")
 ** 手动生成UUID的方法
  -  String id = UUID.randromUUID().toString();
-** 
 * jpa开发环境的配置
 ** jpa项目创建
  - 导入Jar包(数据库连接jar包)
@@ -173,3 +175,18 @@
 * 一对一双向关联配置
 ** 属性设置
  - 各自在实体类中添加关联的外键(实体类互相作为对方的属性)
+ - 映射中关联的外键对应属性只需要在其中一方配置一个optional
+ - 维护端配置外键
+ - 被维护端配置mappedBy
+
+* 多对多双向关联
+** 属性设置
+ - 互相在对方的实体中添加Set<Object>类型属性
+** 注解添加
+ - 维护端
+   - @ManyToMany(Cascade="CascadeType....")
+   - @JoinColumn(name="中间表的名称") 
+ - 被维护端
+   - @ManyToMany(Cascade="CascadeType....") 
+   - mappedBy="维护端中的外键对象属性的名称"
+ -  默认为延迟加载(Many)
