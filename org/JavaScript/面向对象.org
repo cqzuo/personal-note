@@ -1,0 +1,52 @@
+* 术语
+ - 属性的含义
+  + 属性的无序集合
+** 要素
+ - 封装
+ - 聚集
+ - 继承
+ - 多态
+** 组成
+ - 属性
+ - 方法
+* 对象应用
+** 声明和实例化
+ - new
+ - 例子
+  + var oObject = new Object;
+  + var oStringObject = new String;
+** 对象废除
+ - 将对象置null
+** 早绑定和晚绑定
+ - ECMAscript是晚绑定,无需检查对象的类型
+* 类型
+** 本地对象
+*** Array类
+**** 创建
+ - var aValues = new Array(20);
+ - var aValues = new Array();
+ - var aValues = new Array("red","green");
+ - var aValues = ["red","green"];
+**** 使用
+ - aValues[0] = "red"; 
+ - aValues[1] = "green"; 
+**** 方法
+ - toString
+ - toLocalString
+ - join("连接字符串") 
+ - split("拆分字符串")
+ - concat("拼接字符串")
+ - slice(元素的索引)
+ - sort
+**** 栈操作
+ - Array的属性就像一个栈
+ - LIFO
+ - 提供栈操作
+  + push
+  + pop
+**** 队列操作
+ - LILO
+   + shift
+     + 删除第一个元素,返回其它
+   + unshift
+    + 插入第一个元素
