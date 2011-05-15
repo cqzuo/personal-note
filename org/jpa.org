@@ -137,6 +137,10 @@
  - @Table(name="表名称")
 ** 手动生成UUID的方法
  -  String id = UUID.randromUUID().toString();
+** equals/hashcode方法
+*** 如果方法中有比较2个对象的,需要重写这2个方法
+*** 比如:
+ - 包含的检验
 * jpa开发环境的配置
 ** jpa项目创建
  - 导入Jar包(数据库连接jar包)
@@ -190,3 +194,11 @@
    - @ManyToMany(Cascade="CascadeType....") 
    - mappedBy="维护端中的外键对象属性的名称"
  -  默认为延迟加载(Many)
+
+** 关系的添加
+ - 在被维护端添加关系方法
+  + add***()
+** 关系的删除
+ - 先解除关系
+  + 从集合类中删掉包含的对象
+ - 删除记录
