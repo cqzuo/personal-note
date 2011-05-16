@@ -194,7 +194,6 @@
    - @ManyToMany(Cascade="CascadeType....") 
    - mappedBy="维护端中的外键对象属性的名称"
  -  默认为延迟加载(Many)
-
 ** 关系的添加
  - 在被维护端添加关系方法
   + add***()
@@ -202,3 +201,26 @@
  - 先解除关系
   + 从集合类中删掉包含的对象
  - 删除记录
+
+* 联合主键
+** 方法添加
+*** hashcode()
+*** equals()
+** 类的建立
+*** 联合主键类添加注释
+ - @Embeddable
+*** 将联合主键类作为实体类的属性
+ - @EmbeddedId
+
+* Annotation
+** 定义
+ - 注释添加的位置
+  + @Target(elementType.METHOD)
+  + 默认为任意位置
+ - 运行时间
+  + @Retention(RetentionPolicy.RUNTIME)
+ - 属性
+  + 只能是基本属性或Class或另一个注解
+ - 使用
+  + 如果属性是value,则可以略去"value="
+  + @自定义注释(属性名称="属性值")
