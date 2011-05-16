@@ -57,7 +57,11 @@
 ***** splice()
  - 把数据项插入到数组中部
  - 删除
-  + splice(startIndex,endIndex)
+   + splice(startIndex,endIndex)
  - 替换而不删除
-  + 
+   + splice(startIndex,0,"替换的元素1","替换的元素2")
+   + splice(起始位置,0(要删除的数组项的个数)和要插入的项的个数,替换的元素)
  - 替换并删除
+   + splice(startIndex,0,"替换的元素1","替换的元素2")
+   + splice(起始位置,0(要删除的数组项的个数)和要插入的项的个数,替换的元素)
+   + splice(起始位置,0(要删除的数组项的个数)和要插入的项的个数,替换的元素)
