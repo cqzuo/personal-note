@@ -224,3 +224,25 @@
  - 使用
   + 如果属性是value,则可以略去"value="
   + @自定义注释(属性名称="属性值")
+
+** 使用
+*** 判断方法上是否有注释
+#+BEGIN_SRC
+public class Parser{
+   public void parser(Object obj,String methodName){
+     Method[] methods = class.getMethod(); 
+     for(Method m:methods)
+     {
+        if(m.getName().equals(methodName)){
+             if(m.isAnnotationPresent){
+                 拿到注释对象 = m.getAnnotation(注释类);
+                 m.invo
+              }
+         }
+     }
+   }
+ }
+}
+}
+#+END_SRC    
+  
