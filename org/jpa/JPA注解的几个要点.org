@@ -1,0 +1,39 @@
+* 设置pojo类实体
+ - @Entity 表示实体类
+* 设置表名
+ - @Table(name="表名")
+* 设置主键
+ - @Id
+* 设置字段类型
+ - @Column(name="字段名",nullable=false/true,length=长度,scale=允许的小数位)
+ - 时间类型的设置
+  + @Temporal(TemporalType.DATE)
+* 字段排序
+ - @OrderBy(name="排序的字段名 ASC/DESC")
+* 主键生成策略  
+ - @Id
+ - @GeneratedValue(strage=GenerationType.INDENTITY) //自增长
+ - @GeneratedValue(strage=GenerationType.TABLE) //主键ID的增长
+ - @GeneratedValue(strage=GenerationType.SEQUENCE) //依赖数据库的SEQUENCE
+* 一对多映射关系
+ - 主类 在子对象属性前面添加
+  * @OneToMany(cascade="CascadeType.All",mapped="oneId") //指向多的一方的外键字段
+ - 子类 放在父类关联的字段前面
+  * JoinColumn(name="对应的数据库中的列名",referencedColumnName="引用的数据库表列名")
+  * @ManyToOne //设置在"一方"的外键字段上
+* 多对多映射
+ - 主类
+  * @ManyToMany
+  * @JoinTable(name="中间连接表的名称",joinColumns={@JoinColumn(name="中间表的主键",referencedColumnName="关联到的表的主键")},inverseJoinColumns={@JoinColumn(name="连接表的另一个主键",referencedColumnName="关联到的另一个表的主键")})
+  - 从表
+   * @ManyToMany(mappedBy="从表中的对应属性名称")
+* 一对一映射
+ - 主类
+  * @OneToOne(cascade=CascadeType.ALL,mappedBy={关联到从表的主键})
+ - 从类
+  * @JoinColumn(name="从类指向主类的外键",referencedColumnName="主类的主键",insertable=false,updatable=false)
+  * @OneToOne
+* 大字段
+ - @Lob //对应Blob字段
+* 临时字段
+ - @Transient //不需要与数据库隐射的字段
