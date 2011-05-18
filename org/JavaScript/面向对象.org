@@ -68,6 +68,26 @@
    + splice(startIndex,1,"替换的元素1","替换的元素2")
    + splice(起始位置,0(要删除的数组项的个数)和要插入的项的个数,替换的元素)
    + splice(起始位置,0(要删除的数组项的个数)和要插入的项的个数,替换的元素)
-
 *** Date类
-**** 
+**** 创建
+ - parse
+ - utc
+ - 例子
+ #+BEGIN_SRC javaScript
+ // 建立当前日期对象
+ var date = new Date();
+//建立一般日期对象
+ var date = new Date(Date.parse("may 4,2012"));
+ var date = new Date(Date.UTC(2012,12,4));
+ var date = new Date(2012,12,24);
+#+END_SRC
+**** 方法
+ - toDateString
+ - toTimeString
+ - toLocalString
+ - toLocalDateString
+ - toLocalTimeString
+ - toUTCString
+*** 内置对象
+**** Global
+**** Math
