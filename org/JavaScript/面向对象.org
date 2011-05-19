@@ -90,4 +90,37 @@
  - toUTCString
 *** 内置对象
 **** Global
+*****  方法
+ - isNaN()
+ - isFinite()
+ - parseInit()
+ - parseFloat()
+ - encodeURI()/decodeURI()
+  + 处理完整的uri,不对特殊字符编码
+ - encodeURIComponent()/decodeURIComponent()
+  + 处理部分uri
+ - eval()
+  + 将参数解释为真正的ECMAScript语句,并插入在函数所在的位置
+ - 例子
+ #+BEGIN_SRC javaScript
+ var s = "http://www.google.com/ tab /%#s";
+  alert(encodeURI(s));
+  alert(encodeURIComponent(s));
+#+END_SRC
 **** Math
+***** 方法
+ - min()
+ - max()
+ - abs()
+ - ceil()
+ - floor()
+ - round()
+ - exp()
+ - log()
+ - pop()
+ - sqrt()
+ -random()
+* 作用域
+** 公用,受保护和私有作用域
+ - 只有一种公有作用域
+** 静态作用域并非静态的
