@@ -1,4 +1,4 @@
-下面介绍一下hibernate的配置问题：
+﻿下面介绍一下hibernate的配置问题：
 第一个hibernate项目
 1、新建java项目
 2、创建User Library,加入如下jar
