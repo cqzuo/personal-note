@@ -236,7 +236,8 @@ public class Parser{
         if(m.getName().equals(methodName)){
              if(m.isAnnotationPresent){
                  拿到注释对象 = m.getAnnotation(注释类);
-                 m.invo
+                //在
+                 m.invok(obj,null);
               }
          }
      }
