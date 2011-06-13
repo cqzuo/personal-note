@@ -162,7 +162,7 @@
   + OneToMany注解
   + 级联 Cascade
   + 延迟加载配置
-  + 维护/被维护端配置
+  + 维护/被维护端配置,由多的一方来维护关联关系
 ** 多对一关联
 *** 直接使用一的一方类型作为多方的属性
 *** 注解的添加
@@ -175,14 +175,19 @@
    + 级联刷新 CascadeType.REFRESH
  + optional
   + 表示该属性可以为空
- + 外键关联配置 
+ + 外键关联配置,name为外键的名称
 * 一对一双向关联配置
 ** 属性设置
  - 各自在实体类中添加关联的外键(实体类互相作为对方的属性)
- - 映射中关联的外键对应属性只需要在其中一方配置一个optional
- - 维护端配置外键
+ - 映射中关联的外键对应属性只需要在其中一方配置一个optional(optional=false)
+ - 维护端配置外键(JoinColumn)
  - 被维护端配置mappedBy
-
+** 注解添加
+*** 维护端
+ - OneToOne(optional=false,cascade = CascadeType.ALL)
+ - JoinColumn("外键的名称")
+*** 被维护端
+   - OneToOne(optional=false,cascade=CascadeType.ALL,mappedBy="主键名称")
 * 多对多双向关联
 ** 属性设置
  - 互相在对方的实体中添加Set<Object>类型属性
@@ -226,3 +231,19 @@
   + @自定义注释(属性名称="属性值")
 ** 使用
  - 
+
+* Jpa的生命周期
+** 说明
+*** NEW
+ - 瞬时
+*** Managed
+ - 持久化受管
+*** Datached
+ - 游离
+*** Removed
+ - 删除
+** 图示
+ [[jpa01.jpg
+    
+    
+    
