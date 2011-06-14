@@ -180,14 +180,15 @@
 ** 属性设置
  - 各自在实体类中添加关联的外键(实体类互相作为对方的属性)
  - 映射中关联的外键对应属性只需要在其中一方配置一个optional(optional=false)
+  + 不要在2个中都配置,否则会报错
  - 维护端配置外键(JoinColumn)
  - 被维护端配置mappedBy
 ** 注解添加
 *** 维护端
- - OneToOne(optional=false,cascade = CascadeType.ALL)
+ - ManyToOne(cascade = CascadeType.ALL)
  - JoinColumn("外键的名称")
 *** 被维护端
-   - OneToOne(optional=false,cascade=CascadeType.ALL,mappedBy="主键名称")
+   - OneToOne(cascade=CascadeType.ALL,mappedBy="主键名称",optional=false)
 * 多对多双向关联
 ** 属性设置
  - 互相在对方的实体中添加Set<Object>类型属性
