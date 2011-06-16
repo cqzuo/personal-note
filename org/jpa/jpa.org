@@ -195,7 +195,7 @@
 ** 注解添加
  - 维护端
    - @ManyToMany(Cascade="CascadeType....")
-   - @JoinColumn(name="中间表的名称") 
+   - @JoinTable(name="中间表的名称") 
  - 被维护端
    - @ManyToMany(Cascade="CascadeType....") 
    - mappedBy="维护端中的外键对象属性的名称"
@@ -207,7 +207,9 @@
  - 先解除关系
   + 从集合类中删掉包含的对象
  - 删除记录
-
+** 关联关系的建立
+ - 将2个实体类分别保存进数据库 em.persist(object)
+ - 查询到该实体,设置关联关系 em.find(Class,id) // em.getReference(class,id)
 * 联合主键
 ** 方法添加
 *** hashcode()
