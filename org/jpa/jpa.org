@@ -233,8 +233,15 @@
   + 如果属性是value,则可以略去"value="
   + @自定义注释(属性名称="属性值")
 ** 使用
- - 
-
+*** 反射相关
+ - 获取对象的所有声明方法
+  + Method[]  methods = obj.getClass().getMethods();
+ - 放射方式执行某方法
+  + m.invoke(对象,参数);
+*** 判断是否有指定注释
+ + Boolean flag =  方法对象.isAnnoationPersent(注释类.class);
+*** 获取方法上的注释
+ + 注释类对象 = 方法对象.getAnnotation(注释类.class);
 * Jpa的生命周期
 ** 说明
 *** NEW
