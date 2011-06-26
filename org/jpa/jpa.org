@@ -189,7 +189,17 @@
  - JoinColumn("外键的名称")
 *** 被维护端
    - OneToOne(cascade=CascadeType.ALL,mappedBy="主键名称",optional=false)
+* 要点
+ - 
 * 多对多双向关联
+** 要点
+ - 2方都必须添加ManyToMany注解
+ - 在维护端添加 JoinTable注解
+ - 在被维护端添加mappedBy注释
+ - 使用
+  + 各自保存实体类
+  + 从数据库中拿出对象,保存关系
+  + flush刷新数据到数据库中
 ** 属性设置
  - 互相在对方的实体中添加Set<Object>类型属性
 ** 注解添加
