@@ -263,7 +263,4 @@
 *** Removed
  - 删除
 ** 图示
- [[jpa01.jpg
-    
-    
-    
+ [[jpa01.jpg]]
