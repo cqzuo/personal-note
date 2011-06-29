@@ -140,3 +140,87 @@
 * 定义类或对象
 ** 工厂方式
 ** 构造函数方式
+ - 例子
+ #+BEGIN_SRC javaScript
+  function createCar(color,size){
+	this.color = color;
+	this.size = size;
+	this.run = function(){
+		alert("It's running!");
+	}
+}
+var car1 = new createCar("red","12");
+car1.run();
+ #+END_SRC
+** 原型方式
+ - 例子
+#+BEGIN_SRC javaScript
+function Car(){
+}
+Car.prototype.color = "red";
+Car.prototype.size = "22";
+Car.prototype.run = function(){
+	alert(this.color);
+}
+var oCar1 = new Car();
+oCar1.run();
+#+END_SRC
+** 混合的构造/原型方式
+ - 例子
+#+BEGIN_SRC
+ function Car(color,size){
+	this.color = color;
+	this.size = size;
+	this.driver = new Array("scott","john","jobs");
+}
+
+Car.prototype.run = function(){
+	alert(this.color);
+}
+var oCar1 = new Car("blue","213");
+var oCar2 = new Car("green","213");
+oCar1.run();
+oCar2.run();
+#+END_SRC
+** 动态原型
+ - 例子
+ #+BEGIN_SRC javaScript
+ function Car(color,size){
+	this.color = color;
+	this.size = size;
+	this.driver = new Array("scott","john","jobs");
+	
+	if(typeof Car._initialized =="undefined")
+	{
+		Car.prototype.run = function(){
+			alert(this.color);
+			}
+	}
+	
+	Car._initialized = true;
+}
+ #+END_SRC
+** 混合工厂模式
+ - 例子
+ #+BEGIN_SRC javaScript
+  function Car(){
+	new oTempCar = new Object;
+	oTempCar.color = "red";
+	oTempCar.size = "12";
+	oTempCar.driver = new Array("scott","john","jobs");
+	
+	oTempCar.prototype.run = function(){
+		alert(this.color)
+		};
+	
+	return oTempCar;
+}
+ #+END_SRC
+** 重新定义已有方法和修改方法
+ - 通过函数的prototype属性修改
+ - 例子
+ #+BEGIN_SRC javaScript
+  Function.prototype.toString = function(){
+  return "this is test";
+}
+ #+END_SRC
