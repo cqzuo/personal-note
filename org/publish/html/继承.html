@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>继承</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011-07-01 06:49:51 "/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">继承</h1>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 继承机制的实现 </a></li>
+<li><a href="#sec-2">2 继承的方式 </a>
+<ul>
+<li><a href="#sec-2_1">2.1 对象冒充 </a></li>
+<li><a href="#sec-2_2">2.2 call方法 </a>
+<ul>
+<li><a href="#sec-2_2_1">2.2.1 call的使用 </a></li>
+<li><a href="#sec-2_2_2">2.2.2 call实现的继承 </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 继承机制的实现 </h2>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li>所有开发者定义的类都可以作为基类
+</li>
+<li>本地类和宿主类不能作为基类
+</li>
+<li>可以创建只提供通用方法的抽象类
+</li>
+<li>子类将继承超类的所有属性和方法
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 继承的方式 </h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2_1" class="outline-3">
+<h3 id="sec-2_1"><span class="section-number-3">2.1</span> 对象冒充 </h3>
+<div class="outline-text-3" id="text-2_1">
+
+<ul>
+<li>例子
+
+
+
+<pre class="src src-javascript"> <span style="color: #fa8072;">function</span>  <span style="color: #7fffd4; font-weight: bold;">Car</span>(<span style="color: #7fffd4; font-weight: bold;">color</span>,<span style="color: #7fffd4; font-weight: bold;">size</span>){
+        <span style="color: #7fffd4;">this</span>.color = color;
+        <span style="color: #7fffd4;">this</span>.size = size;
+        <span style="color: #7fffd4;">this</span>.driver = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">Array</span>(<span style="color: #ffa07a;">"scott"</span>,<span style="color: #ffa07a;">"john"</span>,<span style="color: #ffa07a;">"jobs"</span>);
+        
+        <span style="color: #7fffd4;">this</span>.run = <span style="color: #fa8072;">function</span>(){
+                alert(<span style="color: #7fffd4;">this</span>.color);
+                };
+}
+
+<span style="color: #fa8072;">function</span> <span style="color: #7fffd4; font-weight: bold;">Autobike</span>(<span style="color: #7fffd4; font-weight: bold;">color</span>,<span style="color: #7fffd4; font-weight: bold;">name</span>){
+                <span style="color: #7fffd4;">this</span>.newMethod = Car;
+                <span style="color: #7fffd4;">this</span>.newMethod(color);
+                <span style="color: #fa8072;">delete</span> <span style="color: #7fffd4;">this</span>.newMethod;
+        
+                <span style="color: #7fffd4;">this</span>.name = name;
+                <span style="color: #7fffd4;">this</span>.say = <span style="color: #fa8072;">function</span>(){
+                                alert(<span style="color: #7fffd4;">this</span>.name);
+                        }
+        }
+        
+        <span style="color: #fa8072;">var</span> <span style="color: #7fffd4; font-weight: bold;">a</span> = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">Car</span>(<span style="color: #ffa07a;">"red"</span>,<span style="color: #ffa07a;">"21"</span>);
+        <span style="color: #fa8072;">var</span> <span style="color: #7fffd4; font-weight: bold;">b</span> = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">Autobike</span>(<span style="color: #ffa07a;">"green"</span>,<span style="color: #ffa07a;">"lord"</span>);
+        
+        a.run();
+        b.run();
+        b.say();
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2_2" class="outline-3">
+<h3 id="sec-2_2"><span class="section-number-3">2.2</span> call方法 </h3>
+<div class="outline-text-3" id="text-2_2">
+
+
+</div>
+
+<div id="outline-container-2_2_1" class="outline-4">
+<h4 id="sec-2_2_1"><span class="section-number-4">2.2.1</span> call的使用 </h4>
+<div class="outline-text-4" id="text-2_2_1">
+
+<ul>
+<li>例子
+
+
+
+<pre class="src src-javascript"><span style="color: #fa8072;">function</span> <span style="color: #7fffd4; font-weight: bold;">sayColor</span>(<span style="color: #7fffd4; font-weight: bold;">sPrefix</span>,<span style="color: #7fffd4; font-weight: bold;">sSuffix</span>){
+               alert(sPrefix+<span style="color: #7fffd4;">this</span>.color+sSuffix);
+       };
+       <span style="color: #fa8072;">var</span> <span style="color: #7fffd4; font-weight: bold;">obj</span> = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">Object</span>();
+       obj.color = <span style="color: #ffa07a;">"red"</span>;
+       sayColor.call(obj,<span style="color: #ffa07a;">"the color is "</span>,<span style="color: #ffa07a;">",haha!"</span>);
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2_2_2" class="outline-4">
+<h4 id="sec-2_2_2"><span class="section-number-4">2.2.2</span> call实现的继承 </h4>
+<div class="outline-text-4" id="text-2_2_2">
+
+<ul>
+<li>例子
+
+
+
+<pre class="src src-javascript">  <span style="color: #fa8072;">function</span>  <span style="color: #7fffd4; font-weight: bold;">Car</span>(<span style="color: #7fffd4; font-weight: bold;">color</span>,<span style="color: #7fffd4; font-weight: bold;">size</span>){
+        <span style="color: #7fffd4;">this</span>.color = color;
+        <span style="color: #7fffd4;">this</span>.size = size;
+        <span style="color: #7fffd4;">this</span>.driver = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">Array</span>(<span style="color: #ffa07a;">"scott"</span>,<span style="color: #ffa07a;">"john"</span>,<span style="color: #ffa07a;">"jobs"</span>);
+        
+        <span style="color: #7fffd4;">this</span>.run = <span style="color: #fa8072;">function</span>(){
+                alert(<span style="color: #7fffd4;">this</span>.color);
+                };
+}
+
+<span style="color: #fa8072;">function</span> <span style="color: #7fffd4; font-weight: bold;">Autobike</span>(<span style="color: #7fffd4; font-weight: bold;">color</span>,<span style="color: #7fffd4; font-weight: bold;">name</span>){
+                Car.call(<span style="color: #7fffd4;">this</span>,color);
+        
+                <span style="color: #7fffd4;">this</span>.name = name;
+                <span style="color: #7fffd4;">this</span>.say = <span style="color: #fa8072;">function</span>(){
+                                alert(<span style="color: #7fffd4;">this</span>.name);
+                        }
+        }
+        
+        <span style="color: #fa8072;">var</span> <span style="color: #7fffd4; font-weight: bold;">a</span> = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">Car</span>(<span style="color: #ffa07a;">"red"</span>,<span style="color: #ffa07a;">"21"</span>);
+        <span style="color: #fa8072;">var</span> <span style="color: #7fffd4; font-weight: bold;">b</span> = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">Autobike</span>(<span style="color: #ffa07a;">"green"</span>,<span style="color: #ffa07a;">"lord"</span>);
+        
+        a.run();
+        b.run();
+        b.say();
+</pre>
+
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble">
+<p class="author">Author: </p>
+<p class="creator">Org version 7.5 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+</div>
+</div>
+</body>
+</html>

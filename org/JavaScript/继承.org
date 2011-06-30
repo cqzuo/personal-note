@@ -1,0 +1,107 @@
+* 继承机制的实现
+ - 所有开发者定义的类都可以作为基类
+ - 本地类和宿主类不能作为基类
+ - 可以创建只提供通用方法的抽象类
+ - 子类将继承超类的所有属性和方法
+* 继承的方式
+** 对象冒充
+ - 例子
+#+BEGIN_SRC javascript
+ function  Car(color,size){
+	this.color = color;
+	this.size = size;
+	this.driver = new Array("scott","john","jobs");
+	
+	this.run = function(){
+		alert(this.color);
+		};
+}
+
+function Autobike(color,name){
+		this.newMethod = Car;
+		this.newMethod(color);
+		delete this.newMethod;
+	
+		this.name = name;
+		this.say = function(){
+				alert(this.name);
+			}
+	}
+	
+	var a = new Car("red","21");
+	var b = new Autobike("green","lord");
+	
+	a.run();
+	b.run();
+	b.say();
+#+END_SRC
+** call方法
+*** call的使用
+ - 例子
+#+BEGIN_SRC javascript
+ function sayColor(sPrefix,sSuffix){
+		alert(sPrefix+this.color+sSuffix);
+	};
+	var obj = new Object();
+	obj.color = "red";
+	sayColor.call(obj,"the color is ",",haha!");
+#+END_SRC
+*** call实现的继承
+ - 例子
+#+BEGIN_SRC javascript
+
+  function  Car(color,size){
+	this.color = color;
+	this.size = size;
+	this.driver = new Array("scott","john","jobs");
+	
+	this.run = function(){
+		alert(this.color);
+		};
+}
+
+function Autobike(color,name){
+		Car.call(this,color);
+	
+		this.name = name;
+		this.say = function(){
+				alert(this.name);
+			}
+	}
+	
+	var a = new Car("red","21");
+	var b = new Autobike("green","lord");
+	
+	a.run();
+	b.run();
+	b.say();
+#+END_SRC
+** apply方法
+ - 例子
+#+BEGIN_SRC javascript
+  function  Car(color,size){
+	this.color = color;
+	this.size = size;
+	this.driver = new Array("scott","john","jobs");
+	
+	this.run = function(){
+		alert(this.color);
+		};
+}
+
+function Autobike(color,name){
+		Car.apply(this,arguments);
+	
+		this.name = name;
+		this.say = function(){
+				alert(this.name);
+			}
+	}
+	
+	var a = new Car("red","21");
+	var b = new Autobike("green","lord");
+	
+	a.run();
+	b.run();
+	b.say();
+#+END_SRC
