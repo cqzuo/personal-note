@@ -105,3 +105,143 @@ function Autobike(color,name){
 	b.run();
 	b.say();
 #+END_SRC
+
+** 原型法
+ - 例子
+#+BEGIN_SRC javascript
+ function ClassA(){}
+ClassA.prototype.color = "red";
+ClassA.prototype.sayColor = function(){
+	alert(this.color);
+};
+
+function ClassB(){
+}
+ClassB.prototype.name = "";
+ClassB.prototype.sayName = function(){
+	alert(this.name);
+};
+ClassB.prototype = new ClassA();
+
+var a = new ClassA();
+var b = new ClassB();
+a.sayColor();
+b.sayColor();
+b.name = "lord";
+b.sayName();
+#+END_SRC
+
+** 混合方式
+ - 例子1
+#+BEGIN_SRC javascript
+ function ClassA(sColor){
+		this.color = sColor;
+	}
+ClassA.prototype.sayColor = function(){
+		alert(this.color);
+	}
+function ClassB(sColor,sName){
+		ClassA.call(this,sColor);
+		this.name = sName;
+	}
+ClassB.prototype = new ClassA();
+ClassB.prototype.sayName = function(){
+	alert(this.name);
+}
+var a = new ClassA("green");
+var b = new ClassB("blue","lord");
+
+a.sayColor();
+b.sayColor();
+b.sayName();
+#+END_SRC
+ - 例子2
+#+BEGIN_SRC javascript
+ //父类 多边形类
+function Polygon(iSide){
+	this.side = iSide;
+}
+
+Polygon.prototype.getArea = function(){
+	return 0;
+}
+
+//三角形
+function Triangle(iBase,iHeight){
+	Polygon.call(this,3);
+	this.base = iBase;
+	this.height = iHeight;
+}
+
+Triangle.prototype = new Polygon();
+//覆盖getArea方法
+Triangle.prototype.getArea = function(){
+	return 0.5*this.base*this.height;
+};
+
+// 四边形
+function Rectangle(iHeight,iWidth){
+	Polygon.call(this,4);
+	this.height = iHeight;
+	this.width = iWidth;
+}
+
+Rectangle.prototype.getArea = function(){
+	return this.height*this.width;
+}
+//测试
+var t = new Triangle(3,4);
+var r = new Rectangle(4,5);
+alert(t.getArea());
+alert(r.getArea());
+#+END_SRC
+
+** 动态原型
+ - 例子
+#+BEGIN_SRC javascript
+ //父类 多边形类
+function Polygon(iSide){
+	this.side = iSide;
+	
+	if(typeof Polygon._initialized == "undefined"){
+		Polygon.prototype.getArea = function(){
+			return 0;
+		};
+	}
+	Polygon._initialized=true;
+}
+
+//三角形
+function Triangle(iBase,iHeight){
+	Polygon.call(this,3);
+	this.base = iBase;
+	this.height = iHeight;
+	
+	if(typeof Triangle._initialized == "undefined"){
+		Triangle.prototype.getArea = function(){
+			return 0.5*this.base*this.height;
+		};
+		Triangle._initialized=true;
+	}
+}
+		Triangle.prototype = new Polygon();
+// 四边形
+function Rectangle(iHeight,iWidth){
+	Polygon.call(this,4);
+	this.height = iHeight;
+	this.width = iWidth;
+	
+	if(typeof Rectangle._initialized == "undefined"){
+		Rectangle.prototype.getArea = function(){
+			return this.height*this.width;
+		};
+	Rectangle._initialized=true;
+	}
+}
+		Rectangle.prototype = new Polygon();
+//测试
+var t = new Triangle(3,4);
+var r = new Rectangle(4,5);
+alert(t.getArea());
+alert(r.getArea());
+#+END_SRC

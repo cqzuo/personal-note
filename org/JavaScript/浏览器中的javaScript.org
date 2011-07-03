@@ -1,0 +1,37 @@
+* Html中的javaScript
+** <scripit>标签
+ - language
+  + 声明要使用的脚本语言
+ - src
+  + 可选,要引入的外部js文件
+** 外部文件格式
+ - <script language="javascript" src="js文件路径">
+** 内嵌代码和外部文件
+ - 大量javaScript代码不应内嵌在html文件中
+
+** 标签放置
+ - 放在body内时,页面载入时,脚本会被执行
+ - 注意方法的定义与方法调用的先后顺序
+** <noscript>
+ - javascript不能用时显示的内容
+** xhtml中的改变
+ - <script type="text/javascript">
+ - ![CDAT[[内容]]]
+** BOM
+*** window
+**** 窗口操作
+ - moveBy(dx,dy)
+ - moveTo(x,y)
+ - resizeBy(dw,dh)
+ - resizeTo(x,y)
+*** 导航和打开新窗口
+ - window.open()
+  + 4个参数
+    + 载入新窗口的页面url
+    + 新窗口的名字
+    + 特性字符串
+    + 是否用新载入的页面替代原有页面
+*** 系统对话框
+ - alert()
+ - confirm()
+ - promtp()
