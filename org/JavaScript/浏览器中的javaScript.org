@@ -8,7 +8,6 @@
  - <script language="javascript" src="js文件路径">
 ** 内嵌代码和外部文件
  - 大量javaScript代码不应内嵌在html文件中
-
 ** 标签放置
  - 放在body内时,页面载入时,脚本会被执行
  - 注意方法的定义与方法调用的先后顺序
@@ -35,3 +34,23 @@
  - alert()
  - confirm()
  - promtp()
+
+*** 状态栏
+ - 例子
+ #+BEGIN_SRC Html
+ <a href="" onmouseover="window.status='测试的啊!'">test</a>
+#+END_SRC
+*** 事件间隔和暂停
+ - setTimeout()
+ - 例子
+ #+BEGIN_SRC javascript
+var id =  setTimeout("alert('hello world!')",1000);
+//取消间隔
+clearTimeout(id);
+var sid = setInterval(function(){alert("kao!")},2000);
+clearInterval(sid);
+#+END_SRC
+*** 历史
+ - go()
+  + 参数为正表示前进
+  + 参数为负表示后退
