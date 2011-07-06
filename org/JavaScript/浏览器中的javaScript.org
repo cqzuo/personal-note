@@ -54,3 +54,24 @@ clearInterval(sid);
  - go()
   + 参数为正表示前进
   + 参数为负表示后退
+ - 例子
+ #+BEGIN_SRC Html
+ <a href="javascript:window.history.go(-1)">返回刚才访问的网页</a>
+#+END_SRC
+*** document
+ - window的属性,既属于BOM又属于DOM
+ - top.document.title="title's name"
+ - document.URL="url" 
+  + 实现页面跳转
+ - document.links[i]
+  + 访问链接
+ - document.images[i]
+ - document.images["name"]
+  + 访问图像
+ - document.forms[i]
+ - document.forms["formname"]
+ - 动态引入js文件
+ #+BEGIN_SRC javascript
+ document.write("<script type=\"text/javascript\" src=\"test.js\"\>"+"</scri"+"pt>");
+#+END_SRC
+  + </script>必须分开写,否则报错
