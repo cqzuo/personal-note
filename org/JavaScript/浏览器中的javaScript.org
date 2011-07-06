@@ -75,3 +75,7 @@ clearInterval(sid);
  document.write("<script type=\"text/javascript\" src=\"test.js\"\>"+"</scri"+"pt>");
 #+END_SRC
   + </script>必须分开写,否则报错
+ - 页面的打开与关闭
+  + window.open()
+  + window.write()
+  + window.close()
