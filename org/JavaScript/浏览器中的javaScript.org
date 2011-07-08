@@ -79,3 +79,29 @@ clearInterval(sid);
   + window.open()
   + window.write()
   + window.close()
+*** location
+ - hash
+   + url地址中#之后的内容
+ - host
+   + 服务器的名字
+ - hostname
+   + 省略www的host
+ - href/assign()
+   + 页面的重定向 
+ - replace()
+  + 重定向,但是不能返回或前进
+ - reload()
+  + 重载页面
+*** navigator 
+ - 不同浏览器的实现方法不同    
+
+    
+*** screen
+ - 可使用的宽度和高度
+   + availHeight
+   + availWidth
+ - 例子
+ #+BEGIN_SRC javascript
+ window.moveTo(0,0);
+window.resizeTo(screen.availWidth,screen.availHeight);
+#+END_SRC

@@ -1,0 +1,82 @@
+* dom简介
+** xml介绍
+*** 基于SGML语言发展而来
+*** 针对xml的API
+**** sax
+*****  优点
+ - 按文本方式解析,更清凉,快速
+***** 缺点
+ - 解析中无法停止,无法直接访问结构中特定部分
+**** dom
+ - 基于树实现
+
+**** 节点的层次
+ - 节点
+  + 定义了Node接口及节点类型来表示xml节点
+***** Document
+ - 最顶层的节点,所有节点的根节点
+***** DocumentType
+ - DTD引用
+***** DocumentFragment
+ - 可以和Document一样来保存其他节点
+***** Elemtn
+ - 标签之间的内容
+***** Attr
+ - 包含特性名和特性值的节点
+***** Text
+ - 标签之间的文本内容
+***** CDataSection
+ - cdata对象表现
+***** Entity
+ - DTD中的一个实体定义
+***** EntityReference
+ - 实体引用
+***** ProcessingInstruction
+ - 代表一个pi
+***** Comment
+ - xml注释
+***** Notation
+ - DTD定义的记号
+**** dom接口
+***** nodeName
+***** nodeValue
+***** NodeType
+***** ownerDocument
+ - 节点所属的文档
+***** firstChild
+***** lastChild
+***** previousSibling
+ - 指向前一个兄弟节点 
+***** nextSibling
+ - 后一个兄弟节点
+***** hasChildNodes()
+***** attribute
+ - 代表一个元素特性的对象
+***** appendChild(node)
+ - 末位添加node
+***** removeChild(node)
+***** replaceChild(newnode,oldnode)
+***** insertBefore(newnode,refnode)
+***** NodeList
+ - 节点数组
+***** NamedNodeMap
+ - 数值和名字进行索引的节点表
+
+*** 特定语言的DOM
+* 对DOM的支持
+* 使用dom
+** 节点的访问
+ 1. 例子
+#+BEGIN_SRC javaScript
+ var oHtml = document.documentElement;
+ var oHead = oHtml.firstChild;
+ var oBody = oHtml.lastChild;
+ // 或者
+ var oHead = oHtml.childNodes[0];
+ var oBody = oHtml.childNodes[1];
+//或者
+ var oHead = oHtml.childNodes.item(0);
+ var oBody = oHtml.childNodes.item(1);
+#+END_SRC
+** 检测节点类型
+ 1. Document.noteType
