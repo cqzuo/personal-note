@@ -80,3 +80,4 @@
 #+END_SRC
 ** 检测节点类型
  1. Document.noteType
+ 2. ie不支持节点类型常量,但可自定义
