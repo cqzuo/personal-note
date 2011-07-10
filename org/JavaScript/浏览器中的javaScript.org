@@ -95,7 +95,6 @@ clearInterval(sid);
 *** navigator 
  - 不同浏览器的实现方法不同    
 
-    
 *** screen
  - 可使用的宽度和高度
    + availHeight
