@@ -82,3 +82,42 @@
 ** 处理特性
  1.  Elemtnt节点的attributes属性就是NamedNodeMap
  2.  常用方法
+   - getNamedItem(name)
+    + 返回nodeName属性值等于name的节点
+   - removeNamedItem(name)
+    + 删除nodeName属性值等于name的节点
+   - setNamedItem(node)
+    + 将节点node添加到列表中
+   - item(pos)
+     + 返回pos位置的节点
+   - 例子
+ #+BEGIN_SRC javaScript
+  op = Document.getElementById("idName");
+ op.attrubutes.getNamedItem("name").nodeValue= "要设置的属性值";
+#+END_SRC
+3. 属性操作的常用方法
+ - getAttrubite(name);
+ - setAttribute(name,value);
+ - removeAttribute(name);
+** 访问指定节点
+*** getElementByTagName()
+ - 查询所有元素时,将参数设置为*
+*** getElementById() 
+*** getElementByName()
+** 创建和操作节点
+*** 创建节点
+ - 不同浏览器支持不同
+ - 常用方法
+  1. createDocumentFragMent()
+  2. createElement()
+  3. createTextNode()
+*** createElement/createTextNode/appendChild
+ - 例子
+ #+BEGIN_SRC javaScript
+ var oP = document.createElement("p");
+ var oText = document.createTextNode("hellow world!");
+oP.appendChild(oText);
+document.body.appendChild(oP);
+#+END_SRC
+
+*** removeChild()/eaplaceChild()/insertBefore()
