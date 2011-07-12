@@ -116,8 +116,42 @@
  #+BEGIN_SRC javaScript
  var oP = document.createElement("p");
  var oText = document.createTextNode("hellow world!");
-oP.appendChild(oText);
+zoP.appendChild(oText);
 document.body.appendChild(oP);
+var oQ = document.doby.getElementByTagName("p")[0];
+document.body.removeChild(oQ);
+#+END_SRC
+*** removeChild()/eaplaceChild()/insertBefore()
+ #+BEGIN_SRC javaScript
+ var oQ = document.doby.getElementByTagName("p")[0];
+document.body.removeChild(oQ);
+#+END_SRC
+*** createDocumentFragMent()
+ - 创建一个文档碎片,一次性添加多个节点到document
+ - 例子
+ #+BEGIN_SRC javaScript
+ var arrText = ["first","second","third"];
+ var oFragment = document.createDocumentFragMent();
+ for(var i=0;i<arrText.length;i++){
+  var oP = document.createElement("p");
+  var oText = document.createText(arrText[i]);
+  oP.appendChild(oText);
+  oFragment.appendChild(oP);
+ }
+  document.body.appendChild(oFragment);
 #+END_SRC
 
-*** removeChild()/eaplaceChild()/insertBefore()
+* dom特征功能
+** 特性与属性
+  - dom元素中包含的特效可作为属性
+  - 例子
+ #+BEGIN_SRC javaScript
+  <image src="test.jpg" border="0">
+  oImage.setAttribute("border","2");
+
+   oImage.src="test2.jpg";
+   oImage.border= "2";
+#+END_SRC
+  - 注意
+    + 如果属性是class,则对应的属性名称是className
+    + 尽可能第使用属性(ie兼容性差)
