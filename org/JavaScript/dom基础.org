@@ -155,3 +155,5 @@ document.body.removeChild(oQ);
   - 注意
     + 如果属性是class,则对应的属性名称是className
     + 尽可能第使用属性(ie兼容性差)
+
+** table方法
