@@ -155,5 +155,34 @@ document.body.removeChild(oQ);
   - 注意
     + 如果属性是class,则对应的属性名称是className
     + 尽可能第使用属性(ie兼容性差)
-
 ** table方法
+*** table元素
+   - 常用的特性
+     1. caption - <caption>
+     2. tBodies - <tbody>
+     3. tFoot - <tfoot>
+     4. tHead - <thead>
+     5. rows - 所有行集合
+   - 常见方法
+     1. createTHead() - 创建<thead>
+     2. createTFoot() - 创建<tfoot>
+     3. createCaption() - 创建<caption>
+     4. deleteTHead()
+     5. deleteTFoot()
+     6. deleteCaption()
+     7. deleteRow(position) - 删除指定行
+     8. insertRow(postion) - 指定位置添加行
+*** tbody元素
+ - 常用特性
+  1. rows
+ - 常用方法
+  1. deleteRow(position)
+  2. insertRow(position)
+***  tr元素
+  1. cells - 所有单元格的集合
+  2. deleteCell(position) - 删除指定单元格
+  3. insertCell(position) - 插入单元格
+- 例子
+#+BEGIN_SRC java javaScript
+ 
+#+END_SRC
