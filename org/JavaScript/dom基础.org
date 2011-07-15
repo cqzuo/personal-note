@@ -184,5 +184,19 @@ document.body.removeChild(oQ);
   3. insertCell(position) - 插入单元格
 - 例子
 #+BEGIN_SRC java javaScript
- 
+ window.onload = function (){
+	var oTable = document.createElement("table");
+	oTable.setAttribute("border","1");
+	oTable.setAttribute("width","95%");
+	
+	var oTbody = document.createElement("tbody");
+	oTable.appendChild(oTbody);
+	
+	oTbody.insertRow(0);
+	oTbody.rows[0].insertCell(0);
+	oTbody.rows[0].insertCell(1);
+	oTbody.rows[0].cells[0].appendChild(document.createTextNode("cell 1,1"));
+	oTbody.rows[0].cells[1].appendChild(document.createTextNode("cell 2,1"));
+	document.body.appendChild(oTable);
+}
 #+END_SRC
