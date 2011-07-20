@@ -109,6 +109,7 @@
  - 不同浏览器支持不同
  - 常用方法
   1. createDocumentFragMent()
+    + 创建一个文档碎片,封装多个节点一起提交
   2. createElement()
   3. createTextNode()
 *** createElement/createTextNode/appendChild
