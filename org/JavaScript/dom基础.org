@@ -64,6 +64,11 @@
 * 对DOM的支持
 * 使用dom
 ** 节点的访问
+*** 常用属性
+ - firstChild
+ - lastChild
+ - childNodes[i]
+ - item[i]
  1. 例子
 #+BEGIN_SRC javaScript
  var oHtml = document.documentElement;
@@ -141,7 +146,6 @@ document.body.removeChild(oQ);
  }
   document.body.appendChild(oFragment);
 #+END_SRC
-
 * dom特征功能
 ** 特性与属性
   - dom元素中包含的特效可作为属性
@@ -201,3 +205,11 @@ document.body.removeChild(oQ);
 	document.body.appendChild(oTable);
 }
 #+END_SRC
+*** dom的遍历
+ - NodeIterator
+  + 可对dom树进行深度优先的搜索
+  + 4个参数
+   1. root
+   2. whatToShow
+   3. filter
+   4. entityReferenceExpansion
