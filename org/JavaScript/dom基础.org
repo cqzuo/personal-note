@@ -206,10 +206,51 @@ document.body.removeChild(oQ);
 }
 #+END_SRC
 *** dom的遍历
- - NodeIterator
+**** NodeIterator
   + 可对dom树进行深度优先的搜索
   + 4个参数
    1. root
    2. whatToShow
    3. filter
    4. entityReferenceExpansion
+ - 例子
+#+BEGIN_SRC html
+  <body>
+     <div id="div1">
+       <p>hellow <b>world!</b></p>
+       <ul>
+         <li>List item1</li>
+         <li>List item2</li>
+         <li>List item3</li>
+       </ul>
+     </div>
+     <textarea rows="10" cols="40" id="text1"></textarea><br>
+     <input type="button" value="排序" onClick="makeList()">
+ </body>
+#+END_SRC
+#+BEGIN_SRC javaScript
+ function makeList(){
+	var oDiv = document.getElementById("div1");
+	iterator = document.createNodeIterator(oDiv,
+	NodeFilter.SHOW_ELEMENT,null,false);
+	
+	var oOutput = document.getElementById("text1");
+	var oNode = iterator.nextNode();
+	while(oNode){
+		oOutput.value +=oNode.innerHTML +"\n";
+		oNode = iterator.nextNode();
+		}
+	}
+#+END_SRC
+**** treeWalker
+ - 常用遍历方法
+  + parentNode()
+  + firstChild()
+  + lastChild()
+  + nextSibling()
+  + previousSibling()
+ - 可用来进行目的性更强的遍历
+ - 例子
+#+BEGIN_SRC javaScript
+ 
+#+END_SRC
