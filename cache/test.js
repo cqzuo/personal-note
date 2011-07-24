@@ -1,4 +1,5 @@
 function makeList(){
+	var walker = null;
 	var oDiv = document.getElementById("div1");
 	iterator = document.createNodeIterator(oDiv,
 	NodeFilter.SHOW_ELEMENT,null,false);
