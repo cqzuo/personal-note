@@ -1,0 +1,11 @@
+* 正则表达式支持
+ - 普通字符串
+  + 例子
+#+BEGIN_SRC javaScript
+ // 匹配第一个cat
+ var reCat = new RegExp("cat");
+ // 匹配所有的cat
+ var reCat1 = new RegExp("cat","g");
+ //不区分大小写
+ var reCat2 = new RegExp("cat","gi");
+#+END_SRC

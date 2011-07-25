@@ -252,5 +252,17 @@ document.body.removeChild(oQ);
  - 可用来进行目的性更强的遍历
  - 例子
 #+BEGIN_SRC javaScript
- 
+  function makeList(){
+	var oDiv = document.getElementById("div1");
+	walker = document.createTreeWalker(oDiv,
+	NodeFilter.SHOW_ELEMENT,null,false);
+	walker.firstChild();
+        walker.nextSibling();
+	var oOutput = document.getElementById("text1");
+	var oNode = walker.firstChild();
+	while(oNode){
+		oOutput.value +=oNode.innerHTML +"\n";
+		oNode = walker.nextNode();
+		}
+	}
 #+END_SRC
