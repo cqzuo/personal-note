@@ -1,16 +1,13 @@
-function makeList(){
-	var walker = null;
-	var oDiv = document.getElementById("div1");
-	iterator = document.createNodeIterator(oDiv,
-	NodeFilter.SHOW_ELEMENT,null,false);
+function a(){
+      var i=0;
+      function b(){
+        document.write("<br>");
+        document.write(++i);
+      }
+      return b;
+    }
+    var c = a();
 	
-	var oOutput = document.getElementById("text1");
-	var oNode = iterator.nextNode();
-	var sum = 0;
-	while(oNode){
-		oOutput.value +=oNode.innerHTML +"\n";
-		oNode = iterator.nextNode();
-		sum  +=1;
+	for(var j=0;j<100;j++){
+			c();
 		}
-	alert(sum);
-	}
