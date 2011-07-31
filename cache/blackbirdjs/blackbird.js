@@ -151,7 +151,6 @@
 			scrollToBottom();
 		}
 	}
-
 	function clickVis( evt ) {
 		if ( !evt ) evt = window.event;
 		var el = ( evt.target ) ? evt.target : evt.srcElement;

@@ -2,34 +2,34 @@
 <html>
  <head>
   <title> New Document </title>
-  <meta name="Generator" content="EditPlus">
-  <meta name="Author" content="">
-  <meta name="Keywords" content="">
-  <meta name="Description" content="">
   <link rel="stylesheet" type="text/css" href="blackbirdjs/blackbird.css"> 
   <script type="text/javascript" src="blackbirdjs/blackbird.js"></script> 
-  <script language="JavaScript" src="test.js"></script>
+  <script type="text/javascript" src="script/jquery.min.js"></script> 
+  <link title="green" media="screen" href="css/green.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript">
+  var sum = 0;
+	$(function(){
+		$("#clickme").click(function(){
+			log.profile("info");
+			$("#insert").before("<p>"+sum+++"插入!</p>");
+			log.profile("info");
+		});
+		
+	});
+ </script>
  </head>
  <body>
-	<div>
-       <input type="text" name="name1" value="你的姓名?">
-     	 <input type="text" name="name2" value="我的姓名?">
+	<div id="wrapper">
+		<h1>jQuery Playgound</h1>
+		<ul id="nav">
+			<li><a href="#">测试页面</a></li>
+			<li><a href="#">关于</a></li>
+		</ul>
+		<div id="content">
+			<h2>欢迎!</h2>
+			<p><input type="button" name="" value="点我" id="clickme"></p>
+			<p id="insert"></p>
+		</div>
 	</div>
-	<div>
-		<select>
-				<option vaule="0">混沌</option>
-				<option vaule="1">无</option>
-				<option vaule="2">有</option>
-	  	 </select>
-	 </div>
-	 <div>
-	 	 <textarea rows="10" cols="40" id="text1">测试1</textarea><br>
-	 </div>	 
-	  <div>
-	 	 <textarea rows="10" cols="40" id="text1">测试2</textarea><br>
-	 </div>
-	 <div>
-	 	<input type="button" value="排序" onClick="makeList()">
-	 </div>
  </body>
 </html>
