@@ -1,5 +1,5 @@
 * 正则表达式支持
- - 普通字符串
+**  普通字符串
   + 例子
 #+BEGIN_SRC javaScript
  // 匹配第一个cat
@@ -9,3 +9,12 @@
  //不区分大小写
  var reCat2 = new RegExp("cat","gi");
 #+END_SRC
+** 正则表达式的写法
+ -  对象 new RegExp(参数);
+   + perl写法 var reg = /第一个参数/第二个参数
+   + 例如
+   var rCat = /at/gi;
+** 使用
+*** match
+ - 返回匹配的
+*** test 

@@ -7,16 +7,10 @@
   <script type="text/javascript" src="script/jquery.min.js"></script> 
   <link title="green" media="screen" href="css/green.css" type="text/css" rel="stylesheet" />
   <script type="text/javascript">
-  var sum = 0;
-	$(function(){
-		$("#clickme").click(function(){
-			log.profile("info");
-			$("#insert").before("<p>"+sum+++"≤Â»Î!</p>");
-			log.profile("info");
-		});
-		
-	});
- </script>
+	var oString = "this is a cat , that is not a cat!";
+	var oTest = /at/;
+	log.debug(oTest.test(oString));
+  </script>
  </head>
  <body>
 	<div id="wrapper">
