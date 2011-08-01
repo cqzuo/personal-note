@@ -7,9 +7,15 @@
   <script type="text/javascript" src="script/jquery.min.js"></script> 
   <link title="green" media="screen" href="css/green.css" type="text/css" rel="stylesheet" />
   <script type="text/javascript">
-	var oString = "this is a cat , that is not a cat!";
-	var oTest = /at/;
-	log.debug(oTest.test(oString));
+  $(function(){
+	$("#clickme").click(function(){
+		var oString = "this is a cat , that is not a cat!";
+		var oTest = /at/;
+		log.debug(oTest.test(oString));
+		log.debug(oString.match(oTest));
+	});
+  });
+  
   </script>
  </head>
  <body>
