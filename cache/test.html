@@ -9,10 +9,14 @@
   <script type="text/javascript">
   $(function(){
 	$("#clickme").click(function(){
-		var oString = "this is a cat , that is not a cat!";
-		var oTest = /at/;
-		log.debug(oTest.test(oString));
-		log.debug(oString.match(oTest));
+		var oString = "a bat,a fat, a fAt bat,a bat fAt";
+		var oTest = /at/gi;
+		var oSplit = /\,/;
+		log.debug(oString.replace(oTest,"ea"));
+		var splits = oString.split(oSplit);
+		for(var i=0;i<splits.length;i++){
+			log.info(splits[i]);
+		}
 	});
   });
   
