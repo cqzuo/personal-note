@@ -24,5 +24,58 @@
   - 返回第一次匹配的位置
 ** 扩展的字符串方法
 *** 方法
- - replace
-  +替换
+ - replace()
+  + 用第二个参数替换第一个参数(允许/正则表达式/)
+ - split()
+  + 根据参数来拆分字符串,得到字符串数组
+
+* 普通模式
+** 元字符
+ - 正则表达式的一部分
+ - ( [ { \ ^ $ | ) ? * + .
+*** 使用
+ - 用\进行转义 
+
+** 特殊字符
+*** 使用
+ - 直接使用
+ - ascii码或uncode码
+*** 例子
+#+BEGIN_SRC javaScript
+ // 去掉字符串中的换行符
+  var sNewString = sStringWithNewLines.replace(/\n/g,"");
+#+END_SRC
+** 字符类
+*** 简单类
+ - [字符串] 
+  + 包含指定字符串中的某个字符 
+ - 例子
+#+BEGIN_SRC javaScript
+  var sToMatch = "a bat ,a Cat , a fat bat , a fat cat";
+  var reBatch = /[bcf]at/gi;
+ var arrMatches = sToMatch.match(reBatch);
+#+END_SRC
+*** 负向类
+ - [^字符串]
+  + 不包含指定字符串中的任意字符
+*** 范围类
+ - [字符1-字符2]
+  + 从字符1到字符2之间的字符
+*** 组合类
+ - 几种其他类组合而成
+ - [a-zm1-4]
+*** 预定义类
+ - 常用
+ . 任意字符或数字
+ d 数字
+ s 字符串
+ w 文本符
+ 大写表示负向
+*** 量词
+ - 常用
+ ? 最多一次
+ * 任意次
+ + 至少一次
+ {n} n次
+ {n,m} 至少n次,最多m次
+ {n,} 至少n次
