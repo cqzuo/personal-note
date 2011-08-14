@@ -1,0 +1,19 @@
+#a{
+	width:	100px;
+	height:	100px;
+	background-color: #EEEEEE;
+	border: 5px solid #111111;
+	margin: 5px;
+	padding: 10px;
+	float:left;
+	display: inline;
+}
+#b{
+	width:	100px;
+	height:	100px;
+	background-color: #999999;
+	margin: 5px;
+	float:left;
+	clear:left;
+	display: inline;
+}

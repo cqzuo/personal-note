@@ -1,0 +1,35 @@
+body{
+	margin: 0px auto;
+	width:	912px;
+}
+.left{
+	backbackground-color: #cccccc;
+	border: 2px solid #333333;
+	width: 300px;
+	height: 300px;
+	float:	left;
+}
+.center{
+	backbackground-color: #cccccc;
+	border: 2px solid #333333;
+	width: 300px;
+	height: 300px;
+	float:	left;
+}
+.right{
+	backbackground-color: #cccccc;
+	border: 2px solid #333333;
+	width: 300px;
+	height: 300px;
+	float:	left;
+}
+.a{
+	width:	100px;
+	height:	100px;
+	backbackground-color:#blue;
+}
+.b{
+	width:	100px;
+	height:	100px;
+	backbackground-color:#red;
+}
