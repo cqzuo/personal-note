@@ -2,24 +2,16 @@
 <html>
  <head>
   <title> New Document </title>
-  <link rel="stylesheet" type="text/css" href="blackbirdjs/blackbird.css"> 
-  <script type="text/javascript" src="blackbirdjs/blackbird.js"></script> 
   <script type="text/javascript" src="script/jquery.min.js"></script> 
-  <link title="green" media="screen" href="css/green.css" type="text/css" rel="stylesheet" />
+
   <script type="text/javascript">
-  $(function(){
-	$("#clickme").click(function(){
-		var oString = "a bat,a fat, a fAt bat,a bat fAt";
-		var oTest = /at/gi;
-		var oSplit = /\,/;
-		log.debug(oString.replace(oTest,"ea"));
-		var splits = oString.split(oSplit);
-		for(var i=0;i<splits.length;i++){
-			log.info(splits[i]);
-		}
-	});
-  });
-  
+  function addbefore() 
+	{ 
+		var newNode = document.createElement("p");//创建P标签 
+		newNode.innerHTML = "<font color='red'>前面添加的元素</font>";//书写P标签里面的内容 
+		var oldNode = document.getElementById("insert");//目标标签 
+		oldNode.parentNode.insertBefore(newNode,oldNode);//在目标标签前面添加元素
+	}
   </script>
  </head>
  <body>
@@ -31,7 +23,7 @@
 		</ul>
 		<div id="content">
 			<h2>欢迎!</h2>
-			<p><input type="button" name="" value="点我" id="clickme"></p>
+			<p><input type="button" name="" value="点我" id="addbefore" onclick="addbefore()"></p>
 			<p id="insert"></p>
 		</div>
 	</div>
