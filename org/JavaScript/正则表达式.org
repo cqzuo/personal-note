@@ -35,7 +35,6 @@
  - ( [ { \ ^ $ | ) ? * + .
 *** 使用
  - 用\进行转义 
-
 ** 特殊字符
 *** 使用
  - 直接使用
@@ -72,10 +71,34 @@
  w 文本符
  大写表示负向
 *** 量词
- - 常用
+ - 常用简单量词
  ? 最多一次
  * 任意次
  + 至少一次
  {n} n次
  {n,m} 至少n次,最多m次
  {n,} 至少n次
+- 复杂量词
+ + 贪婪
+ + 惰性 ?
+ + 支配 + 
+
+* 复杂模式
+** 分组
+ - 例子
+#+BEGIN_SRC javaScript
+  var reDogDog = /dogdog/gi;
+  // 分组写法
+ var regDogDog = /(dog){2}/gi;
+ var re = /[ba]et?/gi;
+ var reExtraSpace = /^\s/;
+#+END_SRC
+
+
+
+
+
+
+
+
+
