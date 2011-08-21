@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+ï»¿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
 <html>
  <head>
   <title> New Document </title>
@@ -12,18 +12,37 @@
 		var oldNode = document.getElementById("insert");//Ä¿±ê±êÇ© 
 		oldNode.parentNode.insertBefore(newNode,oldNode);//ÔÚÄ¿±ê±êÇ©Ç°ÃæÌí¼ÓÔªËØ
 	}
+  message = function(){
+	  var toMatch = "#1234567890";
+	  var reNumber = /#(\d+)/gi;
+	  reNumber.test(toMatch);
+	  alert(RegExp.$1);
+	  alert(RegExp.$2);
+	  alert(RegExp.$3);
+	  
+	  var reBadWords = /badword|annotherbadword/gi;
+	  var sUserInput = "This is a string using badword1 and badword2";
+	  var sFinalText = sUserInput.replace(reBadWords,"****");
+	  alert(sFinalText);
+  };
+ window.onload = message;
   </script>
  </head>
  <body>
 	<div id="wrapper">
 		<h1>jQuery Playgound</h1>
 		<ul id="nav">
-			<li><a href="#">²âÊÔÒ³Ãæ</a></li>
-			<li><a href="#">¹ØÓÚ</a></li>
+			<li><a href="#">æµ‹è¯•é¡µé¢</a></li>
+			<li><a href="#">å…³äº</a></li>
 		</ul>
 		<div id="content">
+<<<<<<< .mine
+			<h2>æ¬¢è¿!</h2>
+			<p><input type="button" name="" value="ç‚¹æˆ‘" id="clickme"></p>
+=======
 			<h2>»¶Ó­!</h2>
 			<p><input type="button" name="" value="µãÎÒ" id="addbefore" onclick="addbefore()"></p>
+>>>>>>> .r257
 			<p id="insert"></p>
 		</div>
 	</div>

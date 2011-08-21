@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html>
+ <head>
+  <title> New Document </title>
+  <link title="green" media="screen" href="css/style03.css" type="text/css" rel="stylesheet" />
+  <style type="text/css">
+  <!--
+	ul {
+		padding:	0;
+		margin:	0;
+		list-style:	none;
+	}
+	li{
+		float:	left;
+		width:	160px;
+	}
+	li ul{
+		display:	none;
+		top:	20px;
+	}
+	li:hover ul,li.over ul{
+		display:	block;
+		background:	#f4f4f4;
+	}
+	ul li a{
+		display:	block;
+		font-size:	12px;
+		border:	1px solid #ccc;
+		padding:	3px;
+		text-decoration:	none;
+		color:	#green;
+	}
+  -->
+  </style>
+  <script type="text/javascript">
+	  startList = function(){
+		  var navRoot = document.getElementById("nav");
+		  for(var i=0;i<navRoot.childNodes.length;i++){
+			  var node = navRoot.childNodes[i];
+			  if(node.nodeName=="li"){
+				  node.onmouseover = function(){
+					  this.className+=" over";
+				  }
+				  node.onmouseout = function(){
+					  this.className=this.className.replace(" over","");
+				  }
+			  }
+		  }
+	  }
+	window.onload = startList;
+  </script>
+ </head>
+ <body>
+  <ul id="nav">
+    <li>
+		<a href="">文章</a>
+		<ul>
+			<li><a href="#">CSS教程</a></li>
+			<li><a href="#">DOM教程</a></li>
+			<li><a href="#">XML教程</a></li>
+			<li><a href="#">SCALA教程</a></li>
+		</ul>
+	</li>
+	<li>
+		<a href="">参考</a>
+		<ul>
+			<li><a href="#">XHTML</a></li>
+			<li><a href="#">XML</a></li>
+			<li><a href="#">XML教程</a></li>
+			<li><a href="#">CSS</a></li>
+		</ul>
+	</li>
+	<li>
+		<a href="">Bolg</a>
+		<ul>
+			<li><a href="#">全部</a></li>
+			<li><a href="#">网页技术</a></li>
+			<li><a href="#">UI技术</a></li>
+			<li><a href="#">FLASH技术</a></li>
+		</ul>
+	</li>
+  </ul>
+ </body>
+</html>
