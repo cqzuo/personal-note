@@ -93,6 +93,17 @@
  var re = /[ba]et?/gi;
  var reExtraSpace = /^\s/;
 #+END_SRC
+** 反向引用
+*** 定义
+ 表达式计算完后保存在分组中的特殊值
+*** 例子
+#+BEGIN_SRC javaScript
+  /** 交换5678与1234的位置 **/
+  var sToChange = "1234 5678 1268";
+  var reMatch = /(\d{4})  (\d{4})/;
+  var sNew = sToChange.replace(reMatch,"$2 $1 ")
+  alert(sNew);
+#+END_SRC
 
 
 
@@ -101,4 +112,30 @@
 
 
 
-
+** 候选
+ - OR模式
+ - 例子
+#+BEGIN_SRC javaScript
+  var reBadWords = /badword|annotherbadword/gi;
+  var sUserInput = "This is a string using badword1 and badword2";
+  var sFinalText = sUserInput.replace(reBadWords,"****");
+  alert(sFinalText);
+#+END_SRC
+** 非捕获性分组
+*** 定义
+****  捕获性分组
+ 创建反向引用的分组
+**** 非捕获性分组
+***** 作用
+ - 无需存储结果
+ - 提升匹配速度
+***** 使用
+ 例子
+#+BEGIN_SRC javaScript
+String.prototype.stripHTML = function(){  
+   var reTag = /<(?:.|\s)*?\s>/g;
+    return this.replace(reTag,"");
+  }
+var sTest = "<b>This would be bold</b>";
+sTest.stripHTML();
+#+END_SRC
