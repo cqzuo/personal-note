@@ -104,14 +104,6 @@
   var sNew = sToChange.replace(reMatch,"$2 $1 ")
   alert(sNew);
 #+END_SRC
-
-
-
-
-
-
-
-
 ** 候选
  - OR模式
  - 例子
@@ -139,3 +131,70 @@ String.prototype.stripHTML = function(){
 var sTest = "<b>This would be bold</b>";
 sTest.stripHTML();
 #+END_SRC
+** 前瞻
+*** 定义
+ - 某个特定的字符分组出现在另一个字符之前才去捕获
+*** 使用
+ - (?=匹配的字符串)
+*** 负向前瞻
+ - 某个特定的字符分组不出现在另一个字符之前才去捕获
+例子
+#+BEGIN_SRC javaScript
+  var sToMatch1 = "bedroom";
+  var sToMatch2 = ""bedding';
+
+ var reBed = /(bed(?=rom))/;
+ alert(RegExp.$1);
+#+END_SRC
+** 边界
+***  行开头 ^
+*** 行结尾 $
+*** 单词边界 \b
+*** 非单词边界 \B
+*** 例子
+#+BEGIN_SRC javaScript
+  var sToMatch = "Important word is the last one.";
+  var lastWord = /^(\w+)/;
+  lastWord.test(sToMatch);
+  alert(RegExp.$1);
+#+END_SRC
+** 多行模式
+ - 在选项后添加m,
+ 例子
+#+BEGIN_SRC javaScript
+  var sToMatch = "First second \n fourth \nfifth sixth";
+  var reTag = /^(\w+)/gm;
+  var arrwords = sToMatch.match(reTag);
+#+END_SRC
+* RegExp对象
+** 属性
+*** global 
+ - 是否开全局
+*** ignoreCase
+ - 是否忽略大小写
+*** mutiline
+ - 是否设置多行
+*** lastIndex
+ - 下次匹配的位置
+ - 只有在exec()和test()才会有数值,否则为0
+** 静态属性
+*** input $_
+ - 最后匹配的字符串
+ - 总是等于测试的字符串
+*** lastMatch $&
+ - 最后匹配的字符
+*** lastParen $+
+ - 最后匹配的分组
+*** leftContext $'
+ - 上次匹配的前面的子串
+*** mutiline $*
+ - 指定是否所有的表达式使用多行模式
+*** rightContext $'
+ - 上次匹配之后的子串
+
+* 常用模式
+** 日期
+ /(?:0[1-9])/
+** 信用卡号
+** URL
+** E-MAIL地址
