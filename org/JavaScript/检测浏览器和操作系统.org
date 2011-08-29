@@ -1,0 +1,30 @@
+* navigator对象
+** 特点
+ - 客户端检测最重要的对象
+ - 最早实现的BOM对象
+ -  可提供浏览器信息(名称,版本号,平台)
+
+* 检测浏览器方式
+** 对象/特征检测法
+*** 方法
+ - 例子
+#+BEGIN_SRC javaScript
+  if(document.getElementById){
+   // the method exits, so ues it here
+ }else{
+  //do something else
+}
+#+END_SRC
+** user-agent字符串检测法
+ - 例子
+#+BEGIN_SRC javaScript
+  var sUserAgent = navigator.userAgent;
+#+END_SRC
+* 检测脚本
+** 方法学
+ - 例子
+#+BEGIN_SRC javaScript
+  is(isMiniIE5){
+  //coede
+}
+#+END_SRC
