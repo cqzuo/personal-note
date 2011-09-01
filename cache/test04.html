@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html>
+ <head>
+  <title> New Document </title>
+  <link rel="stylesheet" type="text/css" href="blackbirdjs/blackbird.css"> 
+  <script type="text/javascript" src="blackbirdjs/blackbird.js"></script> 
+  <script type="text/javascript" src="script/jquery.min.js"></script> 
+  <link title="green" media="screen" href="css/green.css" type="text/css" rel="stylesheet" />
+ </head>
+ <body>
+	<div id="wrapper">
+		<h1>jQuery Playgound</h1>
+		<ul id="nav">
+			<li><a href="#">测试页面</a></li>
+			<li><a href="#">关于</a></li>
+		</ul>
+		<div id="content">
+			<h2>欢迎!</h2>
+			<p><input type="button" name="" value="点我" id="clickme"></p>
+			<p id="insert"></p>
+		</div>
+	</div>
+	<script type="text/javascript">
+	var cliEle = document.getElementById("clickme");
+	cliEle.attachEvent("onclick",test);
+	
+	function test(){
+		log.debug("刚才谁点我了!!");
+	}
+  </script>
+ </body>
+</html>

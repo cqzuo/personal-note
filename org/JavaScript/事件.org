@@ -12,3 +12,33 @@
 ** 捕获型事件
 *** 特点
  - firefox实现的方案与冒泡型相反
+** DOM事件流
+*** 特点
+ - DOM同时支持2种事件模型
+ - 文本节点也会触发事件(ie不会)
+* 事件处理函数
+** 概念
+ - 事件处理函数(事件监听函数)
+  + 响应某个事件而调用的函数 
+** 要点
+ - xhtml代码中,事件处理函数都必须小写
+ - 事件处理函数大小写任意
+** ie
+*** 特点
+ - 每个元素和window对象有两个方法
+  + attachEvent() -- 给事件绑定一个处理函数
+  + detachEvent() -- 给事件解除绑定的函数
+ - 例子 
+ #+BEGIN_SRC javaScript
+ var cliEle = document.getElementById("clickme");
+	cliEle.attachEvent("onclick",test);
+	
+	function test(){
+		log.debug("刚才谁点我了!!");
+	}
+#+END_SRC
+
+
+is
+
+ 
