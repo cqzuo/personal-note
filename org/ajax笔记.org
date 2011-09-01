@@ -15,7 +15,8 @@
 * 一个简单ajax例子
 ** web.xml中配置对应的servlet
  - servlet代码
-// 所有的serlvet都继承自HttpServlet
+#+BEGIN_SRC javaScript
+ // 所有的serlvet都继承自HttpServlet
 public class ClassicServer extends HttpServlet {
 //serlvet必须重写doGet和doPost方法
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -46,3 +47,13 @@ public class ClassicServer extends HttpServlet {
         doGet(request,response);
     }
 }
+#+END_SRC
+ - tips
+   * 设置session的编码类型
+     1) response.setContentType("text/html;charset=GB2312");
+   * 用指定类型获取字符串
+     1) String s = request.getParameter("name");
+     2) String newS = new String(s.getBytes("ISO8859-1"));
+   * 将信息输出到session中
+     1) PrintWriter out = response.getWriter();
+     2) out.println(要输出的信息);

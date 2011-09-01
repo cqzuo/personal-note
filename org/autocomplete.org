@@ -1,22 +1,38 @@
-* 服务器端代码
+* 服务器端处理流程
 ** 转码
-*** 使用URLDecoder.decode(object,"utf-8")进行转码
- - String word = URLDecoder.decode(对象名称.属性值,"UTF_8")
-** 查数据
-*** 调用service层查询数据
+ -  使用URLDecoder.decode(object,"utf-8")进行转码
+  1)  String word = URLDecoder.decode(对象名称.属性值,"UTF_8")
+** 获取数据
+ -  调用service层查询数据
 ** 存session
 *** 将service层传递来的数据保存到session中
 ** 转码
 *** 设置传回数据的编码
  - response.setCharacterEncoding("UTF_8);
 ** 输出
-*** 输出到某个页面
-*** 输出到流中
- - response.getWriter().write(字符串数据);
+ - 输出到流中
+  1) response.getWriter().write(字符串数据);
+ - 前台页面接收
+  1) 利用ajax的反馈方法,将session中的流获取后在页面展示
+  2) 示例
+ #+BEGIN_SRC javaScipt
+ function showloanTypeChildren(obj) {
+				ht.ajax(
+					function(value) { 
+                                                                          //此处的方法为反馈方法,可进行页面信息处理
+						var childloanType = ht.$('childloanType');
+						childloanType.innerHTML = value;
+					},
+                                                                         //ajax的提交
+					'${pageContext.request.contextPath }/control/consulation/ConsulationAction_findchildrenLoanType.action?projectView.loanTypeId='
+							+ obj.value + "&" + new Date());
+
+			}
+#+END_SRC
 * 中转页面
 ** 取值
 *** 从request中取得从action中传递来的数据
-*** 转型为List对象
+*** 转型为合适对象
 ** 遍历
 *** 使用StringBuffer对象将其转化为一个用特定字符分割的字符串
 *** 去掉最后一个多余字符
