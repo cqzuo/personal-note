@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>ajax笔记</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011-09-01 18:05:18 "/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">ajax笔记</h1>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Ajax技术概述与Intellij的安装 </a>
+<ul>
+<li><a href="#sec-1-1">1.1 Ajax技术概述 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 搭建web项目 </a>
+<ul>
+<li><a href="#sec-2-1">2.1 选择web application选项 </a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 一个简单ajax例子 </a>
+<ul>
+<li><a href="#sec-3-1">3.1 web.xml中配置对应的servlet </a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Ajax技术概述与Intellij的安装 </h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Ajax技术概述 </h3>
+<div class="outline-text-3" id="text-1-1">
+
+<ul>
+<li>特点
+<ul>
+<li>使用XHTML和CSS的表示技术
+</li>
+<li>使用DOM进行动态显示和交互
+</li>
+<li>使用XML和XSLT进行数据交换和处理
+</li>
+<li>使用XMLHttpRequest进行异步数据检索
+</li>
+<li>使用JavaScript融合上述技术
+</li>
+</ul>
+
+</li>
+<li>优点
+<ul>
+<li>改善表单验证
+</li>
+<li>无需刷新改变页面内容
+</li>
+<li>按需获取数据
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 搭建web项目 </h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 选择web application选项 </h3>
+<div class="outline-text-3" id="text-2-1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 一个简单ajax例子 </h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> web.xml中配置对应的servlet </h3>
+<div class="outline-text-3" id="text-3-1">
+
+<ul>
+<li>servlet代码
+</li>
+</ul>
+
+
+
+
+<pre class="src src-javaScript"> // &#25152;&#26377;&#30340;serlvet&#37117;&#32487;&#25215;&#33258;HttpServlet
+public class ClassicServer extends HttpServlet {
+//serlvet&#24517;&#39035;&#37325;&#20889;doGet&#21644;doPost&#26041;&#27861;
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        try{
+//&#35774;&#32622;session&#30340;&#32534;&#30721;&#31867;&#22411;
+            response.setContentType(<span style="color: #ffa07a;">"text/html;charset=GB2312"</span>);
+            PrintWriter out = response.getWriter();
+            String old = request.getParameter(<span style="color: #ffa07a;">"name"</span>);
+            if(old == null || old.length() == 0){
+                out.println(<span style="color: #ffa07a;">"&#29992;&#25143;&#21517;&#19981;&#33021;&#20026;&#31354;"</span>);
+            } else{
+//&#33719;&#21462;&#25351;&#23450;&#23383;&#31526;&#32534;&#30721;&#30340;&#26041;&#27861; new String(&#21407;&#26377;&#23383;&#31526;&#20018;.getBytes(<span style="color: #ffa07a;">"&#23383;&#31526;&#38598;&#31867;&#22411;"</span>))
+                String name = new String(old.getBytes(<span style="color: #ffa07a;">"ISO8859-1"</span>));
+                if(name.equals(<span style="color: #ffa07a;">"wangxingkui"</span>)){
+                    out.println(<span style="color: #ffa07a;">"&#29992;&#25143;&#21517;["</span> + name + <span style="color: #ffa07a;">"]&#24050;&#32463;&#23384;&#22312;&#65292;&#35831;&#20351;&#29992;&#20854;&#20182;&#29992;&#25143;&#21517;"</span>);
+                } else{
+                    out.println(<span style="color: #ffa07a;">"&#29992;&#25143;&#21517;["</span> + name + <span style="color: #ffa07a;">"]&#23578;&#26410;&#23384;&#22312;&#65292;&#21487;&#20197;&#20351;&#29992;&#35813;&#29992;&#25143;&#21517;&#27880;&#20876;"</span>);
+                }
+            }
+            out.println(<span style="color: #ffa07a;">"&lt;br/&gt;&lt;a href=\"index.html\"&gt;&#36820;&#22238;&#26657;&#39564;&#39029;&#38754;&lt;/a&gt;"</span>);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        doGet(request,response);
+    }
+}
+
+</pre>
+
+
+
+<ul>
+<li>tips
+<ul>
+<li>设置session的编码类型
+<ol>
+<li>response.setContentType("text/html;charset=GB2312");
+</li>
+</ol>
+
+</li>
+<li>用指定类型获取字符串
+<ol>
+<li>String s = request.getParameter("name");
+</li>
+<li>String newS = new String(s.getBytes("ISO8859-1"));
+</li>
+</ol>
+
+</li>
+<li>将信息输出到session中
+<ol>
+<li>PrintWriter out = response.getWriter();
+</li>
+<li>out.println(要输出的信息);
+</li>
+</ol>
+
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div id="postamble">
+<p class="date">Date: 2011-09-01 18:05:18 </p>
+<p class="author">Author: </p>
+<p class="creator">Org version 7.6 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+</div>
+</div>
+</body>
+</html>

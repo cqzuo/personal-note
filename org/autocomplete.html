@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>autocomplete</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011-09-01 18:15:22 "/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">autocomplete</h1>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 服务器端处理流程 </a>
+<ul>
+<li><a href="#sec-1-1">1.1 转码 </a></li>
+<li><a href="#sec-1-2">1.2 获取数据 </a></li>
+<li><a href="#sec-1-3">1.3 存session </a>
+<ul>
+<li><a href="#sec-1-3-1">1.3.1 将service层传递来的数据保存到session中 </a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4">1.4 转码 </a>
+<ul>
+<li><a href="#sec-1-4-1">1.4.1 设置传回数据的编码 </a></li>
+</ul>
+</li>
+<li><a href="#sec-1-5">1.5 输出 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 中转页面 </a>
+<ul>
+<li><a href="#sec-2-1">2.1 取值 </a>
+<ul>
+<li><a href="#sec-2-1-1">2.1.1 从request中取得从action中传递来的数据 </a></li>
+<li><a href="#sec-2-1-2">2.1.2 转型为合适对象 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2-2">2.2 遍历 </a>
+<ul>
+<li><a href="#sec-2-2-1">2.2.1 使用StringBuffer对象将其转化为一个用特定字符分割的字符串 </a></li>
+<li><a href="#sec-2-2-2">2.2.2 去掉最后一个多余字符 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2-3">2.3 输出 </a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 客户端代码 </a>
+<ul>
+<li><a href="#sec-3-1">3.1 设置提示框的样式 </a>
+<ul>
+<li><a href="#sec-3-1-1">3.1.1 位置 </a></li>
+<li><a href="#sec-3-1-2">3.1.2 宽度 </a></li>
+<li><a href="#sec-3-1-3">3.1.3 边界 </a></li>
+<li><a href="#sec-3-1-4">3.1.4 背景等 </a></li>
+<li><a href="#sec-3-1-5">3.1.5 隐藏提示框 </a></li>
+</ul>
+</li>
+<li><a href="#sec-3-2">3.2 输入框动作 </a>
+<ul>
+<li><a href="#sec-3-2-1">3.2.1 判断输入框的动作是否有效 </a></li>
+<li><a href="#sec-3-2-2">3.2.2 ajax提交关键字 </a></li>
+<li><a href="#sec-3-2-3">3.2.3 返回方法 </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 服务器端处理流程 </h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 转码 </h3>
+<div class="outline-text-3" id="text-1-1">
+
+<ul>
+<li>使用URLDecoder.decode(object,"utf-8")进行转码
+<ol>
+<li>String word = URLDecoder.decode(对象名称.属性值,"UTF<sub>8</sub>")
+</li>
+</ol>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 获取数据 </h3>
+<div class="outline-text-3" id="text-1-2">
+
+<ul>
+<li>调用service层查询数据
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> 存session </h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+</div>
+
+<div id="outline-container-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> 将service层传递来的数据保存到session中 </h4>
+<div class="outline-text-4" id="text-1-3-1">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> 转码 </h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+</div>
+
+<div id="outline-container-1-4-1" class="outline-4">
+<h4 id="sec-1-4-1"><span class="section-number-4">1.4.1</span> 设置传回数据的编码 </h4>
+<div class="outline-text-4" id="text-1-4-1">
+
+<ul>
+<li>response.setCharacterEncoding("UTF<sub>8</sub>);
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> 输出 </h3>
+<div class="outline-text-3" id="text-1-5">
+
+<ul>
+<li>输出到流中
+<ol>
+<li>response.getWriter().write(字符串数据);
+</li>
+</ol>
+
+</li>
+<li>前台页面接收
+<ol>
+<li>利用ajax的反馈方法,将session中的流获取后在页面展示
+</li>
+<li>示例
+</li>
+</ol>
+
+</li>
+</ul>
+
+
+
+
+<pre class="src src-javaScipt">function showloanTypeChildren(obj) {
+                               ht.ajax(
+                                       function(value) { 
+                                                                         //&#27492;&#22788;&#30340;&#26041;&#27861;&#20026;&#21453;&#39304;&#26041;&#27861;,&#21487;&#36827;&#34892;&#39029;&#38754;&#20449;&#24687;&#22788;&#29702;
+                                               var childloanType = ht.$('childloanType');
+                                               childloanType.innerHTML = value;
+                                       },
+                                                                        //ajax&#30340;&#25552;&#20132;
+                                       '${pageContext.request.contextPath }/control/consulation/ConsulationAction_findchildrenLoanType.action?projectView.loanTypeId='
+                                                       + obj.value + <span style="color: #ffa07a;">"&amp;"</span> + new Date());
+
+                       }
+
+</pre>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 中转页面 </h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 取值 </h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+</div>
+
+<div id="outline-container-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> 从request中取得从action中传递来的数据 </h4>
+<div class="outline-text-4" id="text-2-1-1">
+
+</div>
+
+</div>
+
+<div id="outline-container-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> 转型为合适对象 </h4>
+<div class="outline-text-4" id="text-2-1-2">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 遍历 </h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+</div>
+
+<div id="outline-container-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1"><span class="section-number-4">2.2.1</span> 使用StringBuffer对象将其转化为一个用特定字符分割的字符串 </h4>
+<div class="outline-text-4" id="text-2-2-1">
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2-2" class="outline-4">
+<h4 id="sec-2-2-2"><span class="section-number-4">2.2.2</span> 去掉最后一个多余字符 </h4>
+<div class="outline-text-4" id="text-2-2-2">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 输出 </h3>
+<div class="outline-text-3" id="text-2-3">
+
+<ul>
+<li>out.print(字符串)
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 客户端代码 </h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 设置提示框的样式 </h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+</div>
+
+<div id="outline-container-3-1-1" class="outline-4">
+<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> 位置 </h4>
+<div class="outline-text-4" id="text-3-1-1">
+
+<ul>
+<li id="sec-3-1-1-1">获取输入框的offset <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-1-2">提示框的left值同offst <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-1-3">提示框的top在offset上加25 <br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-2" class="outline-4">
+<h4 id="sec-3-1-2"><span class="section-number-4">3.1.2</span> 宽度 </h4>
+<div class="outline-text-4" id="text-3-1-2">
+
+<ul>
+<li id="sec-3-1-2-1">width:200px <br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-3" class="outline-4">
+<h4 id="sec-3-1-3"><span class="section-number-4">3.1.3</span> 边界 </h4>
+<div class="outline-text-4" id="text-3-1-3">
+
+<ul>
+<li id="sec-3-1-3-1">border 1px <br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-4" class="outline-4">
+<h4 id="sec-3-1-4"><span class="section-number-4">3.1.4</span> 背景等 </h4>
+<div class="outline-text-4" id="text-3-1-4">
+
+<ul>
+<li id="sec-3-1-4-1">position absolute <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-4-2">background &hellip; <br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-5" class="outline-4">
+<h4 id="sec-3-1-5"><span class="section-number-4">3.1.5</span> 隐藏提示框 </h4>
+<div class="outline-text-4" id="text-3-1-5">
+
+<ul>
+<li id="sec-3-1-5-1">hide() <br/>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 输入框动作 </h3>
+<div class="outline-text-3" id="text-3-2">
+
+
+</div>
+
+<div id="outline-container-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> 判断输入框的动作是否有效 </h4>
+<div class="outline-text-4" id="text-3-2-1">
+
+<ul>
+<li id="sec-3-2-1-1">获取键盘动作事件 <br/>
+<ul>
+<li>var myEvent = event||window.event;
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-3-2-1-2">驱动键盘动作代码 <br/>
+<ul>
+<li>var keyCode = myEvent.keyCode;
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-3-2-1-3">在指定的动作代码下进行ajax提交 <br/>
+<ul>
+<li>keyCode&gt;=65 &amp;&amp; keyCode&lt;=90 &amp;&amp; keyCode==8 &amp;&amp; keyCode==48 &amp;&amp; keyCode==13
+</li>
+<li>65-90标识为字母字符
+</li>
+<li>8 标识BackSpace
+</li>
+<li>48 标识 braceright 
+</li>
+<li>13 标识 Enter
+</li>
+</ul>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-2-2" class="outline-4">
+<h4 id="sec-3-2-2"><span class="section-number-4">3.2.2</span> ajax提交关键字 </h4>
+<div class="outline-text-4" id="text-3-2-2">
+
+<ul>
+<li><br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-2-3" class="outline-4">
+<h4 id="sec-3-2-3"><span class="section-number-4">3.2.3</span> 返回方法 </h4>
+<div class="outline-text-4" id="text-3-2-3">
+
+</div>
+</div>
+</div>
+</div>
+<div id="postamble">
+<p class="date">Date: 2011-09-01 18:15:22 </p>
+<p class="author">Author: </p>
+<p class="creator">Org version 7.6 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+</div>
+</div>
+</body>
+</html>
