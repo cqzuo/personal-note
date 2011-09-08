@@ -1,4 +1,4 @@
-* 今天的事件
+* 事件简介
 ** 特点
  - 事件是DOM的一部分
  - 时间在DOM Level3中规定
@@ -32,13 +32,41 @@
  #+BEGIN_SRC javaScript
  var cliEle = document.getElementById("clickme");
 	cliEle.attachEvent("onclick",test);
-	
+	att
 	function test(){
 		log.debug("刚才谁点我了!!");
 	}
 #+END_SRC
-
-
-is
-
- 
+** dom
+*** 特点
+ - 事件分配或移除
+  * addEventListener()
+  * removeEventListener()
+ - 参数
+  * 事件名称
+  * 要分配的函数
+  * 处理函数阶段(false冒泡/true捕获)
+ - 可附加多个事件处理函数
+ - 处理函数的阶段必须匹配,否则无效
+ - 与传统直接赋值的区别
+  * 功能相同
+  * 后续对事件的处理函数清除前面的赋值
+*** 例子
+ #+BEGIN_SRC javaScript
+  var fnclick = function(){
+    alert("I'm clicked!");
+  }
+  var oDiv = document.getElementById("div1");
+  oDiv.addEventListener("click",fnclick,false);
+  //do some other stuff hrere
+  oDiv.removeEventListener("click",fnclick,false);
+  //hander
+#+END_SRC 
+* 事件对象
+** 包含内容
+ - 引起事件的对象
+ - 事件发生时鼠标的信息
+ - 事件发生时键盘的信息
+** 定位
+ - 
+** 属性/方法
