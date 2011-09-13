@@ -24,32 +24,8 @@
 (require 'htmlize)
 (load-file "C:/Emacs/site-lisp/color-theme.elc")
 (color-theme-gnome2)
-(load-file "C:/Emacs/site-lisp/alpha-window.el")
-(global-set-key [(f11)] 'loop-alpha)
-
-
-(dolist (hook (list
-               'c-mode-hook
-               'emacs-lisp-mode-hook
-               'lisp-interaction-mode-hook
-               'lisp-mode-hook
-               'emms-playlist-mode-hook
-               'java-mode-hook
-               'asm-mode-hook
-               'haskell-mode-hook
-               'rcirc-mode-hook
-               'emms-lyrics-mode-hook
-               'erc-mode-hook
-               'sh-mode-hook
-               'makefile-gmake-mode-hook
-			   'lua-mode-hook
-			   'python-mode-hook
-			   'cmake-mode-hook
-			   'php-mode-hook
-               ))
-  (add-hook hook (lambda () (linum-mode 1))))
-
-(provide 'init-linum)
+(load-file "C:/Emacs/site-lisp/psvn.el")
+(require 'psvn)
 ;; iimage mode
 (autoload 'iimage-mode "iimage" "Support Inline image minor mode." t)
 (autoload 'turn-on-iimage-mode "iimage" "Turn on Inline image minor mode." t)
@@ -66,17 +42,15 @@
  (load-file "C:/Emacs/site-lisp/js2-mode.el")
 (load-file "C:/Emacs/site-lisp/tabbar.elc")
 (require 'tabbar)
-(load-file "C:/Emacs/site-lisp/my-word-complete.el")
-(require 'my-word-complete)
 (tabbar-mode)
 
-(add-to-list 'load-path "C:/Emacs/site-lisp/auto-complete-1.3/")
+(load-file "C:/Emacs/site-lisp/alpha-window.el")
+(global-set-key [(f11)] 'loop-alpha)
+
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "C:/Emacs/site-lisp/auto-complete-1.3/dict")
+(add-to-list 'ac-dictionary-directories "c:/Emacs/site-lisp/ac-dict")
 (ac-config-default)
 
-(define-key ac-complete-mode-map "/C-n" 'ac-next)
-(define-key ac-complete-mode-map "/C-p" 'ac-previous)
 ;;;;自动补齐策略
 
 (defun my-indent-or-complete ()
@@ -108,7 +82,7 @@
 )
 
 ;; Dot
- (load-file "C:/Emacs/site-lisp/graphviz-dot-mode.el")
+(load-file "C:/Emacs/site-lisp/graphviz-dot-mode.el")
 (autoload 'graphviz-dot-mode "graphviz-dot-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.dot$" . graphviz-dot-mode))
 
@@ -117,7 +91,30 @@
 (global-set-key [(f5)] 'speedbar)
 (global-set-key [f4] 'kill-this-buffer);f4关闭当前buffer所显示的文件
 
- 
+(setq org-ditaa-jar-path "C:/Emacs/site-lisp/java/ditaa0_9.jar")
+ (setq org-plantuml-jar-path "C:/Emacs/site-lisp/java/plantuml.jar")
+
+ (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+
+ (setq org-babel-load-languages (quote ((emacs-lisp . t)
+                                        (dot . t)
+                                        (ditaa . t)
+                                        (R . t)
+                                        (python . t)
+                                        (ruby . t)
+                                        (gnuplot . t)
+                                        (clojure . t)
+                                        (sh . t)
+                                        (ledger . t)
+                                        (org . t)
+                                        (plantuml . t)
+                                        (latex . t))))
+
+; Do not prompt to confirm evaluation
+; This may be dangerous - make sure you understand the consequences
+; of setting this -- see the docstring for details
+(setq org-confirm-babel-evaluate nil)
+
  ;; 给org生成html添加css
  (defcustom org-export-html-style"<link rel=\"stylesheet\" type=\"text/css\" href=\"org.css\">" ""
 	:group 'org-export-html
@@ -139,7 +136,52 @@
 (autoload #'espresso-mode "espresso" "Start espresso-mode" t)
 (add-to-list 'auto-mode-alist '("\\.js$" . espresso-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))
-			
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Gnus
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Googlize Me
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(set-fontset-font (frame-parameter nil 'font)
+              'unicode '("AR PL KaitiM GB" . "unicode-bmp")) ;To use this font, aptitude isnatll ttf-arphic-gkai00mp
+
+ ;;;;;;;;;;;;;;;;;;;;
+ ;;   服务器的设定
+ ;;;;;;;;;;;;;;;;;;;;
+(setq gnus-select-method '(nntp "news.newsfan.net"))  ;;新帆
+(gnus-agentize)     ;;开启代理功能,为了能让gnus支持离线浏览,gnus 5.10.x会自动开启该功能。
+
+(setq user-full-name "emacsers")
+(setq user-mail-address "emacsers@gmail.com")
+
+;; SMTP
+(setq message-send-mail-function 'smtpmail-send-it)
+(setq smtpmail-default-smtp-server "smtp.gmail.com")
+(setq smtpmail-smtp-service 587)
+(setq smtpmail-starttls-credentials
+'(("smtp.gmail.com"
+587
+nil
+nil)))
+(setq smtpmail-auth-credentials
+'(("smtp.gmail.com"
+587
+"emacsers@gmail.com"
+nil)))
+;; IMAP - To use Gmail's IMAP access: Sign in to your account, Settings --> Forwarding and POP/IMAP --> Enable IMAP
+(setq gnus-select-methods
+      '((nnimap "imap.gmail.com"
+                (nnimap-address "imap.gmail.com")
+                (nnimap-server-port 993)
+                (nnimap-stream ssl))))
+(setq nnimap-split-inbox '("INBOX"))
+(setq nnimap-split-rule 'nnmail-split-fancy)
+(setq gnus-parameters
+      '(("nnimap+imap.gmail.com.*" (gcc-self . t))))
+(setq gnus-fetch-old-headers t)
+
+;; End of dotemacs.
+
 ;;;fonts
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
