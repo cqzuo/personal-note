@@ -61,12 +61,58 @@
   //do some other stuff hrere
   oDiv.removeEventListener("click",fnclick,false);
   //hander
-#+END_SRC 
+ #+END_SRC 
 * 事件对象
 ** 包含内容
  - 引起事件的对象
  - 事件发生时鼠标的信息
  - 事件发生时键盘的信息
 ** 定位
- - 
+*** 特点
+ - 在ie中事件对象是window对象的一个属性event
+ - 在dom中event对象作为唯一的参数传递给事件处理函数
 ** 属性/方法
+** 相似性
+*** 获取事件类型
+*** 获取按键代码
+*** 检测shift alt ctrl
+*** 获取客户端坐标
+*** 获取屏幕坐标
+ - 例子
+#+BEGIN_SRC javaScript
+  var sType = oEvent.type;
+  var iKeyCode = oEvent.keyCode;
+  var bShift  = oEvent.shiftKey;
+  var bAlt = oEvent.altKey;
+  var bCtrl = oEvent.ctrlKey;
+  var iClientX = oEvent.clientX;
+  var iClientY = oEvent.clientY;
+  var iScreenX = oEvent.screenX;
+  var iScreenY = oEvent.screenY;
+#+END_SRC
+** 区别
+*** 获取目标
+ - ie使用srcElement获取目标元素
+ - DOM使用target属性
+ - 例子
+#+BEGIN_SRC javaScript
+  //ie
+ var oTarget = oEvent.srcElement;
+ //dom
+ var oTarget = oEvent.target;
+#+END_SRC
+*** 获取字符代码
+**** COMMENT 特点
+ - ie返回字符的unicode值
+ - dom返回按键的数值代码
+ - 例子
+#+BEGIN_SRC javaScripts
+# ie浏览器下
+   var iCharCode = oEvent.keyCode;
+# dom下
+  var iCharCode = oEvent.charCode;
+#+END_SRC
+
+
+
+     
