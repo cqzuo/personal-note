@@ -112,7 +112,35 @@
 # dom下
   var iCharCode = oEvent.charCode;
 #+END_SRC
+*** 阻止事件默认行为
+ - ie将returnValue值设置为false
+ - Mozilla调用preventDefault()
+ - 例子
+#+BEGIN_SRC javaScript
+  # ie
+  oEvent.returnValue=false;
+   # mozilla
+ oEvent.preventDefault();
+#+END_SRC
+*** 停止事件复制(冒泡)
+- ie将cancelBubble值设置为true
+- dom中调用stopPropagation()
+- 例子
+#+BEGIN_SRC javaScript
+  function handelClick(oEvent){
+  alert("input");
+ if(isIE){
+    oEvent.cancelBubble = true;
+  }else{
+   oEvent.stopPropagation();
+  }
+ }
+#+END_SRC
 
+* 事件的类型
+** 鼠标事件
+*** 列表
 
-
-     
+** 键盘事件
+** HTML事件
+** 突变事件
