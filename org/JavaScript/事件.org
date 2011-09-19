@@ -140,7 +140,55 @@
 * 事件的类型
 ** 鼠标事件
 *** 列表
-
+| 动作名称  | 意义                     |
+|-----------+--------------------------|
+| click     | 左键点击                 |
+| dblclick  | 鼠标双击                 |
+| mousedown | 点击任意一个鼠标按钮     |
+| mouseover | 鼠标移出某个元素,到另一个元素上时发生|
+| mouseup   | 鼠标松开任意按钮         |
+| mousemove | 鼠标在某个元素上持续发生 |
+| mouseout  | 鼠标移出某个元素边缘 |
+*** 属性
+ - 坐标属性
+  + clientX/clientY
+ - type属性
+ - target/srcElement
+ - shiftKey ctrlKey altKey metaKey
+ - button属性
+*** 顺序
+ - mousedown----> mouseup -----> click -----> mousedown -----> mouseup -----> click -----> dblclick
 ** 键盘事件
+*** 类别
+| 动作名称 | 意义         |
+|----------+--------------|
+| keydown  | 按下键盘按键 |
+| keypress | 按下按键     |
+| keyup    | 放开按键         |
+*** 属性
+ - keyCode
+ - charCode
+ - target/srcElement
+ - shiftKey ctrlKey altKey metaKey
+*** 顺序
+ - 字符按键
+  + keydown -----> keypress -----> keyup
+ - 非字符按键
+  + keydown ----->keyup  
 ** HTML事件
+*** 类别
+| 事件名称 | 事件意义                           |
+|----------+------------------------------------|
+| load     | 页面载入后执行                     |
+| unload   | 页面完全卸载后执行                 |
+| abort    | 页面停止下载过程时                 |
+| error    | js脚本出错时                       |
+| select   | 文本框的字符被触发                 |
+| change   | 文本框失去或获取叫他内容改变时触发 |
+| submit   | 按钮提交form                       |
+| reset    | 重置按钮                           |
+| resize   | 窗口或框架更改大小                 |
+| focus    | 获取焦点                           |
+| blur     | 元素或窗口失去焦点                          |
+
 ** 突变事件
