@@ -4,7 +4,75 @@
 ** 特点
  - 非常慢
  - 最简单
+** 思路
+ - 把最小的数据放在最左边 
+** 例子
+#+BEGIN_SRC java
+   private long[] a;                 // ref to array a
+   private int nElems; 
+
+    public void bubbleSort()
+      {
+      int out, in;
+
+      for(out=nElems-1; out>1; out--)   // outer loop (backward)
+         for(in=0; in<out; in++)        // inner loop (forward)
+            if( a[in] > a[in+1] )       // out of order?
+               swap(in, in+1);          // swap them
+      }
+
+  private void swap(int one, int two)
+      {
+      long temp = a[one];
+      a[one] = a[two];
+      a[two] = temp;
+      }
+#+END_SRC
+** 效率
+ - n^2
 * 选择排序
+** 特点
+ - 交换次数 n
+ - 比较次数 n^2
+** 例子
+#+BEGIN_SRC java
+  public void selectionSort()
+      {
+      int out, in, min;
+
+      for(out=0; out<nElems-1; out++)   // outer loop
+         {
+         min = out;                     // minimum
+         for(in=out+1; in<nElems; in++) // inner loop
+            if(a[in] < a[min] )         // if min greater,
+                min = in;               // we have a new min
+         swap(out, min);                // swap them
+         }  // end for(out)
+      }
+#+END_SRC
 * 插入排序
+** 特点
+ - 比冒泡排序快一倍
+ - 比选择排序块
+ - 更麻烦
+** 例子
+ #+BEGIN_SRC java
+   public void insertionSort()
+      {
+      int in, out;
+
+      for(out=1; out<nElems; out++)     // out is dividing line
+         {
+         long temp = a[out];            // remove marked item
+         in = out;                      // start shifts at out
+         while(in>0 && a[in-1] >= temp) // until one is smaller,
+            {
+            a[in] = a[in-1];            // shift item to right
+            --in;                       // go left one position
+            }
+         a[in] = temp;                  // insert marked item
+         }  // end for
+      }
+#+END_SRC
 * 对象排序
 * 简单排序比较
