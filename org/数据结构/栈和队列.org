@@ -1,0 +1,136 @@
+* 不同的结构类型
+** 工具
+ - 数组用来作为构思算法的辅助工具
+** 受限访问
+ - 特定时刻只允许一个数据项被操作
+** 更加抽象
+ - 通过接口对数据结构进行定义
+* 栈
+** 特点
+ - 只允许一个数据被操作
+** 例子
+#+BEGIN_SRC java
+ class StackX
+   {
+   private int maxSize;        // size of stack array
+   private long[] stackArray;
+   private int top;            // top of stack
+//--------------------------------------------------------------
+   public StackX(int s)         // constructor
+      {
+      maxSize = s;             // set array size
+      stackArray = new long[maxSize];  // create array
+      top = -1;                // no items yet
+      }
+//--------------------------------------------------------------
+   public void push(long j)    // put item on top of stack
+      {
+      stackArray[++top] = j;     // increment top, insert item
+      }
+//--------------------------------------------------------------
+   public long pop()           // take item from top of stack
+      {
+      return stackArray[top--];  // access item, decrement top
+      }
+//--------------------------------------------------------------
+   public long peek()          // peek at top of stack
+      {
+      return stackArray[top];
+      }
+//--------------------------------------------------------------
+   public boolean isEmpty()    // true if stack is empty
+      {
+      return (top == -1);
+      }
+//--------------------------------------------------------------
+   public boolean isFull()     // true if stack is full
+      {
+      return (top == maxSize-1);
+      }
+//--------------------------------------------------------------
+   }
+#+END_SRC
+ - 单词逆序
+#+BEGIN_SRC java
+ class Reverser
+   {
+   private String input;                // input string
+   private String output;               // output string
+//--------------------------------------------------------------
+   public Reverser(String in)           // constructor
+      { input = in; }
+//--------------------------------------------------------------
+   public String doRev()                // reverse the string
+      {
+      int stackSize = input.length();   // get max stack size
+      StackX theStack = new StackX(stackSize);  // make stack
+
+      for(int j=0; j<input.length(); j++)
+         {
+         char ch = input.charAt(j);     // get a char from input
+         theStack.push(ch);             // push it
+         }
+      output = "";
+      while( !theStack.isEmpty() )
+         {
+         char ch = theStack.pop();      // pop a char,
+         output = output + ch;          // append to output
+         }
+      return output;
+      }  // end doRev()
+//--------------------------------------------------------------
+   }  // end class Reverser
+#+END_SRC
+ - 分隔符匹配
+#+BEGIN_SRC java
+ class BracketChecker
+   {
+   private String input;                   // input string
+//--------------------------------------------------------------
+   public BracketChecker(String in)        // constructor
+      { input = in; }
+//--------------------------------------------------------------
+   public void check()
+      {
+      int stackSize = input.length();      // get max stack size
+      StackX theStack = new StackX(stackSize);  // make stack
+
+      for(int j=0; j<input.length(); j++)  // get chars in turn
+         {
+         char ch = input.charAt(j);        // get char
+         switch(ch)
+            {
+            case '{':                      // opening symbols
+            case '[':
+            case '(':
+               theStack.push(ch);          // push them
+               break;
+
+            case '}':                      // closing symbols
+            case ']':
+            case ')':
+               if( !theStack.isEmpty() )   // if stack not empty,
+                  {
+                  char chx = theStack.pop();  // pop and check
+                  if( (ch=='}' && chx!='{') ||
+                      (ch==']' && chx!='[') ||
+                      (ch==')' && chx!='(') )
+                     System.out.println("Error: "+ch+" at "+j);
+                  }
+               else                        // prematurely empty
+                  System.out.println("Error: "+ch+" at "+j);
+               break;
+            default:    // no action on other characters
+               break;
+            }  // end switch
+         }  // end for
+      // at this point, all characters have been processed
+      if( !theStack.isEmpty() )
+         System.out.println("Error: missing right delimiter");
+      }  // end check()
+//--------------------------------------------------------------
+   }  
+#+END_SRC
+* 队列
+* 优先级队列
+* 解析算数表达式

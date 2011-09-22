@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>栈和队列</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011-09-23 00:25:43 "/>
+<meta name="author" content="emacsers"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">栈和队列</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 不同的结构类型 </a>
+<ul>
+<li><a href="#sec-1-1">1.1 工具 </a></li>
+<li><a href="#sec-1-2">1.2 受限访问 </a></li>
+<li><a href="#sec-1-3">1.3 更加抽象 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 栈 </a>
+<ul>
+<li><a href="#sec-2-1">2.1 特点 </a></li>
+<li><a href="#sec-2-2">2.2 例子 </a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 队列 </a></li>
+<li><a href="#sec-4">4 优先级队列 </a></li>
+<li><a href="#sec-5">5 解析算数表达式 </a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 不同的结构类型 </h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 工具 </h3>
+<div class="outline-text-3" id="text-1-1">
+
+<ul>
+<li>数组用来作为构思算法的辅助工具
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 受限访问 </h3>
+<div class="outline-text-3" id="text-1-2">
+
+<ul>
+<li>特定时刻只允许一个数据项被操作
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> 更加抽象 </h3>
+<div class="outline-text-3" id="text-1-3">
+
+<ul>
+<li>通过接口对数据结构进行定义
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 栈 </h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 特点 </h3>
+<div class="outline-text-3" id="text-2-1">
+
+<ul>
+<li>只允许一个数据被操作
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 例子 </h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+
+
+<pre class="src src-java"> <span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">StackX</span>
+   {
+   <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">maxSize</span>;        <span style="color: #add8e6;">// </span><span style="color: #add8e6;">size of stack array</span>
+   <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">long</span>[] <span style="color: #7fffd4; font-weight: bold;">stackArray</span>;
+   <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">top</span>;            <span style="color: #add8e6;">// </span><span style="color: #add8e6;">top of stack</span>
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> StackX(<span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">s</span>)         <span style="color: #add8e6;">// </span><span style="color: #add8e6;">constructor</span>
+      {
+      maxSize = s;             <span style="color: #add8e6;">// </span><span style="color: #add8e6;">set array size</span>
+      stackArray = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">long</span>[maxSize];  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">create array</span>
+      top = -1;                <span style="color: #add8e6;">// </span><span style="color: #add8e6;">no items yet</span>
+      }
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">void</span> <span style="color: #7fffd4; font-weight: bold;">push</span>(<span style="color: #9acd32; font-weight: bold;">long</span> <span style="color: #7fffd4; font-weight: bold;">j</span>)    <span style="color: #add8e6;">// </span><span style="color: #add8e6;">put item on top of stack</span>
+      {
+      stackArray[++top] = j;     <span style="color: #add8e6;">// </span><span style="color: #add8e6;">increment top, insert item</span>
+      }
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">long</span> <span style="color: #7fffd4; font-weight: bold;">pop</span>()           <span style="color: #add8e6;">// </span><span style="color: #add8e6;">take item from top of stack</span>
+      {
+      <span style="color: #fa8072;">return</span> stackArray[top--];  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">access item, decrement top</span>
+      }
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">long</span> <span style="color: #7fffd4; font-weight: bold;">peek</span>()          <span style="color: #add8e6;">// </span><span style="color: #add8e6;">peek at top of stack</span>
+      {
+      <span style="color: #fa8072;">return</span> stackArray[top];
+      }
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">boolean</span> <span style="color: #7fffd4; font-weight: bold;">isEmpty</span>()    <span style="color: #add8e6;">// </span><span style="color: #add8e6;">true if stack is empty</span>
+      {
+      <span style="color: #fa8072;">return</span> (top == -1);
+      }
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">boolean</span> <span style="color: #7fffd4; font-weight: bold;">isFull</span>()     <span style="color: #add8e6;">// </span><span style="color: #add8e6;">true if stack is full</span>
+      {
+      <span style="color: #fa8072;">return</span> (top == maxSize-1);
+      }
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   }
+</pre>
+
+
+
+<ul>
+<li>单词逆序
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java"> <span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">Reverser</span>
+   {
+   <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">input</span>;                <span style="color: #add8e6;">// </span><span style="color: #add8e6;">input string</span>
+   <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">output</span>;               <span style="color: #add8e6;">// </span><span style="color: #add8e6;">output string</span>
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> Reverser(<span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">in</span>)           <span style="color: #add8e6;">// </span><span style="color: #add8e6;">constructor</span>
+      { input = in; }
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">doRev</span>()                <span style="color: #add8e6;">// </span><span style="color: #add8e6;">reverse the string</span>
+      {
+      <span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">stackSize</span> = input.length();   <span style="color: #add8e6;">// </span><span style="color: #add8e6;">get max stack size</span>
+      <span style="color: #9acd32; font-weight: bold;">StackX</span> <span style="color: #7fffd4; font-weight: bold;">theStack</span> = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">StackX</span>(stackSize);  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">make stack</span>
+
+      <span style="color: #fa8072;">for</span>(<span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">j</span>=0; j&lt;input.length(); j++)
+         {
+         <span style="color: #9acd32; font-weight: bold;">char</span> <span style="color: #7fffd4; font-weight: bold;">ch</span> = input.charAt(j);     <span style="color: #add8e6;">// </span><span style="color: #add8e6;">get a char from input</span>
+         theStack.push(ch);             <span style="color: #add8e6;">// </span><span style="color: #add8e6;">push it</span>
+         }
+      output = <span style="color: #ffa07a;">""</span>;
+      <span style="color: #fa8072;">while</span>( !theStack.isEmpty() )
+         {
+         <span style="color: #9acd32; font-weight: bold;">char</span> <span style="color: #7fffd4; font-weight: bold;">ch</span> = theStack.pop();      <span style="color: #add8e6;">// </span><span style="color: #add8e6;">pop a char,</span>
+         output = output + ch;          <span style="color: #add8e6;">// </span><span style="color: #add8e6;">append to output</span>
+         }
+      <span style="color: #fa8072;">return</span> output;
+      }  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">end doRev()</span>
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   }  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">end class Reverser</span>
+</pre>
+
+
+
+<ul>
+<li>分隔符匹配
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java"> <span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">BracketChecker</span>
+   {
+   <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">input</span>;                   <span style="color: #add8e6;">// </span><span style="color: #add8e6;">input string</span>
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> BracketChecker(<span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">in</span>)        <span style="color: #add8e6;">// </span><span style="color: #add8e6;">constructor</span>
+      { input = in; }
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">void</span> <span style="color: #7fffd4; font-weight: bold;">check</span>()
+      {
+      <span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">stackSize</span> = input.length();      <span style="color: #add8e6;">// </span><span style="color: #add8e6;">get max stack size</span>
+      <span style="color: #9acd32; font-weight: bold;">StackX</span> <span style="color: #7fffd4; font-weight: bold;">theStack</span> = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">StackX</span>(stackSize);  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">make stack</span>
+
+      <span style="color: #fa8072;">for</span>(<span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">j</span>=0; j&lt;input.length(); j++)  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">get chars in turn</span>
+         {
+         <span style="color: #9acd32; font-weight: bold;">char</span> <span style="color: #7fffd4; font-weight: bold;">ch</span> = input.charAt(j);        <span style="color: #add8e6;">// </span><span style="color: #add8e6;">get char</span>
+         <span style="color: #fa8072;">switch</span>(ch)
+            {
+            <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">'{'</span>:                      <span style="color: #add8e6;">// </span><span style="color: #add8e6;">opening symbols</span>
+            <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">'['</span>:
+            <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">'('</span>:
+               theStack.push(ch);          <span style="color: #add8e6;">// </span><span style="color: #add8e6;">push them</span>
+               <span style="color: #fa8072;">break</span>;
+
+            <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">'}'</span>:                      <span style="color: #add8e6;">// </span><span style="color: #add8e6;">closing symbols</span>
+            <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">']'</span>:
+            <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">')'</span>:
+               <span style="color: #fa8072;">if</span>( !theStack.isEmpty() )   <span style="color: #add8e6;">// </span><span style="color: #add8e6;">if stack not empty,</span>
+                  {
+                  <span style="color: #9acd32; font-weight: bold;">char</span> <span style="color: #7fffd4; font-weight: bold;">chx</span> = theStack.pop();  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">pop and check</span>
+                  <span style="color: #fa8072;">if</span>( (ch==<span style="color: #ffa07a;">'}'</span> &amp;&amp; chx!=<span style="color: #ffa07a;">'{'</span>) ||
+                      (ch==<span style="color: #ffa07a;">']'</span> &amp;&amp; chx!=<span style="color: #ffa07a;">'['</span>) ||
+                      (ch==<span style="color: #ffa07a;">')'</span> &amp;&amp; chx!=<span style="color: #ffa07a;">'('</span>) )
+                     System.out.println(<span style="color: #ffa07a;">"Error: "</span>+ch+<span style="color: #ffa07a;">" at "</span>+j);
+                  }
+               <span style="color: #fa8072;">else</span>                        <span style="color: #add8e6;">// </span><span style="color: #add8e6;">prematurely empty</span>
+                  System.out.println(<span style="color: #ffa07a;">"Error: "</span>+ch+<span style="color: #ffa07a;">" at "</span>+j);
+               <span style="color: #fa8072;">break</span>;
+            <span style="color: #fa8072;">default</span>:    <span style="color: #add8e6;">// </span><span style="color: #add8e6;">no action on other characters</span>
+               <span style="color: #fa8072;">break</span>;
+            }  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">end switch</span>
+         }  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">end for</span>
+      <span style="color: #add8e6;">// </span><span style="color: #add8e6;">at this point, all characters have been processed</span>
+      <span style="color: #fa8072;">if</span>( !theStack.isEmpty() )
+         System.out.println(<span style="color: #ffa07a;">"Error: missing right delimiter"</span>);
+      }  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">end check()</span>
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   }  
+</pre>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 队列 </h2>
+<div class="outline-text-2" id="text-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 优先级队列 </h2>
+<div class="outline-text-2" id="text-4">
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 解析算数表达式 </h2>
+<div class="outline-text-2" id="text-5">
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2011-09-23 00:25:43 </p>
+<p class="author">Author: emacsers</p>
+<p class="creator">Org version 7.7 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>
