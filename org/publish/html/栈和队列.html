@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>栈和队列</title>
 <meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2011-09-23 00:25:43 "/>
+<meta name="generated" content="2011-09-24 21:52:47 "/>
 <meta name="author" content="emacsers"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -105,7 +105,19 @@ lang="en" xml:lang="en">
 <li><a href="#sec-2-2">2.2 例子 </a></li>
 </ul>
 </li>
-<li><a href="#sec-3">3 队列 </a></li>
+<li><a href="#sec-3">3 队列 </a>
+<ul>
+<li><a href="#sec-3-1">3.1 特点 </a></li>
+<li><a href="#sec-3-2">3.2 例子 </a></li>
+<li><a href="#sec-3-3">3.3 基本操作 </a></li>
+<li><a href="#sec-3-4">3.4 循环队列 </a>
+<ul>
+<li><a href="#sec-3-4-1">3.4.1 特点 </a></li>
+</ul>
+</li>
+<li><a href="#sec-3-5">3.5 环绕式处理 </a></li>
+</ul>
+</li>
 <li><a href="#sec-4">4 优先级队列 </a></li>
 <li><a href="#sec-5">5 解析算数表达式 </a></li>
 </ul>
@@ -337,6 +349,139 @@ lang="en" xml:lang="en">
 <h2 id="sec-3"><span class="section-number-2">3</span> 队列 </h2>
 <div class="outline-text-2" id="text-3">
 
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 特点 </h3>
+<div class="outline-text-3" id="text-3-1">
+
+<ul>
+<li>类型栈,先进先出
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 例子 </h3>
+<div class="outline-text-3" id="text-3-2">
+
+<ul>
+<li>队列类
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java"> <span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">Queue</span>
+   {
+   <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">maxSize</span>;
+   <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">long</span>[] <span style="color: #7fffd4; font-weight: bold;">queArray</span>;
+   # &#38431;&#39318;&#20301;&#32622;
+   <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">int</span> front;
+   # &#38431;&#23614;&#20301;&#32622;
+   <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">int</span> rear;
+   # &#24050;&#26377;&#20803;&#32032;&#20010;&#25968;
+   <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">int</span> nItems;
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> Queue(<span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">s</span>)          <span style="color: #add8e6;">// </span><span style="color: #add8e6;">constructor</span>
+      {
+      maxSize = s;
+      queArray = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">long</span>[maxSize];
+      front = 0;
+      rear = -1;
+      nItems = 0;
+      }
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">void</span> <span style="color: #7fffd4; font-weight: bold;">insert</span>(<span style="color: #9acd32; font-weight: bold;">long</span> <span style="color: #7fffd4; font-weight: bold;">j</span>)   <span style="color: #add8e6;">// </span><span style="color: #add8e6;">put item at rear of queue</span>
+      {
+      <span style="color: #fa8072;">if</span>(rear == maxSize-1)         <span style="color: #add8e6;">// </span><span style="color: #add8e6;">deal with wraparound</span>
+         rear = -1;
+      queArray[++rear] = j;         <span style="color: #add8e6;">// </span><span style="color: #add8e6;">increment rear and insert</span>
+      nItems++;                     <span style="color: #add8e6;">// </span><span style="color: #add8e6;">one more item</span>
+      }
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">long</span> <span style="color: #7fffd4; font-weight: bold;">remove</span>()         <span style="color: #add8e6;">// </span><span style="color: #add8e6;">take item from front of queue</span>
+      {
+      <span style="color: #9acd32; font-weight: bold;">long</span> <span style="color: #7fffd4; font-weight: bold;">temp</span> = queArray[front++]; <span style="color: #add8e6;">// </span><span style="color: #add8e6;">get value and incr front</span>
+      <span style="color: #fa8072;">if</span>(front == maxSize)           <span style="color: #add8e6;">// </span><span style="color: #add8e6;">deal with wraparound</span>
+         front = 0;
+      nItems--;                      <span style="color: #add8e6;">// </span><span style="color: #add8e6;">one less item</span>
+      <span style="color: #fa8072;">return</span> temp;
+      }
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">long</span> <span style="color: #7fffd4; font-weight: bold;">peekFront</span>()      <span style="color: #add8e6;">// </span><span style="color: #add8e6;">peek at front of queue</span>
+      {
+      <span style="color: #fa8072;">return</span> queArray[front];
+      }
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">boolean</span> <span style="color: #7fffd4; font-weight: bold;">isEmpty</span>()    <span style="color: #add8e6;">// </span><span style="color: #add8e6;">true if queue is empty</span>
+      {
+      <span style="color: #fa8072;">return</span> (nItems==0);
+      }
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">boolean</span> <span style="color: #7fffd4; font-weight: bold;">isFull</span>()     <span style="color: #add8e6;">// </span><span style="color: #add8e6;">true if queue is full</span>
+      {
+      <span style="color: #fa8072;">return</span> (nItems==maxSize);
+      }
+<span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">size</span>()           <span style="color: #add8e6;">// </span><span style="color: #add8e6;">number of items in queue</span>
+      {
+      <span style="color: #fa8072;">return</span> nItems;
+      }
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> 基本操作 </h3>
+<div class="outline-text-3" id="text-3-3">
+
+<ul>
+<li>插入队尾
+</li>
+<li>移出对头
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> 循环队列 </h3>
+<div class="outline-text-3" id="text-3-4">
+
+
+</div>
+
+<div id="outline-container-3-4-1" class="outline-4">
+<h4 id="sec-3-4-1"><span class="section-number-4">3.4.1</span> 特点 </h4>
+<div class="outline-text-4" id="text-3-4-1">
+
+<ul>
+<li>通过队头和队尾的移动来保持位置
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> 环绕式处理 </h3>
+<div class="outline-text-3" id="text-3-5">
+
+</div>
 </div>
 
 </div>
@@ -353,12 +498,13 @@ lang="en" xml:lang="en">
 <h2 id="sec-5"><span class="section-number-2">5</span> 解析算数表达式 </h2>
 <div class="outline-text-2" id="text-5">
 
+
 </div>
 </div>
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2011-09-23 00:25:43 </p>
+<p class="date">Date: 2011-09-24 21:52:47 </p>
 <p class="author">Author: emacsers</p>
 <p class="creator">Org version 7.7 with Emacs version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
