@@ -137,44 +137,6 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . espresso-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Gnus
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Googlize Me
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(set-fontset-font (frame-parameter nil 'font)
-              'unicode '("AR PL KaitiM GB" . "unicode-bmp")) ;To use this font, aptitude isnatll ttf-arphic-gkai00mp
-
-(setq user-full-name "emacsers")
-(setq user-mail-address "emacsers@gmail.com")
-;; SMTP
-(setq message-send-mail-function 'smtpmail-send-it)
-(setq smtpmail-default-smtp-server "smtp.gmail.com")
-(setq smtpmail-smtp-service 587)
-(setq smtpmail-starttls-credentials
-'(("smtp.gmail.com"
-587
-nil
-nil)))
-(setq smtpmail-auth-credentials
-'(("smtp.gmail.com"
-587
-"emacsers@gmail.com"
-nil)))
-;; IMAP - To use Gmail's IMAP access: Sign in to your account, Settings --> Forwarding and POP/IMAP --> Enable IMAP
-(setq gnus-select-methods
-      '((nnimap "imap.gmail.com"
-                (nnimap-address "imap.gmail.com")
-                (nnimap-server-port 993)
-                (nnimap-stream ssl))))
-(setq nnimap-split-inbox '("INBOX"))
-(setq nnimap-split-rule 'nnmail-split-fancy)
-(setq gnus-parameters
-      '(("nnimap+imap.gmail.com.*" (gcc-self . t))))
-(setq gnus-fetch-old-headers t)
-
-;; End of dotemacs.
-
 ;;;fonts
 (custom-set-variables
   ;; custom-set-variables was added by Custom.

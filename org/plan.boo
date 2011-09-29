@@ -68,24 +68,24 @@
 					<item content="谈谈ssh整合" icon="tick" branch="none" block="narrow" level="4" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" ModifyTime="2010-11-28 18:00:21" IsFile="false"/>
 					<item content="ognl" icon="tick" branch="none" block="narrow" level="4" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" ModifyTime="2010-11-28 19:34:08" IsFile="false"/>
 				</item>
-				<item content="spring" icon="flag" branch="close" block="narrow" level="3" IsShown="true" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false">
-					<item content="原理" icon="tick" branch="none" block="narrow" level="4" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
-					<item content="配置案例" icon="tick" branch="none" block="narrow" level="4" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
-					<item content="spring中bean的生命周期" icon="tick" branch="none" block="narrow" level="4" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" ModifyTime="2010-11-29 09:50:28" IsFile="false"/>
-					<item content="基本bean装配" icon="tick" branch="close" block="narrow" level="4" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false">
+				<item content="spring" icon="flag" branch="open" block="narrow" level="3" IsShown="true" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false">
+					<item content="原理" icon="tick" branch="none" block="narrow" level="4" IsShown="true" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
+					<item content="配置案例" icon="tick" branch="none" block="narrow" level="4" IsShown="true" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
+					<item content="spring中bean的生命周期" icon="tick" branch="none" block="narrow" level="4" IsShown="true" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" ModifyTime="2010-11-29 09:50:28" IsFile="false"/>
+					<item content="基本bean装配" icon="tick" branch="close" block="narrow" level="4" IsShown="true" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false">
 						<item content="bean的注入" icon="tick" branch="none" block="narrow" level="5" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
 						<item content="自动装配" icon="tick" branch="none" block="narrow" level="5" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
 						<item content="控制Bean" icon="tick" branch="none" block="narrow" level="5" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
 					</item>
-					<item content="高级bean装配" icon="tick" branch="close" block="narrow" level="4" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false">
+					<item content="高级bean装配" icon="tick" branch="close" block="narrow" level="4" IsShown="true" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false">
 						<item content="bean的继承" icon="tick" branch="none" block="narrow" level="5" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
 						<item content="方法注入" icon="tick" branch="none" block="narrow" level="5" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
 						<item content="非Spring bean的注入" icon="tick" branch="none" block="narrow" level="5" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
 						<item content="属性编辑器" icon="tick" branch="none" block="narrow" level="5" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
 					</item>
-					<item content="通知" icon="star" branch="none" block="narrow" level="4" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
-					<item content="数据库连接" icon="tick" branch="none" block="narrow" level="4" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
-					<item content="事务管理" icon="star" branch="none" block="narrow" level="4" IsShown="false" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
+					<item content="通知" icon="star" branch="none" block="narrow" level="4" IsShown="true" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
+					<item content="数据库连接" icon="tick" branch="none" block="narrow" level="4" IsShown="true" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
+					<item content="事务管理" icon="star" branch="none" block="narrow" level="4" IsShown="true" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
 				</item>
 				<item content="hibernate" icon="tick" branch="open" block="narrow" level="3" IsShown="true" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false">
 					<item content="原理" icon="tick" branch="none" block="narrow" level="4" IsShown="true" IsBold="false" ShowBranch="false" TextColor="00000000" BkgrdColor="ffffff00" IsFile="false"/>
