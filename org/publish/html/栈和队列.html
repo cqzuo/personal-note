@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>栈和队列</title>
 <meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2011-09-26 23:54:27 "/>
+<meta name="generated" content="2011-10-05 15:41:20 "/>
 <meta name="author" content="emacsers"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -132,6 +132,11 @@ lang="en" xml:lang="en">
 <li><a href="#sec-5">5 解析算数表达式 </a>
 <ul>
 <li><a href="#sec-5-1">5.1 例子 </a></li>
+<li><a href="#sec-5-2">5.2 思路 </a>
+<ul>
+<li><a href="#sec-5-2-1">5.2.1 后缀表达法 </a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -639,7 +644,8 @@ lang="en" xml:lang="en">
 <span style="color: #add8e6;">// </span><span style="color: #add8e6;">to run this program: C&gt;java InfixApp</span>
 <span style="color: #fa8072;">import</span> <span style="color: #7fffd4;">java</span>.<span style="color: #7fffd4;">io</span>.*;            <span style="color: #add8e6;">// </span><span style="color: #add8e6;">for I/O</span>
 <span style="color: #add8e6;">////////////////////////////////////////////////////////////////</span>
-<span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">StackX</span>
+# &#23384;&#20648;&#20851;&#31995;&#24335;&#30340;&#26632;
+<span style="color: #fa8072;">class</span> StackX
    {
    <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">maxSize</span>;
    <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">char</span>[] <span style="color: #7fffd4; font-weight: bold;">stackArray</span>;
@@ -670,7 +676,8 @@ lang="en" xml:lang="en">
    <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">char</span> <span style="color: #7fffd4; font-weight: bold;">peekN</span>(<span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">n</span>)  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">return item at index n</span>
       { <span style="color: #fa8072;">return</span> stackArray[n]; }
 <span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
-   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">void</span> <span style="color: #7fffd4; font-weight: bold;">displayStack</span>(<span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">s</span>)
+#  &#26174;&#31034;&#26632;&#20013;&#34920;&#36798;&#24335;&#30340;&#20540;
+   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">void</span> displayStack(<span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">s</span>)
       {
       System.out.print(s);
       System.out.print(<span style="color: #ffa07a;">"Stack (bottom--&gt;top): "</span>);
@@ -680,11 +687,12 @@ lang="en" xml:lang="en">
          System.out.print(<span style="color: #ffa07a;">' '</span>);
          }
       System.out.println(<span style="color: #ffa07a;">""</span>);
-      }
-<span style="color: #add8e6;">//</span><span style="color: #add8e6;">-------------------</span><span style="color: #9acd32; font-weight: bold;">------</span><span style="color: #add8e6;">-------------------------------------</span>
+      <span style="color: #9acd32; font-weight: bold;">}</span>
+<span style="color: #9acd32; font-weight: bold;">//--</span><span style="color: #add8e6;">------------------------------------------------------------</span>
    }  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">end class StackX</span>
 <span style="color: #add8e6;">////////////////////////////////////////////////////////////////</span>
-<span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">InToPost</span>                  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">infix to postfix conversion</span>
+# &#23454;&#29616;&#36716;&#25442;&#34920;&#36798;&#24335;&#30340;&#31867;
+<span style="color: #fa8072;">class</span> InToPost                  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">infix to postfix conversion</span>
    {
    <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">StackX</span> <span style="color: #7fffd4; font-weight: bold;">theStack</span>;
    <span style="color: #fa8072;">private</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">input</span>;
@@ -697,14 +705,20 @@ lang="en" xml:lang="en">
       theStack = <span style="color: #fa8072;">new</span> <span style="color: #9acd32; font-weight: bold;">StackX</span>(stackSize);
       }
 <span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
-   <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">String</span> <span style="color: #7fffd4; font-weight: bold;">doTrans</span>()      <span style="color: #add8e6;">// </span><span style="color: #add8e6;">do translation to postfix</span>
+# &#23454;&#29616;&#36716;&#25442;&#34920;&#36798;&#24335;&#30340;&#26041;&#27861;
+   <span style="color: #fa8072;">public</span> String doTrans()      <span style="color: #add8e6;">// </span><span style="color: #add8e6;">do translation to postfix</span>
       {
+# &#36941;&#21382;&#35201;&#36716;&#25442;&#30340;&#23383;&#31526;&#20018;
       <span style="color: #fa8072;">for</span>(<span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">j</span>=0; j&lt;input.length(); j++)      <span style="color: #add8e6;">// </span><span style="color: #add8e6;">for each char</span>
          {
-         <span style="color: #9acd32; font-weight: bold;">char</span> <span style="color: #7fffd4; font-weight: bold;">ch</span> = input.charAt(j);            <span style="color: #add8e6;">// </span><span style="color: #add8e6;">get it</span>
+ #  &#21462;&#20986;&#27599;&#20010;&#23383;&#31526;
+         <span style="color: #9acd32; font-weight: bold;">char</span> ch = input.charAt(j);            <span style="color: #add8e6;">// </span><span style="color: #add8e6;">get it</span>
+# &#25171;&#21360;&#26632;&#20013;&#24403;&#21069;&#34920;&#36798;&#24335;&#30340;&#20540;
          theStack.displayStack(<span style="color: #ffa07a;">"For "</span>+ch+<span style="color: #ffa07a;">" "</span>); <span style="color: #add8e6;">// </span><span style="color: #add8e6;">*diagnostic*</span>
+# &#38024;&#23545;&#24403;&#21069;&#23383;&#31526;&#30340;&#19981;&#21516;&#20998;&#21035;&#36827;&#34892;&#21508;&#31181;&#22788;&#29702;
          <span style="color: #fa8072;">switch</span>(ch)
             {
+#  &#22914;&#26524;&#23383;&#31526;&#20018;&#20026;+ -,&#21017;&#25191;&#34892;goOper&#26041;&#27861;
             <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">'+'</span>:               <span style="color: #add8e6;">// </span><span style="color: #add8e6;">it's + or -</span>
             <span style="color: #fa8072;">case</span> <span style="color: #ffa07a;">'-'</span>:
                gotOper(ch, 1);      <span style="color: #add8e6;">// </span><span style="color: #add8e6;">go pop operators</span>
@@ -733,41 +747,53 @@ lang="en" xml:lang="en">
       <span style="color: #fa8072;">return</span> output;                   <span style="color: #add8e6;">// </span><span style="color: #add8e6;">return postfix</span>
       }  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">end doTrans()</span>
 <span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
-   <span style="color: #fa8072;">public</span>  <span style="color: #9acd32; font-weight: bold;">void</span> <span style="color: #7fffd4; font-weight: bold;">gotOper</span>(<span style="color: #9acd32; font-weight: bold;">char</span> <span style="color: #7fffd4; font-weight: bold;">opThis</span>, <span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">prec1</span>)
+#  &#21462;&#24471;&#25805;&#20316;&#31526;&#30340;&#26041;&#27861;,&#21442;&#25968;: +---&gt;1;*/---&gt;2
+   <span style="color: #fa8072;">public</span>  <span style="color: #9acd32; font-weight: bold;">void</span> gotOper(<span style="color: #9acd32; font-weight: bold;">char</span> <span style="color: #7fffd4; font-weight: bold;">opThis</span>, <span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">prec1</span>)
       {                                <span style="color: #add8e6;">// </span><span style="color: #add8e6;">got operator from input</span>
+# &#22914;&#26524;&#26632;&#19981;&#20026;&#31354;,&#25191;&#34892;&#22914;&#19979;&#25805;&#20316;
       <span style="color: #fa8072;">while</span>( !theStack.isEmpty() )
          {
-         <span style="color: #9acd32; font-weight: bold;">char</span> <span style="color: #7fffd4; font-weight: bold;">opTop</span> = theStack.pop();
+# &#21462;&#20986;&#26632;&#39030;&#20803;&#32032;
+         <span style="color: #9acd32; font-weight: bold;">char</span> opTop = theStack.pop();
+# &#22914;&#26524;&#26632;&#39030;&#20803;&#32032;&#20026;(,&#21017;&#23558;&#26632;&#39030;&#20803;&#32032;&#20837;&#26632;
          <span style="color: #fa8072;">if</span>( opTop == <span style="color: #ffa07a;">'('</span> )            <span style="color: #add8e6;">// </span><span style="color: #add8e6;">if it's a '('</span>
             {
             theStack.push(opTop);      <span style="color: #add8e6;">// </span><span style="color: #add8e6;">restore '('</span>
             <span style="color: #fa8072;">break</span>;
             }
+# &#22914;&#26524;&#26632;&#39030;&#20803;&#32032;&#19981;&#20026;(,&#21017;&#25191;&#34892;&#22914;&#19979;
          <span style="color: #fa8072;">else</span>                          <span style="color: #add8e6;">// </span><span style="color: #add8e6;">it's an operator</span>
             {
             <span style="color: #9acd32; font-weight: bold;">int</span> <span style="color: #7fffd4; font-weight: bold;">prec2</span>;                 <span style="color: #add8e6;">// </span><span style="color: #add8e6;">precedence of new op</span>
-
+# &#22914;&#26524;&#26632;&#39030;&#20803;&#32032;&#20026;+ -,&#35774;&#32622;prec2&#20540;&#20026;1,&#21542;&#21017;&#35774;&#32622;&#20026;2
             <span style="color: #fa8072;">if</span>(opTop==<span style="color: #ffa07a;">'+'</span> || opTop==<span style="color: #ffa07a;">'-'</span>)  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">find new op prec</span>
                prec2 = 1;
             <span style="color: #fa8072;">else</span>
                prec2 = 2;
+# &#22914;&#26524;&#20256;&#20837;&#30340;&#23383;&#31526;&#30340;&#20248;&#20808;&#32423;&#22823;&#20110;&#26632;&#39030;&#20803;&#32032;&#30340;&#20248;&#20808;&#32423;,&#21017;&#20837;&#26632;
             <span style="color: #fa8072;">if</span>(prec2 &lt; prec1)          <span style="color: #add8e6;">// </span><span style="color: #add8e6;">if prec of new op less</span>
                {                       <span style="color: #add8e6;">//    </span><span style="color: #add8e6;">than prec of old</span>
                theStack.push(opTop);   <span style="color: #add8e6;">// </span><span style="color: #add8e6;">save newly-popped op</span>
                <span style="color: #fa8072;">break</span>;
                }
+# &#22914;&#26524;&#20256;&#20837;&#30340;&#23383;&#31526;&#30340;&#20248;&#20808;&#32423;&#23567;&#20110;&#26632;&#39030;&#20803;&#32032;&#30340;&#20248;&#20808;&#32423;,&#21017;&#23558;&#35813;&#23383;&#31526;&#21644;&#26632;&#39030;&#20803;&#32032;&#25340;&#25509;
             <span style="color: #fa8072;">else</span>                       <span style="color: #add8e6;">// </span><span style="color: #add8e6;">prec of new not less</span>
                output = output + opTop;  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">than prec of old</span>
             }  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">end else (it's an operator)</span>
          }  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">end while</span>
-      theStack.push(opThis);           <span style="color: #add8e6;">// </span><span style="color: #add8e6;">push new operator</span>
+# &#22914;&#26524;&#26632;&#20026;&#31354;,<span style="color: #9acd32; font-weight: bold;">&#21017;&#23558;&#35813;&#23383;&#31526;&#20837;&#26632;</span>
+      theStack.<span style="color: #7fffd4; font-weight: bold;">push</span>(<span style="color: #9acd32; font-weight: bold;">opThis</span>);           <span style="color: #add8e6;">// </span><span style="color: #add8e6;">push new operator</span>
       }  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">end gotOp()</span>
 <span style="color: #add8e6;">//</span><span style="color: #add8e6;">--------------------------------------------------------------</span>
-   <span style="color: #fa8072;">public</span>  <span style="color: #9acd32; font-weight: bold;">void</span> <span style="color: #7fffd4; font-weight: bold;">gotParen</span>(<span style="color: #9acd32; font-weight: bold;">char</span> <span style="color: #7fffd4; font-weight: bold;">ch</span>)
+# &#21462;&#24471;&#21305;&#37197;&#30340;&#25805;&#20316;&#31526;
+   <span style="color: #fa8072;">public</span>  <span style="color: #9acd32; font-weight: bold;">void</span> gotParen(<span style="color: #9acd32; font-weight: bold;">char</span> <span style="color: #7fffd4; font-weight: bold;">ch</span>)
       {                             <span style="color: #add8e6;">// </span><span style="color: #add8e6;">got right paren from input</span>
+# &#22914;&#26524;&#26632;&#20026;&#31354;
       <span style="color: #fa8072;">while</span>( !theStack.isEmpty() )
          {
-         <span style="color: #9acd32; font-weight: bold;">char</span> <span style="color: #7fffd4; font-weight: bold;">chx</span> = theStack.pop();
+# &#21462;&#26632;&#39030;&#20803;&#32032;
+         <span style="color: #9acd32; font-weight: bold;">char</span> chx = theStack.pop();
+# &#22914;&#26524;&#26632;&#39030;&#20803;&#32032;&#20026;(,&#36864;&#20986;&#24490;&#29615;,&#21542;&#21017;&#23558;&#35813;&#23383;&#31526;&#19982;&#36755;&#20986;&#30340;&#23383;&#31526;&#25340;&#25509;
          <span style="color: #fa8072;">if</span>( chx == <span style="color: #ffa07a;">'('</span> )           <span style="color: #add8e6;">// </span><span style="color: #add8e6;">if popped '('</span>
             <span style="color: #fa8072;">break</span>;                  <span style="color: #add8e6;">// </span><span style="color: #add8e6;">we're done</span>
          <span style="color: #fa8072;">else</span>                       <span style="color: #add8e6;">// </span><span style="color: #add8e6;">if popped operator</span>
@@ -812,12 +838,42 @@ lang="en" xml:lang="en">
 
 
 </div>
+
+</div>
+
+<div id="outline-container-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> 思路 </h3>
+<div class="outline-text-3" id="text-5-2">
+
+<ul>
+<li>电脑难实现直接计算算术表达式
+</li>
+<li>将算数表达式转换为后缀表达式
+</li>
+<li>计算后缀表达式的值
+</li>
+</ul>
+
+
+</div>
+
+<div id="outline-container-5-2-1" class="outline-4">
+<h4 id="sec-5-2-1"><span class="section-number-4">5.2.1</span> 后缀表达法 </h4>
+<div class="outline-text-4" id="text-5-2-1">
+
+<ul>
+<li>
+</li>
+</ul>
+
+</div>
+</div>
 </div>
 </div>
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2011-09-26 23:54:27 </p>
+<p class="date">Date: 2011-10-05 15:41:20 </p>
 <p class="author">Author: emacsers</p>
 <p class="creator">Org version 7.7 with Emacs version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>

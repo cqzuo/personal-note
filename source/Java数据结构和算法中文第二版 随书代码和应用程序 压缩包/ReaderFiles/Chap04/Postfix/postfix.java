@@ -3,6 +3,7 @@
 // to run this program: C>java PostfixApp
 import java.io.*;              // for I/O
 ////////////////////////////////////////////////////////////////
+// 存储数据的栈
 class StackX
    {
    private int maxSize;
@@ -51,6 +52,7 @@ class StackX
 //--------------------------------------------------------------
    }  // end class StackX
 ////////////////////////////////////////////////////////////////
+// 计算表达式值的类
 class ParsePost
    {
    private StackX theStack;
@@ -59,6 +61,7 @@ class ParsePost
    public ParsePost(String s)
       { input = s; }
 //--------------------------------------------------------------
+       // 计算表达式的方法
    public int doParse()
       {
       theStack = new StackX(20);             // make new stack
@@ -66,16 +69,20 @@ class ParsePost
       int j;
       int num1, num2, interAns;
 
+      // 遍历输入字符串的每个字符
       for(j=0; j<input.length(); j++)       // for each char,
          {
          ch = input.charAt(j);              // read from input
          theStack.displayStack(""+ch+" ");  // *diagnostic*
+	 // 如果字符是数字,则入栈
          if(ch >= '0' && ch <= '9')         // if it's a number
             theStack.push( (int)(ch-'0') ); //   push it
+	 // 否则,取出栈顶的2个元素
          else                               // it's an operator
             {
             num2 = theStack.pop();          // pop operands
             num1 = theStack.pop();
+	    // 循环,如果该字符是操作符,则根据操作符计算本步骤的值
             switch(ch)                      // do arithmetic
                {
                case '+':
@@ -93,9 +100,11 @@ class ParsePost
                default:
                   interAns = 0;
                }  // end switch
+	    // 计算完毕后,将结果入栈
             theStack.push(interAns);        // push result
             }  // end else
          }  // end for
+      // 返回栈顶元素作为本步骤计算的结果
       interAns = theStack.pop();            // get answer
       return interAns;
       }  // end doParse()

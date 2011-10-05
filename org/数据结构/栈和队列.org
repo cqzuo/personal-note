@@ -273,6 +273,7 @@
 // to run this program: C>java InfixApp
 import java.io.*;            // for I/O
 ////////////////////////////////////////////////////////////////
+# 存储关系式的栈
 class StackX
    {
    private int maxSize;
@@ -304,6 +305,7 @@ class StackX
    public char peekN(int n)  // return item at index n
       { return stackArray[n]; }
 //--------------------------------------------------------------
+#  显示栈中表达式的值
    public void displayStack(String s)
       {
       System.out.print(s);
@@ -318,6 +320,7 @@ class StackX
 //--------------------------------------------------------------
    }  // end class StackX
 ////////////////////////////////////////////////////////////////
+# 实现转换表达式的类
 class InToPost                  // infix to postfix conversion
    {
    private StackX theStack;
@@ -331,14 +334,20 @@ class InToPost                  // infix to postfix conversion
       theStack = new StackX(stackSize);
       }
 //--------------------------------------------------------------
+# 实现转换表达式的方法
    public String doTrans()      // do translation to postfix
       {
+# 遍历要转换的字符串
       for(int j=0; j<input.length(); j++)      // for each char
          {
+ #  取出每个字符
          char ch = input.charAt(j);            // get it
+# 打印栈中当前表达式的值
          theStack.displayStack("For "+ch+" "); // *diagnostic*
+# 针对当前字符的不同分别进行各种处理
          switch(ch)
             {
+#  如果字符串为+ -,则执行goOper方法
             case '+':               // it's + or -
             case '-':
                gotOper(ch, 1);      // go pop operators
@@ -367,41 +376,53 @@ class InToPost                  // infix to postfix conversion
       return output;                   // return postfix
       }  // end doTrans()
 //--------------------------------------------------------------
+#  取得操作符的方法,参数: +--->1;*/--->2
    public  void gotOper(char opThis, int prec1)
       {                                // got operator from input
+# 如果栈不为空,执行如下操作
       while( !theStack.isEmpty() )
          {
+# 取出栈顶元素
          char opTop = theStack.pop();
+# 如果栈顶元素为(,则将栈顶元素入栈
          if( opTop == '(' )            // if it's a '('
             {
             theStack.push(opTop);      // restore '('
             break;
             }
+# 如果栈顶元素不为(,则执行如下
          else                          // it's an operator
             {
             int prec2;                 // precedence of new op
-
+# 如果栈顶元素为+ -,设置prec2值为1,否则设置为2
             if(opTop=='+' || opTop=='-')  // find new op prec
                prec2 = 1;
             else
                prec2 = 2;
+# 如果传入的字符的优先级大于栈顶元素的优先级,则入栈
             if(prec2 < prec1)          // if prec of new op less
                {                       //    than prec of old
                theStack.push(opTop);   // save newly-popped op
                break;
                }
+# 如果传入的字符的优先级小于栈顶元素的优先级,则将该字符和栈顶元素拼接
             else                       // prec of new not less
                output = output + opTop;  // than prec of old
             }  // end else (it's an operator)
          }  // end while
+# 如果栈为空,则将该字符入栈
       theStack.push(opThis);           // push new operator
       }  // end gotOp()
 //--------------------------------------------------------------
+# 取得匹配的操作符
    public  void gotParen(char ch)
       {                             // got right paren from input
+# 如果栈为空
       while( !theStack.isEmpty() )
          {
+# 取栈顶元素
          char chx = theStack.pop();
+# 如果栈顶元素为(,退出循环,否则将该字符与输出的字符拼接
          if( chx == '(' )           // if popped '('
             break;                  // we're done
          else                       // if popped operator
@@ -447,4 +468,3 @@ class InfixApp
  - 将算数表达式转换为后缀表达式
  - 计算后缀表达式的值
 *** 后缀表达法
- - 

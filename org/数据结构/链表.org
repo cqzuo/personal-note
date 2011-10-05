@@ -1,0 +1,320 @@
+* 序言
+** 数组的缺点
+ - 插入/搜索/删除低效
+ - 大小不可变
+** 链表
+ - 解决数组的缺点
+* 链接点
+** 特点
+ - 数据项包含在Link中
+ - 每个链接点都是某个Link的对象
+** 例子
+ #+BEGIN_SRC java
+  class Link
+{
+   public Object obj ;
+   public Link next;
+}
+#+END_SRC
+* 单链表
+** 特点
+ - 表头插入数据
+ - 表头删除数据
+ 0 遍历链表显示内容
+** 例子
+#+BEGIN_SRC java
+ class Link
+   {
+   public int iData;              // data item
+   public double dData;           // data item
+   public Link next;              // next link in list
+// -------------------------------------------------------------
+   public Link(int id, double dd) // constructor
+      {
+      iData = id;                 // initialize data
+      dData = dd;                 // ('next' is automatically
+      }                           //  set to null)
+// -------------------------------------------------------------
+   public void displayLink()      // display ourself
+      {
+      System.out.print("{" + iData + ", " + dData + "} ");
+      }
+   }  // end class Link
+////////////////////////////////////////////////////////////////
+class LinkList
+   {
+   private Link first;            // ref to first link on list
+
+// -------------------------------------------------------------
+   public LinkList()              // constructor
+      {
+      first = null;               // no links on list yet
+      }
+// -------------------------------------------------------------
+   public boolean isEmpty()       // true if list is empty
+      {
+      return (first==null);
+      }
+// -------------------------------------------------------------
+                                  // insert at start of list
+   public void insertFirst(int id, double dd)
+      {                           // make new link
+      Link newLink = new Link(id, dd);
+      newLink.next = first;       // newLink --> old first
+      first = newLink;            // first --> newLink
+      }
+// -------------------------------------------------------------
+   public Link deleteFirst()      // delete first item
+      {                           // (assumes list not empty)
+      Link temp = first;          // save reference to link
+      first = first.next;         // delete it: first-->old next
+      return temp;                // return deleted link
+      }
+// -------------------------------------------------------------
+   public void displayList()
+      {
+      System.out.print("List (first-->last): ");
+      Link current = first;       // start at beginning of list
+      while(current != null)      // until end of list,
+         {
+         current.displayLink();   // print data
+         current = current.next;  // move to next link
+         }
+      System.out.println("");
+      }
+// -------------------------------------------------------------
+   }  // end class LinkList
+#+END_SRC
+* 查找和删除指定链接点
+** find
+** delete
+** 例子
+#+BEGIN_SRC java
+ public Link find(int key)      // find link with given key
+      {                           // (assumes non-empty list)
+      Link current = first;              // start at 'first'
+      while(current.iData != key)        // while no match,
+         {
+         if(current.next == null)        // if end of list,
+            return null;                 // didn't find it
+         else                            // not end of list,
+            current = current.next;      // go to next link
+         }
+      return current;                    // found it
+      }
+// -------------------------------------------------------------
+   public Link delete(int key)    // delete link with given key
+      {                           // (assumes non-empty list)
+      Link current = first;              // search for link
+      Link previous = first;
+      while(current.iData != key)
+         {
+         if(current.next == null)
+            return null;                 // didn't find it
+         else
+            {
+            previous = current;          // go to next link
+            current = current.next;
+            }
+         }                               // found it
+      if(current == first)               // if first link,
+         first = first.next;             //    change first
+      else                               // otherwise,
+         previous.next = current.next;   //    bypass it
+      return current;
+      }
+#+END_SRC
+* 双端链接点
+** 特点
+ - 可在表尾直接插入一个链接点
+** 例子
+#+BEGIN_SRC java
+ class Link
+   {
+   public long dData;                 // data item
+   public Link next;                  // next link in list
+// -------------------------------------------------------------
+   public Link(long d)                // constructor
+      { dData = d; }
+// -------------------------------------------------------------
+   public void displayLink()          // display this link
+      { System.out.print(dData + " "); }
+// -------------------------------------------------------------
+   }  // end class Link
+////////////////////////////////////////////////////////////////
+class FirstLastList
+   {
+   private Link first;               // ref to first link
+   private Link last;                // ref to last link
+// -------------------------------------------------------------
+   public FirstLastList()            // constructor
+      {
+      first = null;                  // no links on list yet
+      last = null;
+      }
+// -------------------------------------------------------------
+   public boolean isEmpty()          // true if no links
+      { return first==null; }
+// -------------------------------------------------------------
+   public void insertFirst(long dd)  // insert at front of list
+      {
+      Link newLink = new Link(dd);   // make new link
+
+      if( isEmpty() )                // if empty list,
+         last = newLink;             // newLink <-- last
+      newLink.next = first;          // newLink --> old first
+      first = newLink;               // first --> newLink
+      }
+// -------------------------------------------------------------
+   public void insertLast(long dd)   // insert at end of list
+      {
+      Link newLink = new Link(dd);   // make new link
+      if( isEmpty() )                // if empty list,
+         first = newLink;            // first --> newLink
+      else
+         last.next = newLink;        // old last --> newLink
+      last = newLink;                // newLink <-- last
+      }
+// -------------------------------------------------------------
+   public long deleteFirst()         // delete first link
+      {                              // (assumes non-empty list)
+      long temp = first.dData;
+      if(first.next == null)         // if only one item
+         last = null;                // null <-- last
+      first = first.next;            // first --> old next
+      return temp;
+      }
+// -------------------------------------------------------------
+   public void displayList()
+      {
+      System.out.print("List (first-->last): ");
+      Link current = first;          // start at beginning
+      while(current != null)         // until end of list,
+         {
+         current.displayLink();      // print data
+         current = current.next;     // move to next link
+         }
+      System.out.println("");
+      }
+// -------------------------------------------------------------
+   }  // end class FirstLastList
+#+END_SRC
+* 链表的效率
+ - 表头插入和删除速度块
+ - 查找和删除指定链接点
+ - 无容量限制
+* 抽象数据类型
+** 用链实现的栈
+*** 例子
+#+BEGIN_SRC java
+  class Link
+   {
+   public long dData;             // data item
+   public Link next;              // next link in list
+// -------------------------------------------------------------
+   public Link(long dd)           // constructor
+      { dData = dd; }
+// -------------------------------------------------------------
+   public void displayLink()      // display ourself
+      { System.out.print(dData + " "); }
+   }  // end class Link
+////////////////////////////////////////////////////////////////
+class LinkList
+   {
+   private Link first;            // ref to first item on list
+// -------------------------------------------------------------
+   public LinkList()              // constructor
+      { first = null; }           // no items on list yet
+// -------------------------------------------------------------
+   public boolean isEmpty()       // true if list is empty
+      { return (first==null); }
+// -------------------------------------------------------------
+   public void insertFirst(long dd) // insert at start of list
+      {                           // make new link
+      Link newLink = new Link(dd);
+      newLink.next = first;       // newLink --> old first
+      first = newLink;            // first --> newLink
+      }
+// -------------------------------------------------------------
+   public long deleteFirst()      // delete first item
+      {                           // (assumes list not empty)
+      Link temp = first;          // save reference to link
+      first = first.next;         // delete it: first-->old next
+      return temp.dData;          // return deleted link
+      }
+// -------------------------------------------------------------
+   public void displayList()
+      {
+      Link current = first;       // start at beginning of list
+      while(current != null)      // until end of list,
+         {
+         current.displayLink();   // print data
+         current = current.next;  // move to next link
+         }
+      System.out.println("");
+      }
+// -------------------------------------------------------------
+   }  // end class LinkList
+////////////////////////////////////////////////////////////////
+class LinkStack
+   {
+   private LinkList theList;
+//--------------------------------------------------------------
+   public LinkStack()             // constructor
+      {
+      theList = new LinkList();
+      }
+//--------------------------------------------------------------
+   public void push(long j)     // put item on top of stack
+      {
+      theList.insertFirst(j);
+      }
+//--------------------------------------------------------------
+   public long pop()            // take item from top of stack
+      {
+      return theList.deleteFirst();
+      }
+//--------------------------------------------------------------
+   public boolean isEmpty()       // true if stack is empty
+      {
+      return ( theList.isEmpty() );
+      }
+//--------------------------------------------------------------
+   public void displayStack()
+      {
+      System.out.print("Stack (top-->bottom): ");
+      theList.displayList();
+      }
+//--------------------------------------------------------------
+   }  // end class LinkStack
+#+END_SRC
+** 用链表实现的队列
+*** 例子
+#+BEGIN_SRC java
+  class LinkQueue
+   {
+   private FirstLastList theList;
+//--------------------------------------------------------------
+   public LinkQueue()                // constructor
+      { theList = new FirstLastList(); }  // make a 2-ended list
+//--------------------------------------------------------------
+   public boolean isEmpty()          // true if queue is empty
+      { return theList.isEmpty(); }
+//--------------------------------------------------------------
+   public void insert(long j)        // insert, rear of queue
+      { theList.insertLast(j); }
+//--------------------------------------------------------------
+   public long remove()              // remove, front of queue
+      {  return theList.deleteFirst();  }
+//--------------------------------------------------------------
+   public void displayQueue()
+      {
+      System.out.print("Queue (front-->rear): ");
+      theList.displayList();
+      }
+//--------------------------------------------------------------
+   }  // end class LinkQueue
+#+END_SRC
+* 有序链表
+* 双向链表
+* 迭代器
