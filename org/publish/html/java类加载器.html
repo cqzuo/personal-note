@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>java类加载器</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011-10-07 17:02:18 "/>
+<meta name="author" content="emacsers"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">java类加载器</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 功能 </a></li>
+<li><a href="#sec-2">2 基本概念 </a></li>
+<li><a href="#sec-3">3 java虚拟机使用java类的方式 </a></li>
+<li><a href="#sec-4">4 java虚拟机与程序的生命周期 </a>
+<ul>
+<li><a href="#sec-4-1">4.1 终止的情况 </a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 类的加载连接和初始化 </a>
+<ul>
+<li><a href="#sec-5-1">5.1 加载 </a></li>
+<li><a href="#sec-5-2">5.2 连接 </a></li>
+<li><a href="#sec-5-3">5.3 初始化 </a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6 java程序对类的使用 </a>
+<ul>
+<li><a href="#sec-6-1">6.1 方式 </a></li>
+<li><a href="#sec-6-2">6.2 特点 </a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 功能 </h2>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li>加载Java类的字节代码到java虚拟机中
+</li>
+<li>虚拟机默认行为足够满足大多数情况下的需求
+</li>
+<li>如果需要与类加载器进行交互,则需要修改类加载器
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 基本概念 </h2>
+<div class="outline-text-2" id="text-2">
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> java虚拟机使用java类的方式 </h2>
+<div class="outline-text-2" id="text-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> java虚拟机与程序的生命周期 </h2>
+<div class="outline-text-2" id="text-4">
+
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 终止的情况 </h3>
+<div class="outline-text-3" id="text-4-1">
+
+<ul>
+<li>执行System.exit()
+</li>
+<li>执行结束
+</li>
+<li>执行中遇到异常或错误
+</li>
+<li>操作系统错误
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 类的加载连接和初始化 </h2>
+<div class="outline-text-2" id="text-5">
+
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 加载 </h3>
+<div class="outline-text-3" id="text-5-1">
+
+<ul>
+<li>查找并加载类的二进制数据
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> 连接 </h3>
+<div class="outline-text-3" id="text-5-2">
+
+<ul>
+<li>验证
+<ul>
+<li>确保加载类的正确性
+</li>
+</ul>
+
+</li>
+<li>准备
+<ul>
+<li>为类的静态变量分配内存,并设置为默认值
+</li>
+</ul>
+
+</li>
+<li>解析
+<ul>
+<li>将类中的符号引用转换为直接引用
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> 初始化 </h3>
+<div class="outline-text-3" id="text-5-3">
+
+<ul>
+<li>为类的静态变量赋予正确的初始值
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> java程序对类的使用 </h2>
+<div class="outline-text-2" id="text-6">
+
+
+</div>
+
+<div id="outline-container-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> 方式 </h3>
+<div class="outline-text-3" id="text-6-1">
+
+<ul>
+<li>主动使用
+<ul>
+<li>创建类的实例 new
+</li>
+<li>静态方法或属性的操作
+</li>
+<li>反射
+</li>
+<li>初始化类的一个子类
+</li>
+<li>java虚拟机启动时标记为启动的类
+</li>
+</ul>
+
+</li>
+<li>被动使用
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> 特点 </h3>
+<div class="outline-text-3" id="text-6-2">
+
+<ul>
+<li>所有java虚拟机实现必须在每个类或接口被java程序首次主动使用时才初始化他们
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2011-10-07 17:02:18 </p>
+<p class="author">Author: emacsers</p>
+<p class="creator">Org version 7.7 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

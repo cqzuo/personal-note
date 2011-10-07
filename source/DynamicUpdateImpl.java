@@ -105,6 +105,7 @@ public class DynamicUpdateImpl extends DaoSupport implements DynamicUpdate {
 				}
 				
 			}
+			
 			//根据上面的比对结果拼sql语句
 			//定义一个空String对象jpql
 			String jpql = "";

@@ -316,5 +316,179 @@ class LinkStack
    }  // end class LinkQueue
 #+END_SRC
 * 有序链表
+** 特点
+ - 数据按照关键值有序排列
+** 插入
+ - 例子
+#+BEGIN_SRC java
+# 插入与无序链表不同
+   public void insert(long key)        // insert, in order
+      {
+      Link newLink = new Link(key);    // make new link
+      Link previous = null;            // start at first
+      Link current = first;
+                                       // until end of list,
+# 如果插入的值比当前链接的值要大,则比较下一个位置的值
+      while(current != null && key > current.dData)
+         {                             // or key > current,
+         previous = current;
+         current = current.next;       // go to next item
+         }
+# 如果当前链接点为空,则将新链接点添加到链表中
+      if(previous==null)               // at beginning of list
+         first = newLink;              // first --> newLink
+      else                             // not at beginning
+# 如果当前链接点非空,则将前一位置指向新链接点
+         previous.next = newLink;      // old prev --> newLink
+# 新链接点指向当前位置的链接点
+      newLink.next = current;          // newLink --> old currnt
+      }  // end insert()
+#+END_SRC
+** 效率
+ - 插入和删除操作需要O(N)次比较
+** 表插入排序
+ - 将一个无序数组插入一个有序链表中,再删除,将每个元素依次放入数组中
 * 双向链表
+** 特点
+ - 解决反向遍历的问题
+** 例子
+#+BEGIN_SRC java
+  class DoublyLinkedList
+   {
+   private Link first;               // ref to first item
+   private Link last;                // ref to last item
+// -------------------------------------------------------------
+   public DoublyLinkedList()         // constructor
+      {
+      first = null;                  // no items on list yet
+      last = null;
+      }
+// -------------------------------------------------------------
+   public boolean isEmpty()          // true if no links
+      { return first==null; }
+// -------------------------------------------------------------
+   public void insertFirst(long dd)  // insert at front of list
+      {
+      Link newLink = new Link(dd);   // make new link
+
+      if( isEmpty() )                // if empty list,
+         last = newLink;             // newLink <-- last
+      else
+         first.previous = newLink;   // newLink <-- old first
+      newLink.next = first;          // newLink --> old first
+      first = newLink;               // first --> newLink
+      }
+// -------------------------------------------------------------
+   public void insertLast(long dd)   // insert at end of list
+      {
+      Link newLink = new Link(dd);   // make new link
+      if( isEmpty() )                // if empty list,
+         first = newLink;            // first --> newLink
+      else
+         {
+         last.next = newLink;        // old last --> newLink
+         newLink.previous = last;    // old last <-- newLink
+         }
+      last = newLink;                // newLink <-- last
+      }
+// -------------------------------------------------------------
+   public Link deleteFirst()         // delete first link
+      {                              // (assumes non-empty list)
+      Link temp = first;
+      if(first.next == null)         // if only one item
+         last = null;                // null <-- last
+      else
+         first.next.previous = null; // null <-- old next
+      first = first.next;            // first --> old next
+      return temp;
+      }
+// -------------------------------------------------------------
+   public Link deleteLast()          // delete last link
+      {                              // (assumes non-empty list)
+      Link temp = last;
+      if(first.next == null)         // if only one item
+         first = null;               // first --> null
+      else
+         last.previous.next = null;  // old previous --> null
+      last = last.previous;          // old previous <-- last
+      return temp;
+      }
+// -------------------------------------------------------------
+                                     // insert dd just after key
+   public boolean insertAfter(long key, long dd)
+      {                              // (assumes non-empty list)
+      Link current = first;          // start at beginning
+      while(current.dData != key)    // until match is found,
+         {
+         current = current.next;     // move to next link
+         if(current == null)
+            return false;            // didn't find it
+         }
+      Link newLink = new Link(dd);   // make new link
+
+      if(current==last)              // if last link,
+         {
+         newLink.next = null;        // newLink --> null
+         last = newLink;             // newLink <-- last
+         }
+      else                           // not last link,
+         {
+         newLink.next = current.next; // newLink --> old next
+                                      // newLink <-- old next
+         current.next.previous = newLink;
+         }
+      newLink.previous = current;    // old current <-- newLink
+      current.next = newLink;        // old current --> newLink
+      return true;                   // found it, did insertion
+      }
+// -------------------------------------------------------------
+   public Link deleteKey(long key)   // delete item w/ given key
+      {                              // (assumes non-empty list)
+      Link current = first;          // start at beginning
+      while(current.dData != key)    // until match is found,
+         {
+         current = current.next;     // move to next link
+         if(current == null)
+            return null;             // didn't find it
+         }
+      if(current==first)             // found it; first item?
+         first = current.next;       // first --> old next
+      else                           // not first
+                                     // old previous --> old next
+         current.previous.next = current.next;
+
+      if(current==last)              // last item?
+         last = current.previous;    // old previous <-- last
+      else                           // not last
+                                     // old previous <-- old next
+         current.next.previous = current.previous;
+      return current;                // return value
+      }
+// -------------------------------------------------------------
+   public void displayForward()
+      {
+      System.out.print("List (first-->last): ");
+      Link current = first;          // start at beginning
+      while(current != null)         // until end of list,
+         {
+         current.displayLink();      // display data
+         current = current.next;     // move to next link
+         }
+      System.out.println("");
+      }
+// -------------------------------------------------------------
+   public void displayBackward()
+      {
+      System.out.print("List (last-->first): ");
+      Link current = last;           // start at end
+      while(current != null)         // until start of list,
+         {
+         current.displayLink();      // display data
+         current = current.previous; // move to previous link
+         }
+      System.out.println("");
+      }
+// -------------------------------------------------------------
+   }
+#+END_SRC
 * 迭代器
