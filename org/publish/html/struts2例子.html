@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>struts2例子</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011-10-17 06:58:32 "/>
+<meta name="author" content="emacsers"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">struts2例子</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 配置 </a>
+<ul>
+<li><a href="#sec-1-1">1.1 引入struts2 </a></li>
+<li><a href="#sec-1-2">1.2 action配置 </a>
+<ul>
+<li><a href="#sec-1-2-1">1.2.1 xml配置 </a></li>
+<li><a href="#sec-1-2-2">1.2.2 注解配置 </a></li>
+<li><a href="#sec-1-2-3">1.2.3 多文件 </a></li>
+<li><a href="#sec-1-2-4">1.2.4 命令空间配置 </a></li>
+<li><a href="#sec-1-2-5">1.2.5 映射 </a></li>
+<li><a href="#sec-1-2-6">1.2.6 开发模式 </a></li>
+<li><a href="#sec-1-2-7">1.2.7 去掉action后缀 </a></li>
+</ul>
+</li>
+<li><a href="#sec-1-3">1.3 action的使用 </a>
+<ul>
+<li><a href="#sec-1-3-1">1.3.1 属性文件 </a></li>
+<li><a href="#sec-1-3-2">1.3.2 action </a></li>
+<li><a href="#sec-1-3-3">1.3.3 modelDriven接口 </a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4">1.4 拦截器 </a>
+<ul>
+<li><a href="#sec-1-4-1">1.4.1 默认设置 </a></li>
+<li><a href="#sec-1-4-2">1.4.2 自定义拦截器 </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 配置 </h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 引入struts2 </h3>
+<div class="outline-text-3" id="text-1-1">
+
+<ul>
+<li>web.xml配置
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml"> &lt;<span style="color: #7fffd4; font-weight: bold;">filter</span>&gt;
+      &lt;<span style="color: #7fffd4; font-weight: bold;">filter-name</span>&gt;struts2&lt;/<span style="color: #7fffd4; font-weight: bold;">filter-name</span>&gt;
+      &lt;<span style="color: #7fffd4; font-weight: bold;">filter-class</span>&gt;org.apache.struts2.dispatcher.FilterDispatcher&lt;/<span style="color: #7fffd4; font-weight: bold;">filter-class</span>&gt;
+&lt;/<span style="color: #7fffd4; font-weight: bold;">filter</span>&gt;
+
+&lt;<span style="color: #7fffd4; font-weight: bold;">filter-mapping</span>&gt;
+      &lt;<span style="color: #7fffd4; font-weight: bold;">filter-name</span>&gt;struts2&lt;/<span style="color: #7fffd4; font-weight: bold;">filter-name</span>&gt;
+      &lt;<span style="color: #7fffd4; font-weight: bold;">url-pattern</span>&gt;/*&lt;/<span style="color: #7fffd4; font-weight: bold;">url-pattern</span>&gt;
+&lt;/<span style="color: #7fffd4; font-weight: bold;">filter-mapping</span>&gt;
+</pre>
+
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> action配置 </h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+</div>
+
+<div id="outline-container-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> xml配置 </h4>
+<div class="outline-text-4" id="text-1-2-1">
+
+<ul>
+<li>在struts.xml中配置
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #7fffd4; font-weight: bold;">package</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">user</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">namespace</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">/User</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">extends</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">struts-default</span><span style="color: #ffa07a;">"</span>&gt;
+               &lt;<span style="color: #7fffd4; font-weight: bold;">action</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">Login</span><span style="color: #ffa07a;">"</span>&gt;
+                       &lt;<span style="color: #7fffd4; font-weight: bold;">result</span>&gt;pages/login.jsp&lt;/<span style="color: #7fffd4; font-weight: bold;">result</span>&gt;
+               &lt;/<span style="color: #7fffd4; font-weight: bold;">action</span>&gt;
+               &lt;<span style="color: #7fffd4; font-weight: bold;">action</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">Welcome</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">com.mkyong.user.action.WelcomeUserAction</span><span style="color: #ffa07a;">"</span>&gt;
+                       &lt;<span style="color: #7fffd4; font-weight: bold;">result</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">SUCCESS</span><span style="color: #ffa07a;">"</span>&gt;pages/welcome_user.jsp&lt;/<span style="color: #7fffd4; font-weight: bold;">result</span>&gt;
+               &lt;/<span style="color: #7fffd4; font-weight: bold;">action</span>&gt;
+       &lt;/<span style="color: #7fffd4; font-weight: bold;">package</span>&gt;
+</pre>
+
+
+
+<ul>
+<li>name 
+   包的名称
+</li>
+<li>namespace
+   命名空间
+</li>
+<li>extends
+   继承的包
+</li>
+<li>action
+   actionde 配置
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2"><span class="section-number-4">1.2.2</span> 注解配置 </h4>
+<div class="outline-text-4" id="text-1-2-2">
+
+<ul>
+<li id="sec-1-2-2-1">配置位置 <br/>
+<ul>
+<li>配置在Action类中
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java"><span style="color: #0000ff;">@Namespace</span>(<span style="color: #ffa07a;">"/User"</span>)
+<span style="color: #0000ff;">@ResultPath</span>(value=<span style="color: #ffa07a;">"/"</span>)
+<span style="color: #0000ff;">@Result</span>(name=<span style="color: #ffa07a;">"success"</span>,location=<span style="color: #ffa07a;">"pages/login.jsp"</span>)
+<span style="color: #fa8072;">public</span> <span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">LoginAction</span> ....
+</pre>
+
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-2-2-2">ResultPath <br/>
+<ul>
+<li>配置该action对应物理视图资源的路径
+</li>
+<li>struts2会到 项目上下文/pages/login.jsp找试图文件
+</li>
+</ul>
+
+<ul>
+<li id="sec-1-2-2-2-1">默认 <br/>
+<ul>
+<li>项目上下文/WEB-INF/content/命名空间/action中location值
+</li>
+<li>例子
+      /Struts2Example/WEB-INF/content/User/pages/login.jsp
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-2-2-2-2">自定义 <br/>
+<ul>
+<li>项目上下文/WEB-INF/ResultPath的值/命名空间/action中location值
+</li>
+<li>例子
+      /Struts2Example/User/pages/login.jsp
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-2-2-2-3">全局 <br/>
+<ul>
+<li>配置在Struts.xml中
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">  &lt;<span style="color: #7fffd4; font-weight: bold;">struts</span>&gt;
+    &lt;<span style="color: #7fffd4; font-weight: bold;">constant</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">struts.convention.result.path</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">/</span><span style="color: #ffa07a;">"</span>/&gt;
+&lt;/<span style="color: #7fffd4; font-weight: bold;">struts</span>&gt;
+</pre>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1-2-3" class="outline-4">
+<h4 id="sec-1-2-3"><span class="section-number-4">1.2.3</span> 多文件 </h4>
+<div class="outline-text-4" id="text-1-2-3">
+
+<ul>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #7fffd4; font-weight: bold;">include</span> <span style="color: #7fffd4; font-weight: bold;">file</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">user/struts-user.xml</span><span style="color: #ffa07a;">"</span>&gt;&lt;/<span style="color: #7fffd4; font-weight: bold;">include</span>&gt;
+  &lt;<span style="color: #7fffd4; font-weight: bold;">include</span> <span style="color: #7fffd4; font-weight: bold;">file</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">audit/struts-audit.xml</span><span style="color: #ffa07a;">"</span>&gt;&lt;/<span style="color: #7fffd4; font-weight: bold;">include</span>&gt;
+</pre>
+
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2-4" class="outline-4">
+<h4 id="sec-1-2-4"><span class="section-number-4">1.2.4</span> 命令空间配置 </h4>
+<div class="outline-text-4" id="text-1-2-4">
+
+<ul>
+<li>包名 name不会对实际结果造成影响
+</li>
+<li>命名空间会影响action的调用url
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2-5" class="outline-4">
+<h4 id="sec-1-2-5"><span class="section-number-4">1.2.5</span> 映射 </h4>
+<div class="outline-text-4" id="text-1-2-5">
+
+<ul>
+<li>访问url: 项目的上下文/命名空间/类名称.action
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2-6" class="outline-4">
+<h4 id="sec-1-2-6"><span class="section-number-4">1.2.6</span> 开发模式 </h4>
+<div class="outline-text-4" id="text-1-2-6">
+
+<ul>
+<li>struts配置
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #7fffd4; font-weight: bold;">constant</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">struts.devMode</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">true</span><span style="color: #ffa07a;">"</span> /&gt;
+</pre>
+
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2-7" class="outline-4">
+<h4 id="sec-1-2-7"><span class="section-number-4">1.2.7</span> 去掉action后缀 </h4>
+<div class="outline-text-4" id="text-1-2-7">
+
+<ul>
+<li id="sec-1-2-7-1">struts配置 <br/>
+<ul>
+<li>struts.action.extendsion的值设置为""
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #7fffd4; font-weight: bold;">constant</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">struts.action.extension</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">"</span>/&gt; 
+</pre>
+
+
+
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> action的使用 </h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+</div>
+
+<div id="outline-container-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> 属性文件 </h4>
+<div class="outline-text-4" id="text-1-3-1">
+
+<ul>
+<li id="sec-1-3-1-1">位置 <br/>
+<ul>
+<li>action同目录
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-3-1-2">名称 <br/>
+<ul>
+<li>***action.properties
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-3-1-3">全局 <br/>
+<ul>
+<li>global.properties
+</li>
+</ul>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> action </h4>
+<div class="outline-text-4" id="text-1-3-2">
+
+<ol>
+<li>继承ActionSupport类
+</li>
+<li>addActionMessge("消息");
+</li>
+<li>addActionError(""消息);
+</li>
+</ol>
+
+<p> *** jsp页面
+</p><ul>
+<li>&lt;s:actionerror/&gt;
+</li>
+<li>&lt;s:actionmessage/&gt;
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3"><span class="section-number-4">1.3.3</span> modelDriven接口 </h4>
+<div class="outline-text-4" id="text-1-3-3">
+
+<ul>
+<li>实体类
+<ul>
+<li>属性实现setter/getter方法
+</li>
+</ul>
+
+</li>
+<li>action实现ModelDriven
+<ul>
+<li>实例化该实体类
+</li>
+</ul>
+
+</li>
+<li>功能
+<ul>
+<li>页面直接提交该提示类的属性值
+</li>
+<li>action自动设置实体类的属性值
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> 拦截器 </h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+</div>
+
+<div id="outline-container-1-4-1" class="outline-4">
+<h4 id="sec-1-4-1"><span class="section-number-4">1.4.1</span> 默认设置 </h4>
+<div class="outline-text-4" id="text-1-4-1">
+
+<ul>
+<li>如果action继承了struts-default,则自动继承了默认的拦截器设置
+</li>
+<li>拦截器的默认设置在struts-default.xml文件中被组织为defaultStack,它位于struts2-core.jar文件中
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4-2" class="outline-4">
+<h4 id="sec-1-4-2"><span class="section-number-4">1.4.2</span> 自定义拦截器 </h4>
+<div class="outline-text-4" id="text-1-4-2">
+
+<ul>
+<li id="sec-1-4-2-1">拦截器类 <br/>
+<ul>
+<li>实现com.opensymphony.xwork2.interceptor.Interceptor接口
+</li>
+<li>实现intercept(ActionInvocation invocation)方法
+</li>
+<li>必须调用invocation.invoke()方法并返回其结果
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-4-2-2">struts配置 <br/>
+<ul>
+<li>interceptor-ref属性
+</li>
+<li>拦截器栈会按照配置的顺序依次加载
+</li>
+<li>多个拦截器可以写成一个拦截器栈
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #7fffd4; font-weight: bold;">interceptors</span>&gt;  
+            <span style="color: #add8e6;">&lt;!--</span><span style="color: #add8e6;"> &#37197;&#32622;mySimpleInterceptor&#25318;&#25130;&#22120; </span><span style="color: #add8e6;">--&gt;</span>  
+            &lt;<span style="color: #7fffd4; font-weight: bold;">interceptor</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">mySimpleInterceptor</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">com.lee.action.SimpleInterceptor</span><span style="color: #ffa07a;">"</span>&gt;  
+                <span style="color: #add8e6;">&lt;!--</span><span style="color: #add8e6;"> &#20026;&#26041;&#27861;&#36807;&#28388;&#25318;&#25130;&#22120;&#25351;&#23450;name&#23646;&#24615;&#20540; </span><span style="color: #add8e6;">--&gt;</span>  
+                &lt;<span style="color: #7fffd4; font-weight: bold;">param</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">name</span><span style="color: #ffa07a;">"</span>&gt;&#31616;&#21333;&#26041;&#27861;&#36807;&#28388;&#25318;&#25130;&#22120;&lt;/<span style="color: #7fffd4; font-weight: bold;">param</span>&gt;  
+            &lt;/<span style="color: #7fffd4; font-weight: bold;">interceptor</span>&gt;  
+            <span style="color: #add8e6;">&lt;!--</span><span style="color: #add8e6;"> &#37197;&#32622;&#31532;&#20108;&#20010;&#25318;&#25130;&#22120; </span><span style="color: #add8e6;">--&gt;</span>  
+            &lt;<span style="color: #7fffd4; font-weight: bold;">interceptor</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">second</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">com.lee.action.SecondeInterceptor</span><span style="color: #ffa07a;">"</span>&gt;&lt;/<span style="color: #7fffd4; font-weight: bold;">interceptor</span>&gt;  
+
+            <span style="color: #add8e6;">&lt;!--</span><span style="color: #add8e6;"> &#37197;&#32622;&#21517;&#20026;my-stack&#30340;&#25318;&#25130;&#22120;&#26632; </span><span style="color: #add8e6;">--&gt;</span>  
+            &lt;<span style="color: #7fffd4; font-weight: bold;">interceptor-stack</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">my-stack</span><span style="color: #ffa07a;">"</span>&gt;  
+                <span style="color: #add8e6;">&lt;!--</span><span style="color: #add8e6;"> &#37197;&#32622;&#25318;&#25130;&#22120;&#26632;&#20869;&#30340;&#31532;&#19968;&#20010;&#25318;&#25130;&#22120; </span><span style="color: #add8e6;">--&gt;</span>  
+                &lt;<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">mySimpleInterceptor</span><span style="color: #ffa07a;">"</span>&gt;  
+                    &lt;<span style="color: #7fffd4; font-weight: bold;">param</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">name</span><span style="color: #ffa07a;">"</span>&gt;&#31532;&#19968;&#20010;&lt;/<span style="color: #7fffd4; font-weight: bold;">param</span>&gt;  
+                &lt;/<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span>&gt;  
+                <span style="color: #add8e6;">&lt;!--</span><span style="color: #add8e6;"> &#37197;&#32622;&#25318;&#25130;&#22120;&#26632;&#20869;&#30340;&#31532;&#20108;&#20010;&#25318;&#25130;&#22120; </span><span style="color: #add8e6;">--&gt;</span>  
+                &lt;<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">second</span><span style="color: #ffa07a;">"</span>&gt;  
+                    &lt;<span style="color: #7fffd4; font-weight: bold;">param</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">name</span><span style="color: #ffa07a;">"</span>&gt;&#31532;&#20108;&#20010;&lt;/<span style="color: #7fffd4; font-weight: bold;">param</span>&gt;  
+                &lt;/<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span>&gt;  
+            &lt;/<span style="color: #7fffd4; font-weight: bold;">interceptor-stack</span>&gt;  
+        &lt;/<span style="color: #7fffd4; font-weight: bold;">interceptors</span>&gt;  
+
+&lt;<span style="color: #7fffd4; font-weight: bold;">action</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">testingAction</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">com.xuejava.common.action.TestingAction</span><span style="color: #ffa07a;">"</span> &gt;
+      &lt;<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">mySimpleInterceptor</span><span style="color: #ffa07a;">"</span>/&gt;
+      &lt;<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">logger</span><span style="color: #ffa07a;">"</span>/&gt;
+      &lt;<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">second</span><span style="color: #ffa07a;">"</span>/&gt;
+      &lt;<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">defaultStack</span><span style="color: #ffa07a;">"</span>/&gt;
+      &lt;<span style="color: #7fffd4; font-weight: bold;">result</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">success</span><span style="color: #ffa07a;">"</span>&gt;pages/result.jsp&lt;/<span style="color: #7fffd4; font-weight: bold;">result</span>&gt;
+  &lt;/<span style="color: #7fffd4; font-weight: bold;">action</span>&gt;  
+</pre>
+
+
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-4-2-3">拦截器参数 <br/>
+<ul>
+<li>参数名称带上拦截器名称
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">  &lt;<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">defaultStack</span><span style="color: #ffa07a;">"</span>&gt;
+&#12288;&#12288;&lt;<span style="color: #7fffd4; font-weight: bold;">param</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">workflow.excludeMethods</span><span style="color: #ffa07a;">"</span>&gt;whateverMethod&lt;/<span style="color: #7fffd4; font-weight: bold;">param</span>&gt;
+ &lt;/<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span>&gt;
+</pre>
+
+
+
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2011-10-17 06:58:32 </p>
+<p class="author">Author: emacsers</p>
+<p class="creator">Org version 7.7 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>
