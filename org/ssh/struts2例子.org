@@ -118,7 +118,8 @@ public class LoginAction ....
 ** 拦截器
 *** 默认设置
  - 如果action继承了struts-default,则自动继承了默认的拦截器设置
- - 拦截器的默认设置在struts-default.xml文件中被组织为defaultStack,它位于struts2-core.jar文件中
+ - 拦截器的默认设置在struts-default.xml文件中被组织为defaultStack
+ - 它位于struts2-core.jar文件中
 *** 自定义拦截器
 **** 拦截器类
  - 实现com.opensymphony.xwork2.interceptor.Interceptor接口
@@ -170,3 +171,42 @@ public class LoginAction ....
  </interceptor-ref>
 #+END_SRC
 
+**** 重用多个拦截器栈
+ - 例子
+#+BEGIN_SRC xml
+  <interceptors>
+　　<interceptor-stack name="defaultStackWithLog">
+　　<interceptor-ref name="timer"/>
+　　<interceptor-ref name="logger"/>
+　　<interceptor-ref name="defaultStack" />
+　　</interceptor-stack>
+　</interceptors>
+ # 在需要拦截器的action中导入该拦截器包
+#+END_SRC
+
+**** execAndWait拦截器
+***** action
+ - 继承自ActionSupport
+***** jsp
+ - 定义载入中需要展示的页面
+***** struts.xml
+ - 例子
+#+BEGIN_SRC xml
+  <interceptor-ref name="execAndWait">
+　　　　　　<param name="delay">1000</param>
+　　　　　　<param name="delaySleepInterval">500</param>
+　　　　</interceptor-ref>
+　　　　<result name="wait">pages/wait.jsp</result>
+　　　　<result name="success">pages/success.jsp</result>
+#+END_SRC
+
+** 资源包和本地化
+*** 资源包
+**** 查找顺序
+ - ActionClass.properties
+ - Interceptor.properties
+ - BaseClass.properties
+ - ModelDriven的model
+ - Package.properties 
+ - 在i18消息层级本身查找
+ - 全局资源属性
