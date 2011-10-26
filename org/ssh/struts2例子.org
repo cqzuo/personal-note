@@ -199,7 +199,6 @@ public class LoginAction ....
 　　　　<result name="wait">pages/wait.jsp</result>
 　　　　<result name="success">pages/success.jsp</result>
 #+END_SRC
-
 ** 资源包和本地化
 *** 资源包
 **** 查找顺序
