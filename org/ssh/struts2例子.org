@@ -209,3 +209,41 @@ public class LoginAction ....
  - Package.properties 
  - 在i18消息层级本身查找
  - 全局资源属性
+**** 使用
+***** action使用
+ - 继承 ActionSupport
+ - getText("自文件名称")
+ - 例子
+#+BEGIN_SRC java
+  public class LoginAction extends ActionSupport{
+  ...
+   public void validate(){
+     addFieldError("userName",getText("userName.required"));
+   }
+  ...
+  }
+#+END_SRC
+
+***** 属性标签
+ - 在<s:property>标签中使用getText("属性文件名称")
+  + 例子
+#+BEGIN_SRC html
+ <s:property value="getText("userName")"/>
+#+END_SRC
+ - s:text>标签
+  + 例子
+#+BEGIN_SRC html
+ <s:text name="userName"/>
+#+END_SRC
+ - key属性
+  + 例子
+#+BEGIN_SRC html
+ <s:textfield key=”username” /> 
+#+END_SRC
+ - i18n标签
+  + 例子
+#+BEGIN_SRC html
+ <s:i18n name="com.xuejava.user.package" >
+     　　 <s:text name="username" />
+</s:i18n> 
+#+END_SRC
