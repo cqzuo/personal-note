@@ -230,7 +230,7 @@ public class LoginAction ....
 #+BEGIN_SRC html
  <s:property value="getText("userName")"/>
 #+END_SRC
- - s:text>标签
+ - <s:text>标签
   + 例子
 #+BEGIN_SRC html
  <s:text name="userName"/>
@@ -238,7 +238,7 @@ public class LoginAction ....
  - key属性
   + 例子
 #+BEGIN_SRC html
- <s:textfield key=”username” /> 
+ <s:textfield key="username" /> 
 #+END_SRC
  - i18n标签
   + 例子
@@ -247,3 +247,46 @@ public class LoginAction ....
      　　 <s:text name="username" />
 </s:i18n> 
 #+END_SRC
+
+*** i18n与本地化
+**** 项目结构
+ - Action类下对应的属性文件命名
+ - 包对应的属性文件命名
+ - 例子 
+  + LoginAction_zh_CN.properties
+  + global_en.properties
+**** 属性文件
+ - 以国家指定的编码命名
+ - native2ascii工具或其他
+**** action
+ - getText()
+ - 例子
+ #+BEGIN_SRC java
+  //简单验证
+　　public void validate(){
+　　　　if("".equals(getUsername())){
+　　　　　　addFieldError("username", getText("username.required"));
+　　　　}
+　　　　if("".equals(getPassword())){
+　　　　　　addFieldError("password", getText("password.required"));
+　　　　}
+　　}
+#+END_SRC
+**** jsp视图
+ - 必须使用申明<%@page contentType=”text/html;charset=UTF-8”%>
+ - 要改变默认的地区，我们需要声明一个“request_locale”参数，设置首选语言编码并传递给Action类
+**** 显示资源包信息
+ - 例子
+#+BEGIN_SRC jsp
+<s:textfield key="global.username" name="username" />
+<s:text name="global.username" /> 
+<s:property value="getText('global.username')" />
+<s:text name="global.password" />
+#+END_SRC
+**** struts.xml配置
+ - 例子
+#+BEGIN_SRC xml
+  <constant name="struts.custom.i18n.resources" value="global" />
+#+END_SRC
+
+** 
