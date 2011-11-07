@@ -1,4 +1,4 @@
-@echo off
+ @echo off
  @echo ------- java 环境变量设置开始 -------------
  @echo off 
 
