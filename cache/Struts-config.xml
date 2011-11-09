@@ -1,0 +1,21 @@
+1. web.xml中配置struts2的启动
+<filter>
+	<filter-name>struts2</filter-name>
+	<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPreparedAndExecuteFilter</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>struts2</filter-name>
+	<url-pattern>/*<url-pattern>
+</filter-mapping>
+2. action配置文件 struts.xml
+<constant name="struts.devMode" value="true" />
+<package name="actionName" namespace="/control/actionName" exends="struts-default">
+	<action name="actionName" class="完整的Action类路径">
+		<result name="转向字符串">要转向的页面(/WEB-INF/page/list.jsp)</result>
+		<result name="转向字符串" type="redirectaction">
+			<param name="nameSpace">命名空间</param>
+			<param name="actionName">action的名称</param>
+		</result>
+	</action>
+</package>
+
