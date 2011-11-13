@@ -289,4 +289,18 @@ public class LoginAction ....
   <constant name="struts.custom.i18n.resources" value="global" />
 #+END_SRC
 
-** 
+** struts2的动态方法调用
+*** action的配置
+#+BEGIN_SRC xml
+<action name="actionName_*" class="action的完整路径" method="{1}">  
+#+END_SRC
+*** jsp页面的调用
+#+BEGIN_SRC html
+  action="actionName_执行方法?参数名称=参数值&其他参数..."
+#+END_SRC
+** action属性参数的接收
+*** 一般属性
+ - setter/getter方法
+ - Url传递
+*** 域模型
+ - 
