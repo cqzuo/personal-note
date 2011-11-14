@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>struts2例子</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2011-10-17 06:58:32 "/>
+<meta name="generated" content="2011-11-14 06:00:25 "/>
 <meta name="author" content="emacsers"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -117,6 +117,24 @@ lang="en" xml:lang="en">
 <ul>
 <li><a href="#sec-1-4-1">1.4.1 默认设置 </a></li>
 <li><a href="#sec-1-4-2">1.4.2 自定义拦截器 </a></li>
+</ul>
+</li>
+<li><a href="#sec-1-5">1.5 资源包和本地化 </a>
+<ul>
+<li><a href="#sec-1-5-1">1.5.1 资源包 </a></li>
+<li><a href="#sec-1-5-2">1.5.2 i18n与本地化 </a></li>
+</ul>
+</li>
+<li><a href="#sec-1-6">1.6 struts2的动态方法调用 </a>
+<ul>
+<li><a href="#sec-1-6-1">1.6.1 action的配置 </a></li>
+<li><a href="#sec-1-6-2">1.6.2 jsp页面的调用 </a></li>
+</ul>
+</li>
+<li><a href="#sec-1-7">1.7 action属性参数的接收 </a>
+<ul>
+<li><a href="#sec-1-7-1">1.7.1 一般属性 </a></li>
+<li><a href="#sec-1-7-2">1.7.2 域模型 </a></li>
 </ul>
 </li>
 </ul>
@@ -521,7 +539,9 @@ lang="en" xml:lang="en">
 <ul>
 <li>如果action继承了struts-default,则自动继承了默认的拦截器设置
 </li>
-<li>拦截器的默认设置在struts-default.xml文件中被组织为defaultStack,它位于struts2-core.jar文件中
+<li>拦截器的默认设置在struts-default.xml文件中被组织为defaultStack
+</li>
+<li>它位于struts2-core.jar文件中
 </li>
 </ul>
 
@@ -620,6 +640,414 @@ lang="en" xml:lang="en">
 
 </li>
 </ul>
+<ul>
+<li id="sec-1-4-2-4">重用多个拦截器栈 <br/>
+<ul>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">  &lt;<span style="color: #7fffd4; font-weight: bold;">interceptors</span>&gt;
+&#12288;&#12288;&lt;<span style="color: #7fffd4; font-weight: bold;">interceptor-stack</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">defaultStackWithLog</span><span style="color: #ffa07a;">"</span>&gt;
+&#12288;&#12288;&lt;<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">timer</span><span style="color: #ffa07a;">"</span>/&gt;
+&#12288;&#12288;&lt;<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">logger</span><span style="color: #ffa07a;">"</span>/&gt;
+&#12288;&#12288;&lt;<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">defaultStack</span><span style="color: #ffa07a;">"</span> /&gt;
+&#12288;&#12288;&lt;/<span style="color: #7fffd4; font-weight: bold;">interceptor-stack</span>&gt;
+&#12288;&lt;/<span style="color: #7fffd4; font-weight: bold;">interceptors</span>&gt;
+ # &#22312;&#38656;&#35201;&#25318;&#25130;&#22120;&#30340;action&#20013;&#23548;&#20837;&#35813;&#25318;&#25130;&#22120;&#21253;
+</pre>
+
+
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-4-2-5">execAndWait拦截器 <br/>
+<ul>
+<li id="sec-1-4-2-5-1">action <br/>
+<ul>
+<li>继承自ActionSupport
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-4-2-5-2">jsp <br/>
+<ul>
+<li>定义载入中需要展示的页面
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-4-2-5-3">struts.xml <br/>
+<ul>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">  &lt;<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">execAndWait</span><span style="color: #ffa07a;">"</span>&gt;
+&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&lt;<span style="color: #7fffd4; font-weight: bold;">param</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">delay</span><span style="color: #ffa07a;">"</span>&gt;1000&lt;/<span style="color: #7fffd4; font-weight: bold;">param</span>&gt;
+&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&lt;<span style="color: #7fffd4; font-weight: bold;">param</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">delaySleepInterval</span><span style="color: #ffa07a;">"</span>&gt;500&lt;/<span style="color: #7fffd4; font-weight: bold;">param</span>&gt;
+&#12288;&#12288;&#12288;&#12288;&lt;/<span style="color: #7fffd4; font-weight: bold;">interceptor-ref</span>&gt;
+&#12288;&#12288;&#12288;&#12288;&lt;<span style="color: #7fffd4; font-weight: bold;">result</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">wait</span><span style="color: #ffa07a;">"</span>&gt;pages/wait.jsp&lt;/<span style="color: #7fffd4; font-weight: bold;">result</span>&gt;
+&#12288;&#12288;&#12288;&#12288;&lt;<span style="color: #7fffd4; font-weight: bold;">result</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">success</span><span style="color: #ffa07a;">"</span>&gt;pages/success.jsp&lt;/<span style="color: #7fffd4; font-weight: bold;">result</span>&gt;
+</pre>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> 资源包和本地化 </h3>
+<div class="outline-text-3" id="text-1-5">
+
+
+</div>
+
+<div id="outline-container-1-5-1" class="outline-4">
+<h4 id="sec-1-5-1"><span class="section-number-4">1.5.1</span> 资源包 </h4>
+<div class="outline-text-4" id="text-1-5-1">
+
+<ul>
+<li id="sec-1-5-1-1">查找顺序 <br/>
+<ul>
+<li>ActionClass.properties
+</li>
+<li>Interceptor.properties
+</li>
+<li>BaseClass.properties
+</li>
+<li>ModelDriven的model
+</li>
+<li>Package.properties 
+</li>
+<li>在i18消息层级本身查找
+</li>
+<li>全局资源属性
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-5-1-2">使用 <br/>
+<ul>
+<li id="sec-1-5-1-2-1">action使用 <br/>
+<ul>
+<li>继承 ActionSupport
+</li>
+<li>getText("自文件名称")
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java"><span style="color: #fa8072;">public</span> <span style="color: #fa8072;">class</span> <span style="color: #9acd32; font-weight: bold;">LoginAction</span> <span style="color: #fa8072;">extends</span> <span style="color: #9acd32; font-weight: bold;">ActionSupport</span>{
+...
+ <span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">void</span> validate(){
+   addFieldError(<span style="color: #ffa07a;">"userName"</span>,getText(<span style="color: #ffa07a;">"userName.required"</span>));
+ }
+...
+}
+</pre>
+
+
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-5-1-2-2">属性标签 <br/>
+<ul>
+<li>在&lt;s:property&gt;标签中使用getText("属性文件名称")
+<ul>
+<li>例子
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+<pre class="src src-html">&lt;<span style="color: #98fb98; font-weight: bold;">s</span>:<span style="color: #7fffd4; font-weight: bold;">property</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"getText("</span>userName<span style="color: #ffa07a;">")"</span>/&gt;
+</pre>
+
+
+
+<ul>
+<li>&lt;s:text&gt;标签
+<ul>
+<li>例子
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+<pre class="src src-html">&lt;<span style="color: #98fb98; font-weight: bold;">s</span>:<span style="color: #7fffd4; font-weight: bold;">text</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"userName"</span>/&gt;
+</pre>
+
+
+
+<ul>
+<li>key属性
+<ul>
+<li>例子
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+<pre class="src src-html">&lt;<span style="color: #98fb98; font-weight: bold;">s</span>:<span style="color: #7fffd4; font-weight: bold;">textfield</span> <span style="color: #7fffd4; font-weight: bold;">key</span>=<span style="color: #ffa07a;">"username"</span> /&gt; 
+</pre>
+
+
+
+<ul>
+<li>i18n标签
+<ul>
+<li>例子
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+<pre class="src src-html"> &lt;<span style="color: #98fb98; font-weight: bold;">s</span>:<span style="color: #7fffd4; font-weight: bold;">i18n</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"com.xuejava.user.package"</span> &gt;
+     &#12288;&#12288; &lt;<span style="color: #98fb98; font-weight: bold;">s</span>:<span style="color: #7fffd4; font-weight: bold;">text</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"username"</span> /&gt;
+&lt;/<span style="color: #98fb98; font-weight: bold;">s</span>:<span style="color: #7fffd4; font-weight: bold;">i18n</span>&gt; 
+</pre>
+
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1-5-2" class="outline-4">
+<h4 id="sec-1-5-2"><span class="section-number-4">1.5.2</span> i18n与本地化 </h4>
+<div class="outline-text-4" id="text-1-5-2">
+
+<ul>
+<li id="sec-1-5-2-1">项目结构 <br/>
+<ul>
+<li>Action类下对应的属性文件命名
+</li>
+<li>包对应的属性文件命名
+</li>
+<li>例子 
+<ul>
+<li>LoginAction<sub>zh</sub><sub>CN</sub>.properties
+</li>
+<li>global<sub>en</sub>.properties
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-5-2-2">属性文件 <br/>
+<ul>
+<li>以国家指定的编码命名
+</li>
+<li>native2ascii工具或其他
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-5-2-3">action <br/>
+<ul>
+<li>getText()
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java">  <span style="color: #add8e6;">//</span><span style="color: #add8e6;">&#31616;&#21333;&#39564;&#35777;</span>
+&#12288;&#12288;<span style="color: #fa8072;">public</span> <span style="color: #9acd32; font-weight: bold;">void</span> validate(){
+&#12288;&#12288;&#12288;&#12288;<span style="color: #fa8072;">if</span>(<span style="color: #ffa07a;">""</span>.equals(getUsername())){
+&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;addFieldError(<span style="color: #ffa07a;">"username"</span>, getText(<span style="color: #ffa07a;">"username.required"</span>));
+&#12288;&#12288;&#12288;&#12288;}
+&#12288;&#12288;&#12288;&#12288;<span style="color: #fa8072;">if</span>(<span style="color: #ffa07a;">""</span>.equals(getPassword())){
+&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;addFieldError(<span style="color: #ffa07a;">"password"</span>, getText(<span style="color: #ffa07a;">"password.required"</span>));
+&#12288;&#12288;&#12288;&#12288;}
+&#12288;&#12288;}
+</pre>
+
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-5-2-4">jsp视图 <br/>
+<ul>
+<li>必须使用申明&lt;%@page contentType=”text/html;charset=UTF-8”%&gt;
+</li>
+<li>要改变默认的地区，我们需要声明一个“request<sub>locale”参数，设置首选语言编码并传递给Action类</sub>
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-5-2-5">显示资源包信息 <br/>
+<ul>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-jsp">&lt;s:textfield key=<span style="color: #ffa07a;">"global.username"</span> name=<span style="color: #ffa07a;">"username"</span> /&gt;
+&lt;s:text name=<span style="color: #ffa07a;">"global.username"</span> /&gt; 
+&lt;s:property value=<span style="color: #ffa07a;">"getText('global.username')"</span> /&gt;
+&lt;s:text name=<span style="color: #ffa07a;">"global.password"</span> /&gt;
+</pre>
+
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-5-2-6">struts.xml配置 <br/>
+<ul>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #7fffd4; font-weight: bold;">constant</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">struts.custom.i18n.resources</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">value</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">global</span><span style="color: #ffa07a;">"</span> /&gt;
+</pre>
+
+
+
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> struts2的动态方法调用 </h3>
+<div class="outline-text-3" id="text-1-6">
+
+
+</div>
+
+<div id="outline-container-1-6-1" class="outline-4">
+<h4 id="sec-1-6-1"><span class="section-number-4">1.6.1</span> action的配置 </h4>
+<div class="outline-text-4" id="text-1-6-1">
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #7fffd4; font-weight: bold;">action</span> <span style="color: #7fffd4; font-weight: bold;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">actionName_*</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">action&#30340;&#23436;&#25972;&#36335;&#24452;</span><span style="color: #ffa07a;">"</span> <span style="color: #7fffd4; font-weight: bold;">method</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">{1}</span><span style="color: #ffa07a;">"</span>&gt;  
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-6-2" class="outline-4">
+<h4 id="sec-1-6-2"><span class="section-number-4">1.6.2</span> jsp页面的调用 </h4>
+<div class="outline-text-4" id="text-1-6-2">
+
+
+
+
+<pre class="src src-html"><span style="color: #7fffd4; font-weight: bold;">action</span>=<span style="color: #ffa07a;">"actionName_&#25191;&#34892;&#26041;&#27861;?&#21442;&#25968;&#21517;&#31216;=&#21442;&#25968;&#20540;&amp;&#20854;&#20182;&#21442;&#25968;..."</span>
+</pre>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> action属性参数的接收 </h3>
+<div class="outline-text-3" id="text-1-7">
+
+
+</div>
+
+<div id="outline-container-1-7-1" class="outline-4">
+<h4 id="sec-1-7-1"><span class="section-number-4">1.7.1</span> 一般属性 </h4>
+<div class="outline-text-4" id="text-1-7-1">
+
+<ul>
+<li>setter/getter方法
+</li>
+<li>Url传递
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-7-2" class="outline-4">
+<h4 id="sec-1-7-2"><span class="section-number-4">1.7.2</span> 域模型 </h4>
+<div class="outline-text-4" id="text-1-7-2">
+
+<ul>
+<li>
+</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -627,7 +1055,7 @@ lang="en" xml:lang="en">
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2011-10-17 06:58:32 </p>
+<p class="date">Date: 2011-11-14 06:00:25 </p>
 <p class="author">Author: emacsers</p>
 <p class="creator">Org version 7.7 with Emacs version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
