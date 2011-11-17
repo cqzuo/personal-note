@@ -1,0 +1,86 @@
+实现方式有2种,依赖容器和ioc
+依赖容器:
+1. action继承actionSupport
+1.1 建立3个map属性
+ private Map request;
+ private Map session;
+ private Map applicaton;
+1.2 在action的构造方法中初始化
+ request = (Map)ActionContext.getContext().get("request");
+ session = ActionContext.getContext().getSession();
+ applicaton = ActionContext.getSession().getApplication();
+
+2. 实现RequestAware SessionAware ApplicationWare接口
+  implements RequestAware,SessionAware,ApplicationWare
+ {
+ private Map<String,Object> request ;
+	/**
+	 * get the value of request
+	 * @return the value of request
+	 */
+	public Map<String,Object> getRequest(){
+		return this.request;
+	}
+	/**
+	 * set a new value to request
+	 * @param request the new value to be used
+	 */
+	public void setRequest(Map<String,Object> request) {
+		this.request=request;
+	}
+ private Map<String,Object> session ;
+	/**
+	 * get the value of session
+	 * @return the value of session
+	 */
+	public Map<String,Object> getSession(){
+		return this.session;
+	}
+	/**
+	 * set a new value to session
+	 * @param session the new value to be used
+	 */
+	public void setSession(Map<String,Object> session) {
+		this.session=session;
+	}
+ private  Map<String,Object> applicaton ;
+	/**
+	 * get the value of applicaton
+	 * @return the value of applicaton
+	 */
+	public Map<String,Object> getApplicaton(){
+		return this.applicaton;
+	}
+	/**
+	 * set a new value to applicaton
+	 * @param applicaton the new value to be used
+	 */
+	public void setApplicaton(Map<String,Object> applicaton) {
+		this.applicaton=applicaton;
+	}
+}
+
+3. 获取原类型
+3.1 extends ActionSupport
+3.2 建立属性
+ private HttpServletRequest request;
+ private HttpSession session;
+ private ServletContext applicaton;
+3.2 在构造方法中初始化
+ request = ServletActionContext.getRequest();
+ session = request.getSession();
+ applicaton = session.getServletContext();
+
+4. 原型+ioc
+4.1 建立属性
+ private HttpServletRequest request;
+ private HttpSession session;
+ private ServletContext applicaton;
+4.2 实现接口
+ implements ServletRequestAware
+4.3 重写setServletRequest()
+ public void setServletRequest(HttpServletRequest request){
+	this.request = request;
+	this.session = request.getSession();
+	this.applicaton = session.getServletContext();
+}
