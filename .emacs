@@ -84,8 +84,7 @@
 (require 'htmlize)
 (load-file "C:/Emacs/site-lisp/color-theme.elc")
 (color-theme-gnome2)
-(load-file "C:/Emacs/site-lisp/psvn.el")
-(require 'psvn)
+
 ;; iimage mode
 (autoload 'iimage-mode "iimage" "Support Inline image minor mode." t)
 (autoload 'turn-on-iimage-mode "iimage" "Turn on Inline image minor mode." t)
