@@ -69,8 +69,12 @@ public class IdCard
 }
 
 // 一对一单向外键关联
+@Entity
+@Table(name="person")
 public class Person
 {
+	@Id
+	@GeneratedValue
     private Integer id = null;
 	/**
 	 * get the value of id
@@ -86,6 +90,8 @@ public class Person
 	public void setId(Integer id) {
 		this.id=id;
 	}
+	
+	@Column(length=30)
     private String name = null;
 	/**
 	 * get the value of name
@@ -101,7 +107,8 @@ public class Person
 	public void setName(String name) {
 		this.name=name;
 	}
-    
+
+	@ManyToOne()
 	private IdCard idCard = null;
 	/**
 	 * get the value of idCard
