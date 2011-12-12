@@ -1,4 +1,5 @@
-public class Person
+// 一对一单向外键关联
+pualic class Person
 {
 	//id
 	@id
@@ -35,6 +36,23 @@ public class Person
 	public void setName(String name) {
 		this.name=name;
 	}
-    
+    //引用IdCard对象
+    private Integer idCardId = null;
+    @ManyToOne(name="idCardId",unique="true")
+    private IdCard idCard = null;
+	/**
+	 * get the value of idCard
+	 * @return the value of idCard
+	 */
+	public IdCard getIdCard(){
+		return this.idCard;
+	}
+	/**
+	 * set a new value to idCard
+	 * @param idCard the new value to be used
+	 */
+	public void setIdCard(IdCard idCard) {
+		this.idCard=idCard;
+	}
 }
 
