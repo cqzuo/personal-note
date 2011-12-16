@@ -67,7 +67,19 @@ public class IdCard
 		this.idCardNo=idCardNo;
 	}
 }
+/**
+ 	多:	@ManyToOne
+	一:	
+		@OneToMany
+		@OneToOne
+	外键:	@JoinColumn(name="外键的名称")
+	多或一的参数:	
+		级联 Cascade=CascadeType.REFRESH
+		是否非空 nullable = false
+		是否必选 optional = false
+		mapedBy("映射对象名称头字母小写") 当前对象已被被注解对象映射
 
+ **/ 
 // 一对一单向外键关联
 @Entity
 @Table(name="person")
