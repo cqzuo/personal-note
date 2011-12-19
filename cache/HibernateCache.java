@@ -73,11 +73,13 @@ public class IdCard
 		@OneToMany
 		@OneToOne
 	外键:	@JoinColumn(name="外键的名称")
+			一般添加在多的一端
 	多或一的参数:	
 		级联 Cascade=CascadeType.REFRESH
 		是否非空 nullable = false
 		是否必选 optional = false
 		mapedBy("映射对象名称头字母小写") 当前对象已被被注解对象映射
+			放在维护端的被维护对象上
 
  **/ 
 // 一对一单向外键关联

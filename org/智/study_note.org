@@ -32,15 +32,35 @@
 ***** 配送信息维护
 * 实体类添加jpa映射
  - 枚举类型
-  + @Enumerated(EnumType.STRING) 字符形式保存
+   + @Enumerated(EnumType.STRING) 字符形式保存
  - 表之间的关联
-  + 根据关系设置注解 ManyToOne
-  + 根据实际需求设置参数
-   - cascade=CascadeType.REFRESH 级联刷新
-  + 指定外键
-   - JoinColumn(name="外键名称")
-  + 是否必选
-   - optional=false
-  + 双向关联的设置
-   - OneToMany(mapped="被维护端",cascade=CascadeType.REMOVE)
- 
+   + 根据关系设置注解 ManyToOne
+   + 根据实际需求设置参数
+     - cascade=CascadeType.REFRESH 级联刷新
+   + 指定外键
+     - JoinColumn(name="外键名称")
+   + 是否必选
+     - optional=false
+   + 双向关联的设置
+     - OneToMany(mapped="被维护端",cascade=CascadeType.REMOVE)
+ -  常用注解
+	多:	@ManyToOne
+	一:	
+		@OneToMany
+		@OneToOne
+	外键:	@JoinColumn(name="外键的名称")
+			一般添加在多的一端
+	多或一的参数:	
+		级联 Cascade=CascadeType.REFRESH
+		是否非空 nullable = false
+		是否必选 optional = false
+		mapedBy("映射对象名称头字母小写") 当前对象已被被注解对象映射
+			放在维护端的被维护对象上
+* Service逻辑层实现
+** 接口
+ - 在接口实现类ServiceBean中写逻辑
+ - 在接口中定义方法
+** 注解
+** 继承
+ - 继承自DaoSupport好处
+  + DAOSupport，封装了 DAO 的基本操作 DAOSupport 注入了 EntityManager，默认使用 default unit name, 如果需要使用其它的 unit，可以另外注入，或者附在 getEntityManager 方法 DAO 应该都从 DAOSupport 继承，并且实现为 Stateless Local SessionBean DAO 可以脱离容器运行 DAOSupport已经发布成了 Statless EJB，所以如果简单的DAO操作，可以直接使用DAOSupport，而不用提供 DAO 子类
