@@ -68,6 +68,7 @@ public class IdCard
 	}
 }
 /**
+ 注解:
  	多:	@ManyToOne
 	一:	
 		@OneToMany
@@ -80,62 +81,9 @@ public class IdCard
 		是否必选 optional = false
 		mapedBy("映射对象名称头字母小写") 当前对象已被被注解对象映射
 			放在维护端的被维护对象上
-
+  实体类:
+	多:
+		在一的一方定义Set<多的一方类名称>作为其属性
+	一:
+		在多中定义一一方对象作为其属性
  **/ 
-// 一对一单向外键关联
-@Entity
-@Table(name="person")
-public class Person
-{
-	@Id
-	@GeneratedValue
-    private Integer id = null;
-	/**
-	 * get the value of id
-	 * @return the value of id
-	 */
-	public Integer getId(){
-		return this.id;
-	}
-	/**
-	 * set a new value to id
-	 * @param id the new value to be used
-	 */
-	public void setId(Integer id) {
-		this.id=id;
-	}
-	
-	@Column(length=30)
-    private String name = null;
-	/**
-	 * get the value of name
-	 * @return the value of name
-	 */
-	public String getName(){
-		return this.name;
-	}
-	/**
-	 * set a new value to name
-	 * @param name the new value to be used
-	 */
-	public void setName(String name) {
-		this.name=name;
-	}
-
-	@ManyToOne()
-	private IdCard idCard = null;
-	/**
-	 * get the value of idCard
-	 * @return the value of idCard
-	 */
-	public IdCard getIdCard(){
-		return this.idCard;
-	}
-	/**
-	 * set a new value to idCard
-	 * @param idCard the new value to be used
-	 */
-	public void setIdCard(IdCard idCard) {
-		this.idCard=idCard;
-	}
-}

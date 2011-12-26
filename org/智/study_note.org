@@ -56,6 +56,11 @@
 		是否必选 optional = false
 		mapedBy("映射对象名称头字母小写") 当前对象已被被注解对象映射
 			放在维护端的被维护对象上
+ - 实体类:
+	多:
+		在一的一方定义Set<多的一方类名称>作为其属性
+	一:
+		在多中定义一一方对象作为其属性
 * Service逻辑层实现
 ** 接口
  - 在接口实现类ServiceBean中写逻辑
@@ -63,4 +68,10 @@
 ** 注解
 ** 继承
  - 继承自DaoSupport好处
-  + DAOSupport，封装了 DAO 的基本操作 DAOSupport 注入了 EntityManager，默认使用 default unit name, 如果需要使用其它的 unit，可以另外注入，或者附在 getEntityManager 方法 DAO 应该都从 DAOSupport 继承，并且实现为 Stateless Local SessionBean DAO 可以脱离容器运行 DAOSupport已经发布成了 Statless EJB，所以如果简单的DAO操作，可以直接使用DAOSupport，而不用提供 DAO 子类
+  + DAOSupport，封装了 DAO 的基本操作 
+  + DAOSupport 注入了 EntityManager，默认使用 default unit name
+  + 如果需要使用其它的 unit，可以另外注入，或者附在 getEntityManager 方法 
+  + DAO 应该都从 DAOSupport 继承，并且实现为 Stateless Local SessionBean 
+  + DAO 可以脱离容器运行 
+  + DAOSupport已经发布成了 Statless EJB
+  + 如果简单的DAO操作，可以直接使用DAOSupport，而不用提供 DAO 子类
