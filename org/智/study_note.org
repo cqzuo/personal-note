@@ -75,3 +75,15 @@
   + DAO 可以脱离容器运行 
   + DAOSupport已经发布成了 Statless EJB
   + 如果简单的DAO操作，可以直接使用DAOSupport，而不用提供 DAO 子类
+
+* 环境的搭建
+** 新建项目
+*** Dynamic web project创建
+  - web-module设置
+   + 设置为根目录 --content Root的值设置为空
+** jpa环境设置
+*** 添加jar包
+ - hiberate的包
+ - ejb的包
+ - 方法
+  + 将jar包直接粘贴到lib目录中
