@@ -88,3 +88,21 @@
  - 方法
   + 将jar包直接粘贴到lib目录中
   + 
+
+* 测试
+** 环境的搭建
+*** 添加静态属性
+ - ApplicationContext
+ - Service
+*** 在setUpBeforeClass方法中设置已经定义的属性值
+ - 从配置文件中读取bean并赋值给属性的Service
+ - 例子
+#+BEGIN_SRC java
+ ctx = new ClassPathXmlApplicationContext("bean.xml");
+ service = ctx.getBean("service对应的实现类serviceBean");
+#+END_SRC
+** 使用配置好的ServiceBean
+* mvc
+ - @Controller("/contorller/product/manage")
+  + 设置该action的命名空间
+  + 可通过该参数来进行访问
