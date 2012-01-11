@@ -1,0 +1,15 @@
+;; Object others/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "others/"
+  :tables (list 
+   (semanticdb-table "flow.dot"
+    :major-mode 'graphviz-dot-mode
+    :tags '(("G" digraph (:members (("edge" node (:attributes (("fontname" attribute (:value "\"FangSong\"") (reparse-symbol node-description) [19 38]))) (reparse-symbol graph-contents) [13 40]) ("NODE" generic-node (:attributes (("shape" attribute (:value "box") (reparse-symbol node-description) [47 56]) ("fontname" attribute (:value "\"Microsoft YaHei\"") (reparse-symbol node-description) [58 84]))) (reparse-symbol graph-contents) [41 99]) ("sbzrsp" node (:attributes (("label" attribute (:value "\"审保主任选择项目审批流向\"") (reparse-symbol node-description) [469 489]))) (reparse-symbol graph-contents) [461 493]) ("NODE" generic-node (:attributes (("fontname" attribute (:value "\"FangSong\"") (reparse-symbol node-description) [517 536]))) (reparse-symbol graph-contents) [494 551]) ("qkbhsq" node (:attributes (("label" attribute (:value "\"退回\"") (reparse-symbol node-description) [676 686]))) (reparse-symbol graph-contents) [669 688]) ("shlc" node (:attributes (("label" attribute (:value "\"上会\"") (reparse-symbol node-description) [702 712]))) (reparse-symbol graph-contents) [697 714]) ("sbwysp" node (:attributes (("label" attribute (:value "\"汇签\"") (reparse-symbol node-description) [730 740]))) (reparse-symbol graph-contents) [723 742]) ("zjl" node (:attributes (("label" attribute (:value "\"总经理\"") (reparse-symbol node-description) [795 806]))) (reparse-symbol graph-contents) [791 808]))) nil [1 832]))
+    :file "flow.dot"
+    :pointmax 832
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0beta3"
+  :semanticdb-version "2.0beta3"
+  )
