@@ -148,7 +148,7 @@ document.body.removeChild(oQ);
 #+END_SRC
 * dom特征功能
 ** 特性与属性
-  - dom元素中包含的特效可作为属性
+  - dom元素中包含的特性可作为属性
   - 例子
  #+BEGIN_SRC javaScript
   <image src="test.jpg" border="0">
