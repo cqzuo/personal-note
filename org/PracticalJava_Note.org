@@ -6,7 +6,11 @@
 ** 数组的正确使用
  - array和vector使用
    vector只能存放对象
-   
 ** polymorphism优于instanceof
 ** 如果不再需要对象引用,则要将其设置为null
 * 对象的相等性
+** reference类型与primitive的区别
+ - 引用类型在栈中存放的是对象的引用地址
+ - 基本类型在栈中存放的是实际的值
+** ==与equals()
+
