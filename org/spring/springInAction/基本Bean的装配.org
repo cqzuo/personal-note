@@ -1,6 +1,23 @@
 * spring容器的介绍
 ** Bean工厂
  - 采用工厂设计模式
+ - 可以创建和分发这种类型的Bean
+*** 例子
+ - 如何从文件定义的Bean中装载Bean
+ - 如何从Bean工厂中获取Bean
+** 应用上下文
+ - 跟Bean工厂的比较的优点
+  + 文本解析工具 i18n支持
+  + 提供了载入资源文件的通用方法
+  + 可以向注册为监听器的Bean发送时间
+*** 实现方式
+ - ClassPathXmlApplicationContext
+ - FileSystemApplicationContext
+ - XmlWebApplicationContext
+*** 说明
+ - ApplicationConext接口扩展自BeanFactory接口
+ - Bean工厂延迟加载所有Bean,getBean时才创建该Bean
+ - ApplicationConext预载入所有单实例Bean
 * 声明Bean
 * 注入
 ** 构造函数注入
