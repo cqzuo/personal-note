@@ -1,16 +1,16 @@
-ÊµÏÖ·½Ê½ÓĞ2ÖÖ,ÒÀÀµÈİÆ÷ºÍioc
-ÒÀÀµÈİÆ÷:
-1. action¼Ì³ĞactionSupport
-1.1 ½¨Á¢3¸ömapÊôĞÔ
+ï»¿å®ç°æ–¹å¼æœ‰2ç§,ä¾èµ–å®¹å™¨å’Œioc
+ä¾èµ–å®¹å™¨:
+1. actionç»§æ‰¿actionSupport
+1.1 å»ºç«‹3ä¸ªmapå±æ€§
  private Map request;
  private Map session;
  private Map applicaton;
-1.2 ÔÚactionµÄ¹¹Ôì·½·¨ÖĞ³õÊ¼»¯
+1.2 åœ¨actionçš„æ„é€ æ–¹æ³•ä¸­åˆå§‹åŒ–
  request = (Map)ActionContext.getContext().get("request");
  session = ActionContext.getContext().getSession();
  applicaton = ActionContext.getSession().getApplication();
 
-2. ÊµÏÖRequestAware SessionAware ApplicationWare½Ó¿Ú
+2. å®ç°RequestAware SessionAware ApplicationWareæ¥å£
   implements RequestAware,SessionAware,ApplicationWare
  {
  private Map<String,Object> request ;
@@ -60,25 +60,25 @@
 	}
 }
 
-3. »ñÈ¡Ô­ÀàĞÍ
+3. è·å–åŸç±»å‹
 3.1 extends ActionSupport
-3.2 ½¨Á¢ÊôĞÔ
+3.2 å»ºç«‹å±æ€§
  private HttpServletRequest request;
  private HttpSession session;
  private ServletContext applicaton;
-3.2 ÔÚ¹¹Ôì·½·¨ÖĞ³õÊ¼»¯
+3.2 åœ¨æ„é€ æ–¹æ³•ä¸­åˆå§‹åŒ–
  request = ServletActionContext.getRequest();
  session = request.getSession();
  applicaton = session.getServletContext();
 
-4. Ô­ĞÍ+ioc
-4.1 ½¨Á¢ÊôĞÔ
+4. åŸå‹+ioc
+4.1 å»ºç«‹å±æ€§
  private HttpServletRequest request;
  private HttpSession session;
  private ServletContext applicaton;
-4.2 ÊµÏÖ½Ó¿Ú
+4.2 å®ç°æ¥å£
  implements ServletRequestAware
-4.3 ÖØĞ´setServletRequest()
+4.3 é‡å†™setServletRequest()
  public void setServletRequest(HttpServletRequest request){
 	this.request = request;
 	this.session = request.getSession();
