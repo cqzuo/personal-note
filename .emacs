@@ -22,9 +22,6 @@
 (setq visible-bell t);不要打入 TAB 时总是听到 PC 喇叭嘀嘀嘀的叫
 (fset 'yes-or-no-p 'y-or-n-p);不要总是没完没了的问yes or no, 为什么不能用 y/n
 (setq-default make-backup-files nil);不要生成临时文件
-;;启动Emacs Server,然后用emacsclient起动emacs
-;;加快emacs的起动速度
-(server-start)
 ;;自动重载更改的文件
 (global-auto-revert-mode 1)
 ;;{{{ 删除一些临时的buffers，少占我的内存
@@ -70,12 +67,13 @@
       ;(message "No buffers deleted"))))
 ;;}}}
 
+(setq  load-path  (cons  "C:/Emacs/site-lisp"  load-path))
 
 (defun comment-dwim-line (&optional arg) 
 "Replacement for the comment-dwim command." 
 (interactive "*P") 
 (comment-normalize-vars) 
-(if (and (not (region-active-p)) (not (looking-at "[ \t]*$"))) 
+(if (and (not (region-active-p)) (not (looking-at "[ /t]*$"))) 
 (comment-or-uncomment-region (line-beginning-position) (line-end-position)) 
 (comment-dwim arg)))
 
@@ -83,7 +81,7 @@
 (load-file "C:/Emacs/site-lisp/htmlize.elc")
 (require 'htmlize)
 (load-file "C:/Emacs/site-lisp/color-theme.elc")
-(color-theme-gnome2)
+(color-theme-aalto-light)
 
 ;; iimage mode
 (autoload 'iimage-mode "iimage" "Support Inline image minor mode." t)
@@ -97,6 +95,12 @@
   (iimage-mode))
   
 (load-file "C:/Emacs/lisp/cedet/pulse.elc")
+(load-file "C:/Emacs/site-lisp/org-export-blocks-format-plantuml.el")
+;;显示行号
+(load-file "C:/Emacs/site-lisp/linum.elc")
+(require 'linum)
+(global-linum-mode t)
+
 (load-file "C:/Emacs/site-lisp/highlight-tail.elc")
  (load-file "C:/Emacs/site-lisp/js2-mode.el")
 (load-file "C:/Emacs/site-lisp/tabbar.elc")
@@ -175,6 +179,7 @@
  (defcustom org-export-html-style"<link rel=\"stylesheet\" type=\"text/css\" href=\"org.css\">" ""
 	:group 'org-export-html
 	:type 'string)
+(setq org-return-follows-link t)
 	
 ;;yasnippet
 (load-file "c:/Emacs/site-lisp/yasnippet-bundle.elc")
@@ -236,22 +241,70 @@ nil)))
       '(("nnimap+imap.gmail.com.*" (gcc-self . t))))
 (setq gnus-fetch-old-headers t)
 
+
+(setq user-full-name "emacsers") 
+(setq user-mail-address "emacsers@gmail.com") 
+(setq gnus-select-method '(nntp "news.newsfan.net"))
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;
+;;   语言环境设定
+;;;;;;;;;;;;;;;;;;;;
+(set-language-environment 'Chinese-GB)
+(setq gnus-default-charset 'chinese-iso-8bit
+      gnus-group-name-charset-group-alist '((".*" . cn-gb-2312))
+      gnus-summary-show-article-charset-alist
+      '((1 . cn-gb-2312)
+	(2 . gb18030)
+	(3 . chinese-iso-8bit)
+	(4 . gbk)
+	(5 . big5)
+	(6 . utf-8))
+      gnus-newsgroup-ignored-charsets
+      '(unknown-8bit x-unknown iso-8859-1))
+
+
+
+;;;;;;;;;;;;;;;;;;;;
+;;自动显示图片
+;;;;;;;;;;;;;;;;;;;;
+(auto-image-file-mode)
+(setq mm-inline-large-images t)
+(add-to-list 'mm-attachment-override-types "image/*")
+
+
+(setq gnus-posting-styles
+      '((".*"
+	 (name "emacsers")
+	 (address "emacsers@gmail.com")
+	 (signature "http://blog.csdn.net/sheismylife\n UBuntu11.10、Emacs+Gnus\n")
+	 ))
+)
+
+;; 加载所需的package 
+
+(add-to-list 'load-path (expand-file-name "C:/Emacs/site-lisp/jdee-2.4.0.1/lisp"))
+(add-to-list 'load-path (expand-file-name "C:/Emacs/site-lisp/cedet-1.0beta3b/common"))
+(load-file (expand-file-name "C:/Emacs/site-lisp/cedet-1.0beta3b/common/cedet.el"))
+(add-to-list 'load-path (expand-file-name "C:/Emacs/site-lisp/elib-1.0")) 
+;;(add-to-list 'load-path (eXPand-file-name "C:/Emacs/site-lisp/cedet-1.0beta3b/semantic")) 
+;;(add-to-list 'load-path (expand-file-name "C:/Emacs/site-lisp/cedet-1.0beta3b/speedbar")) 
+;;(add-to-list 'load-path (expand-file-name "C:/Emacs/site-lisp/cedet-1.0beta3b/eieio")) 
+(require 'jde)
+(setq jde-jdk-registry
+      '(("1.6.0" . "C:/Program Files/Java/jdk1.6.0_22")))
+(setq jde-jdk '("1.6.0"))
+;;(setq jde-jdk-doc-url "file:///usr/local/jdk1.6.0_11/docs/index.html")
+(setq jde-enable-abbrev-mode t)
 ;; End of dotemacs.
 
-;;;fonts
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(column-number-mode t)
- '(display-time-mode t)
- '(show-paren-mode t))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "darkslategrey" :foreground "wheat" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 105 :width normal :foundry "outline" :family "微软雅黑")))))
  ;; Show in mysql-mode with sql-mode
 (setq sql-mysql-options '("-C" "-t" "-f" "-n"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "#FFFFE0" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "outline" :family "微软雅黑")))))

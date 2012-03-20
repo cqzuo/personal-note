@@ -1,0 +1,15 @@
+;; Object lean_emacs/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "lean_emacs/"
+  :tables (list 
+   (semanticdb-table "基本概念.html"
+    :major-mode 'html-mode
+    :tags '(("基本概念" section nil nil [241 2306]) ("*///-->" section nil nil [2306 2926]) ("基本概念" section (:members (("基本概念" section (:members (("Table of Contents" section (:members (("1 文件和缓冲区" section nil nil [3111 3150]) ("2 编辑模式" section nil nil [3150 3187]) ("2.1 主模式" section nil nil [3187 3227]) ("2.2 副模式" section nil nil [3227 3267]) ("2.3 编辑模式可扩展" section nil nil [3267 3323]) ("3 启动" section nil nil [3323 3358]) ("3.1 打开文件" section nil nil [3358 3411]) ("4 命令" section nil nil [3411 3446]) ("5 打开文件" section nil nil [3446 3483]) ("6 保存文件" section nil nil [3483 3520]) ("7 退出" section nil nil [3520 3621]))) nil [3041 3621]) ("1" section nil nil [3621 3855]) ("2" section (:members (("2.1" section nil nil [4022 4254]) ("2.2" section nil nil [4254 4465]) ("2.3" section nil nil [4465 4653]))) nil [3855 4653]) ("3" section (:members (("3.1" section nil nil [4818 5064]))) nil [4653 5064]) ("4" section nil nil [5064 5234]) ("5" section nil nil [5234 5406]) ("6" section nil nil [5406 5578]) ("7" section (:members (("Validate XHTML 1.0" section nil nil [5882 5885]))) nil [5578 5582]))) nil [2982 2986]))) nil [2926 2931]))
+    :file "基本概念.html"
+    :pointmax 5981
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0beta3"
+  :semanticdb-version "2.0beta3"
+  )
