@@ -6,3 +6,43 @@
 ** 添加jar包
 ** 配置数据库
   在jar包中找到配置模板,添加到meta-inf文件夹中
+** 配置文件
+ - struts2配置 - web.xml
+ - spring配置  - web.xlm
+ - hibernate配置 hibernate.cfg.xml
+ web.xml配置信息
+ <!-- 添加spring支持 -->
+  <!-- spring中bean的配置文件位置 -->
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>classpath:beans.xml</param-value>
+  </context-param>
+  <listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <!-- jpa 中延迟加载配置 -->
+  <filter>
+  	<filter-name>Spring OpenEntityManagerInViewFilter</filter-name>
+  	<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+  	<!-- 初始化参数 entityManger工厂的名称为entityManagerFactory -->
+  	<init-param>
+  		<param-name>entityManagerFactoryBeanName</param-name>
+  		<param-value>entityManagerFactory</param-value>
+ 	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>Spring OpenEntityManagerInViewFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 添加struts2支持 -->
+  <filter>
+  	<filter-name>struts2</filter-name>
+  	<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>struts2</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+
