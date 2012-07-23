@@ -82,21 +82,129 @@
  - 给定的委托类型可以匹配类型和参数与委托定义相同的方法
 * 调试和错误处理
 * 对象
-  - 基本同java
-  - 命名
-   + 第一个字符必须是字母,下划线或@,其他的字符可以是数字
-  - 命名规则
-   + 简单使用camelCase
-   + 复杂使用PascalCase
- - 类型的转换
-   + Convert.toDouble('''');
+** 简介
+   - 基本同java
+   - 命名
+    + 第一个字符必须是字母,下划线或@,其他的字符可以是数字
+   - 命名规则
+    + 简单使用camelCase
+    + 复杂使用PascalCase
+  - 类型的转换
+    + Convert.toDouble('''');
 ** 构造阶段
  - 对象的实例化,由构造函数完成
  - 构造函数可以是私有或公有的
    1. 在类的外部不能使用私有的构造函数来实例化对象
    2. 没有公共构造函数的类不能在外部进行实例化
 ** 析构阶段
-   SCHEDULED: <2012-07-20 星期五>
  - 删除对象时的清理,由析构函数完成
  - 不应依赖析构函数来释放对象实例使用的资源
+** 静态和实例类成员
+ - 静态构造函数
+  + 一个类只能有一个静态的构造函数
+  + 不能有访问修饰符
+  + 不能有参数
+  + 不能直接调用
+ - 静态类
+** oop技术
+ - 接口
+  +一般用Ｉ开头
+  - IDisposable接口
+   + 支持IDisposable接口的对象必须实现Dispose()方法
+   + 立即释放资源
+   + using关键字可以在代码库中初始化使用重要资源的对象,会在代码块末尾自动调用Dispose()方法
+#+BEGIN_SRC c#
+// 第一种方法
+<ClassName> <variableName> = new <ClassName>();
+using(<variableName>){
+ .....
+}
+// 第二种方法
+using(<ClassName> <variableName> = new <ClassName>()){
+ ......
+}
+#+END_SRC
+ - 继承
+   + 派生类不能访问基类的私有成员
+   + 第 三种可访问性 protected -- 只有派生类可访问
 
+* 定义类
+** 控制可访问性和继承的关键字
+ - internal
+   + 默认情况下类声明是内部的,只有当前项目中的代码才能访问它.
+ - public 
+   + 公共类,其他项目中代码可访问
+ - abstract
+   + 不能实例化,只能继承,可以有抽象成员
+ - sealed
+   + 密封的,不能再派生
+ - 继承
+ - 接口
+#+BEGIN_SRC c#
+// 继承
+ public class myClass : MyBase {... }
+// 接口和基类
+ public class myClass : IMyInterface, MyBase{... }
+#+END_SRC
+** 构造函数
+ - 私有构造函数
+   + 类是不可创建的
+ - 执行序列
+   + 构造函数后 + :base(索引)
+** 析构函数
+ - ~前缀 + 类名称
+
+* 定义类成员
+** 成员定义
+ - public 
+   + 由任意代码访问
+ - private 
+   + 由类中的代码访问(默认关键字)
+ - internal
+   + 由定义它的程序集(项目)内部的代码访问
+ - protected
+   + 有类或派生类的代码访问
+** 方法修饰
+ - virtual 
+   + 方法可以重写
+ - abstract
+   + 方法必须在非抽象的派生类中重写
+ - override
+   + 重写了基类方法
+ - extern 
+   + 方法定义放在其他地方
+** 自动属性
+#+BEGIN_SRC c#
+ public int MyIntPot{get; set;}
+#+END_SRC
+** 隐藏基类成员
+#+BEGIN_SRC c#
+ public class myDrivedClass : MyBaseClass
+{
+ // 此处的方法是重写基类的方法,new 关键字可避免警告
+  new public void doSomeThing()
+  {}
+}
+#+END_SRC
+
+** 调用重写或隐藏的基类方法
+ - base调用基类方法
+ - this 调用本地的方法
+
+** 接口
+  + 不允许使用访问修饰符
+  + 不能包含代码体
+  + 不能定义字段成员
+  + 不能使用关键字定义
+  + 定义成员是禁止的
+ - 显示实现接口中的方法
+  + I接口名称.接口方法()
+
+** 代码折叠
+#+BEGIN_SRC c#
+ #region 代码段名称
+  // 代码...
+ #endregion
+#+END_SRC
+
+* 集合 比较 和转换
