@@ -9,7 +9,7 @@
  - 跟Bean工厂的比较的优点
   + 文本解析工具 i18n支持
   + 提供了载入资源文件的通用方法
-  + 可以向注册为监听器的Bean发送时间
+  + 可以向注册为监听器的Bean发送消息
 *** 实现方式
  - ClassPathXmlApplicationContext
  - FileSystemApplicationContext
