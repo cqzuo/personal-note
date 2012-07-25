@@ -246,10 +246,126 @@ using(<ClassName> <variableName> = new <ClassName>()){
    + ArrayList不需要初始化大小
  - 索引符
    + 特殊类型的属性,可提供类似数组的访问
-   #+BEGIN_SRC java
- 
-   #+END_SRC
 ** 比较类型
 ** 比较值
 ** 转换
 ** as运算符
+#+BEGIN_SRC java
+/*
+ * Created by SharpDevelop.
+ * User: Administrator
+ * Date: 2012-7-18
+ * Time: 16:33
+ * 
+ * To change this template use Tools | Options | Coding | Edit Standard Headers.
+ */
+using System;
+using System.Collections;
+using System.Collections.Generic;
+namespace HelloWorld
+{
+	enum orientation{
+		north = 1,
+		south = 2,
+		east = 3,
+		west = 4
+	}
+	
+	struct route{
+		public orientation direction;
+		public double distance;
+		
+		public string getDesc(){
+			return " 方向是 " + direction + ",距离是" + distance;
+		}
+	}
+	
+	public abstract class Animal
+	{
+		protected string name;
+		
+		public string Name
+		{
+			get{return name;}
+			set{name = value;}
+		}
+		
+		public Animal()
+		{
+			name = "the animal has no name!";
+		}
+		
+		public Animal(string newName)
+		{
+			name = newName;
+		}
+		
+		public void Feed()
+		{
+			Console.WriteLine("the animal {0} has been feed!",name);
+		}
+	}
+	
+	class Cow : Animal
+	{
+		public void Milk()
+		{
+			Console.WriteLine("the animal {0} has been milked.", name);
+		}
+		
+		public Cow(string newName) :base(newName){}
+	}
+	
+	class Animals : CollectionBase
+	{
+		public void add(Animal newAnimal)
+		{
+			List.Add(newAnimal);
+		}
+		
+		public void remove(Animal newAnimal)
+		{
+			List.Remove(newAnimal);
+		}
+		
+		public Animals(){}
+		
+		public Animal this[int animalIndex]
+		{
+			get
+			{
+				return (Animal)List[animalIndex];
+			}
+			
+			set
+			{
+				List[animalIndex] = value;
+			}
+		}
+		
+	}
+	class Program
+	{
+		public static void Main(string[] args)
+		{
+//			orientation myOrientation = orientation.north;
+//			
+//			route myroute;
+//			myroute.direction = myOrientation;
+//			myroute.distance = 12.534;
+//			
+//			Console.WriteLine("{0}",myroute.getDesc());
+			
+			Animals animalsCollection = new Animals();
+			animalsCollection.add(new Cow("lord"));
+			animalsCollection.add(new Cow("king"));
+			
+			foreach(Animal myAnimal in animalsCollection)
+			{
+				myAnimal.Feed();
+			}
+			Console.ReadKey(true);
+		}
+	}
+}
+#+END_SRC
