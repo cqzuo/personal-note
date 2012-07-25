@@ -54,23 +54,41 @@
    + 溢出检查 checked / unchecked
  - Convert.to***
 ** 枚举类型
-          enum orientation{
+#+BEGIN_SRC java
+           enum orientation{
 		north = 1,
 		south = 2,
 		east = 3,
 		west = 4
 	}
+#+END_SRC
 ** 结构类型
- struct route{
+#+BEGIN_SRC java
+  struct route{
 		public orientation direction;
 		public double distance;
 	}
+#+END_SRC
 ** 数组
 ** 字符串
 * 函数
+** 引用参数和值参数
+ - ref
+   + 修饰需要修改的传入参数值
+   + 调用该函数时,也要用ref来修饰参数
+ #+BEGIN_SRC java
+   static void ShowDouble(ref int val){
+     val *=2;
+      Console.WriteLine("val doubled = {0}",val)
+   }
+ #+END_SRC
 ** 输出参数
  - 在函数执行完毕之后,该参数的值返回给函数调用中的使用变量
   + functionName(out  type param)
+ - 与 ref的区别
+   + 把未赋值的变量用作ref参数是非法的,但是可以用作out参数
+   + 函数在使用out参数时,必须看作为赋值
+   + out参数在方法外部声明
 ** 结构函数
  - 结构中的函数
 ** 重载
@@ -208,3 +226,30 @@ using(<ClassName> <variableName> = new <ClassName>()){
 #+END_SRC
 
 * 集合 比较 和转换
+** 定义和使用集合
+ - 数组
+   + System.Array类的实例
+ - 集合
+   + 方法通过System.Collections中的接口获得
+ - 几个接口
+   - IEnumerable
+     + 迭代集合中的项
+   - ICollection
+     + 获得集合中项的个数
+   - IList
+     + 集合的项列表
+   - IDictionary
+     + 键值对存取
+** 使用不同类型的集合
+ - 数组和集合的差别
+   + 数组只能固定大小来初始化
+   + ArrayList不需要初始化大小
+ - 索引符
+   + 特殊类型的属性,可提供类似数组的访问
+   #+BEGIN_SRC java
+ 
+   #+END_SRC
+** 比较类型
+** 比较值
+** 转换
+** as运算符

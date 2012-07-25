@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=gb2312"/>
 <meta name="title" content="c#笔记"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2012-07-20 12:51:04 中国标准时间"/>
+<meta name="generated" content="2012-07-25 15:39:12 中国标准时间"/>
 <meta name="author" content="emacsers"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -105,6 +105,7 @@
 <li><a href="#sec-1-1-1">1.1.1 特点</a></li>
 <li><a href="#sec-1-1-2">1.1.2 内容</a></li>
 <li><a href="#sec-1-1-3">1.1.3 编写过程</a></li>
+<li><a href="#sec-1-1-4">1.1.4 含义</a></li>
 </ul>
 </li>
 <li><a href="#sec-1-2">1.2 .Net 应用程序的工作原理</a></li>
@@ -112,13 +113,62 @@
 <li><a href="#sec-1-4">1.4 开发工具</a></li>
 </ul>
 </li>
-<li><a href="#sec-2">2 对象</a></li>
-<li><a href="#sec-3">3 对象的生命周期</a>
+<li><a href="#sec-2">2 编写简单的c#程序</a>
 <ul>
-<li><a href="#sec-3-1">3.1 构造阶段</a></li>
-<li><a href="#sec-3-2">3.2 析构阶段</a></li>
+<li><a href="#sec-2-1">2.1 命令行程序</a></li>
+<li><a href="#sec-2-2">2.2 windows form程序</a></li>
 </ul>
 </li>
+<li><a href="#sec-3">3 变量和表达式</a>
+<ul>
+<li><a href="#sec-3-1">3.1 基本语法</a></li>
+<li><a href="#sec-3-2">3.2 变量及其用法</a></li>
+<li><a href="#sec-3-3">3.3 表达式及其用法</a></li>
+<li><a href="#sec-3-4">3.4 流程控制</a></li>
+<li><a href="#sec-3-5">3.5 类型之间的转换</a></li>
+<li><a href="#sec-3-6">3.6 枚举类型</a></li>
+<li><a href="#sec-3-7">3.7 结构类型</a></li>
+<li><a href="#sec-3-8">3.8 数组</a></li>
+<li><a href="#sec-3-9">3.9 字符串</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 函数</a>
+<ul>
+<li><a href="#sec-4-1">4.1 输出参数</a></li>
+<li><a href="#sec-4-2">4.2 结构函数</a></li>
+<li><a href="#sec-4-3">4.3 重载</a></li>
+<li><a href="#sec-4-4">4.4 委托</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 调试和错误处理</a></li>
+<li><a href="#sec-6">6 对象</a>
+<ul>
+<li><a href="#sec-6-1">6.1 简介</a></li>
+<li><a href="#sec-6-2">6.2 构造阶段</a></li>
+<li><a href="#sec-6-3">6.3 析构阶段</a></li>
+<li><a href="#sec-6-4">6.4 静态和实例类成员</a></li>
+<li><a href="#sec-6-5">6.5 oop技术</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7 定义类</a>
+<ul>
+<li><a href="#sec-7-1">7.1 控制可访问性和继承的关键字</a></li>
+<li><a href="#sec-7-2">7.2 构造函数</a></li>
+<li><a href="#sec-7-3">7.3 析构函数</a></li>
+</ul>
+</li>
+<li><a href="#sec-8">8 定义类成员</a>
+<ul>
+<li><a href="#sec-8-1">8.1 成员定义</a></li>
+<li><a href="#sec-8-2">8.2 方法修饰</a></li>
+<li><a href="#sec-8-3">8.3 自动属性</a></li>
+<li><a href="#sec-8-4">8.4 隐藏基类成员</a></li>
+<li><a href="#sec-8-5">8.5 调用重写或隐藏的基类方法</a></li>
+<li><a href="#sec-8-6">8.6 接口</a></li>
+<li><a href="#sec-8-7">8.7 代码折叠</a></li>
+</ul>
+</li>
+<li><a href="#sec-9">9 集合 比较 和转换</a></li>
 </ul>
 </div>
 </div>
@@ -187,12 +237,75 @@
 <ul>
 <li id="sec-1-1-3-2">程序集<br/>
 <ul>
-<li>
+<li>CIL代码
+<ul>
+<li>包括可以执行的应用程序文件和其他应用程序需要的库
+</li>
+</ul>
+
+</li>
+<li>元信息
+<ul>
+<li>程序集中保函的数据的信息
+</li>
+</ul>
+
+</li>
+<li>可选资源
+<ul>
+<li>声音文件和图片 
 </li>
 </ul>
 
 </li>
 </ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-3-3">托管代码<br/>
+<ul>
+<li>CLR管理的应用程序
+<ul>
+<li>方式是内存管理,处理安全性已经允许跨语言调试
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-3-4">垃圾回收<br/>
+<ul>
+<li>有时需要自己执行垃圾回收检测
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-3-5">组合<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-3-6">链接<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1-1-4" class="outline-4">
+<h4 id="sec-1-1-4"><span class="section-number-4">1.1.4</span> 含义</h4>
+<div class="outline-text-4" id="text-1-1-4">
+
+<ul>
+<li>为.net开发的一种语言
+</li>
+</ul>
+
 </div>
 </div>
 
@@ -224,23 +337,290 @@
 </div>
 
 <div id="outline-container-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> 对象</h2>
+<h2 id="sec-2"><span class="section-number-2">2</span> 编写简单的c#程序</h2>
 <div class="outline-text-2" id="text-2">
 
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 命令行程序</h3>
+<div class="outline-text-3" id="text-2-1">
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> windows form程序</h3>
+<div class="outline-text-3" id="text-2-2">
+
+</div>
 </div>
 
 </div>
 
 <div id="outline-container-3" class="outline-2">
-<h2 id="sec-3"><span class="section-number-2">3</span> 对象的生命周期</h2>
+<h2 id="sec-3"><span class="section-number-2">3</span> 变量和表达式</h2>
 <div class="outline-text-2" id="text-3">
 
 
 </div>
 
 <div id="outline-container-3-1" class="outline-3">
-<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 构造阶段</h3>
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 基本语法</h3>
 <div class="outline-text-3" id="text-3-1">
+
+<ul>
+<li>不考虑空格回车或tab
+</li>
+<li>每个语句都用一个分号来结束
+</li>
+<li>所有的语句都是代码库的一部分({})
+</li>
+<li>注释的方式
+<ul>
+<li>开头或结尾
+</li>
+<li><i>* 注释内容  *</i> 
+</li>
+<li>/// 可以导出为说明书
+</li>
+</ul>
+
+</li>
+<li>区分大小写
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 变量及其用法</h3>
+<div class="outline-text-3" id="text-3-2">
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> 表达式及其用法</h3>
+<div class="outline-text-3" id="text-3-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> 流程控制</h3>
+<div class="outline-text-3" id="text-3-4">
+
+<ul>
+<li>&amp; | 与 &amp;&amp; || 的区别
+<ul>
+<li>&amp;&amp; 性能更好,且如果前面的已经计算出结果false,就不考虑后面的计算了*  对象的生命周期
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> 类型之间的转换</h3>
+<div class="outline-text-3" id="text-3-5">
+
+<ul>
+<li>显式
+<ul>
+<li>(目标类型)源类型
+</li>
+<li>溢出检查 checked / unchecked
+</li>
+</ul>
+
+</li>
+<li>Convert.to***
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-6" class="outline-3">
+<h3 id="sec-3-6"><span class="section-number-3">3.6</span> 枚举类型</h3>
+<div class="outline-text-3" id="text-3-6">
+
+<p>          enum orientation{
+                north = 1,
+                south = 2,
+                east = 3,
+                west = 4
+        }
+</p></div>
+
+</div>
+
+<div id="outline-container-3-7" class="outline-3">
+<h3 id="sec-3-7"><span class="section-number-3">3.7</span> 结构类型</h3>
+<div class="outline-text-3" id="text-3-7">
+
+<p> struct route{
+                public orientation direction;
+                public double distance;
+        }
+</p></div>
+
+</div>
+
+<div id="outline-container-3-8" class="outline-3">
+<h3 id="sec-3-8"><span class="section-number-3">3.8</span> 数组</h3>
+<div class="outline-text-3" id="text-3-8">
+
+</div>
+
+</div>
+
+<div id="outline-container-3-9" class="outline-3">
+<h3 id="sec-3-9"><span class="section-number-3">3.9</span> 字符串</h3>
+<div class="outline-text-3" id="text-3-9">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 函数</h2>
+<div class="outline-text-2" id="text-4">
+
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 输出参数</h3>
+<div class="outline-text-3" id="text-4-1">
+
+<ul>
+<li>在函数执行完毕之后,该参数的值返回给函数调用中的使用变量
+<ul>
+<li>functionName(out  type param)
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> 结构函数</h3>
+<div class="outline-text-3" id="text-4-2">
+
+<ul>
+<li>结构中的函数
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> 重载</h3>
+<div class="outline-text-3" id="text-4-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> 委托</h3>
+<div class="outline-text-3" id="text-4-4">
+
+<ul>
+<li>定义
+<ul>
+<li>把引用存储为函数的类型
+</li>
+</ul>
+
+</li>
+<li>除了直接调用函数之外,还可以通过委托调用
+</li>
+<li>委托是用返回类型和参数列表定义的变量
+</li>
+<li>给定的委托类型可以匹配类型和参数与委托定义相同的方法
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 调试和错误处理</h2>
+<div class="outline-text-2" id="text-5">
+
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 对象</h2>
+<div class="outline-text-2" id="text-6">
+
+
+</div>
+
+<div id="outline-container-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> 简介</h3>
+<div class="outline-text-3" id="text-6-1">
+
+<ul>
+<li>基本同java
+</li>
+<li>命名
+<ul>
+<li>第一个字符必须是字母,下划线或@,其他的字符可以是数字
+</li>
+</ul>
+
+</li>
+<li>命名规则
+<ul>
+<li>简单使用camelCase
+</li>
+<li>复杂使用PascalCase
+</li>
+</ul>
+
+</li>
+<li>类型的转换
+<ul>
+<li>Convert.toDouble('''');
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> 构造阶段</h3>
+<div class="outline-text-3" id="text-6-2">
 
 <ul>
 <li>对象的实例化,由构造函数完成
@@ -260,12 +640,11 @@
 
 </div>
 
-<div id="outline-container-3-2" class="outline-3">
-<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 析构阶段</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-6-3" class="outline-3">
+<h3 id="sec-6-3"><span class="section-number-3">6.3</span> 析构阶段</h3>
+<div class="outline-text-3" id="text-6-3">
 
-<p>    <span class="timestamp-wrapper"><span class="timestamp-kwd">SCHEDULED: </span> <span class="timestamp">2012-07-20 星期五</span></span><br/>
-</p><ul>
+<ul>
 <li>删除对象时的清理,由析构函数完成
 </li>
 <li>不应依赖析构函数来释放对象实例使用的资源
@@ -273,12 +652,382 @@
 </ul>
 
 </div>
+
+</div>
+
+<div id="outline-container-6-4" class="outline-3">
+<h3 id="sec-6-4"><span class="section-number-3">6.4</span> 静态和实例类成员</h3>
+<div class="outline-text-3" id="text-6-4">
+
+<ul>
+<li>静态构造函数
+<ul>
+<li>一个类只能有一个静态的构造函数
+</li>
+<li>不能有访问修饰符
+</li>
+<li>不能有参数
+</li>
+<li>不能直接调用
+</li>
+</ul>
+
+</li>
+<li>静态类
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-6-5" class="outline-3">
+<h3 id="sec-6-5"><span class="section-number-3">6.5</span> oop技术</h3>
+<div class="outline-text-3" id="text-6-5">
+
+<ul>
+<li>接口
+  +一般用Ｉ开头
+<ul>
+<li>IDisposable接口
+<ul>
+<li>支持IDisposable接口的对象必须实现Dispose()方法
+</li>
+<li>立即释放资源
+</li>
+<li>using关键字可以在代码库中初始化使用重要资源的对象,会在代码块末尾自动调用Dispose()方法
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+<pre class="src src-c#">// &#31532;&#19968;&#31181;&#26041;&#27861;
+&lt;ClassName&gt; &lt;variableName&gt; = new &lt;ClassName&gt;();
+using(&lt;variableName&gt;){
+ .....
+}
+// &#31532;&#20108;&#31181;&#26041;&#27861;
+using(&lt;ClassName&gt; &lt;variableName&gt; = new &lt;ClassName&gt;()){
+ ......
+}
+</pre>
+
+<ul>
+<li>继承
+<ul>
+<li>派生类不能访问基类的私有成员
+</li>
+<li>第 三种可访问性 protected &ndash; 只有派生类可访问
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> 定义类</h2>
+<div class="outline-text-2" id="text-7">
+
+
+</div>
+
+<div id="outline-container-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> 控制可访问性和继承的关键字</h3>
+<div class="outline-text-3" id="text-7-1">
+
+<ul>
+<li>internal
+<ul>
+<li>默认情况下类声明是内部的,只有当前项目中的代码才能访问它.
+</li>
+</ul>
+
+</li>
+<li>public 
+<ul>
+<li>公共类,其他项目中代码可访问
+</li>
+</ul>
+
+</li>
+<li>abstract
+<ul>
+<li>不能实例化,只能继承,可以有抽象成员
+</li>
+</ul>
+
+</li>
+<li>sealed
+<ul>
+<li>密封的,不能再派生
+</li>
+</ul>
+
+</li>
+<li>继承
+</li>
+<li>接口
+</li>
+</ul>
+
+
+
+
+<pre class="src src-c#">// &#32487;&#25215;
+ public class myClass : MyBase {... }
+// &#25509;&#21475;&#21644;&#22522;&#31867;
+ public class myClass : IMyInterface, MyBase{... }
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-7-2" class="outline-3">
+<h3 id="sec-7-2"><span class="section-number-3">7.2</span> 构造函数</h3>
+<div class="outline-text-3" id="text-7-2">
+
+<ul>
+<li>私有构造函数
+<ul>
+<li>类是不可创建的
+</li>
+</ul>
+
+</li>
+<li>执行序列
+<ul>
+<li>构造函数后 + :base(索引)
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-7-3" class="outline-3">
+<h3 id="sec-7-3"><span class="section-number-3">7.3</span> 析构函数</h3>
+<div class="outline-text-3" id="text-7-3">
+
+<ul>
+<li>~前缀 + 类名称
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> 定义类成员</h2>
+<div class="outline-text-2" id="text-8">
+
+
+</div>
+
+<div id="outline-container-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> 成员定义</h3>
+<div class="outline-text-3" id="text-8-1">
+
+<ul>
+<li>public 
+<ul>
+<li>由任意代码访问
+</li>
+</ul>
+
+</li>
+<li>private 
+<ul>
+<li>由类中的代码访问(默认关键字)
+</li>
+</ul>
+
+</li>
+<li>internal
+<ul>
+<li>由定义它的程序集(项目)内部的代码访问
+</li>
+</ul>
+
+</li>
+<li>protected
+<ul>
+<li>有类或派生类的代码访问
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-8-2" class="outline-3">
+<h3 id="sec-8-2"><span class="section-number-3">8.2</span> 方法修饰</h3>
+<div class="outline-text-3" id="text-8-2">
+
+<ul>
+<li>virtual 
+<ul>
+<li>方法可以重写
+</li>
+</ul>
+
+</li>
+<li>abstract
+<ul>
+<li>方法必须在非抽象的派生类中重写
+</li>
+</ul>
+
+</li>
+<li>override
+<ul>
+<li>重写了基类方法
+</li>
+</ul>
+
+</li>
+<li>extern 
+<ul>
+<li>方法定义放在其他地方
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-8-3" class="outline-3">
+<h3 id="sec-8-3"><span class="section-number-3">8.3</span> 自动属性</h3>
+<div class="outline-text-3" id="text-8-3">
+
+
+
+
+<pre class="src src-c#">public int MyIntPot{get; set;}
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-8-4" class="outline-3">
+<h3 id="sec-8-4"><span class="section-number-3">8.4</span> 隐藏基类成员</h3>
+<div class="outline-text-3" id="text-8-4">
+
+
+
+
+<pre class="src src-c#"> public class myDrivedClass : MyBaseClass
+{
+ // &#27492;&#22788;&#30340;&#26041;&#27861;&#26159;&#37325;&#20889;&#22522;&#31867;&#30340;&#26041;&#27861;,new &#20851;&#38190;&#23383;&#21487;&#36991;&#20813;&#35686;&#21578;
+  new public void doSomeThing()
+  {}
+}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8-5" class="outline-3">
+<h3 id="sec-8-5"><span class="section-number-3">8.5</span> 调用重写或隐藏的基类方法</h3>
+<div class="outline-text-3" id="text-8-5">
+
+<ul>
+<li>base调用基类方法
+</li>
+<li>this 调用本地的方法
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8-6" class="outline-3">
+<h3 id="sec-8-6"><span class="section-number-3">8.6</span> 接口</h3>
+<div class="outline-text-3" id="text-8-6">
+
+<ul>
+<li>不允许使用访问修饰符
+</li>
+<li>不能包含代码体
+</li>
+<li>不能定义字段成员
+</li>
+<li>不能使用关键字定义
+</li>
+<li>定义成员是禁止的
+</li>
+<li>显示实现接口中的方法
+<ul>
+<li>I接口名称.接口方法()
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8-7" class="outline-3">
+<h3 id="sec-8-7"><span class="section-number-3">8.7</span> 代码折叠</h3>
+<div class="outline-text-3" id="text-8-7">
+
+
+
+
+<pre class="src src-c#">#region &#20195;&#30721;&#27573;&#21517;&#31216;
+ // &#20195;&#30721;...
+#endregion
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> 集合 比较 和转换</h2>
+<div class="outline-text-2" id="text-9">
+
 </div>
 </div>
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2012-07-20 12:51:04 中国标准时间</p>
+<p class="date">Date: 2012-07-25 15:39:12 中国标准时间</p>
 <p class="author">Author: emacsers</p>
 <p class="creator">Org version 7.8.11 with Emacs version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
