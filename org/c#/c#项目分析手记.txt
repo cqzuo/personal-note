@@ -1,0 +1,255 @@
+代码分析:
+1. 程序启动后的登录页面
+1.1 登录按钮点击后的动作分析:
+ private void btnLogin_Click(object sender, EventArgs e)
+        {
+	//  获取页面中的数据方法:
+        //  输入框元素名.Text, 类型为string
+            string user = utusername.Text;
+            string pass = utpass.Text;
+ 	// 执行数据库操作.检验登录用户是否存在
+            Boolean isexist =  pubDBFunc.getLogUser(user, pass);
+            if (isexist)
+            {
+                // 向配置文件config.xdt中写入username
+                pubApp.setNodeValue("config.xdt", "username", utusername.Text.Trim());
+                // 隐藏当前form
+                this.Hide();
+                // 实例化MainFrom,并显示
+                (new MainForm()).Show();
+
+            }
+            else
+            {
+                MessageBox.Show("用户或密码名称错误!");
+            }
+        }
+1.2 分析 pubDBFunc.getLogUser(user, pass)方法
+		// 将数据库通用方法放在一个类pubDBFunc中'
+		//获取登录者信息
+        public static Boolean getLogUser(string username,string password)
+        {`````
+			// 使用using关键字,在执行完后自动释放该资源
+            using (SqlConnection conn = new SqlConnection(pubAppBasic.SqlConn))
+            {
+                // c#中数据库的操作
+            try
+            {
+                // 打开连接
+				conn.Open(); 
+            }
+            catch (Exception ex)
+            {
+                // 如果有异常,则调用pubAppBasic.StartService()方法
+                pubAppBasic.StartService();
+                try
+                {
+                    // 启动服务后,再次打开连接
+                    conn.Open();
+                }
+                catch (Exception e1)
+                {
+                    // 如果还是报异常,则调用pubAppBasic.CreateDataBase()来创建数据库
+                    pubAppBasic.CreateDataBase();
+                    try
+                    {
+                        // 打开连接
+                        conn.Open();
+                    }
+                    catch (Exception e2)
+                    {
+                        // 如果还是报错,则给出提示信息,退出系统
+                        // 提示消息的方法: 调用MessageBox的Show方法
+                        MessageBox.Show("数据库创建完成，请重新启动系统");
+                        // 退出程序的方法: Enironment.Exit(0)
+                        Environment.Exit(0);
+
+//                        MessageBox.Show("无法连接数据库！");
+                    }
+
+                }
+            }
+            // 如果连接正常打开,则执行数据库的操作
+            // 使用关键字using,在执行完毕之后是否SqlCommand对象资源
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    // 1. 定义查询模板 设置 SqlCommand对象的CommandText属性
+                    // 2. 设置查询参数 执行 SqlCommand对象的Parameters的Add方法
+                    // 3. 接收查询结果 使用SqlDataReader 对象来接收返回的结果集
+                    cmd.CommandText = "Select id,isadmin as counts from Employee where username=@UN and password=@UP ";
+                    cmd.Parameters.Add(new SqlParameter("UN", username));
+                    cmd.Parameters.Add(new SqlParameter("UP", password));
+                    SqlDataReader sdr =cmd.ExecuteReader();
+                    while (sdr.Read())
+                    {
+//                        Console.Write(sdr[0].ToString(), sdr[1].ToString());
+                        // pri_loginname为该类的属性
+                        pri_loginname = username;
+
+                        // 查询的第二个参数为isadmin,强制转型为bool类型,并根据其值来设置本类的属性pri_isadmin
+                        if ((bool)sdr[1])
+                        {
+                            pri_isadmin = true;
+                        }
+                        // 如果能查询结果不为空,则返回true,否则返回false;
+                        return true;
+
+                    }
+                        return false;
+                }
+
+            }
+        }
+	
+1.3 pubAppBasic.StartService()方法分析
+ public static void StartService()
+        {
+            // 启动SQL服务, 预防装完之后服务未启动
+
+            // 启动系统服务的方法, 使用Process对象
+            // 设置Process对象的一系列属性
+            // 使用Start()启动服务
+            // 使用StandardInput.WriteLine("要执行的命令字符串");
+            // 结尾的标识: StandardOutput.ReadToEnd();
+            Process p = new Process();
+
+            p.StartInfo.FileName = "cmd.exe";
+
+
+
+            p.StartInfo.UseShellExecute = false;
+
+            p.StartInfo.RedirectStandardInput = true;
+
+            p.StartInfo.RedirectStandardOutput = true;
+
+            p.StartInfo.RedirectStandardError = true;
+
+            p.StartInfo.CreateNoWindow = true;
+
+
+
+            p.Start();
+
+            p.StandardInput.WriteLine("net start MSSQL$SQLEXPRESS");//Rybx为客户端数据库实例名
+
+            p.StandardInput.WriteLine("exit");
+
+            p.StandardOutput.ReadToEnd();
+
+        }
+1.4 CreateDataBase方法分析
+         public static void CreateDataBase()
+        {
+
+            // “server”：客户端数据库实例名， “user id”：Sa ，“password”：Sa的密码
+
+            //            string strSql = string.Format("server={0}; user id={1}; password={2}; Database=master", @"(local)/Rybx", "sa", "qjs");
+            string strSql = @"Data Source=.\SQLEXPRESS;Database=master;Integrated Security=True;User Instance=false"; ;
+
+            //需要附加的数据库文件，我的设置是在项目程序的安装目录下的database文件夹下
+
+            string strMdf = @"E:\vs2010WorkSpace\DATA1\RxTxmsgData.mdf";
+
+            string strLdf = @"E:\vs2010WorkSpace\DATA1\RxTxmsgData_log.LDF";
+
+
+
+            string str;
+
+            SqlConnection myConn = new SqlConnection(strSql);
+
+            str = "EXEC sp_attach_db @dbname = N'RxTxmsgData', @filename1 = N'" + strMdf + "',@filename2=N'" + strLdf + "'";
+
+            SqlCommand myCommand = new SqlCommand(str, myConn);
+
+            myConn.Open();
+
+            myCommand.ExecuteNonQuery();
+
+            myConn.Close();
+
+
+        }
+1.5 从dat文件中读取对象
+                //获取Xml指定节点内容 docName 文件名称 NodeName 读取的节点名称 mod 为0时删除该文件
+        public static string getNodeValue(string docName, string NodeName, int mod)
+        {
+            string rtn = "";
+            // XmlDocument 从dat文件中读取对象
+            XmlDocument document = new XmlDocument();
+            document.Load(Application.StartupPath + "\\" + docName);
+            try
+            {
+                rtn = document.GetElementsByTagName(NodeName)[0].InnerText;
+            }
+            catch
+            {
+                if (mod == 0)
+                {
+                    File.Delete(Application.StartupPath + "\\" + docName);
+                    createConfig();
+                }
+            }
+
+            return rtn.Trim();
+        }
+    1.6  保存Xml指定节点内容
+    // 指定文件docName,指定节点和NodeName要插入的节点内容NodeValue
+        public static void setNodeValue(string docName, string NodeName, string NodeValue)
+        {
+            XmlDocument document = new XmlDocument();
+            document.Load(Application.StartupPath + "\\" + docName);
+            document.GetElementsByTagName(NodeName)[0].InnerText = NodeValue;
+            document.Save(Application.StartupPath + "\\" + docName);
+
+        }
+    2. 登录成功后,跳转到mainForm页面
+    2.1 关闭时的动作
+     private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // 关闭短信服务
+            SMSClass.SMSStopSerice();
+            // 退出程序
+            Environment.Exit(0);
+        }
+    2.2 类似与java中的接口类
+     public class SMSClass
+    {
+        //启动服务
+        [DllImport(@"SMSDLL.dll")]
+        public static extern int SMSStartService(int nPort, uint BaudRate, int Parity, int DataBits, int StopBits, int FlowControl, byte[] csca);
+
+        //发送短消息
+        [DllImport(@"SMSDLL.dll")]
+        public static extern uint SMSSendMessage(byte[] Msg, byte[] PhoneNo);
+
+        //接收短消息
+        [DllImport(@"SMSDLL.dll")]
+        public static extern int SMSGetNextMessage(out SMSMessageStruct Msg);
+
+        //查询发送状态报告
+        [DllImport(@"SMSDLL.dll")]
+        public static extern int SMSReport(ref SMSReportStruct rept);
+
+        //停止服务
+        [DllImport(@"SMSDLL.dll")]
+        public static extern int SMSStopSerice();
+
+        //最近一次错误
+        [DllImport(@"SMSDLL.dll")]
+        public static extern int SMSGetLastError(string err);
+
+    }
+    2.3 DllImport解析
+    2.4 系统管理
+    private void advanced_Click(object sender, EventArgs e)
+        {
+            if (IForm == null || IForm.IsDisposed)
+            {
+                IForm = new SysSetForm();
+                IForm.ShowDialog();
+                refList();
+            }
+
+        }

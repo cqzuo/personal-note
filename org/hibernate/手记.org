@@ -11,6 +11,7 @@
  - spring配置  - web.xlm
  - hibernate配置 hibernate.cfg.xml
  web.xml配置信息
+ #+BEGIN_SRC xml
  <!-- 添加spring支持 -->
   <!-- spring中bean的配置文件位置 -->
   <context-param>
@@ -45,4 +46,4 @@
   	<filter-name>struts2</filter-name>
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
-
+ #+END_SRC

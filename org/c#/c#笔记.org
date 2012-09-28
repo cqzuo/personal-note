@@ -131,7 +131,7 @@
    + 支持IDisposable接口的对象必须实现Dispose()方法
    + 立即释放资源
    + using关键字可以在代码库中初始化使用重要资源的对象,会在代码块末尾自动调用Dispose()方法
-#+BEGIN_SRC c#
+#+BEGIN_SRC csharp
 // 第一种方法
 <ClassName> <variableName> = new <ClassName>();
 using(<variableName>){
@@ -158,7 +158,7 @@ using(<ClassName> <variableName> = new <ClassName>()){
    + 密封的,不能再派生
  - 继承
  - 接口
-#+BEGIN_SRC c#
+#+BEGIN_SRC csharp
 // 继承
  public class myClass : MyBase {... }
 // 接口和基类
@@ -196,7 +196,7 @@ using(<ClassName> <variableName> = new <ClassName>()){
  public int MyIntPot{get; set;}
 #+END_SRC
 ** 隐藏基类成员
-#+BEGIN_SRC c#
+#+BEGIN_SRC csharp
  public class myDrivedClass : MyBaseClass
 {
  // 此处的方法是重写基类的方法,new 关键字可避免警告
@@ -219,7 +219,7 @@ using(<ClassName> <variableName> = new <ClassName>()){
   + I接口名称.接口方法()
 
 ** 代码折叠
-#+BEGIN_SRC c#
+#+BEGIN_SRC csharp
  #region 代码段名称
   // 代码...
  #endregion
