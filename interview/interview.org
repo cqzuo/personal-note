@@ -1,7 +1,20 @@
-#+OPTIONS:"\n:t"
-面试问题整理
-*   <2010-11-11 星期四>  亿联科技
-** 对j2ee的理解
-** struts1与struts2区别
-** 你从上个公司学到的技术知识
-** 自我介绍
+内聚相关概念
+数据库左连接与内连接区别
+spring中怎么注入类型，区别
+用过jquery没，有个什么框架没用过
+Hibernate读取数据库配置信息怎么读取
+spring 怎么读取xml文件信息
+HashMap和HashTable的区别 
+对泛型的理解
+同步和异步有和异同
+struts1中的线程安全
+重载与重写的区别
+数据库中索引的优点
+uml相关概念
+finalise（）与finally区别
+hibernate缓存和框架
+webservice调用
+js相关的
+线程wait()与sleep()区别
+webservice作用
+再就是关心优缺点，学历。出差
