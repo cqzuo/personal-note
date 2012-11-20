@@ -79,7 +79,6 @@
 (comment-or-uncomment-region (line-beginning-position) (line-end-position)) 
 (comment-dwim arg)))
 
-(load-file "C:/Emacs/site-lisp/org-export-blocks-format-plantuml.el")
 (load-file "C:/Emacs/site-lisp/htmlize.el")
 (require 'htmlize)
 (load-file "C:/Emacs/site-lisp/color-theme.el")
