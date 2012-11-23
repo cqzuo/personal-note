@@ -1,0 +1,16 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file e:/softbak/personal-note/org/jbpm/jbpm.org
+* 流程的删除
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-11-09 星期五 15:22
+  :ARCHIVE_FILE: e:/softbak/personal-note/org/jbpm/jbpm.org
+  :ARCHIVE_OLPATH: 流程的控制
+  :ARCHIVE_CATEGORY: jbpm
+  :END:
+  #+BEGIN_SRC java
+  RepositoryService.deleteDeployment("流程的id");
+  #+END_SRC
+
+

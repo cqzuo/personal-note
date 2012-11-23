@@ -1,0 +1,847 @@
+jbpm笔记
+* jbpm4的安装配置
+** 简介
+ - 若干个java类、依赖库和配置文件
+**  安装
+ - 用ant运行安装脚本
+   + ant demo.setup.tomcat
+** 开发环境的配置
+ - GPD安装
+ - 用户库添加
+ - JPDL schema添加
+* 图形化流程设计器
+** 各个参数的含义
+***  assignee
+ - 处理人
+*** form
+ - 当前步骤审核的页面地址
+*** name
+ - 当前处理名称
+***  transition
+ - 要跳转到的处理名称
+***  candidate-groups
+ - 处理当前节点的用户组
+ - 与 assignee 只能设置一个
+** 例子
+#+BEGIN_SRC xml
+ <task assignee="#{owner}" form="request.jsp" g="175,94,92,52" name="申请"> 
+      <transition to="经理审批"/> 
+   </task> 
+#+END_SRC
+* 部署
+** 部署流程定义和资源文件
+ - org.jbpm.pvm.internal.ant.JbpmDeployTask
+  + 部署业务流程归档到服务器上
+  + 读取 jbpm.cfg.xml配置文件的jdbc信息
+ - 步骤 (ant部署)
+  + 包含依赖库
+  + 创建归档
+  + 部署
+ - 资源保存到jbpm4_lob中
+  + 访问 RepositoryService.getResourceAsStreamAPI
+ 
+** 部署的3个方法
+ - 将业务对应的java类放在业务流程归档中
+ - 将java类部署到服务器的类库中(最高优先级)
+ - 部署到相应的目录中
+** 例子
+ - 配置好运行环境
+ - 通过ant部署
+ - 直接在代码中通过部署服务的api来完成
+#+BEGIN_SRC java
+  repositoryService.creatDeoplyment().addResourceFromClassPath("流程定义xml文件完整路径"); 
+#+END_SRC
+* 流程的控制
+** 自动决策
+*** decision
+ - expr
+  + 语法同el表达式
+ - 例子
+#+BEGIN_SRC xml
+<decision expr="#{day > 3 ? '老板审批' : '结束'}" g="200,308,48,48" 
+      name="exclusive1"> 
+      <transition g="-39,-10" name="结束" to="end1" /> 
+      <transition g="339,342:-71,-17" name="老板审批" to="老板审批" /> 
+   </decision> 
+#+END_SRC
+** 流程定义，流程实例和执行
+*** 流程
+ - 对业务过程的步骤描述
+*** 流程实例
+ - 流程定义在特有的执行例程
+** 流程引擎 ProcessEngine
+*** 简介
+ - 线程安全，所有线程和请求都可以使用同一个对象
+*** 获取
+ - 使用 Configuration 对象从配置文件 jbpm.cfg.xml 中获取
+** 流程的部署
+ - 文件 webURL 字符串 流 zip流
+ - 部署中用map来记录流程 流程key-版本号，流程实体
+ - 如果没有指定可以,则回用流程名称+下划线+数字方式命名
+ - 一个流程只能关联到一个key
+ - 如果没有指定版本，会自动分配
+** 流程的删除
+   #+BEGIN_SRC java
+   repositoryService.deleteDeployment("流程的id");
+ // 级联删除关连的流程
+   repositoryService.deleteDeploymentCascade("流程id");
+   #+END_SRC
+** 发起流程实例
+*** 常规方法
+ - 根据流程key
+ - 根据流程id
+ - 根据业务键
+ - 指定变量
+#+BEGIN_SRC java
+ executionService.startProcessInstanceByKey("流程key");
+ executionService.startProcessInstanceById("流程的id");
+ executionService.startProcessInstanceByKey("流程Kye"，唯一的业务键);
+executionService.startProcessInstanceByKey("流程Kye",流程id);
+executionService.startProcessInstanceByKey("流程Kye"，启动参数变量);
+#+END_SRC
+** 唤醒一个等待状态的执行
+ - 流程执行进入等待状态时，会进入等待状态，直到一个信号
+ - 状态分配事件监听器
+ - 可以在定义的监听器中添加等待时需要完成的各种工作
+ - 可以通过 execution.getId 方法来获取执行id,在等待工作完成后通过它来发出信号离开该监听器
+ #+BEGIN_SRC java
+  executionService.signalExecutionById(executionId);
+ #+END_SRC
+#+BEGIN_SRC xml
+  <state name="wait">
+     <on event="start">
+       <event-listener class="org.jbpm.example.StartExternalWork"/> 
+    </on>
+  </state>
+#+END_SRC
+** 任务服务
+*** 指定用户任务查询
+    #+BEGIN_SRC java
+ List<Task> tasks = taskService.getPersonalTasks("用户名");
+    #+END_SRC
+*** 任务表单中数据的写入
+ #+BEGIN_SRC java
+  Set<String> variableNamess = taskService.getVariableNames("任务id");
+  Map<String,Object> variables = taskService.getVariables(任务id,variableNamess);
+ variables.put("表单数名称",对应的值);
+ taskService.setVariables(variables);
+ #+END_SRC
+*** 完成任务
+ - completeTask
+ - 默认无名称转移路径，如果没有设置转移路径且没有无名称的转移路径，会报错
+#+BEGIN_SRC  java
+ taskService.completeTask(任务id);
+  taskService.completeTask(任务id,表单变量);
+  taskService.completeTask(任务id,下一步的转移路径);
+  taskService.completeTask(任务id,下一步的转移路径,表单变量);
+#+END_SRC
+** 历史服务
+* 简单例子
+** 建立流程
+ - 使用图形化的流程设计工具生成流程
+** 发布流程
+   #+BEGIN_SRC java
+ // 传入流程压缩包zip,
+   InputStream is = new FileInputStream(new File(file));
+   ZipInputStream zis = new ZipInputStream(is);
+  // 将ZIP流程文件发布到pvm（流程虚拟机中，他会把ZIP包中的xml文件和png图片存储到数据库中）
+  repositoryService.createDeployment().addResourcesFromZipInputStream(zis).deploy();
+   #+END_SRC
+** 当前可用流程的查看
+#+BEGIN_SRC java
+ // 从配置中获取流程引擎
+ ProcessEngine processEngine = Configuration.getProcessEngine();
+ // 使用流程引擎查询定义的流程
+ RepositoryService repositoryService = processEngine.getRepositoryService();
+ // 流程定义集合
+ List<ProcessDefinition> pdList = repositoryService.createProcessDefinitionQuery().list();
+#+END_SRC
+** 已定义流程的启动
+#+BEGIN_SRC java
+ // 流程引擎
+ ProcessEngine processEngine = Configuration.getProcessEngine();
+ // 流程实例服务
+ ExecutionService executionService = processEngine.getExecutionService();
+ Map map = new HashMap();
+ // 插入流程中存放的数据，这里存放流程启动者的名字，参数id是流程定义的ID
+ map.put("owner", user.getUserName());
+ // 流程的启动 - 参数： 流程id，包含用户姓名的map
+ executionService.startProcessInstanceById(id, map);
+#+END_SRC
+
+** 当前有用户可进行的任务查看
+#+BEGIN_SRC java
+// 流程引擎
+ ProcessEngine processEngine = Configuration.getProcessEngine();
+ // 任务引擎
+ TaskService taskService = processEngine.getTaskService();
+ // 当前用户代办的任务集合
+ User user = (User) ActionContext.getContext().getSession().get("user");
+ // 任务查询 - 通过用户的name来查询
+ List<Task> taskList2 = taskService.findPersonalTasks(user.getUserName());
+ #+END_SRC
+
+** 当前任务的申请
+*** 更新流程的任务信息
+#+BEGIN_SRC java
+ String sql1 = "UPDATE jbpm4_hist_task task set task.assignee_=?1 where task.dbid_=?2";
+?1 : 任务申请人
+?2 : 任务的id
+#+END_SRC
+*** 完成本流程的申请
+ - 将本流程提交的信息封装到map中
+ - 完成任务，参数为任务的id和封装提交信息的map
+#+BEGIN_SRC java
+// 将数据存储封转到map中
+Map map = new HashMap();
+map.put("day", leave.getDay());
+map.put("reason", leave.getReason());
+// 将数据和流程进行绑定，具体请看jbpm4.4API
+// 绑定数据的同时，将现在的任务节点completeTask，既完成当前操作，将流程向下提交
+taskService.completeTask(leave.getTaskId(), map); 
+#+END_SRC
+
+** 当前任务的审核
+*** 当前任务的查询
+#+BEGIN_SRC java
+ String sqlstr = "SELECT procinst.dbid_,actinst.activity_name_,actinst.start_,actinst.end_," 
+                  + " actinst.htask_,histtask.assignee_" 
+                  + " FROM JBPM4_HIST_ACTINST actinst," 
+                  + "      JBPM4_HIST_PROCINST procinst," 
+                  + "      JBPM4_HIST_TASK histtask" 
+                  + " WHERE actinst.hproci_=procinst.dbid_" 
+                  + "   AND histtask.dbid_=actinst.htask_" 
+                  + "   AND procinst.dbid_=(" 
+                  + "     SELECT task.procinst_" 
+                  + "     FROM JBPM4_TASK task" 
+                  + "     INNER JOIN JBPM4_HIST_TASK hist ON hist.dbid_=task.dbid_" 
+                  + "     WHERE hist.dbid_=?" 
+                  + "   )" 
+                  + "   AND actinst.activity_name_!='exclusive1'" 
+                  + "   ORDER BY procinst.dbid_,actinst.dbid_"; 
+#+END_SRC
+
+*** 当前任务的审核
+ - 更新当前任务的状态
+ - 完成本次审核，参数为任务id和审核意见
+#+BEGIN_SRC java
+  ProcessEngine processEngine = Configuration.getProcessEngine(); 
+  TaskService taskService = processEngine.getTaskService(); 
+   //查询待办事项列表 
+   String sql1 = "UPDATE jbpm4_hist_task task set task.assignee_=? where task.dbid_=?"; 
+   taskService.completeTask(taskId, result); 
+#+END_SRC
+
+** 流程的结束
+ - 直接结束，参数为任务的id
+#+BEGIN_SRC java
+  taskService.completeTask(taskId); 
+#+END_SRC
+
+* 数据库
+** 系统
+ - JBPM4_PROPERTY
+** 流程
+ - JBPM4_DEPLOYMENT
+ - JBPM4_DEPLOYPROP
+ - JBPM4_LOB
+** 实例
+ - JBPM4_EXECUTION 
+ - JBPM4_TASK 
+ - JBPM4_JOB
+ - JBPM4_VARIABLE 、
+ - JBPM4_SWIMLANE
+ - JBPM_PARTICIPATION
+** 历史
+ - JBPM4_HIS_ACTINST  
+ - JBPM4_HIS_DETAIL
+ - JBPM4_HIS_PROCINST  
+ - JBPM4_HIS_TASK
+ - JBPM4_HIS_VAR 
+** 用户
+ - JBPM4_ID_USER
+ - JBPM4_ID_GROUP
+ - JBPM4_ID_MEMBERSHIP
+
+* API
+** 资源服务
+ - RepositoryService
+ - 流程定义的部署，查询 删除操作
+** 执行服务
+ - ExecutioService
+ - 启动流程实例，执行推进 设置流程变量
+** 管理服务
+ - ManagementService
+** 任务服务
+ - TaskService
+ - 任务的创建 提交 查询 保存 删除操作
+**  历史服务
+ - HistoryService
+ - 对流程历史库钟历史流程实例 历史活动实例记录的查询
+** 身份认证
+ - IdentityService
+ - 对流程用户 用户组和组成员关系的管理
+** 工作引擎加载
+ - ProcessEngine
+#+BEGIN_SRC java
+ if(processEngine==null){
+ processEngine = Configuration.getProcessEngine();
+ repositoryService =  processEngine.get(RepositoryService.class);
+ executionService = processEngine.getExecutionService();
+ managementService = processEngine.getManagementService();
+ taskService = processEngine.getTaskService();
+ historyService = processEngine.getHistoryService();
+ identityService =  processEngine.getIdentityService();
+}
+#+END_SRC
+
+** CommandService
+ - 各个接口都继承自 AbstractServiceImpl 类
+ - AbstractServiceImpl 类依赖 CommandService
+ - Command设计模式
+  + 抽象出待执行的动作以参数化某对象，可以用回调函数来表达
+* 流程定义
+** 流程 - process
+ - name 必须 其他属性可选
+ - 例子
+ #+BEGIN_SRC xml
+ <process name="流程名称"></process>
+ #+END_SRC
+** 流转控制
+*** start 开始
+*** state 状态
+ - 流程引擎必须接收到外部的触发信号才流转到下一步
+ - 可定义多个 transaction 元素
+ - 例子
+    #+BEGIN_SRC xml
+<state name="流程状态名称">
+  <transition to="要流转到的步骤名称1"/>
+  <transition to="要流转到的步骤名称2"/>
+</state>
+    #+END_SRC
+*** decision 判断
+ - 根据条件在多个流转路径中选择一个
+ - 可以有多个流出转移，会根据最先匹配条件的一个自动流转
+**** 使用 decision 活动的 condition 元素
+ - condition 条件为true 或没有 condition ，流程自动流转到本 transition
+ - 例子
+#+BEGIN_SRC xml
+ <decision name="判断名称">
+   <transition to="要流转到的步骤名称1">
+      <condition expr="#{流程中包含的定义变量为特定值}"/>
+   </transition>
+ </decision>
+#+END_SRC
+**** 使用 decision 活动的 expr 元素
+ - 根据expr的属性值直接返回字符串类型的流转转移名称
+ - 例子
+#+BEGIN_SRC xml
+ <decision expr="${变量名称}" name="判断名称">
+    <transition name="当值为变量指定的值时，回跳转到本流转中"></transition>
+ </decision>
+#+END_SRC
+**** 使用 decision 活动的 handler 元素
+ - 实现 DecisionHandler 接口，将流转判断的决定权委派给这个实现类
+ - 例子
+#+BEGIN_SRC xml
+ <decision name="判断名称">
+   <handler class="判断处理类的完整路径名称"/>
+   <transition name="特定变量值" to="要流转到的步骤名称">
+    ... 
+ </decision>
+#+END_SRC
+#+BEGIN_SRC java
+ public class ContentEvaluation implements DecisionHandler{
+  public String decide(OpenExecution Execution){
+    String content = (String) execution.getVariable("变量名称");
+    // 根据变量的值来决定流转路径
+  if(content.equals("相等的值")){
+    return "要流转到的名称";
+   }
+  }
+ }
+#+END_SRC
+*** fork/join 分支/聚合
+ - 流程并发时使用
+ - 特殊属性
+  + multiplicity 
+    - 流入转移数量达到jion活动后，流程即会聚合
+    - 其他未完成的流转将被忽略
+    - 其值不能大于jion活动定义的流转数量
+  + lockmode
+   - 指定Hibernate的数据锁模式
+ - 例子
+#+BEGIN_SRC xml
+  <fork name="分支名称">
+    <transition to="分支1名称" />
+    ....
+  </fork>
+    <state name="分支1名称">
+       <transition to="聚合名称"/>
+    </state>
+    ...
+   <join name="聚合名称"></join>
+#+END_SRC
+*** end 结束
+ - 到达 end 活动的流程实例中仍然活跃的流程活动将会被保留继续执行
+ - 允许多个end
+ - 设置 end 的 ends属性来结束其他活跃的流程活动
+  + ends="Execution"
+*** task 人工任务
+**** 任务的分配
+   + assignee 被分配到任务的用户id
+   + 引用任务负责人
+   + el表达式的支持
+   + 例子
+    #+BEGIN_SRC xml
+   <task name="人工任务名称" assignee="#{用户对象.用户id}">
+      <transition to="要流程到的步骤名称"/>
+   </task>
+    #+END_SRC
+    #+BEGIN_SRC java
+    Map<String,Object> variables = new HashMap<String,Object>();
+   variables.put("用户对象名称",用户对象);
+   // 开启流程
+   ProcessInstance processInstance = executionService.startProcessInstanceByKey("流程id",variables);
+   // 用户查找任务列表
+   List<Task> tasks = taskService.findPersonalTasks("用户id");
+    #+END_SRC
+ - 任务的候选者 - 指定用户组中任一成员都可完成
+   + candidate-groups  候选组
+   + candidate-users 候选用户
+   + 例子
+    #+BEGIN_SRC xml
+   <task name="任务名称" candidate-groups="候选用户组">
+    .....
+   </task>
+    #+END_SRC
+ - 用户和用户组的管理
+  #+BEGIN_SRC java
+   // 建立用户组 
+    deptSales = identityService.createGroup("sales-dept");
+    deptHR = identityService.createGroup("hr-dept");
+    deptFinance = identityService.createGroup("finance-dept");
+// 建立用户
+// 建立用户关系 - 关联用户 用户组
+    identityService.createUser("johndoe", "John", "Doe");
+    identityService.createMembership("johndoe", deptSales, "SalesManager");
+
+    identityService.createUser("joesmoe", "Joe", "Smoe");
+    identityService.createMembership("joesmoe", deptHR, "HRManager");
+
+    identityService.createUser("janedoe", "Jane", "Doe");
+    identityService.createMembership("janedoe", deptFinance, "FinanceManager");
+// 获取部署指定流程的对象id
+    deploymentId = repositoryService.createDeployment().addResourceFromClasspath("org/jbpm/examples/concurrency/foreach/process.jpdl.xml").deploy();
+
+// 对应的删除处理
+  repositoryService.deleteDeploymentCascade(deploymentId);
+// delete identities
+    identityService.deleteGroup(deptSales);
+    identityService.deleteGroup(deptHR);
+    identityService.deleteGroup(deptFinance);
+    identityService.deleteUser("johndoe");
+    identityService.deleteUser("joesmoe");
+    identityService.deleteUser("janedoe");
+  #+END_SRC
+ - 用户的任务查询
+   + 候选组用户的任务查询
+   + 例子
+     #+BEGIN_SRC java
+       taskService.findGroupTasks("用户id");
+     #+END_SRC
+**** 候选者接受任务
+      + taskTask
+       #+BEGIN_SRC java
+       	taskService.taskTask("任务id","用户id");
+       #+END_SRC
+**** 任务分配处理器
+       + 实现负责的任务分配处理
+       + 实现 AssignmentHandler 接口
+       + 例子
+       	#+BEGIN_SRC xml
+       	 <task name="任务名称">
+       	    <assignment-handler class="任务分配管理器详细路径名称">
+              <field name="assignee">
+               	  <string value="用户id"/>
+               </field>
+       	    </assignment-handler>
+       	</task>
+       	#+END_SRC
+       	#+BEGIN_SRC java
+       	  public class AssignTask implements AssignmentHandler{
+       	   // 此处的值被jpdl定义钟配置
+             private String assignee;
+             public void assignee(Assignable assignable, OpenExecution execution){
+               assignable.setAssignee(assignee);
+             }
+       	  }
+       	#+END_SRC
+**** 任务泳道
+ - 作为流程定义的直接子元素为整个流程定义所见
+ - 属于同一个泳道的任务会被分配或候选给这个泳道钟的所有用户
+ - 相当于流程定义的“全局用户组”
+ - swimlane
+  + 任务活动对泳道的引用
+ - 例子
+ #+BEGIN_SRC xml
+  <process name="流程名称">
+      <swimlane name="泳道名称" candidate-groups="泳道用户组名称">
+       <start>
+         <transition to="第一个流转名称"/>
+       </start>
+     。。。。
+  <!-- 以下2个任务的分配工作，都交给来上面定义的泳道完成 -->
+     <task name="任务名称1" swimlane="上面定义的全局泳道名称">
+       <transition to=""/>
+     </task>
+      。。。。
+    <task name="任务名称2" swimlane="上面定义的全局泳道名称">
+       <transition to=""/>
+     </task>
+  </process>
+  #+END_SRC
+ - 在流程开始之前先建立用户组和成员及成员关系
+  #+BEGIN_SRC java
+  identityService.createGroup("用户组名称");
+  identityService.createUser("用户id","用户姓","用户名","用户电子邮箱");
+  IdentityService.createMembership("用户id","用户组");
+ #+END_SRC
+ - 候选人开始任务之前必须先接受任务
+  #+BEGIN_SRC java
+  taskService.takeTask(任务id,"用户id");
+   #+END_SRC
+ - 查询本用户的任务
+  #+BEGIN_SRC java
+    List<Task> tasks =  taskService.findPersonalTasks("用户id");
+  #+END_SRC
+ - 完成任务
+  #+BEGIN_SRC java
+   taskService.completeTask(任务id);
+  #+END_SRC
+**** 任务变量
+ - 任务可以读取和更新流程变量
+ - 作为任务表单的数据容器
+**** 任务提醒邮件
+ - 提醒类型
+  + 任务出现在某个人的任务列表时立即提醒
+  + 指定时间间隔反复提醒
+ - 例子
+ #+BEGIN_SRC xml
+  <task name="任务名称" assignee="用户id">
+    // 任务产生后，立即同步发送提醒邮件
+    <notification />
+    // 任务产生2天后，发送提醒邮件，如果没有处理，每隔1天提醒1次
+     <reminder duedate="2 days" repeat="1 day"/> 
+     <transition to="要流转的名称"/>
+  </task>
+ #+END_SRC
+**** 任务表单
+ - 自定义任务表单
+*** sub-process 子流程
+**** 简介
+ - 子流程实例完成后，进入下一步
+**** 属性
+***** sub-process-id 和 sub-process-key 
+ - 必选其一
+***** outcome 
+ - 子流程活动时的 transition 元素具有 outcome-value 时必需
+ - 子流程结束时执行的表达式，用来匹配流出转移(transition)中的 outcome-value
+ - 起到选择子路下一步流向的作用
+***** parmenter-in
+ - 子流程输入参数，在创建子流程实例时传入
+******* 参数
+ - subvar
+  + 子流程变量名称
+ - var/expr 
+  + 必选一个
+  + 从父流程环境中输入的变量名称
+ - lang
+  + 表达式使用的脚本语言
+***** parmenter-out
+ - 子流程输出参数，在子流程实例结束时返回父流程实例
+ - var 
+  + 输入的目标--父流程中的变量名称
+ - subvar/expr 
+  + 必选其一
+  + 子流程中需要被输入的变量名称
+ - lang
+  + 表达式使用的脚本语言
+***** 例子
+  #+BEGIN_SRC xml
+  <!-- 简单例子  -->
+      <process name="父流程名称">
+	<start>
+	   <transition to="指向的流转名称">
+       </start>
+      <!-- 此处的 outcome的值与子流程元素的 outcome-value相呼应,可以用来控制子流程的走向 -->
+       <sub-process name="子流程名称" sub-process-key="子流程key" outcome="#{result}">
+          <transition name="转向名称" to="转向到的流转名称">
+           <!--  此处子元素的 outcome-value ，子流程节点必需定义 outcome的值 -->
+           <outcome-value>
+              <double value="9"/>
+           </outcome-value>
+          </transition>
+          <transition name="流转名称" to="转向到的流转名称">
+          <transition name="流转名称" to="转向到的流转名称">
+       </sub-process>
+      </process>
+ <!-- 复杂例子 -->
+  <process name="父流程名称">
+      <start>
+	   <transition to="指向的流转名称">
+       </start>
+      <!-- 此处的 outcome的值与子流程元素的 outcome-value相呼应,可以用来控制子流程的走向 -->
+       <sub-process name="子流程名称" sub-process-key="子流程key" >
+          <parameter-in var="父流程传入子流程的变量名称" subvar="子流程对应的变量名称"/>
+          <parameter-out var="子流程返回到父流程的变量名称" subvar="子流程返回的变量名称"/>
+       </sub-process>
+      <state name="流转名称"/>
+      </process>
+    
+     <!-- 上面父流程的子流程 -->
+     <process name="父流程中引用的子流程名称">
+          <start>
+               <transition to="子流程中要跳转到的流转名称"/>
+          </start>
+           <task name="子流程任务名称" assignee="子流程分配的处理人id">
+                 <transition to="子流程中要跳转到的流转名称"/>
+           </task>
+          <end name="结束的名称" />
+     </process>
+ #+END_SRC
+**** 子流程控制父流程的流出转移方法
+***** 通过 sub-process 活动的 outcome 属性去影响父流程的流出
+ - 在父节点的定义中配置好子节点在不同 outcome 下的转出
+ - 在子流程结束前将 子流程中对应的变量设置为要跳转的流出元素的name.
+ - 例子
+ #+BEGIN_SRC xml
+  <sub-process name="子流程名称" sub-process-key="子流程key" outcome="#{在子流程中用作判断的变量}"> 
+      <!-- outcome的值对应 下面的 name 的值 -->
+      <transition name="对应变量值1" to="要跳转到的处理名称"/>
+      <transition name="对应变量值2" to="要跳转到的处理名称"/>
+  </sub-process>
+ #+END_SRC
+***** 通过设置不同的子流程 end 活动名称自动关联父流程的流出转移
+ - 子流程中定义多个不同的 end 活动
+ - 子流程中的 end 活动名称自动关联父流程的流出转移名称
+ - 例子
+ #+BEGIN_SRC xml
+   <!-- 父节点中定义 -->
+  <sub-process name="子节点名称" sub-process-key="子节点key">
+    <transition name="流转名称1" to="下一流转名称"/>
+    <transition name="流转名称2" to="下一流转名称"/>
+    <transition name="流转名称3" to="下一流转名称"/>
+  </sub-process>
+
+   <!-- 子流程最后结束任务的配置 -->
+  <task name="任务名称" assignee="任务接受人id">
+        <transition name="流转名称1" to="end名称1"/>
+        <transition name="流转名称2" to="end名称2"/>
+        <transition name="流转名称3" to="end名称3"/>
+  </task>
+ <!-- 此处end的名称与父流程中子流程定义的流转名称相匹配 -->
+  <end name="上面子流程要转向的end名称1"/>
+  <end name="上面子流程要转向的end名称2"/>
+  <end name="上面子流程要转向的end名称3"/>
+ #+END_SRC
+*** 自定义活动 
+ - 通过 custom 活动自定义活动行为调用自己实现的活动逻辑
+ - 接口必需实现接口 ExternalActivityBehaviour
+ - 实现接口方法
+  + execute(ActivityExecuteion execution)
+  + singal(ActivityExecuteion execution,String singalName,Map<String,?> parameters)
+ - 例子
+ #+BEGIN_SRC xml 
+   <custom name="活动名称" class="活动处理的代码完整路径名称"> 
+       <transition to="要跳转的流转名称"/>
+  </custom>
+ #+END_SRC
+ #+BEGIN_SRC java
+  public class PrintDots implements ExternalActivityBehaviour{
+    public void execute(ActivityExecuteion execution){
+      // 自定义逻辑
+     // 流程等待
+      execution.waitForSignal();
+    }
+    
+     public void singal(ActivityExecuteion execution, String singalName, Map<String,?> parameters){
+       // 活动收到信号后，进入这里 来实现自定义的逻辑
+       // 实例进入下一步 
+        execution.task(singalName);
+     }
+  }
+ #+END_SRC
+** 自动活动
+*** 支持的类型
+**** java程序
+ - 流程指向到此活动时自动指向java方法
+***** 属性
+****** class/expr 
+  - 必选其一
+  - 必需有无参构造函数
+****** method
+   - 必选
+****** var 
+   - 存储方法指向结果的流程变量名称
+***** 子元素
+****** field
+  - 方法调用之前给指定的类成员注入指定值
+****** arg
+  - 给被调用的方法提供参数
+ - 例子
+ #+BEGIN_SRC xml
+  <java name="活动名称" class="java类的完整路径名称" method="调用的方法" var="流程实例中保存执行结果的变量">
+      <arg>
+         <object expr="#{对象.属性名称1}"/>
+      </arg>
+      <arg>
+         <object expr="#{对象.属性名称2}"/>
+      </arg>
+       <transition to="要跳转到的处理名称"/>
+   </java>
+ #+END_SRC
+***** 解释
+ - 流程定义在当前活动先调用指定的java类，
+ - 类会被实例化出一个对象
+ - 调用该对象的指定方法，如果有参数，会根据配置的先后顺序来注入参数
+ - 将返回对象存入指定的var变量中
+**** 脚本
+***** 通过脚本表达式方式
+ - 如果没有指定lang,则默认为JUEL
+****** 属性
+ - expr
+  + 必需
+  + 执行的脚本表达式
+ - lang
+  + 指定脚本语言
+ - var 
+  + 脚本返回值存入的流程变量名称
+ - 例子
+ #+BEGIN_SRC xml
+  <script name="脚本名称" expr="脚本表达式" var="脚本表达式返回值存储的变量" />
+ #+END_SRC
+***** 通过脚本文本的方式
+****** 属性
+ - 同上
+ - 例子 
+ #+BEGIN_SRC xml
+  <script name="脚本名称" var="返回返回保存到的变量名称">
+     <text>
+          一段包含脚本的文本
+     </text>
+  </script>
+ #+END_SRC
+**** hql
+***** 属性
+****** var
+ - 存储hql执行结果的流程变量名
+****** unique
+ - 设置返回结果是否为集合
+****** 元素
+******* query
+ - 查询语句
+******* parameter
+ - 查询语句的外部参数
+ - 例子
+ #+BEGIN_SRC xml
+  <hql name="sql 名称" var="存储结果的流程变量名称">
+    <query>
+         hql语句：  select task.name from org.jbpm.pvm.internal.task.TaskImpl as task where task.name like :taskName
+    </query>
+     <parameters>
+          <!-- 查询参数及其值 -->
+          <string name="taskName" value="%i%"/>
+     </parameters>
+  </hql>
+ 
+ <!-- 查询结果非集合的例子  -->
+  <hql name="sql 名称" var="存储结果的流程变量名称" unique="true">
+    <query>
+         hql语句：  select count(*) from org.jbpm.pvm.internal.task.TaskImpl as task where task.name like :taskName
+    </query>
+     <parameters>
+          <!-- 查询参数及其值 -->
+          <string name="taskName" value="%i%"/>
+     </parameters>
+  </hql>
+ #+END_SRC
+ #+BEGIN_SRC java
+   
+ #+END_SRC
+**** sql
+ - 查询获得的结果集以对象数组方式返回
+ - 结果集列表以 Collection<Object> 方式返回
+ - 以上适用与hql和sql
+ - 例子
+ #+BEGIN_SRC xml
+    <sql name="sql 名称" var="存储结果的流程变量名称">
+    <query>
+         sql语句：  select DBID_,NAME_,STATE_,PRIORITY_,DUEDATE_ from JBPM4_TASK
+   </query>
+  </sql>
+ #+END_SRC
+**** mail
+***** 配置
+ - mail.template元素中定义模板
+ - 可以在模板中引入流程变量
+ - jbpm.mail.properties文件中配置 邮件服务器地址 端口号和发送人地址等信息
+ - 例子
+ #+BEGIN_SRC xml
+  <?xml version="1.0" encoding="UTF-8"?>
+
+<process name="InlineMail" xmlns="http://jbpm.org/4.4/jpdl">
+
+  <start g="20,25,80,40">
+    <transition to="send rectify note"/>
+  </start>
+
+  <mail g="99,25,115,45" language="juel" name="send rectify note">
+    <to addresses="winston@minitrue"/>
+    <cc groups="innerparty" users="bb"/>
+    <bcc groups="thinkpol"/>
+    <subject>rectify ${newspaper}</subject>
+    <text>${newspaper} ${date} reporting bb dayorder doubleplusungood
+      refs unpersons rewrite fullwise upsub antefiling</text>
+    <!--
+    <html><table><tr><td>${newspaper}</td><td>${date}</td>
+      <td>reporting bb dayorder doubleplusungood
+      refs unpersons rewrite fullwise upsub antefiling</td>
+      </tr></table></html>
+    <attachments>
+      <attachment url='http://www.george-orwell.org/1984/3.html' />
+      <attachment resource='org/example/pic.jpg' />
+      <attachment file='${user.home}/.face' />
+    </attachments>
+    -->
+    <transition to="wait"/>
+  </mail>
+
+  <state g="240,25,98,45" name="wait"/>
+
+</process>
+ #+END_SRC
+** 事件
+* 开启流程
+** 带参数的流程开启
+#+BEGIN_SRC java
+ Map<String, Object> variables = new HashMap<String, Object>();
+ variables.put("category", "big");
+ variables.put("dollars", 100000);
+ Execution execution = executionService.startProcessInstanceByKey("TaskVariables", variables);
+#+END_SRC
+** 在更新task时获取参数
+#+BEGIN_SRC java
+// 更加用户id查询该用户可执行的task
+List<Task> taskList = taskService.findPersonalTasks("johndoe");
+Task task = taskList.get(0);
+String taskId = task.getId();
+// 通过taskId来获取流程中定义的参数名称
+Set<String> variableNames = taskService.getVariableNames(taskId);
+// 通过参数名称和taskId来获取参数
+Map<String,Object> variables = taskService.getVariables(taskId, variableNames);
+// 将参数更新后设置回任务中
+taskService.setVariables(taskId, variables);
+#+END_SRC
+
+ 

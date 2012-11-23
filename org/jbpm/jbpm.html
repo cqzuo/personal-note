@@ -1,0 +1,2482 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>jbpm笔记</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312"/>
+<meta name="title" content="jbpm笔记"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2012-11-14T15:07+0800"/>
+<meta name="author" content="emacsers"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">jbpm笔记</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 jbpm4的安装配置</a>
+<ul>
+<li><a href="#sec-1-1">1.1 简介</a></li>
+<li><a href="#sec-1-2">1.2 安装</a></li>
+<li><a href="#sec-1-3">1.3 开发环境的配置</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 图形化流程设计器</a>
+<ul>
+<li><a href="#sec-2-1">2.1 各个参数的含义</a>
+<ul>
+<li><a href="#sec-2-1-1">2.1.1 assignee</a></li>
+<li><a href="#sec-2-1-2">2.1.2 form</a></li>
+<li><a href="#sec-2-1-3">2.1.3 name</a></li>
+<li><a href="#sec-2-1-4">2.1.4 transition</a></li>
+<li><a href="#sec-2-1-5">2.1.5 candidate-groups</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-2">2.2 例子</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 部署</a>
+<ul>
+<li><a href="#sec-3-1">3.1 部署流程定义和资源文件</a></li>
+<li><a href="#sec-3-2">3.2 部署的3个方法</a></li>
+<li><a href="#sec-3-3">3.3 例子</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 流程的控制</a>
+<ul>
+<li><a href="#sec-4-1">4.1 自动决策</a>
+<ul>
+<li><a href="#sec-4-1-1">4.1.1 decision</a></li>
+</ul>
+</li>
+<li><a href="#sec-4-2">4.2 流程定义，流程实例和执行</a>
+<ul>
+<li><a href="#sec-4-2-1">4.2.1 流程</a></li>
+<li><a href="#sec-4-2-2">4.2.2 流程实例</a></li>
+</ul>
+</li>
+<li><a href="#sec-4-3">4.3 流程引擎 ProcessEngine</a>
+<ul>
+<li><a href="#sec-4-3-1">4.3.1 简介</a></li>
+<li><a href="#sec-4-3-2">4.3.2 获取</a></li>
+</ul>
+</li>
+<li><a href="#sec-4-4">4.4 流程的部署</a></li>
+<li><a href="#sec-4-5">4.5 流程的删除</a></li>
+<li><a href="#sec-4-6">4.6 发起流程实例</a>
+<ul>
+<li><a href="#sec-4-6-1">4.6.1 常规方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-4-7">4.7 唤醒一个等待状态的执行</a></li>
+<li><a href="#sec-4-8">4.8 任务服务</a>
+<ul>
+<li><a href="#sec-4-8-1">4.8.1 指定用户任务查询</a></li>
+<li><a href="#sec-4-8-2">4.8.2 任务表单中数据的写入</a></li>
+<li><a href="#sec-4-8-3">4.8.3 完成任务</a></li>
+</ul>
+</li>
+<li><a href="#sec-4-9">4.9 历史服务</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 简单例子</a>
+<ul>
+<li><a href="#sec-5-1">5.1 建立流程</a></li>
+<li><a href="#sec-5-2">5.2 发布流程</a></li>
+<li><a href="#sec-5-3">5.3 当前可用流程的查看</a></li>
+<li><a href="#sec-5-4">5.4 已定义流程的启动</a></li>
+<li><a href="#sec-5-5">5.5 当前有用户可进行的任务查看</a></li>
+<li><a href="#sec-5-6">5.6 当前任务的申请</a>
+<ul>
+<li><a href="#sec-5-6-1">5.6.1 更新流程的任务信息</a></li>
+<li><a href="#sec-5-6-2">5.6.2 完成本流程的申请</a></li>
+</ul>
+</li>
+<li><a href="#sec-5-7">5.7 当前任务的审核</a>
+<ul>
+<li><a href="#sec-5-7-1">5.7.1 当前任务的查询</a></li>
+<li><a href="#sec-5-7-2">5.7.2 当前任务的审核</a></li>
+</ul>
+</li>
+<li><a href="#sec-5-8">5.8 流程的结束</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6 数据库</a>
+<ul>
+<li><a href="#sec-6-1">6.1 系统</a></li>
+<li><a href="#sec-6-2">6.2 流程</a></li>
+<li><a href="#sec-6-3">6.3 实例</a></li>
+<li><a href="#sec-6-4">6.4 历史</a></li>
+<li><a href="#sec-6-5">6.5 用户</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7 API</a>
+<ul>
+<li><a href="#sec-7-1">7.1 资源服务</a></li>
+<li><a href="#sec-7-2">7.2 执行服务</a></li>
+<li><a href="#sec-7-3">7.3 管理服务</a></li>
+<li><a href="#sec-7-4">7.4 任务服务</a></li>
+<li><a href="#sec-7-5">7.5 历史服务</a></li>
+<li><a href="#sec-7-6">7.6 身份认证</a></li>
+<li><a href="#sec-7-7">7.7 工作引擎加载</a></li>
+<li><a href="#sec-7-8">7.8 CommandService</a></li>
+</ul>
+</li>
+<li><a href="#sec-8">8 流程定义</a>
+<ul>
+<li><a href="#sec-8-1">8.1 流程 - process</a></li>
+<li><a href="#sec-8-2">8.2 流转控制</a>
+<ul>
+<li><a href="#sec-8-2-1">8.2.1 start 开始</a></li>
+<li><a href="#sec-8-2-2">8.2.2 state 状态</a></li>
+<li><a href="#sec-8-2-3">8.2.3 decision 判断</a></li>
+<li><a href="#sec-8-2-4">8.2.4 fork/join 分支/聚合</a></li>
+<li><a href="#sec-8-2-5">8.2.5 end 结束</a></li>
+<li><a href="#sec-8-2-6">8.2.6 task 人工任务</a></li>
+<li><a href="#sec-8-2-7">8.2.7 sub-process 子流程</a></li>
+<li><a href="#sec-8-2-8">8.2.8 自定义活动</a></li>
+</ul>
+</li>
+<li><a href="#sec-8-3">8.3 自动活动</a>
+<ul>
+<li><a href="#sec-8-3-1">8.3.1 支持的类型</a></li>
+</ul>
+</li>
+<li><a href="#sec-8-4">8.4 事件</a></li>
+</ul>
+</li>
+<li><a href="#sec-9">9 开启流程</a>
+<ul>
+<li><a href="#sec-9-1">9.1 带参数的流程开启</a></li>
+<li><a href="#sec-9-2">9.2 在更新task时获取参数</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> jbpm4的安装配置</h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 简介</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<ul>
+<li>若干个java类、依赖库和配置文件
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 安装</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<ul>
+<li>用ant运行安装脚本
+<ul>
+<li>ant demo.setup.tomcat
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> 开发环境的配置</h3>
+<div class="outline-text-3" id="text-1-3">
+
+<ul>
+<li>GPD安装
+</li>
+<li>用户库添加
+</li>
+<li>JPDL schema添加
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 图形化流程设计器</h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 各个参数的含义</h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+</div>
+
+<div id="outline-container-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> assignee</h4>
+<div class="outline-text-4" id="text-2-1-1">
+
+<ul>
+<li>处理人
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> form</h4>
+<div class="outline-text-4" id="text-2-1-2">
+
+<ul>
+<li>当前步骤审核的页面地址
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-1-3" class="outline-4">
+<h4 id="sec-2-1-3"><span class="section-number-4">2.1.3</span> name</h4>
+<div class="outline-text-4" id="text-2-1-3">
+
+<ul>
+<li>当前处理名称
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-1-4" class="outline-4">
+<h4 id="sec-2-1-4"><span class="section-number-4">2.1.4</span> transition</h4>
+<div class="outline-text-4" id="text-2-1-4">
+
+<ul>
+<li>要跳转到的处理名称
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-1-5" class="outline-4">
+<h4 id="sec-2-1-5"><span class="section-number-4">2.1.5</span> candidate-groups</h4>
+<div class="outline-text-4" id="text-2-1-5">
+
+<ul>
+<li>处理当前节点的用户组
+</li>
+<li>与 assignee 只能设置一个
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 例子</h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">task</span> <span style="color: #b8860b;">assignee</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">#{owner}</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">form</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">request.jsp</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">g</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">175,94,92,52</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#30003;&#35831;</span><span style="color: #bc8f8f;">"</span>&gt; 
+     &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#32463;&#29702;&#23457;&#25209;</span><span style="color: #bc8f8f;">"</span>/&gt; 
+  &lt;/<span style="color: #0000ff;">task</span>&gt; 
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 部署</h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 部署流程定义和资源文件</h3>
+<div class="outline-text-3" id="text-3-1">
+
+<ul>
+<li>org.jbpm.pvm.internal.ant.JbpmDeployTask
+<ul>
+<li>部署业务流程归档到服务器上
+</li>
+<li>读取 jbpm.cfg.xml配置文件的jdbc信息
+</li>
+</ul>
+
+</li>
+<li>步骤 (ant部署)
+<ul>
+<li>包含依赖库
+</li>
+<li>创建归档
+</li>
+<li>部署
+</li>
+</ul>
+
+</li>
+<li>资源保存到jbpm4<sub>lob中</sub>
+<ul>
+<li>访问 RepositoryService.getResourceAsStreamAPI
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 部署的3个方法</h3>
+<div class="outline-text-3" id="text-3-2">
+
+<ul>
+<li>将业务对应的java类放在业务流程归档中
+</li>
+<li>将java类部署到服务器的类库中(最高优先级)
+</li>
+<li>部署到相应的目录中
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> 例子</h3>
+<div class="outline-text-3" id="text-3-3">
+
+<ul>
+<li>配置好运行环境
+</li>
+<li>通过ant部署
+</li>
+<li>直接在代码中通过部署服务的api来完成
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java">repositoryService.creatDeoplyment().addResourceFromClassPath(<span style="color: #bc8f8f;">"&#27969;&#31243;&#23450;&#20041;xml&#25991;&#20214;&#23436;&#25972;&#36335;&#24452;"</span>); 
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 流程的控制</h2>
+<div class="outline-text-2" id="text-4">
+
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 自动决策</h3>
+<div class="outline-text-3" id="text-4-1">
+
+
+</div>
+
+<div id="outline-container-4-1-1" class="outline-4">
+<h4 id="sec-4-1-1"><span class="section-number-4">4.1.1</span> decision</h4>
+<div class="outline-text-4" id="text-4-1-1">
+
+<ul>
+<li>expr
+<ul>
+<li>语法同el表达式
+</li>
+</ul>
+
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">decision</span> <span style="color: #b8860b;">expr</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">#{day &gt; 3 ? '&#32769;&#26495;&#23457;&#25209;' : '&#32467;&#26463;'}</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">g</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">200,308,48,48</span><span style="color: #bc8f8f;">"</span> 
+      <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">exclusive1</span><span style="color: #bc8f8f;">"</span>&gt; 
+      &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">g</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">-39,-10</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#32467;&#26463;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">end1</span><span style="color: #bc8f8f;">"</span> /&gt; 
+      &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">g</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">339,342:-71,-17</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#32769;&#26495;&#23457;&#25209;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#32769;&#26495;&#23457;&#25209;</span><span style="color: #bc8f8f;">"</span> /&gt; 
+   &lt;/<span style="color: #0000ff;">decision</span>&gt; 
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> 流程定义，流程实例和执行</h3>
+<div class="outline-text-3" id="text-4-2">
+
+
+</div>
+
+<div id="outline-container-4-2-1" class="outline-4">
+<h4 id="sec-4-2-1"><span class="section-number-4">4.2.1</span> 流程</h4>
+<div class="outline-text-4" id="text-4-2-1">
+
+<ul>
+<li>对业务过程的步骤描述
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-2-2" class="outline-4">
+<h4 id="sec-4-2-2"><span class="section-number-4">4.2.2</span> 流程实例</h4>
+<div class="outline-text-4" id="text-4-2-2">
+
+<ul>
+<li>流程定义在特有的执行例程
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> 流程引擎 ProcessEngine</h3>
+<div class="outline-text-3" id="text-4-3">
+
+
+</div>
+
+<div id="outline-container-4-3-1" class="outline-4">
+<h4 id="sec-4-3-1"><span class="section-number-4">4.3.1</span> 简介</h4>
+<div class="outline-text-4" id="text-4-3-1">
+
+<ul>
+<li>线程安全，所有线程和请求都可以使用同一个对象
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-3-2" class="outline-4">
+<h4 id="sec-4-3-2"><span class="section-number-4">4.3.2</span> 获取</h4>
+<div class="outline-text-4" id="text-4-3-2">
+
+<ul>
+<li>使用 Configuration 对象从配置文件 jbpm.cfg.xml 中获取
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> 流程的部署</h3>
+<div class="outline-text-3" id="text-4-4">
+
+<ul>
+<li>文件 webURL 字符串 流 zip流
+</li>
+<li>部署中用map来记录流程 流程key-版本号，流程实体
+</li>
+<li>如果没有指定可以,则回用流程名称+下划线+数字方式命名
+</li>
+<li>一个流程只能关联到一个key
+</li>
+<li>如果没有指定版本，会自动分配
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> 流程的删除</h3>
+<div class="outline-text-3" id="text-4-5">
+
+
+
+
+<pre class="src src-java">  repositoryService.deleteDeployment(<span style="color: #bc8f8f;">"&#27969;&#31243;&#30340;id"</span>);
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#32423;&#32852;&#21024;&#38500;&#20851;&#36830;&#30340;&#27969;&#31243;</span>
+  repositoryService.deleteDeploymentCascade(<span style="color: #bc8f8f;">"&#27969;&#31243;id"</span>);
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-6" class="outline-3">
+<h3 id="sec-4-6"><span class="section-number-3">4.6</span> 发起流程实例</h3>
+<div class="outline-text-3" id="text-4-6">
+
+
+</div>
+
+<div id="outline-container-4-6-1" class="outline-4">
+<h4 id="sec-4-6-1"><span class="section-number-4">4.6.1</span> 常规方法</h4>
+<div class="outline-text-4" id="text-4-6-1">
+
+<ul>
+<li>根据流程key
+</li>
+<li>根据流程id
+</li>
+<li>根据业务键
+</li>
+<li>指定变量
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java"> executionService.startProcessInstanceByKey(<span style="color: #bc8f8f;">"&#27969;&#31243;key"</span>);
+ executionService.startProcessInstanceById(<span style="color: #bc8f8f;">"&#27969;&#31243;&#30340;id"</span>);
+ executionService.startProcessInstanceByKey(<span style="color: #bc8f8f;">"&#27969;&#31243;Kye"</span>&#65292;&#21807;&#19968;&#30340;&#19994;&#21153;&#38190;);
+executionService.startProcessInstanceByKey(<span style="color: #bc8f8f;">"&#27969;&#31243;Kye"</span>,&#27969;&#31243;id);
+executionService.startProcessInstanceByKey(<span style="color: #bc8f8f;">"&#27969;&#31243;Kye"</span>&#65292;&#21551;&#21160;&#21442;&#25968;&#21464;&#37327;);
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4-7" class="outline-3">
+<h3 id="sec-4-7"><span class="section-number-3">4.7</span> 唤醒一个等待状态的执行</h3>
+<div class="outline-text-3" id="text-4-7">
+
+<ul>
+<li>流程执行进入等待状态时，会进入等待状态，直到一个信号
+</li>
+<li>状态分配事件监听器
+</li>
+<li>可以在定义的监听器中添加等待时需要完成的各种工作
+</li>
+<li>可以通过 execution.getId 方法来获取执行id,在等待工作完成后通过它来发出信号离开该监听器
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java">executionService.signalExecutionById(executionId);
+</pre>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">state</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">wait</span><span style="color: #bc8f8f;">"</span>&gt;
+   &lt;<span style="color: #0000ff;">on</span> <span style="color: #b8860b;">event</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">start</span><span style="color: #bc8f8f;">"</span>&gt;
+     &lt;<span style="color: #0000ff;">event-listener</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.jbpm.example.StartExternalWork</span><span style="color: #bc8f8f;">"</span>/&gt; 
+  &lt;/<span style="color: #0000ff;">on</span>&gt;
+&lt;/<span style="color: #0000ff;">state</span>&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-8" class="outline-3">
+<h3 id="sec-4-8"><span class="section-number-3">4.8</span> 任务服务</h3>
+<div class="outline-text-3" id="text-4-8">
+
+
+</div>
+
+<div id="outline-container-4-8-1" class="outline-4">
+<h4 id="sec-4-8-1"><span class="section-number-4">4.8.1</span> 指定用户任务查询</h4>
+<div class="outline-text-4" id="text-4-8-1">
+
+
+
+
+<pre class="src src-java">List&lt;Task&gt; tasks = taskService.getPersonalTasks(<span style="color: #bc8f8f;">"&#29992;&#25143;&#21517;"</span>);
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-8-2" class="outline-4">
+<h4 id="sec-4-8-2"><span class="section-number-4">4.8.2</span> 任务表单中数据的写入</h4>
+<div class="outline-text-4" id="text-4-8-2">
+
+
+
+
+<pre class="src src-java"> Set&lt;String&gt; variableNamess = taskService.getVariableNames(<span style="color: #bc8f8f;">"&#20219;&#21153;id"</span>);
+ Map&lt;String,Object&gt; variables = taskService.getVariables(&#20219;&#21153;id,variableNamess);
+variables.put(<span style="color: #bc8f8f;">"&#34920;&#21333;&#25968;&#21517;&#31216;"</span>,&#23545;&#24212;&#30340;&#20540;);
+taskService.setVariables(variables);
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-8-3" class="outline-4">
+<h4 id="sec-4-8-3"><span class="section-number-4">4.8.3</span> 完成任务</h4>
+<div class="outline-text-4" id="text-4-8-3">
+
+<ul>
+<li>completeTask
+</li>
+<li>默认无名称转移路径，如果没有设置转移路径且没有无名称的转移路径，会报错
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java">taskService.completeTask(&#20219;&#21153;id);
+ taskService.completeTask(&#20219;&#21153;id,&#34920;&#21333;&#21464;&#37327;);
+ taskService.completeTask(&#20219;&#21153;id,&#19979;&#19968;&#27493;&#30340;&#36716;&#31227;&#36335;&#24452;);
+ taskService.completeTask(&#20219;&#21153;id,&#19979;&#19968;&#27493;&#30340;&#36716;&#31227;&#36335;&#24452;,&#34920;&#21333;&#21464;&#37327;);
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4-9" class="outline-3">
+<h3 id="sec-4-9"><span class="section-number-3">4.9</span> 历史服务</h3>
+<div class="outline-text-3" id="text-4-9">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 简单例子</h2>
+<div class="outline-text-2" id="text-5">
+
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 建立流程</h3>
+<div class="outline-text-3" id="text-5-1">
+
+<ul>
+<li>使用图形化的流程设计工具生成流程
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> 发布流程</h3>
+<div class="outline-text-3" id="text-5-2">
+
+
+
+
+<pre class="src src-java"><span style="color: #b22222;">// </span><span style="color: #b22222;">&#20256;&#20837;&#27969;&#31243;&#21387;&#32553;&#21253;zip,</span>
+  <span style="color: #228b22;">InputStream</span> <span style="color: #b8860b;">is</span> = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">FileInputStream</span>(<span style="color: #a020f0;">new</span> <span style="color: #228b22;">File</span>(file));
+  <span style="color: #228b22;">ZipInputStream</span> <span style="color: #b8860b;">zis</span> = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">ZipInputStream</span>(is);
+ <span style="color: #b22222;">// </span><span style="color: #b22222;">&#23558;ZIP&#27969;&#31243;&#25991;&#20214;&#21457;&#24067;&#21040;pvm&#65288;&#27969;&#31243;&#34394;&#25311;&#26426;&#20013;&#65292;&#20182;&#20250;&#25226;ZIP&#21253;&#20013;&#30340;xml&#25991;&#20214;&#21644;png&#22270;&#29255;&#23384;&#20648;&#21040;&#25968;&#25454;&#24211;&#20013;&#65289;</span>
+ repositoryService.createDeployment().addResourcesFromZipInputStream(zis).deploy();
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> 当前可用流程的查看</h3>
+<div class="outline-text-3" id="text-5-3">
+
+
+
+
+<pre class="src src-java"><span style="color: #b22222;">// </span><span style="color: #b22222;">&#20174;&#37197;&#32622;&#20013;&#33719;&#21462;&#27969;&#31243;&#24341;&#25806;</span>
+<span style="color: #228b22;">ProcessEngine</span> <span style="color: #b8860b;">processEngine</span> = Configuration.getProcessEngine();
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#20351;&#29992;&#27969;&#31243;&#24341;&#25806;&#26597;&#35810;&#23450;&#20041;&#30340;&#27969;&#31243;</span>
+<span style="color: #228b22;">RepositoryService</span> <span style="color: #b8860b;">repositoryService</span> = processEngine.getRepositoryService();
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#27969;&#31243;&#23450;&#20041;&#38598;&#21512;</span>
+List&lt;ProcessDefinition&gt; pdList = repositoryService.createProcessDefinitionQuery().list();
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> 已定义流程的启动</h3>
+<div class="outline-text-3" id="text-5-4">
+
+
+
+
+<pre class="src src-java"><span style="color: #b22222;">// </span><span style="color: #b22222;">&#27969;&#31243;&#24341;&#25806;</span>
+<span style="color: #228b22;">ProcessEngine</span> <span style="color: #b8860b;">processEngine</span> = Configuration.getProcessEngine();
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#27969;&#31243;&#23454;&#20363;&#26381;&#21153;</span>
+<span style="color: #228b22;">ExecutionService</span> <span style="color: #b8860b;">executionService</span> = processEngine.getExecutionService();
+<span style="color: #228b22;">Map</span> <span style="color: #b8860b;">map</span> = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">HashMap</span>();
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#25554;&#20837;&#27969;&#31243;&#20013;&#23384;&#25918;&#30340;&#25968;&#25454;&#65292;&#36825;&#37324;&#23384;&#25918;&#27969;&#31243;&#21551;&#21160;&#32773;&#30340;&#21517;&#23383;&#65292;&#21442;&#25968;id&#26159;&#27969;&#31243;&#23450;&#20041;&#30340;ID</span>
+map.put(<span style="color: #bc8f8f;">"owner"</span>, user.getUserName());
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#27969;&#31243;&#30340;&#21551;&#21160; - &#21442;&#25968;&#65306; &#27969;&#31243;id&#65292;&#21253;&#21547;&#29992;&#25143;&#22995;&#21517;&#30340;map</span>
+executionService.startProcessInstanceById(id, map);
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5-5" class="outline-3">
+<h3 id="sec-5-5"><span class="section-number-3">5.5</span> 当前有用户可进行的任务查看</h3>
+<div class="outline-text-3" id="text-5-5">
+
+
+
+
+<pre class="src src-java"><span style="color: #b22222;">// </span><span style="color: #b22222;">&#27969;&#31243;&#24341;&#25806;</span>
+ <span style="color: #228b22;">ProcessEngine</span> <span style="color: #b8860b;">processEngine</span> = Configuration.getProcessEngine();
+ <span style="color: #b22222;">// </span><span style="color: #b22222;">&#20219;&#21153;&#24341;&#25806;</span>
+ <span style="color: #228b22;">TaskService</span> <span style="color: #b8860b;">taskService</span> = processEngine.getTaskService();
+ <span style="color: #b22222;">// </span><span style="color: #b22222;">&#24403;&#21069;&#29992;&#25143;&#20195;&#21150;&#30340;&#20219;&#21153;&#38598;&#21512;</span>
+ <span style="color: #228b22;">User</span> <span style="color: #b8860b;">user</span> = (<span style="color: #228b22;">User</span>) ActionContext.getContext().getSession().get(<span style="color: #bc8f8f;">"user"</span>);
+ <span style="color: #b22222;">// </span><span style="color: #b22222;">&#20219;&#21153;&#26597;&#35810; - &#36890;&#36807;&#29992;&#25143;&#30340;name&#26469;&#26597;&#35810;</span>
+ List&lt;Task&gt; taskList2 = taskService.findPersonalTasks(user.getUserName());
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5-6" class="outline-3">
+<h3 id="sec-5-6"><span class="section-number-3">5.6</span> 当前任务的申请</h3>
+<div class="outline-text-3" id="text-5-6">
+
+
+</div>
+
+<div id="outline-container-5-6-1" class="outline-4">
+<h4 id="sec-5-6-1"><span class="section-number-4">5.6.1</span> 更新流程的任务信息</h4>
+<div class="outline-text-4" id="text-5-6-1">
+
+
+
+
+<pre class="src src-java"> <span style="color: #228b22;">String</span> <span style="color: #b8860b;">sql1</span> = <span style="color: #bc8f8f;">"UPDATE jbpm4_hist_task task set task.assignee_=?1 where task.dbid_=?2"</span>;
+?1 : &#20219;&#21153;&#30003;&#35831;&#20154;
+?2 : &#20219;&#21153;&#30340;id
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-5-6-2" class="outline-4">
+<h4 id="sec-5-6-2"><span class="section-number-4">5.6.2</span> 完成本流程的申请</h4>
+<div class="outline-text-4" id="text-5-6-2">
+
+<ul>
+<li>将本流程提交的信息封装到map中
+</li>
+<li>完成任务，参数为任务的id和封装提交信息的map
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java"><span style="color: #b22222;">// </span><span style="color: #b22222;">&#23558;&#25968;&#25454;&#23384;&#20648;&#23553;&#36716;&#21040;map&#20013;</span>
+<span style="color: #228b22;">Map</span> <span style="color: #b8860b;">map</span> = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">HashMap</span>();
+map.put(<span style="color: #bc8f8f;">"day"</span>, leave.getDay());
+map.put(<span style="color: #bc8f8f;">"reason"</span>, leave.getReason());
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#23558;&#25968;&#25454;&#21644;&#27969;&#31243;&#36827;&#34892;&#32465;&#23450;&#65292;&#20855;&#20307;&#35831;&#30475;jbpm4.4API</span>
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#32465;&#23450;&#25968;&#25454;&#30340;&#21516;&#26102;&#65292;&#23558;&#29616;&#22312;&#30340;&#20219;&#21153;&#33410;&#28857;completeTask&#65292;&#26082;&#23436;&#25104;&#24403;&#21069;&#25805;&#20316;&#65292;&#23558;&#27969;&#31243;&#21521;&#19979;&#25552;&#20132;</span>
+taskService.completeTask(leave.getTaskId(), map); 
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5-7" class="outline-3">
+<h3 id="sec-5-7"><span class="section-number-3">5.7</span> 当前任务的审核</h3>
+<div class="outline-text-3" id="text-5-7">
+
+
+</div>
+
+<div id="outline-container-5-7-1" class="outline-4">
+<h4 id="sec-5-7-1"><span class="section-number-4">5.7.1</span> 当前任务的查询</h4>
+<div class="outline-text-4" id="text-5-7-1">
+
+
+
+
+<pre class="src src-java"><span style="color: #228b22;">String</span> <span style="color: #b8860b;">sqlstr</span> = <span style="color: #bc8f8f;">"SELECT procinst.dbid_,actinst.activity_name_,actinst.start_,actinst.end_,"</span> 
+                 + <span style="color: #bc8f8f;">" actinst.htask_,histtask.assignee_"</span> 
+                 + <span style="color: #bc8f8f;">" FROM JBPM4_HIST_ACTINST actinst,"</span> 
+                 + <span style="color: #bc8f8f;">"      JBPM4_HIST_PROCINST procinst,"</span> 
+                 + <span style="color: #bc8f8f;">"      JBPM4_HIST_TASK histtask"</span> 
+                 + <span style="color: #bc8f8f;">" WHERE actinst.hproci_=procinst.dbid_"</span> 
+                 + <span style="color: #bc8f8f;">"   AND histtask.dbid_=actinst.htask_"</span> 
+                 + <span style="color: #bc8f8f;">"   AND procinst.dbid_=("</span> 
+                 + <span style="color: #bc8f8f;">"     SELECT task.procinst_"</span> 
+                 + <span style="color: #bc8f8f;">"     FROM JBPM4_TASK task"</span> 
+                 + <span style="color: #bc8f8f;">"     INNER JOIN JBPM4_HIST_TASK hist ON hist.dbid_=task.dbid_"</span> 
+                 + <span style="color: #bc8f8f;">"     WHERE hist.dbid_=?"</span> 
+                 + <span style="color: #bc8f8f;">"   )"</span> 
+                 + <span style="color: #bc8f8f;">"   AND actinst.activity_name_!='exclusive1'"</span> 
+                 + <span style="color: #bc8f8f;">"   ORDER BY procinst.dbid_,actinst.dbid_"</span>; 
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5-7-2" class="outline-4">
+<h4 id="sec-5-7-2"><span class="section-number-4">5.7.2</span> 当前任务的审核</h4>
+<div class="outline-text-4" id="text-5-7-2">
+
+<ul>
+<li>更新当前任务的状态
+</li>
+<li>完成本次审核，参数为任务id和审核意见
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java"><span style="color: #228b22;">ProcessEngine</span> <span style="color: #b8860b;">processEngine</span> = Configuration.getProcessEngine(); 
+<span style="color: #228b22;">TaskService</span> <span style="color: #b8860b;">taskService</span> = processEngine.getTaskService(); 
+ <span style="color: #b22222;">//</span><span style="color: #b22222;">&#26597;&#35810;&#24453;&#21150;&#20107;&#39033;&#21015;&#34920; </span>
+ <span style="color: #228b22;">String</span> <span style="color: #b8860b;">sql1</span> = <span style="color: #bc8f8f;">"UPDATE jbpm4_hist_task task set task.assignee_=? where task.dbid_=?"</span>; 
+ taskService.completeTask(taskId, result); 
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5-8" class="outline-3">
+<h3 id="sec-5-8"><span class="section-number-3">5.8</span> 流程的结束</h3>
+<div class="outline-text-3" id="text-5-8">
+
+<ul>
+<li>直接结束，参数为任务的id
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java">taskService.completeTask(taskId); 
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 数据库</h2>
+<div class="outline-text-2" id="text-6">
+
+
+</div>
+
+<div id="outline-container-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> 系统</h3>
+<div class="outline-text-3" id="text-6-1">
+
+<ul>
+<li>JBPM4<sub>PROPERTY</sub>
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> 流程</h3>
+<div class="outline-text-3" id="text-6-2">
+
+<ul>
+<li>JBPM4<sub>DEPLOYMENT</sub>
+</li>
+<li>JBPM4<sub>DEPLOYPROP</sub>
+</li>
+<li>JBPM4<sub>LOB</sub>
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-6-3" class="outline-3">
+<h3 id="sec-6-3"><span class="section-number-3">6.3</span> 实例</h3>
+<div class="outline-text-3" id="text-6-3">
+
+<ul>
+<li>JBPM4<sub>EXECUTION</sub> 
+</li>
+<li>JBPM4<sub>TASK</sub> 
+</li>
+<li>JBPM4<sub>JOB</sub>
+</li>
+<li>JBPM4<sub>VARIABLE</sub> 、
+</li>
+<li>JBPM4<sub>SWIMLANE</sub>
+</li>
+<li>JBPM<sub>PARTICIPATION</sub>
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-6-4" class="outline-3">
+<h3 id="sec-6-4"><span class="section-number-3">6.4</span> 历史</h3>
+<div class="outline-text-3" id="text-6-4">
+
+<ul>
+<li>JBPM4<sub>HIS</sub><sub>ACTINST</sub>  
+</li>
+<li>JBPM4<sub>HIS</sub><sub>DETAIL</sub>
+</li>
+<li>JBPM4<sub>HIS</sub><sub>PROCINST</sub>  
+</li>
+<li>JBPM4<sub>HIS</sub><sub>TASK</sub>
+</li>
+<li>JBPM4<sub>HIS</sub><sub>VAR</sub> 
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-6-5" class="outline-3">
+<h3 id="sec-6-5"><span class="section-number-3">6.5</span> 用户</h3>
+<div class="outline-text-3" id="text-6-5">
+
+<ul>
+<li>JBPM4<sub>ID</sub><sub>USER</sub>
+</li>
+<li>JBPM4<sub>ID</sub><sub>GROUP</sub>
+</li>
+<li>JBPM4<sub>ID</sub><sub>MEMBERSHIP</sub>
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> API</h2>
+<div class="outline-text-2" id="text-7">
+
+
+</div>
+
+<div id="outline-container-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> 资源服务</h3>
+<div class="outline-text-3" id="text-7-1">
+
+<ul>
+<li>RepositoryService
+</li>
+<li>流程定义的部署，查询 删除操作
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-7-2" class="outline-3">
+<h3 id="sec-7-2"><span class="section-number-3">7.2</span> 执行服务</h3>
+<div class="outline-text-3" id="text-7-2">
+
+<ul>
+<li>ExecutioService
+</li>
+<li>启动流程实例，执行推进 设置流程变量
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-7-3" class="outline-3">
+<h3 id="sec-7-3"><span class="section-number-3">7.3</span> 管理服务</h3>
+<div class="outline-text-3" id="text-7-3">
+
+<ul>
+<li>ManagementService
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-7-4" class="outline-3">
+<h3 id="sec-7-4"><span class="section-number-3">7.4</span> 任务服务</h3>
+<div class="outline-text-3" id="text-7-4">
+
+<ul>
+<li>TaskService
+</li>
+<li>任务的创建 提交 查询 保存 删除操作
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-7-5" class="outline-3">
+<h3 id="sec-7-5"><span class="section-number-3">7.5</span> 历史服务</h3>
+<div class="outline-text-3" id="text-7-5">
+
+<ul>
+<li>HistoryService
+</li>
+<li>对流程历史库钟历史流程实例 历史活动实例记录的查询
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-7-6" class="outline-3">
+<h3 id="sec-7-6"><span class="section-number-3">7.6</span> 身份认证</h3>
+<div class="outline-text-3" id="text-7-6">
+
+<ul>
+<li>IdentityService
+</li>
+<li>对流程用户 用户组和组成员关系的管理
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-7-7" class="outline-3">
+<h3 id="sec-7-7"><span class="section-number-3">7.7</span> 工作引擎加载</h3>
+<div class="outline-text-3" id="text-7-7">
+
+<ul>
+<li>ProcessEngine
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java"> <span style="color: #a020f0;">if</span>(processEngine==<span style="color: #5f9ea0;">null</span>){
+ processEngine = Configuration.getProcessEngine();
+ repositoryService =  processEngine.get(RepositoryService.<span style="color: #a020f0;">class</span>);
+ executionService = processEngine.getExecutionService();
+ managementService = processEngine.getManagementService();
+ taskService = processEngine.getTaskService();
+ historyService = processEngine.getHistoryService();
+ identityService =  processEngine.getIdentityService();
+}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7-8" class="outline-3">
+<h3 id="sec-7-8"><span class="section-number-3">7.8</span> CommandService</h3>
+<div class="outline-text-3" id="text-7-8">
+
+<ul>
+<li>各个接口都继承自 AbstractServiceImpl 类
+</li>
+<li>AbstractServiceImpl 类依赖 CommandService
+</li>
+<li>Command设计模式
+<ul>
+<li>抽象出待执行的动作以参数化某对象，可以用回调函数来表达
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> 流程定义</h2>
+<div class="outline-text-2" id="text-8">
+
+
+</div>
+
+<div id="outline-container-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> 流程 - process</h3>
+<div class="outline-text-3" id="text-8-1">
+
+<ul>
+<li>name 必须 其他属性可选
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">process</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27969;&#31243;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;&lt;/<span style="color: #0000ff;">process</span>&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-8-2" class="outline-3">
+<h3 id="sec-8-2"><span class="section-number-3">8.2</span> 流转控制</h3>
+<div class="outline-text-3" id="text-8-2">
+
+
+</div>
+
+<div id="outline-container-8-2-1" class="outline-4">
+<h4 id="sec-8-2-1"><span class="section-number-4">8.2.1</span> start 开始</h4>
+<div class="outline-text-4" id="text-8-2-1">
+
+</div>
+
+</div>
+
+<div id="outline-container-8-2-2" class="outline-4">
+<h4 id="sec-8-2-2"><span class="section-number-4">8.2.2</span> state 状态</h4>
+<div class="outline-text-4" id="text-8-2-2">
+
+<ul>
+<li>流程引擎必须接收到外部的触发信号才流转到下一步
+</li>
+<li>可定义多个 transaction 元素
+</li>
+<li>例子
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">state</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27969;&#31243;&#29366;&#24577;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+  &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#35201;&#27969;&#36716;&#21040;&#30340;&#27493;&#39588;&#21517;&#31216;1</span><span style="color: #bc8f8f;">"</span>/&gt;
+  &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#35201;&#27969;&#36716;&#21040;&#30340;&#27493;&#39588;&#21517;&#31216;2</span><span style="color: #bc8f8f;">"</span>/&gt;
+&lt;/<span style="color: #0000ff;">state</span>&gt;
+</pre>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-8-2-3" class="outline-4">
+<h4 id="sec-8-2-3"><span class="section-number-4">8.2.3</span> decision 判断</h4>
+<div class="outline-text-4" id="text-8-2-3">
+
+<ul>
+<li>根据条件在多个流转路径中选择一个
+</li>
+<li>可以有多个流出转移，会根据最先匹配条件的一个自动流转
+</li>
+</ul>
+
+<ul>
+<li id="sec-8-2-3-1">使用 decision 活动的 condition 元素<br/>
+<ul>
+<li>condition 条件为true 或没有 condition ，流程自动流转到本 transition
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">decision</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#21028;&#26029;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+  &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#35201;&#27969;&#36716;&#21040;&#30340;&#27493;&#39588;&#21517;&#31216;1</span><span style="color: #bc8f8f;">"</span>&gt;
+     &lt;<span style="color: #0000ff;">condition</span> <span style="color: #b8860b;">expr</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">#{&#27969;&#31243;&#20013;&#21253;&#21547;&#30340;&#23450;&#20041;&#21464;&#37327;&#20026;&#29305;&#23450;&#20540;}</span><span style="color: #bc8f8f;">"</span>/&gt;
+  &lt;/<span style="color: #0000ff;">transition</span>&gt;
+&lt;/<span style="color: #0000ff;">decision</span>&gt;
+</pre>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-3-2">使用 decision 活动的 expr 元素<br/>
+<ul>
+<li>根据expr的属性值直接返回字符串类型的流转转移名称
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">decision</span> <span style="color: #b8860b;">expr</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">${&#21464;&#37327;&#21517;&#31216;}</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#21028;&#26029;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+   &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#24403;&#20540;&#20026;&#21464;&#37327;&#25351;&#23450;&#30340;&#20540;&#26102;&#65292;&#22238;&#36339;&#36716;&#21040;&#26412;&#27969;&#36716;&#20013;</span><span style="color: #bc8f8f;">"</span>&gt;&lt;/<span style="color: #0000ff;">transition</span>&gt;
+&lt;/<span style="color: #0000ff;">decision</span>&gt;
+</pre>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-3-3">使用 decision 活动的 handler 元素<br/>
+<ul>
+<li>实现 DecisionHandler 接口，将流转判断的决定权委派给这个实现类
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">decision</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#21028;&#26029;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+  &lt;<span style="color: #0000ff;">handler</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#21028;&#26029;&#22788;&#29702;&#31867;&#30340;&#23436;&#25972;&#36335;&#24452;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+  &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#29305;&#23450;&#21464;&#37327;&#20540;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#35201;&#27969;&#36716;&#21040;&#30340;&#27493;&#39588;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+   ... 
+&lt;/<span style="color: #0000ff;">decision</span>&gt;
+</pre>
+
+
+<pre class="src src-java"><span style="color: #a020f0;">public</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">ContentEvaluation</span> <span style="color: #a020f0;">implements</span> <span style="color: #228b22;">DecisionHandler</span>{
+ <span style="color: #a020f0;">public</span> <span style="color: #228b22;">String</span> <span style="color: #0000ff;">decide</span>(<span style="color: #228b22;">OpenExecution</span> <span style="color: #b8860b;">Execution</span>){
+   <span style="color: #228b22;">String</span> <span style="color: #b8860b;">content</span> = (<span style="color: #228b22;">String</span>) execution.getVariable(<span style="color: #bc8f8f;">"&#21464;&#37327;&#21517;&#31216;"</span>);
+   <span style="color: #b22222;">// </span><span style="color: #b22222;">&#26681;&#25454;&#21464;&#37327;&#30340;&#20540;&#26469;&#20915;&#23450;&#27969;&#36716;&#36335;&#24452;</span>
+ <span style="color: #a020f0;">if</span>(content.equals(<span style="color: #bc8f8f;">"&#30456;&#31561;&#30340;&#20540;"</span>)){
+   <span style="color: #a020f0;">return</span> <span style="color: #bc8f8f;">"&#35201;&#27969;&#36716;&#21040;&#30340;&#21517;&#31216;"</span>;
+  }
+ }
+}
+</pre>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-8-2-4" class="outline-4">
+<h4 id="sec-8-2-4"><span class="section-number-4">8.2.4</span> fork/join 分支/聚合</h4>
+<div class="outline-text-4" id="text-8-2-4">
+
+<ul>
+<li>流程并发时使用
+</li>
+<li>特殊属性
+<ul>
+<li>multiplicity 
+<ul>
+<li>流入转移数量达到jion活动后，流程即会聚合
+</li>
+<li>其他未完成的流转将被忽略
+</li>
+<li>其值不能大于jion活动定义的流转数量
+</li>
+</ul>
+
+</li>
+<li>lockmode
+<ul>
+<li>指定Hibernate的数据锁模式
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">fork</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#20998;&#25903;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+  &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#20998;&#25903;1&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> /&gt;
+  ....
+&lt;/<span style="color: #0000ff;">fork</span>&gt;
+  &lt;<span style="color: #0000ff;">state</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#20998;&#25903;1&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+     &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#32858;&#21512;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+  &lt;/<span style="color: #0000ff;">state</span>&gt;
+  ...
+ &lt;<span style="color: #0000ff;">join</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#32858;&#21512;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;&lt;/<span style="color: #0000ff;">join</span>&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-8-2-5" class="outline-4">
+<h4 id="sec-8-2-5"><span class="section-number-4">8.2.5</span> end 结束</h4>
+<div class="outline-text-4" id="text-8-2-5">
+
+<ul>
+<li>到达 end 活动的流程实例中仍然活跃的流程活动将会被保留继续执行
+</li>
+<li>允许多个end
+</li>
+<li>设置 end 的 ends属性来结束其他活跃的流程活动
+<ul>
+<li>ends="Execution"
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-8-2-6" class="outline-4">
+<h4 id="sec-8-2-6"><span class="section-number-4">8.2.6</span> task 人工任务</h4>
+<div class="outline-text-4" id="text-8-2-6">
+
+<ul>
+<li id="sec-8-2-6-1">任务的分配<br/>
+<ul>
+<li>assignee 被分配到任务的用户id
+</li>
+<li>引用任务负责人
+</li>
+<li>el表达式的支持
+</li>
+<li>例子
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">task</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#20154;&#24037;&#20219;&#21153;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">assignee</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">#{&#29992;&#25143;&#23545;&#35937;.&#29992;&#25143;id}</span><span style="color: #bc8f8f;">"</span>&gt;
+   &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#35201;&#27969;&#31243;&#21040;&#30340;&#27493;&#39588;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+&lt;/<span style="color: #0000ff;">task</span>&gt;
+</pre>
+
+
+<pre class="src src-java"> Map&lt;String,Object&gt; variables = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">HashMap</span>&lt;String,Object&gt;();
+variables.put(<span style="color: #bc8f8f;">"&#29992;&#25143;&#23545;&#35937;&#21517;&#31216;"</span>,&#29992;&#25143;&#23545;&#35937;);
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#24320;&#21551;&#27969;&#31243;</span>
+<span style="color: #228b22;">ProcessInstance</span> <span style="color: #b8860b;">processInstance</span> = executionService.startProcessInstanceByKey(<span style="color: #bc8f8f;">"&#27969;&#31243;id"</span>,variables);
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#29992;&#25143;&#26597;&#25214;&#20219;&#21153;&#21015;&#34920;</span>
+List&lt;Task&gt; tasks = taskService.findPersonalTasks(<span style="color: #bc8f8f;">"&#29992;&#25143;id"</span>);
+</pre>
+
+</li>
+<li>任务的候选者 - 指定用户组中任一成员都可完成
+<ul>
+<li>candidate-groups  候选组
+</li>
+<li>candidate-users 候选用户
+</li>
+<li>例子
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">task</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#20219;&#21153;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">candidate-groups</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#20505;&#36873;&#29992;&#25143;&#32452;</span><span style="color: #bc8f8f;">"</span>&gt;
+ .....
+&lt;/<span style="color: #0000ff;">task</span>&gt;
+</pre>
+
+</li>
+</ul>
+
+</li>
+<li>用户和用户组的管理
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java">   <span style="color: #b22222;">// </span><span style="color: #b22222;">&#24314;&#31435;&#29992;&#25143;&#32452; </span>
+    deptSales = identityService.createGroup(<span style="color: #bc8f8f;">"sales-dept"</span>);
+    deptHR = identityService.createGroup(<span style="color: #bc8f8f;">"hr-dept"</span>);
+    deptFinance = identityService.createGroup(<span style="color: #bc8f8f;">"finance-dept"</span>);
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#24314;&#31435;&#29992;&#25143;</span>
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#24314;&#31435;&#29992;&#25143;&#20851;&#31995; - &#20851;&#32852;&#29992;&#25143; &#29992;&#25143;&#32452;</span>
+    identityService.createUser(<span style="color: #bc8f8f;">"johndoe"</span>, <span style="color: #bc8f8f;">"John"</span>, <span style="color: #bc8f8f;">"Doe"</span>);
+    identityService.createMembership(<span style="color: #bc8f8f;">"johndoe"</span>, deptSales, <span style="color: #bc8f8f;">"SalesManager"</span>);
+
+    identityService.createUser(<span style="color: #bc8f8f;">"joesmoe"</span>, <span style="color: #bc8f8f;">"Joe"</span>, <span style="color: #bc8f8f;">"Smoe"</span>);
+    identityService.createMembership(<span style="color: #bc8f8f;">"joesmoe"</span>, deptHR, <span style="color: #bc8f8f;">"HRManager"</span>);
+
+    identityService.createUser(<span style="color: #bc8f8f;">"janedoe"</span>, <span style="color: #bc8f8f;">"Jane"</span>, <span style="color: #bc8f8f;">"Doe"</span>);
+    identityService.createMembership(<span style="color: #bc8f8f;">"janedoe"</span>, deptFinance, <span style="color: #bc8f8f;">"FinanceManager"</span>);
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#33719;&#21462;&#37096;&#32626;&#25351;&#23450;&#27969;&#31243;&#30340;&#23545;&#35937;id</span>
+    deploymentId = repositoryService.createDeployment().addResourceFromClasspath(<span style="color: #bc8f8f;">"org/jbpm/examples/concurrency/foreach/process.jpdl.xml"</span>).deploy();
+
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#23545;&#24212;&#30340;&#21024;&#38500;&#22788;&#29702;</span>
+  repositoryService.deleteDeploymentCascade(deploymentId);
+<span style="color: #b22222;">// </span><span style="color: #b22222;">delete identities</span>
+    identityService.deleteGroup(deptSales);
+    identityService.deleteGroup(deptHR);
+    identityService.deleteGroup(deptFinance);
+    identityService.deleteUser(<span style="color: #bc8f8f;">"johndoe"</span>);
+    identityService.deleteUser(<span style="color: #bc8f8f;">"joesmoe"</span>);
+    identityService.deleteUser(<span style="color: #bc8f8f;">"janedoe"</span>);
+</pre>
+
+<ul>
+<li>用户的任务查询
+<ul>
+<li>候选组用户的任务查询
+</li>
+<li>例子
+
+
+
+<pre class="src src-java">taskService.findGroupTasks(<span style="color: #bc8f8f;">"&#29992;&#25143;id"</span>);
+</pre>
+
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-6-2">候选者接受任务<br/>
+<ul>
+<li>taskTask
+
+
+
+<pre class="src src-java">taskService.taskTask(<span style="color: #bc8f8f;">"&#20219;&#21153;id"</span>,<span style="color: #bc8f8f;">"&#29992;&#25143;id"</span>);
+</pre>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-6-3">任务分配处理器<br/>
+<ul>
+<li>实现负责的任务分配处理
+</li>
+<li>实现 AssignmentHandler 接口
+</li>
+<li>例子
+
+
+
+<pre class="src src-xml"> &lt;<span style="color: #0000ff;">task</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#20219;&#21153;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+    &lt;<span style="color: #0000ff;">assignment-handler</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#20219;&#21153;&#20998;&#37197;&#31649;&#29702;&#22120;&#35814;&#32454;&#36335;&#24452;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+      &lt;<span style="color: #0000ff;">field</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">assignee</span><span style="color: #bc8f8f;">"</span>&gt;
+          &lt;<span style="color: #0000ff;">string</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#29992;&#25143;id</span><span style="color: #bc8f8f;">"</span>/&gt;
+       &lt;/<span style="color: #0000ff;">field</span>&gt;
+    &lt;/<span style="color: #0000ff;">assignment-handler</span>&gt;
+&lt;/<span style="color: #0000ff;">task</span>&gt;
+</pre>
+
+
+<pre class="src src-java"><span style="color: #a020f0;">public</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">AssignTask</span> <span style="color: #a020f0;">implements</span> <span style="color: #228b22;">AssignmentHandler</span>{
+ <span style="color: #b22222;">// </span><span style="color: #b22222;">&#27492;&#22788;&#30340;&#20540;&#34987;jpdl&#23450;&#20041;&#38047;&#37197;&#32622;</span>
+   <span style="color: #a020f0;">private</span> <span style="color: #228b22;">String</span> <span style="color: #b8860b;">assignee</span>;
+   <span style="color: #a020f0;">public</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">assignee</span>(<span style="color: #228b22;">Assignable</span> <span style="color: #b8860b;">assignable</span>, <span style="color: #228b22;">OpenExecution</span> <span style="color: #b8860b;">execution</span>){
+     assignable.setAssignee(assignee);
+   }
+}
+</pre>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-6-4">任务泳道<br/>
+<ul>
+<li>作为流程定义的直接子元素为整个流程定义所见
+</li>
+<li>属于同一个泳道的任务会被分配或候选给这个泳道钟的所有用户
+</li>
+<li>相当于流程定义的“全局用户组”
+</li>
+<li>swimlane
+<ul>
+<li>任务活动对泳道的引用
+</li>
+</ul>
+
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">process</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27969;&#31243;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+    &lt;<span style="color: #0000ff;">swimlane</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27891;&#36947;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">candidate-groups</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27891;&#36947;&#29992;&#25143;&#32452;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+     &lt;<span style="color: #0000ff;">start</span>&gt;
+       &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#31532;&#19968;&#20010;&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+     &lt;/<span style="color: #0000ff;">start</span>&gt;
+   &#12290;&#12290;&#12290;&#12290;
+<span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#20197;&#19979;2&#20010;&#20219;&#21153;&#30340;&#20998;&#37197;&#24037;&#20316;&#65292;&#37117;&#20132;&#32473;&#26469;&#19978;&#38754;&#23450;&#20041;&#30340;&#27891;&#36947;&#23436;&#25104; </span><span style="color: #b22222;">--&gt;</span>
+   &lt;<span style="color: #0000ff;">task</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#20219;&#21153;&#21517;&#31216;1</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">swimlane</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#19978;&#38754;&#23450;&#20041;&#30340;&#20840;&#23616;&#27891;&#36947;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+     &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">"</span>/&gt;
+   &lt;/<span style="color: #0000ff;">task</span>&gt;
+    &#12290;&#12290;&#12290;&#12290;
+  &lt;<span style="color: #0000ff;">task</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#20219;&#21153;&#21517;&#31216;2</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">swimlane</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#19978;&#38754;&#23450;&#20041;&#30340;&#20840;&#23616;&#27891;&#36947;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+     &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">"</span>/&gt;
+   &lt;/<span style="color: #0000ff;">task</span>&gt;
+&lt;/<span style="color: #0000ff;">process</span>&gt;
+</pre>
+
+<ul>
+<li>在流程开始之前先建立用户组和成员及成员关系
+
+
+
+<pre class="src src-java">identityService.createGroup(<span style="color: #bc8f8f;">"&#29992;&#25143;&#32452;&#21517;&#31216;"</span>);
+identityService.createUser(<span style="color: #bc8f8f;">"&#29992;&#25143;id"</span>,<span style="color: #bc8f8f;">"&#29992;&#25143;&#22995;"</span>,<span style="color: #bc8f8f;">"&#29992;&#25143;&#21517;"</span>,<span style="color: #bc8f8f;">"&#29992;&#25143;&#30005;&#23376;&#37038;&#31665;"</span>);
+IdentityService.createMembership(<span style="color: #bc8f8f;">"&#29992;&#25143;id"</span>,<span style="color: #bc8f8f;">"&#29992;&#25143;&#32452;"</span>);
+</pre>
+
+</li>
+<li>候选人开始任务之前必须先接受任务
+
+
+
+<pre class="src src-java">taskService.takeTask(&#20219;&#21153;id,<span style="color: #bc8f8f;">"&#29992;&#25143;id"</span>);
+</pre>
+
+</li>
+<li>查询本用户的任务
+
+
+
+<pre class="src src-java">List&lt;Task&gt; tasks =  taskService.findPersonalTasks(<span style="color: #bc8f8f;">"&#29992;&#25143;id"</span>);
+</pre>
+
+</li>
+<li>完成任务
+
+
+
+<pre class="src src-java">taskService.completeTask(&#20219;&#21153;id);
+</pre>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-6-5">任务变量<br/>
+<ul>
+<li>任务可以读取和更新流程变量
+</li>
+<li>作为任务表单的数据容器
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-6-6">任务提醒邮件<br/>
+<ul>
+<li>提醒类型
+<ul>
+<li>任务出现在某个人的任务列表时立即提醒
+</li>
+<li>指定时间间隔反复提醒
+</li>
+</ul>
+
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">task</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#20219;&#21153;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">assignee</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#29992;&#25143;id</span><span style="color: #bc8f8f;">"</span>&gt;
+  // &#20219;&#21153;&#20135;&#29983;&#21518;&#65292;&#31435;&#21363;&#21516;&#27493;&#21457;&#36865;&#25552;&#37266;&#37038;&#20214;
+  &lt;<span style="color: #0000ff;">notification</span> /&gt;
+  // &#20219;&#21153;&#20135;&#29983;2&#22825;&#21518;&#65292;&#21457;&#36865;&#25552;&#37266;&#37038;&#20214;&#65292;&#22914;&#26524;&#27809;&#26377;&#22788;&#29702;&#65292;&#27599;&#38548;1&#22825;&#25552;&#37266;1&#27425;
+   &lt;<span style="color: #0000ff;">reminder</span> <span style="color: #b8860b;">duedate</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">2 days</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">repeat</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">1 day</span><span style="color: #bc8f8f;">"</span>/&gt; 
+   &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#35201;&#27969;&#36716;&#30340;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+&lt;/<span style="color: #0000ff;">task</span>&gt;
+</pre>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-6-7">任务表单<br/>
+<ul>
+<li>自定义任务表单
+</li>
+</ul>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-8-2-7" class="outline-4">
+<h4 id="sec-8-2-7"><span class="section-number-4">8.2.7</span> sub-process 子流程</h4>
+<div class="outline-text-4" id="text-8-2-7">
+
+<ul>
+<li id="sec-8-2-7-1">简介<br/>
+<ul>
+<li>子流程实例完成后，进入下一步
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-7-2">属性<br/>
+<ul>
+<li id="sec-8-2-7-2-1">sub-process-id 和 sub-process-key<br/>
+<ul>
+<li>必选其一
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-7-2-2">outcome<br/>
+<ul>
+<li>子流程活动时的 transition 元素具有 outcome-value 时必需
+</li>
+<li>子流程结束时执行的表达式，用来匹配流出转移(transition)中的 outcome-value
+</li>
+<li>起到选择子路下一步流向的作用
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-7-2-3">parmenter-in<br/>
+<ul>
+<li>子流程输入参数，在创建子流程实例时传入
+</li>
+</ul>
+
+<ul>
+<li id="sec-8-2-7-2-3-1">参数<br/>
+<ul>
+<li>subvar
+<ul>
+<li>子流程变量名称
+</li>
+</ul>
+
+</li>
+<li>var/expr 
+<ul>
+<li>必选一个
+</li>
+<li>从父流程环境中输入的变量名称
+</li>
+</ul>
+
+</li>
+<li>lang
+<ul>
+<li>表达式使用的脚本语言
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-7-2-4">parmenter-out<br/>
+<ul>
+<li>子流程输出参数，在子流程实例结束时返回父流程实例
+</li>
+<li>var 
+<ul>
+<li>输入的目标&ndash;父流程中的变量名称
+</li>
+</ul>
+
+</li>
+<li>subvar/expr 
+<ul>
+<li>必选其一
+</li>
+<li>子流程中需要被输入的变量名称
+</li>
+</ul>
+
+</li>
+<li>lang
+<ul>
+<li>表达式使用的脚本语言
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-7-2-5">例子<br/>
+
+
+
+<pre class="src src-xml"> <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#31616;&#21333;&#20363;&#23376;  </span><span style="color: #b22222;">--&gt;</span>
+     &lt;<span style="color: #0000ff;">process</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#29238;&#27969;&#31243;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+       &lt;<span style="color: #0000ff;">start</span>&gt;
+          &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#25351;&#21521;&#30340;&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+      &lt;/<span style="color: #0000ff;">start</span>&gt;
+     <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#27492;&#22788;&#30340; outcome&#30340;&#20540;&#19982;&#23376;&#27969;&#31243;&#20803;&#32032;&#30340; outcome-value&#30456;&#21628;&#24212;,&#21487;&#20197;&#29992;&#26469;&#25511;&#21046;&#23376;&#27969;&#31243;&#30340;&#36208;&#21521; </span><span style="color: #b22222;">--&gt;</span>
+      &lt;<span style="color: #0000ff;">sub-process</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#27969;&#31243;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">sub-process-key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#27969;&#31243;key</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">outcome</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">#{result}</span><span style="color: #bc8f8f;">"</span>&gt;
+         &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#36716;&#21521;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#36716;&#21521;&#21040;&#30340;&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+          <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;">  &#27492;&#22788;&#23376;&#20803;&#32032;&#30340; outcome-value &#65292;&#23376;&#27969;&#31243;&#33410;&#28857;&#24517;&#38656;&#23450;&#20041; outcome&#30340;&#20540; </span><span style="color: #b22222;">--&gt;</span>
+          &lt;<span style="color: #0000ff;">outcome-value</span>&gt;
+             &lt;<span style="color: #0000ff;">double</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">9</span><span style="color: #bc8f8f;">"</span>/&gt;
+          &lt;/<span style="color: #0000ff;">outcome-value</span>&gt;
+         &lt;/<span style="color: #0000ff;">transition</span>&gt;
+         &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#36716;&#21521;&#21040;&#30340;&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+         &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#36716;&#21521;&#21040;&#30340;&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+      &lt;/<span style="color: #0000ff;">sub-process</span>&gt;
+     &lt;/<span style="color: #0000ff;">process</span>&gt;
+<span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#22797;&#26434;&#20363;&#23376; </span><span style="color: #b22222;">--&gt;</span>
+ &lt;<span style="color: #0000ff;">process</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#29238;&#27969;&#31243;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+     &lt;<span style="color: #0000ff;">start</span>&gt;
+          &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#25351;&#21521;&#30340;&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+      &lt;/<span style="color: #0000ff;">start</span>&gt;
+     <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#27492;&#22788;&#30340; outcome&#30340;&#20540;&#19982;&#23376;&#27969;&#31243;&#20803;&#32032;&#30340; outcome-value&#30456;&#21628;&#24212;,&#21487;&#20197;&#29992;&#26469;&#25511;&#21046;&#23376;&#27969;&#31243;&#30340;&#36208;&#21521; </span><span style="color: #b22222;">--&gt;</span>
+      &lt;<span style="color: #0000ff;">sub-process</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#27969;&#31243;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">sub-process-key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#27969;&#31243;key</span><span style="color: #bc8f8f;">"</span> &gt;
+         &lt;<span style="color: #0000ff;">parameter-in</span> <span style="color: #b8860b;">var</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#29238;&#27969;&#31243;&#20256;&#20837;&#23376;&#27969;&#31243;&#30340;&#21464;&#37327;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">subvar</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#27969;&#31243;&#23545;&#24212;&#30340;&#21464;&#37327;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+         &lt;<span style="color: #0000ff;">parameter-out</span> <span style="color: #b8860b;">var</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#27969;&#31243;&#36820;&#22238;&#21040;&#29238;&#27969;&#31243;&#30340;&#21464;&#37327;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">subvar</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#27969;&#31243;&#36820;&#22238;&#30340;&#21464;&#37327;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+      &lt;/<span style="color: #0000ff;">sub-process</span>&gt;
+     &lt;<span style="color: #0000ff;">state</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+     &lt;/<span style="color: #0000ff;">process</span>&gt;
+
+    <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#19978;&#38754;&#29238;&#27969;&#31243;&#30340;&#23376;&#27969;&#31243; </span><span style="color: #b22222;">--&gt;</span>
+    &lt;<span style="color: #0000ff;">process</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#29238;&#27969;&#31243;&#20013;&#24341;&#29992;&#30340;&#23376;&#27969;&#31243;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+         &lt;<span style="color: #0000ff;">start</span>&gt;
+              &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#27969;&#31243;&#20013;&#35201;&#36339;&#36716;&#21040;&#30340;&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+         &lt;/<span style="color: #0000ff;">start</span>&gt;
+          &lt;<span style="color: #0000ff;">task</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#27969;&#31243;&#20219;&#21153;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">assignee</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#27969;&#31243;&#20998;&#37197;&#30340;&#22788;&#29702;&#20154;id</span><span style="color: #bc8f8f;">"</span>&gt;
+                &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#27969;&#31243;&#20013;&#35201;&#36339;&#36716;&#21040;&#30340;&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+          &lt;/<span style="color: #0000ff;">task</span>&gt;
+         &lt;<span style="color: #0000ff;">end</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#32467;&#26463;&#30340;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> /&gt;
+    &lt;/<span style="color: #0000ff;">process</span>&gt;
+</pre>
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-7-3">子流程控制父流程的流出转移方法<br/>
+<ul>
+<li id="sec-8-2-7-3-1">通过 sub-process 活动的 outcome 属性去影响父流程的流出<br/>
+<ul>
+<li>在父节点的定义中配置好子节点在不同 outcome 下的转出
+</li>
+<li>在子流程结束前将 子流程中对应的变量设置为要跳转的流出元素的name.
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">sub-process</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#27969;&#31243;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">sub-process-key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#27969;&#31243;key</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">outcome</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">#{&#22312;&#23376;&#27969;&#31243;&#20013;&#29992;&#20316;&#21028;&#26029;&#30340;&#21464;&#37327;}</span><span style="color: #bc8f8f;">"</span>&gt; 
+    <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> outcome&#30340;&#20540;&#23545;&#24212; &#19979;&#38754;&#30340; name &#30340;&#20540; </span><span style="color: #b22222;">--&gt;</span>
+    &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23545;&#24212;&#21464;&#37327;&#20540;1</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#35201;&#36339;&#36716;&#21040;&#30340;&#22788;&#29702;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+    &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23545;&#24212;&#21464;&#37327;&#20540;2</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#35201;&#36339;&#36716;&#21040;&#30340;&#22788;&#29702;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+&lt;/<span style="color: #0000ff;">sub-process</span>&gt;
+</pre>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-2-7-3-2">通过设置不同的子流程 end 活动名称自动关联父流程的流出转移<br/>
+<ul>
+<li>子流程中定义多个不同的 end 活动
+</li>
+<li>子流程中的 end 活动名称自动关联父流程的流出转移名称
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">  <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#29238;&#33410;&#28857;&#20013;&#23450;&#20041; </span><span style="color: #b22222;">--&gt;</span>
+ &lt;<span style="color: #0000ff;">sub-process</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#33410;&#28857;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">sub-process-key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23376;&#33410;&#28857;key</span><span style="color: #bc8f8f;">"</span>&gt;
+   &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27969;&#36716;&#21517;&#31216;1</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#19979;&#19968;&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+   &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27969;&#36716;&#21517;&#31216;2</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#19979;&#19968;&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+   &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27969;&#36716;&#21517;&#31216;3</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#19979;&#19968;&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+ &lt;/<span style="color: #0000ff;">sub-process</span>&gt;
+
+  <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#23376;&#27969;&#31243;&#26368;&#21518;&#32467;&#26463;&#20219;&#21153;&#30340;&#37197;&#32622; </span><span style="color: #b22222;">--&gt;</span>
+ &lt;<span style="color: #0000ff;">task</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#20219;&#21153;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">assignee</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#20219;&#21153;&#25509;&#21463;&#20154;id</span><span style="color: #bc8f8f;">"</span>&gt;
+       &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27969;&#36716;&#21517;&#31216;1</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">end&#21517;&#31216;1</span><span style="color: #bc8f8f;">"</span>/&gt;
+       &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27969;&#36716;&#21517;&#31216;2</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">end&#21517;&#31216;2</span><span style="color: #bc8f8f;">"</span>/&gt;
+       &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27969;&#36716;&#21517;&#31216;3</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">end&#21517;&#31216;3</span><span style="color: #bc8f8f;">"</span>/&gt;
+ &lt;/<span style="color: #0000ff;">task</span>&gt;
+<span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#27492;&#22788;end&#30340;&#21517;&#31216;&#19982;&#29238;&#27969;&#31243;&#20013;&#23376;&#27969;&#31243;&#23450;&#20041;&#30340;&#27969;&#36716;&#21517;&#31216;&#30456;&#21305;&#37197; </span><span style="color: #b22222;">--&gt;</span>
+ &lt;<span style="color: #0000ff;">end</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#19978;&#38754;&#23376;&#27969;&#31243;&#35201;&#36716;&#21521;&#30340;end&#21517;&#31216;1</span><span style="color: #bc8f8f;">"</span>/&gt;
+ &lt;<span style="color: #0000ff;">end</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#19978;&#38754;&#23376;&#27969;&#31243;&#35201;&#36716;&#21521;&#30340;end&#21517;&#31216;2</span><span style="color: #bc8f8f;">"</span>/&gt;
+ &lt;<span style="color: #0000ff;">end</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#19978;&#38754;&#23376;&#27969;&#31243;&#35201;&#36716;&#21521;&#30340;end&#21517;&#31216;3</span><span style="color: #bc8f8f;">"</span>/&gt;
+</pre>
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-8-2-8" class="outline-4">
+<h4 id="sec-8-2-8"><span class="section-number-4">8.2.8</span> 自定义活动</h4>
+<div class="outline-text-4" id="text-8-2-8">
+
+<ul>
+<li>通过 custom 活动自定义活动行为调用自己实现的活动逻辑
+</li>
+<li>接口必需实现接口 ExternalActivityBehaviour
+</li>
+<li>实现接口方法
+<ul>
+<li>execute(ActivityExecuteion execution)
+</li>
+<li>singal(ActivityExecuteion execution,String singalName,Map&lt;String,?&gt; parameters)
+</li>
+</ul>
+
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml"> &lt;<span style="color: #0000ff;">custom</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27963;&#21160;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27963;&#21160;&#22788;&#29702;&#30340;&#20195;&#30721;&#23436;&#25972;&#36335;&#24452;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt; 
+     &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#35201;&#36339;&#36716;&#30340;&#27969;&#36716;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+&lt;/<span style="color: #0000ff;">custom</span>&gt;
+</pre>
+
+
+<pre class="src src-java"><span style="color: #a020f0;">public</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">PrintDots</span> <span style="color: #a020f0;">implements</span> <span style="color: #228b22;">ExternalActivityBehaviour</span>{
+  <span style="color: #a020f0;">public</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">execute</span>(<span style="color: #228b22;">ActivityExecuteion</span> <span style="color: #b8860b;">execution</span>){
+    <span style="color: #b22222;">// </span><span style="color: #b22222;">&#33258;&#23450;&#20041;&#36923;&#36753;</span>
+   <span style="color: #b22222;">// </span><span style="color: #b22222;">&#27969;&#31243;&#31561;&#24453;</span>
+    execution.waitForSignal();
+  }
+
+   <span style="color: #a020f0;">public</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">singal</span>(<span style="color: #228b22;">ActivityExecuteion</span> <span style="color: #b8860b;">execution</span>, <span style="color: #228b22;">String</span> <span style="color: #b8860b;">singalName</span>, Map&lt;String,?&gt; parameters){
+     <span style="color: #b22222;">// </span><span style="color: #b22222;">&#27963;&#21160;&#25910;&#21040;&#20449;&#21495;&#21518;&#65292;&#36827;&#20837;&#36825;&#37324; &#26469;&#23454;&#29616;&#33258;&#23450;&#20041;&#30340;&#36923;&#36753;</span>
+     <span style="color: #b22222;">// </span><span style="color: #b22222;">&#23454;&#20363;&#36827;&#20837;&#19979;&#19968;&#27493; </span>
+      execution.task(singalName);
+   }
+}
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-8-3" class="outline-3">
+<h3 id="sec-8-3"><span class="section-number-3">8.3</span> 自动活动</h3>
+<div class="outline-text-3" id="text-8-3">
+
+
+</div>
+
+<div id="outline-container-8-3-1" class="outline-4">
+<h4 id="sec-8-3-1"><span class="section-number-4">8.3.1</span> 支持的类型</h4>
+<div class="outline-text-4" id="text-8-3-1">
+
+<ul>
+<li id="sec-8-3-1-1">java程序<br/>
+<ul>
+<li>流程指向到此活动时自动指向java方法
+</li>
+</ul>
+
+<ul>
+<li id="sec-8-3-1-1-1">属性<br/>
+<ul>
+<li id="sec-8-3-1-1-1-1">class/expr<br/>
+<ul>
+<li>必选其一
+</li>
+<li>必需有无参构造函数
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-3-1-1-1-2">method<br/>
+<ul>
+<li>必选
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-3-1-1-1-3">var<br/>
+<ul>
+<li>存储方法指向结果的流程变量名称
+</li>
+</ul>
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-8-3-1-1-2">子元素<br/>
+<ul>
+<li id="sec-8-3-1-1-2-1">field<br/>
+<ul>
+<li>方法调用之前给指定的类成员注入指定值
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-3-1-1-2-2">arg<br/>
+<ul>
+<li>给被调用的方法提供参数
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">java</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27963;&#21160;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">java&#31867;&#30340;&#23436;&#25972;&#36335;&#24452;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">method</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#35843;&#29992;&#30340;&#26041;&#27861;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">var</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#27969;&#31243;&#23454;&#20363;&#20013;&#20445;&#23384;&#25191;&#34892;&#32467;&#26524;&#30340;&#21464;&#37327;</span><span style="color: #bc8f8f;">"</span>&gt;
+    &lt;<span style="color: #0000ff;">arg</span>&gt;
+       &lt;<span style="color: #0000ff;">object</span> <span style="color: #b8860b;">expr</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">#{&#23545;&#35937;.&#23646;&#24615;&#21517;&#31216;1}</span><span style="color: #bc8f8f;">"</span>/&gt;
+    &lt;/<span style="color: #0000ff;">arg</span>&gt;
+    &lt;<span style="color: #0000ff;">arg</span>&gt;
+       &lt;<span style="color: #0000ff;">object</span> <span style="color: #b8860b;">expr</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">#{&#23545;&#35937;.&#23646;&#24615;&#21517;&#31216;2}</span><span style="color: #bc8f8f;">"</span>/&gt;
+    &lt;/<span style="color: #0000ff;">arg</span>&gt;
+     &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#35201;&#36339;&#36716;&#21040;&#30340;&#22788;&#29702;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>/&gt;
+ &lt;/<span style="color: #0000ff;">java</span>&gt;
+</pre>
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-8-3-1-1-3">解释<br/>
+<ul>
+<li>流程定义在当前活动先调用指定的java类，
+</li>
+<li>类会被实例化出一个对象
+</li>
+<li>调用该对象的指定方法，如果有参数，会根据配置的先后顺序来注入参数
+</li>
+<li>将返回对象存入指定的var变量中
+</li>
+</ul>
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-8-3-1-2">脚本<br/>
+<ul>
+<li id="sec-8-3-1-2-1">通过脚本表达式方式<br/>
+<ul>
+<li>如果没有指定lang,则默认为JUEL
+</li>
+</ul>
+
+<ul>
+<li id="sec-8-3-1-2-1-1">属性<br/>
+<ul>
+<li>expr
+<ul>
+<li>必需
+</li>
+<li>执行的脚本表达式
+</li>
+</ul>
+
+</li>
+<li>lang
+<ul>
+<li>指定脚本语言
+</li>
+</ul>
+
+</li>
+<li>var 
+<ul>
+<li>脚本返回值存入的流程变量名称
+</li>
+</ul>
+
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">script</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#33050;&#26412;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">expr</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#33050;&#26412;&#34920;&#36798;&#24335;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">var</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#33050;&#26412;&#34920;&#36798;&#24335;&#36820;&#22238;&#20540;&#23384;&#20648;&#30340;&#21464;&#37327;</span><span style="color: #bc8f8f;">"</span> /&gt;
+</pre>
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-8-3-1-2-2">通过脚本文本的方式<br/>
+<ul>
+<li id="sec-8-3-1-2-2-1">属性<br/>
+<ul>
+<li>同上
+</li>
+<li>例子 
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">script</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#33050;&#26412;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">var</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#36820;&#22238;&#36820;&#22238;&#20445;&#23384;&#21040;&#30340;&#21464;&#37327;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+   &lt;<span style="color: #0000ff;">text</span>&gt;
+        &#19968;&#27573;&#21253;&#21547;&#33050;&#26412;&#30340;&#25991;&#26412;
+   &lt;/<span style="color: #0000ff;">text</span>&gt;
+&lt;/<span style="color: #0000ff;">script</span>&gt;
+</pre>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-8-3-1-3">hql<br/>
+<ul>
+<li id="sec-8-3-1-3-1">属性<br/>
+<ul>
+<li id="sec-8-3-1-3-1-1">var<br/>
+<ul>
+<li>存储hql执行结果的流程变量名
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-3-1-3-1-2">unique<br/>
+<ul>
+<li>设置返回结果是否为集合
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-3-1-3-1-3">元素<br/>
+<ul>
+<li id="sec-8-3-1-3-1-3-1">query<br/>
+<ul>
+<li>查询语句
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-3-1-3-1-3-2">parameter<br/>
+<ul>
+<li>查询语句的外部参数
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml"> &lt;<span style="color: #0000ff;">hql</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">sql &#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">var</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23384;&#20648;&#32467;&#26524;&#30340;&#27969;&#31243;&#21464;&#37327;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span>&gt;
+   &lt;<span style="color: #0000ff;">query</span>&gt;
+        hql&#35821;&#21477;&#65306;  select task.name from org.jbpm.pvm.internal.task.TaskImpl as task where task.name like :taskName
+   &lt;/<span style="color: #0000ff;">query</span>&gt;
+    &lt;<span style="color: #0000ff;">parameters</span>&gt;
+         <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#26597;&#35810;&#21442;&#25968;&#21450;&#20854;&#20540; </span><span style="color: #b22222;">--&gt;</span>
+         &lt;<span style="color: #0000ff;">string</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">taskName</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">%i%</span><span style="color: #bc8f8f;">"</span>/&gt;
+    &lt;/<span style="color: #0000ff;">parameters</span>&gt;
+ &lt;/<span style="color: #0000ff;">hql</span>&gt;
+
+<span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#26597;&#35810;&#32467;&#26524;&#38750;&#38598;&#21512;&#30340;&#20363;&#23376;  </span><span style="color: #b22222;">--&gt;</span>
+ &lt;<span style="color: #0000ff;">hql</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">sql &#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">var</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#23384;&#20648;&#32467;&#26524;&#30340;&#27969;&#31243;&#21464;&#37327;&#21517;&#31216;</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">unique</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">true</span><span style="color: #bc8f8f;">"</span>&gt;
+   &lt;<span style="color: #0000ff;">query</span>&gt;
+        hql&#35821;&#21477;&#65306;  select count(*) from org.jbpm.pvm.internal.task.TaskImpl as task where task.name like :taskName
+   &lt;/<span style="color: #0000ff;">query</span>&gt;
+    &lt;<span style="color: #0000ff;">parameters</span>&gt;
+         <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#26597;&#35810;&#21442;&#25968;&#21450;&#20854;&#20540; </span><span style="color: #b22222;">--&gt;</span>
+         &lt;<span style="color: #0000ff;">string</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">taskName</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">%i%</span><span style="color: #bc8f8f;">"</span>/&gt;
+    &lt;/<span style="color: #0000ff;">parameters</span>&gt;
+ &lt;/<span style="color: #0000ff;">hql</span>&gt;
+</pre>
+
+
+<pre class="src src-java"> #+END_SRC
+**** sql
+ - &#26597;&#35810;&#33719;&#24471;&#30340;&#32467;&#26524;&#38598;&#20197;&#23545;&#35937;&#25968;&#32452;&#26041;&#24335;&#36820;&#22238;
+ - &#32467;&#26524;&#38598;&#21015;&#34920;&#20197; Collection&lt;Object&gt; &#26041;&#24335;&#36820;&#22238;
+ - &#20197;&#19978;&#36866;&#29992;&#19982;hql&#21644;sql
+ - &#20363;&#23376;
+ORG-LIST-END-MARKER
+ #+BEGIN_SRC xml 
+   &lt;sql name=<span style="color: #bc8f8f;">"sql &#21517;&#31216;"</span> var=<span style="color: #bc8f8f;">"&#23384;&#20648;&#32467;&#26524;&#30340;&#27969;&#31243;&#21464;&#37327;&#21517;&#31216;"</span>&gt;
+   &lt;query&gt;
+        sql&#35821;&#21477;&#65306;  select DBID_,NAME_,STATE_,PRIORITY_,DUEDATE_ <span style="color: #228b22;">from</span> <span style="color: #b8860b;">JBPM4_TASK</span>
+  &lt;/query&gt;
+ &lt;/sql&gt;
+</pre>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-8-3-1-4">mail<br/>
+<ul>
+<li id="sec-8-3-1-4-1">配置<br/>
+<ul>
+<li>mail.template元素中定义模板
+</li>
+<li>可以在模板中引入流程变量
+</li>
+<li>jbpm.mail.properties文件中配置 邮件服务器地址 端口号和发送人地址等信息
+</li>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">  &lt;?<span style="color: #a020f0;">xml</span> <span style="color: #bc8f8f;">version="1.0" encoding="UTF-8"</span>?&gt;
+
+&lt;<span style="color: #0000ff;">process</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">InlineMail</span><span style="color: #bc8f8f;">"</span> <span style="color: #da70d6;">xmlns</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">http://jbpm.org/4.4/jpdl</span><span style="color: #bc8f8f;">"</span>&gt;
+
+  &lt;<span style="color: #0000ff;">start</span> <span style="color: #b8860b;">g</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">20,25,80,40</span><span style="color: #bc8f8f;">"</span>&gt;
+    &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">send rectify note</span><span style="color: #bc8f8f;">"</span>/&gt;
+  &lt;/<span style="color: #0000ff;">start</span>&gt;
+
+  &lt;<span style="color: #0000ff;">mail</span> <span style="color: #b8860b;">g</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">99,25,115,45</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">language</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">juel</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">send rectify note</span><span style="color: #bc8f8f;">"</span>&gt;
+    &lt;<span style="color: #0000ff;">to</span> <span style="color: #b8860b;">addresses</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">winston@minitrue</span><span style="color: #bc8f8f;">"</span>/&gt;
+    &lt;<span style="color: #0000ff;">cc</span> <span style="color: #b8860b;">groups</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">innerparty</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">users</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">bb</span><span style="color: #bc8f8f;">"</span>/&gt;
+    &lt;<span style="color: #0000ff;">bcc</span> <span style="color: #b8860b;">groups</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">thinkpol</span><span style="color: #bc8f8f;">"</span>/&gt;
+    &lt;<span style="color: #0000ff;">subject</span>&gt;rectify ${newspaper}&lt;/<span style="color: #0000ff;">subject</span>&gt;
+    &lt;<span style="color: #0000ff;">text</span>&gt;${newspaper} ${date} reporting bb dayorder doubleplusungood
+      refs unpersons rewrite fullwise upsub antefiling&lt;/<span style="color: #0000ff;">text</span>&gt;
+    <span style="color: #b22222;">&lt;!--</span>
+<span style="color: #b22222;">    &lt;html&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;${newspaper}&lt;/td&gt;&lt;td&gt;${date}&lt;/td&gt;</span>
+<span style="color: #b22222;">      &lt;td&gt;reporting bb dayorder doubleplusungood</span>
+<span style="color: #b22222;">      refs unpersons rewrite fullwise upsub antefiling&lt;/td&gt;</span>
+<span style="color: #b22222;">      &lt;/tr&gt;&lt;/table&gt;&lt;/html&gt;</span>
+<span style="color: #b22222;">    &lt;attachments&gt;</span>
+<span style="color: #b22222;">      &lt;attachment url='http://www.george-orwell.org/1984/3.html' /&gt;</span>
+<span style="color: #b22222;">      &lt;attachment resource='org/example/pic.jpg' /&gt;</span>
+<span style="color: #b22222;">      &lt;attachment file='${user.home}/.face' /&gt;</span>
+<span style="color: #b22222;">    &lt;/attachments&gt;</span>
+<span style="color: #b22222;">    </span><span style="color: #b22222;">--&gt;</span>
+    &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">wait</span><span style="color: #bc8f8f;">"</span>/&gt;
+  &lt;/<span style="color: #0000ff;">mail</span>&gt;
+
+  &lt;<span style="color: #0000ff;">state</span> <span style="color: #b8860b;">g</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">240,25,98,45</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">wait</span><span style="color: #bc8f8f;">"</span>/&gt;
+
+&lt;/<span style="color: #0000ff;">process</span>&gt;
+</pre>
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-8-4" class="outline-3">
+<h3 id="sec-8-4"><span class="section-number-3">8.4</span> 事件</h3>
+<div class="outline-text-3" id="text-8-4">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> 开启流程</h2>
+<div class="outline-text-2" id="text-9">
+
+
+</div>
+
+<div id="outline-container-9-1" class="outline-3">
+<h3 id="sec-9-1"><span class="section-number-3">9.1</span> 带参数的流程开启</h3>
+<div class="outline-text-3" id="text-9-1">
+
+
+
+
+<pre class="src src-java">Map&lt;String, Object&gt; variables = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">HashMap</span>&lt;String, Object&gt;();
+variables.put(<span style="color: #bc8f8f;">"category"</span>, <span style="color: #bc8f8f;">"big"</span>);
+variables.put(<span style="color: #bc8f8f;">"dollars"</span>, 100000);
+<span style="color: #228b22;">Execution</span> <span style="color: #b8860b;">execution</span> = executionService.startProcessInstanceByKey(<span style="color: #bc8f8f;">"TaskVariables"</span>, variables);
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-9-2" class="outline-3">
+<h3 id="sec-9-2"><span class="section-number-3">9.2</span> 在更新task时获取参数</h3>
+<div class="outline-text-3" id="text-9-2">
+
+
+
+
+<pre class="src src-java"><span style="color: #b22222;">// </span><span style="color: #b22222;">&#26356;&#21152;&#29992;&#25143;id&#26597;&#35810;&#35813;&#29992;&#25143;&#21487;&#25191;&#34892;&#30340;task</span>
+List&lt;Task&gt; taskList = taskService.findPersonalTasks(<span style="color: #bc8f8f;">"johndoe"</span>);
+<span style="color: #228b22;">Task</span> <span style="color: #b8860b;">task</span> = taskList.get(0);
+<span style="color: #228b22;">String</span> <span style="color: #b8860b;">taskId</span> = task.getId();
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#36890;&#36807;taskId&#26469;&#33719;&#21462;&#27969;&#31243;&#20013;&#23450;&#20041;&#30340;&#21442;&#25968;&#21517;&#31216;</span>
+Set&lt;String&gt; variableNames = taskService.getVariableNames(taskId);
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#36890;&#36807;&#21442;&#25968;&#21517;&#31216;&#21644;taskId&#26469;&#33719;&#21462;&#21442;&#25968;</span>
+Map&lt;String,Object&gt; variables = taskService.getVariables(taskId, variableNames);
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#23558;&#21442;&#25968;&#26356;&#26032;&#21518;&#35774;&#32622;&#22238;&#20219;&#21153;&#20013;</span>
+taskService.setVariables(taskId, variables);
+</pre>
+
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2012-11-14T15:07+0800</p>
+<p class="author">Author: emacsers</p>
+<p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.2 with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

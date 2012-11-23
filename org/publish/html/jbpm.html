@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>jbpm笔记</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312"/>
+<meta name="title" content="jbpm笔记"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2012-11-09 13:05:59 中国标准时间"/>
+<meta name="author" content="emacsers"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">jbpm笔记</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 jbpm4的安装配置</a>
+<ul>
+<li><a href="#sec-1-1">1.1 简介</a></li>
+<li><a href="#sec-1-2">1.2 安装</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 图形化流程设计器</a>
+<ul>
+<li><a href="#sec-2-1">2.1 各个参数的含义</a>
+<ul>
+<li><a href="#sec-2-1-1">2.1.1 assignee</a></li>
+<li><a href="#sec-2-1-2">2.1.2 form</a></li>
+<li><a href="#sec-2-1-3">2.1.3 name</a></li>
+<li><a href="#sec-2-1-4">2.1.4 transition</a></li>
+<li><a href="#sec-2-1-5">2.1.5 candidate-groups</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-2">2.2 例子</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 部署</a></li>
+<li><a href="#sec-4">4 流程的控制</a></li>
+<li><a href="#sec-5">5 JBPL流程控制语言</a></li>
+<li><a href="#sec-6">6 与spring的集成</a></li>
+<li><a href="#sec-7">7 特殊工作流实现</a></li>
+<li><a href="#sec-8">8 例子</a>
+<ul>
+<li><a href="#sec-8-1">8.1 建立流程</a></li>
+<li><a href="#sec-8-2">8.2 发布流程</a></li>
+<li><a href="#sec-8-3">8.3 当前可用流程的查看</a></li>
+<li><a href="#sec-8-4">8.4 已定义流程的启动</a></li>
+<li><a href="#sec-8-5">8.5 当前有用户可进行的任务查看</a></li>
+<li><a href="#sec-8-6">8.6 当前任务的申请</a>
+<ul>
+<li><a href="#sec-8-6-1">8.6.1 更新流程的任务信息</a></li>
+<li><a href="#sec-8-6-2">8.6.2 完成本流程的申请</a></li>
+</ul>
+</li>
+<li><a href="#sec-8-7">8.7 当前任务的审核</a>
+<ul>
+<li><a href="#sec-8-7-1">8.7.1 当前任务的查询</a></li>
+<li><a href="#sec-8-7-2">8.7.2 当前任务的审核</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> jbpm4的安装配置</h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 简介</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<ul>
+<li>若干个java类、依赖库和配置文件
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 安装</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<ul>
+<li>用ant运行安装脚本
+<ul>
+<li>ant demo.setup.tomcat
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 图形化流程设计器</h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 各个参数的含义</h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+</div>
+
+<div id="outline-container-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> assignee</h4>
+<div class="outline-text-4" id="text-2-1-1">
+
+<ul>
+<li>处理人
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> form</h4>
+<div class="outline-text-4" id="text-2-1-2">
+
+<ul>
+<li>当前步骤审核的页面地址
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-1-3" class="outline-4">
+<h4 id="sec-2-1-3"><span class="section-number-4">2.1.3</span> name</h4>
+<div class="outline-text-4" id="text-2-1-3">
+
+<ul>
+<li>当前处理名称
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-1-4" class="outline-4">
+<h4 id="sec-2-1-4"><span class="section-number-4">2.1.4</span> transition</h4>
+<div class="outline-text-4" id="text-2-1-4">
+
+<ul>
+<li>要跳转到的处理名称
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-1-5" class="outline-4">
+<h4 id="sec-2-1-5"><span class="section-number-4">2.1.5</span> candidate-groups</h4>
+<div class="outline-text-4" id="text-2-1-5">
+
+<ul>
+<li>处理当前节点的用户组
+</li>
+<li>与 assignee 只能设置一个
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 例子</h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">task</span> <span style="color: #b8860b;">assignee</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">#{owner}</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">form</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">request.jsp</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">g</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">175,94,92,52</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#30003;&#35831;</span><span style="color: #bc8f8f;">"</span>&gt; 
+     &lt;<span style="color: #0000ff;">transition</span> <span style="color: #b8860b;">to</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">&#32463;&#29702;&#23457;&#25209;</span><span style="color: #bc8f8f;">"</span>/&gt; 
+  &lt;/<span style="color: #0000ff;">task</span>&gt; 
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 部署</h2>
+<div class="outline-text-2" id="text-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 流程的控制</h2>
+<div class="outline-text-2" id="text-4">
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> JBPL流程控制语言</h2>
+<div class="outline-text-2" id="text-5">
+
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 与spring的集成</h2>
+<div class="outline-text-2" id="text-6">
+
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> 特殊工作流实现</h2>
+<div class="outline-text-2" id="text-7">
+
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> 例子</h2>
+<div class="outline-text-2" id="text-8">
+
+
+</div>
+
+<div id="outline-container-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> 建立流程</h3>
+<div class="outline-text-3" id="text-8-1">
+
+<ul>
+<li>使用图形化的流程设计工具生成流程
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-8-2" class="outline-3">
+<h3 id="sec-8-2"><span class="section-number-3">8.2</span> 发布流程</h3>
+<div class="outline-text-3" id="text-8-2">
+
+
+
+
+<pre class="src src-java"><span style="color: #b22222;">// </span><span style="color: #b22222;">&#20256;&#20837;&#27969;&#31243;&#21387;&#32553;&#21253;zip,</span>
+  <span style="color: #228b22;">InputStream</span> <span style="color: #b8860b;">is</span> = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">FileInputStream</span>(<span style="color: #a020f0;">new</span> <span style="color: #228b22;">File</span>(file));
+  <span style="color: #228b22;">ZipInputStream</span> <span style="color: #b8860b;">zis</span> = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">ZipInputStream</span>(is);
+ <span style="color: #b22222;">// </span><span style="color: #b22222;">&#23558;ZIP&#27969;&#31243;&#25991;&#20214;&#21457;&#24067;&#21040;pvm&#65288;&#27969;&#31243;&#34394;&#25311;&#26426;&#20013;&#65292;&#20182;&#20250;&#25226;ZIP&#21253;&#20013;&#30340;xml&#25991;&#20214;&#21644;png&#22270;&#29255;&#23384;&#20648;&#21040;&#25968;&#25454;&#24211;&#20013;&#65289;</span>
+ repositoryService.createDeployment().addResourcesFromZipInputStream(zis).deploy();
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-8-3" class="outline-3">
+<h3 id="sec-8-3"><span class="section-number-3">8.3</span> 当前可用流程的查看</h3>
+<div class="outline-text-3" id="text-8-3">
+
+
+
+
+<pre class="src src-java"><span style="color: #b22222;">// </span><span style="color: #b22222;">&#20174;&#37197;&#32622;&#20013;&#33719;&#21462;&#27969;&#31243;&#24341;&#25806;</span>
+<span style="color: #228b22;">ProcessEngine</span> <span style="color: #b8860b;">processEngine</span> = Configuration.getProcessEngine();
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#20351;&#29992;&#27969;&#31243;&#24341;&#25806;&#26597;&#35810;&#23450;&#20041;&#30340;&#27969;&#31243;</span>
+<span style="color: #228b22;">RepositoryService</span> <span style="color: #b8860b;">repositoryService</span> = processEngine.getRepositoryService();
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#27969;&#31243;&#23450;&#20041;&#38598;&#21512;</span>
+List&lt;ProcessDefinition&gt; pdList = repositoryService.createProcessDefinitionQuery().list();
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-8-4" class="outline-3">
+<h3 id="sec-8-4"><span class="section-number-3">8.4</span> 已定义流程的启动</h3>
+<div class="outline-text-3" id="text-8-4">
+
+
+
+
+<pre class="src src-java"><span style="color: #b22222;">// </span><span style="color: #b22222;">&#27969;&#31243;&#24341;&#25806;</span>
+<span style="color: #228b22;">ProcessEngine</span> <span style="color: #b8860b;">processEngine</span> = Configuration.getProcessEngine();
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#27969;&#31243;&#23454;&#20363;&#26381;&#21153;</span>
+<span style="color: #228b22;">ExecutionService</span> <span style="color: #b8860b;">executionService</span> = processEngine.getExecutionService();
+<span style="color: #228b22;">Map</span> <span style="color: #b8860b;">map</span> = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">HashMap</span>();
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#25554;&#20837;&#27969;&#31243;&#20013;&#23384;&#25918;&#30340;&#25968;&#25454;&#65292;&#36825;&#37324;&#23384;&#25918;&#27969;&#31243;&#21551;&#21160;&#32773;&#30340;&#21517;&#23383;&#65292;&#21442;&#25968;id&#26159;&#27969;&#31243;&#23450;&#20041;&#30340;ID</span>
+map.put(<span style="color: #bc8f8f;">"owner"</span>, user.getUserName());
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#27969;&#31243;&#30340;&#21551;&#21160; - &#21442;&#25968;&#65306; &#27969;&#31243;id&#65292;&#21253;&#21547;&#29992;&#25143;&#22995;&#21517;&#30340;map</span>
+executionService.startProcessInstanceById(id, map);
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8-5" class="outline-3">
+<h3 id="sec-8-5"><span class="section-number-3">8.5</span> 当前有用户可进行的任务查看</h3>
+<div class="outline-text-3" id="text-8-5">
+
+
+
+
+<pre class="src src-java"><span style="color: #b22222;">// </span><span style="color: #b22222;">&#27969;&#31243;&#24341;&#25806;</span>
+ <span style="color: #228b22;">ProcessEngine</span> <span style="color: #b8860b;">processEngine</span> = Configuration.getProcessEngine();
+ <span style="color: #b22222;">// </span><span style="color: #b22222;">&#20219;&#21153;&#24341;&#25806;</span>
+ <span style="color: #228b22;">TaskService</span> <span style="color: #b8860b;">taskService</span> = processEngine.getTaskService();
+ <span style="color: #b22222;">// </span><span style="color: #b22222;">&#24403;&#21069;&#29992;&#25143;&#20195;&#21150;&#30340;&#20219;&#21153;&#38598;&#21512;</span>
+ <span style="color: #228b22;">User</span> <span style="color: #b8860b;">user</span> = (<span style="color: #228b22;">User</span>) ActionContext.getContext().getSession().get(<span style="color: #bc8f8f;">"user"</span>);
+ <span style="color: #b22222;">// </span><span style="color: #b22222;">&#20219;&#21153;&#26597;&#35810; - &#36890;&#36807;&#29992;&#25143;&#30340;name&#26469;&#26597;&#35810;</span>
+ List&lt;Task&gt; taskList2 = taskService.findPersonalTasks(user.getUserName());
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8-6" class="outline-3">
+<h3 id="sec-8-6"><span class="section-number-3">8.6</span> 当前任务的申请</h3>
+<div class="outline-text-3" id="text-8-6">
+
+
+</div>
+
+<div id="outline-container-8-6-1" class="outline-4">
+<h4 id="sec-8-6-1"><span class="section-number-4">8.6.1</span> 更新流程的任务信息</h4>
+<div class="outline-text-4" id="text-8-6-1">
+
+
+
+
+<pre class="src src-java"> <span style="color: #228b22;">String</span> <span style="color: #b8860b;">sql1</span> = <span style="color: #bc8f8f;">"UPDATE jbpm4_hist_task task set task.assignee_=?1 where task.dbid_=?2"</span>;
+?1 : &#20219;&#21153;&#30003;&#35831;&#20154;
+?2 : &#20219;&#21153;&#30340;id
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-8-6-2" class="outline-4">
+<h4 id="sec-8-6-2"><span class="section-number-4">8.6.2</span> 完成本流程的申请</h4>
+<div class="outline-text-4" id="text-8-6-2">
+
+<ul>
+<li>将本流程提交的信息封装到map中
+</li>
+<li>完成任务，参数为任务的id和封装提交信息的map
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java"><span style="color: #b22222;">// </span><span style="color: #b22222;">&#23558;&#25968;&#25454;&#23384;&#20648;&#23553;&#36716;&#21040;map&#20013;</span>
+<span style="color: #228b22;">Map</span> <span style="color: #b8860b;">map</span> = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">HashMap</span>();
+map.put(<span style="color: #bc8f8f;">"day"</span>, leave.getDay());
+map.put(<span style="color: #bc8f8f;">"reason"</span>, leave.getReason());
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#23558;&#25968;&#25454;&#21644;&#27969;&#31243;&#36827;&#34892;&#32465;&#23450;&#65292;&#20855;&#20307;&#35831;&#30475;jbpm4.4API</span>
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#32465;&#23450;&#25968;&#25454;&#30340;&#21516;&#26102;&#65292;&#23558;&#29616;&#22312;&#30340;&#20219;&#21153;&#33410;&#28857;completeTask&#65292;&#26082;&#23436;&#25104;&#24403;&#21069;&#25805;&#20316;&#65292;&#23558;&#27969;&#31243;&#21521;&#19979;&#25552;&#20132;</span>
+taskService.completeTask(leave.getTaskId(), map); 
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-8-7" class="outline-3">
+<h3 id="sec-8-7"><span class="section-number-3">8.7</span> 当前任务的审核</h3>
+<div class="outline-text-3" id="text-8-7">
+
+
+</div>
+
+<div id="outline-container-8-7-1" class="outline-4">
+<h4 id="sec-8-7-1"><span class="section-number-4">8.7.1</span> 当前任务的查询</h4>
+<div class="outline-text-4" id="text-8-7-1">
+
+
+
+
+<pre class="src src-java"><span style="color: #228b22;">String</span> <span style="color: #b8860b;">sqlstr</span> = <span style="color: #bc8f8f;">"SELECT procinst.dbid_,actinst.activity_name_,actinst.start_,actinst.end_,"</span> 
+                 + <span style="color: #bc8f8f;">" actinst.htask_,histtask.assignee_"</span> 
+                 + <span style="color: #bc8f8f;">" FROM JBPM4_HIST_ACTINST actinst,"</span> 
+                 + <span style="color: #bc8f8f;">"      JBPM4_HIST_PROCINST procinst,"</span> 
+                 + <span style="color: #bc8f8f;">"      JBPM4_HIST_TASK histtask"</span> 
+                 + <span style="color: #bc8f8f;">" WHERE actinst.hproci_=procinst.dbid_"</span> 
+                 + <span style="color: #bc8f8f;">"   AND histtask.dbid_=actinst.htask_"</span> 
+                 + <span style="color: #bc8f8f;">"   AND procinst.dbid_=("</span> 
+                 + <span style="color: #bc8f8f;">"     SELECT task.procinst_"</span> 
+                 + <span style="color: #bc8f8f;">"     FROM JBPM4_TASK task"</span> 
+                 + <span style="color: #bc8f8f;">"     INNER JOIN JBPM4_HIST_TASK hist ON hist.dbid_=task.dbid_"</span> 
+                 + <span style="color: #bc8f8f;">"     WHERE hist.dbid_=?"</span> 
+                 + <span style="color: #bc8f8f;">"   )"</span> 
+                 + <span style="color: #bc8f8f;">"   AND actinst.activity_name_!='exclusive1'"</span> 
+                 + <span style="color: #bc8f8f;">"   ORDER BY procinst.dbid_,actinst.dbid_"</span>; 
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8-7-2" class="outline-4">
+<h4 id="sec-8-7-2"><span class="section-number-4">8.7.2</span> 当前任务的审核</h4>
+<div class="outline-text-4" id="text-8-7-2">
+
+<ul>
+<li>更新当前任务的状态
+</li>
+<li>完成本次审核，参数为任务id和审核意见
+</li>
+</ul>
+
+
+
+
+<pre class="src src-java"><span style="color: #228b22;">ProcessEngine</span> <span style="color: #b8860b;">processEngine</span> = Configuration.getProcessEngine(); 
+<span style="color: #228b22;">TaskService</span> <span style="color: #b8860b;">taskService</span> = processEngine.getTaskService(); 
+ <span style="color: #b22222;">//</span><span style="color: #b22222;">&#26597;&#35810;&#24453;&#21150;&#20107;&#39033;&#21015;&#34920; </span>
+ <span style="color: #228b22;">String</span> <span style="color: #b8860b;">sql1</span> = <span style="color: #bc8f8f;">"UPDATE jbpm4_hist_task task set task.assignee_=? where task.dbid_=?"</span>; 
+ taskService.completeTask(taskId, result); 
+</pre>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2012-11-09 13:05:59 中国标准时间</p>
+<p class="author">Author: emacsers</p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

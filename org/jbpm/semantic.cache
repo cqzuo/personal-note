@@ -1,0 +1,59 @@
+;; Object jbpm/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "jbpm/"
+  :tables (list 
+   (semanticdb-table "jbpm.html"
+    :major-mode 'html-mode
+    :tags '(("jbpm笔记" section nil nil [241 2305]) ("/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = \"code-highlighted\";
+     elem.className   = \"code-highlighted\";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->" section nil nil [2305 3921]) ("jbpm笔记" section (:members (("jbpm笔记" section (:members (("Table of Contents" section (:members (("1 jbpm4的安装配置" section nil nil [4108 4151]) ("1.1 简介" section nil nil [4151 4190]) ("1.2 安装" section nil nil [4190 4229]) ("1.3 开发环境的配置" section nil nil [4229 4285]) ("2 图形化流程设计器" section nil nil [4285 4326]) ("2.1 各个参数的含义" section nil nil [4326 4370]) ("2.1.1 assignee" section nil nil [4370 4419]) ("2.1.2 form" section nil nil [4419 4464]) ("2.1.3 name" section nil nil [4464 4509]) ("2.1.4 transition" section nil nil [4509 4560]) ("2.1.5 candidate-groups" section nil nil [4560 4629]) ("2.2 例子" section nil nil [4629 4680]) ("3 部署" section nil nil [4680 4715]) ("3.1 部署流程定义和资源文件" section nil nil [4715 4763]) ("3.2 部署的3个方法" section nil nil [4763 4807]) ("3.3 例子" section nil nil [4807 4858]) ("4 流程的控制" section nil nil [4858 4896]) ("4.1 自动决策" section nil nil [4896 4937]) ("4.1.1 decision" section nil nil [4937 4998]) ("4.2 流程定义，流程实例和执行" section nil nil [4998 5047]) ("4.2.1 流程" section nil nil [5047 5090]) ("4.2.2 流程实例" section nil nil [5090 5147]) ("4.3 流程引擎 ProcessEngine" section nil nil [5147 5202]) ("4.3.1 简介" section nil nil [5202 5245]) ("4.3.2 获取" section nil nil [5245 5300]) ("4.4 流程的部署" section nil nil [5300 5342]) ("4.5 流程的删除" section nil nil [5342 5384]) ("4.6 发起流程实例" section nil nil [5384 5427]) ("4.6.1 常规方法" section nil nil [5427 5484]) ("4.7 唤醒一个等待状态的执行" section nil nil [5484 5532]) ("4.8 任务服务" section nil nil [5532 5573]) ("4.8.1 指定用户任务查询" section nil nil [5573 5622]) ("4.8.2 任务表单中数据的写入" section nil nil [5622 5673]) ("4.8.3 完成任务" section nil nil [5673 5730]) ("4.9 历史服务" section nil nil [5730 5783]) ("5 简单例子" section nil nil [5783 5820]) ("5.1 建立流程" section nil nil [5820 5861]) ("5.2 发布流程" section nil nil [5861 5902]) ("5.3 当前可用流程的查看" section nil nil [5902 5948]) ("5.4 已定义流程的启动" section nil nil [5948 5993]) ("5.5 当前有用户可进行的任务查看" section nil nil [5993 6043]) ("5.6 当前任务的申请" section nil nil [6043 6087]) ("5.6.1 更新流程的任务信息" section nil nil [6087 6137]) ("5.6.2 完成本流程的申请" section nil nil [6137 6198]) ("5.7 当前任务的审核" section nil nil [6198 6242]) ("5.7.1 当前任务的查询" section nil nil [6242 6290]) ("5.7.2 当前任务的审核" section nil nil [6290 6350]) ("5.8 流程的结束" section nil nil [6350 6404]) ("6 数据库" section nil nil [6404 6440]) ("6.1 系统" section nil nil [6440 6479]) ("6.2 流程" section nil nil [6479 6518]) ("6.3 实例" section nil nil [6518 6557]) ("6.4 历史" section nil nil [6557 6596]) ("6.5 用户" section nil nil [6596 6647]) ("7 API" section nil nil [6647 6683]) ("7.1 资源服务" section nil nil [6683 6724]) ("7.2 执行服务" section nil nil [6724 6765]) ("7.3 管理服务" section nil nil [6765 6806]) ("7.4 任务服务" section nil nil [6806 6847]) ("7.5 历史服务" section nil nil [6847 6888]) ("7.6 身份认证" section nil nil [6888 6929]) ("7.7 工作引擎加载" section nil nil [6929 6972]) ("7.8 CommandService" section nil nil [6972 7035]) ("8 流程定义" section nil nil [7035 7072]) ("8.1 流程 - process" section nil nil [7072 7121]) ("8.2 流转控制" section nil nil [7121 7162]) ("8.2.1 start 开始" section nil nil [7162 7211]) ("8.2.2 state 状态" section nil nil [7211 7260]) ("8.2.3 decision 判断" section nil nil [7260 7312]) ("8.2.4 fork/join 分支/聚合" section nil nil [7312 7368]) ("8.2.5 end 结束" section nil nil [7368 7415]) ("8.2.6 task 人工任务" section nil nil [7415 7465]) ("8.2.7 sub-process 子流程" section nil nil [7465 7521]) ("8.2.8 自定义活动" section nil nil [7521 7579]) ("8.3 自动活动" section nil nil [7579 7620]) ("8.3.1 支持的类型" section nil nil [7620 7678]) ("8.4 事件" section nil nil [7678 7729]) ("9 开启流程" section nil nil [7729 7766]) ("9.1 带参数的流程开启" section nil nil [7766 7811]) ("9.2 在更新task时获取参数" section nil nil [7811 7938]))) nil [4038 7938]) ("1" section (:members (("1.1" section nil nil [8111 8329]) ("1.2" section nil nil [8329 8584]) ("1.3" section nil nil [8584 8840]))) nil [7938 8840]) ("2" section (:members (("2.1" section (:members (("2.1.1" section nil nil [9189 9407]) ("2.1.2" section nil nil [9407 9629]) ("2.1.3" section nil nil [9629 9846]) ("2.1.4" section nil nil [9846 10072]) ("2.1.5" section nil nil [10072 10338]))) nil [9011 10338]) ("2.2" section nil nil [10338 11583]))) nil [8840 11583]) ("3" section (:members (("3.1" section nil nil [11748 12251]) ("3.2" section nil nil [12251 12531]) ("3.3" section nil nil [12531 13016]))) nil [11583 13016]) ("4" section (:members (("4.1" section (:members (("4.1.1" section nil nil [13359 15505]))) nil [13184 15505]) ("4.2" section (:members (("4.2.1" section nil nil [15688 15907]) ("4.2.2" section nil nil [15907 16135]))) nil [15505 16135]) ("4.3" section (:members (("4.3.1" section nil nil [16324 16555]) ("4.3.2" section nil nil [16555 16810]))) nil [16135 16810]) ("4.4" section nil nil [16810 17160]) ("4.5" section nil nil [17160 17737]) ("4.6" section (:members (("4.6.1" section nil nil [17914 18882]))) nil [17737 18882]) ("4.7" section nil nil [18882 20146]) ("4.8" section (:members (("4.8.1" section nil nil [20321 20670]) ("4.8.2" section nil nil [20670 21291]) ("4.8.3" section nil nil [21291 21985]))) nil [20146 21985]) ("4.9" section nil nil [21985 22170]))) nil [13016 22170]) ("5" section (:members (("5.1" section nil nil [22337 22556]) ("5.2" section nil nil [22556 23842]) ("5.3" section nil nil [23842 24914]) ("5.4" section nil nil [24914 26526]) ("5.5" section nil nil [26526 27897]) ("5.6" section (:members (("5.6.1" section nil nil [28075 28582]) ("5.6.2" section nil nil [28582 29966]))) nil [27897 29966]) ("5.7" section (:members (("5.7.1" section nil nil [30144 31868]) ("5.7.2" section nil nil [31868 32821]))) nil [29966 32821]) ("5.8" section nil nil [32821 33116]))) nil [22170 33116]) ("6" section (:members (("6.1" section nil nil [33282 33507]) ("6.2" section nil nil [33507 33801]) ("6.3" section nil nil [33801 34201]) ("6.4" section nil nil [34201 34629]) ("6.5" section nil nil [34629 34964]))) nil [33116 34964]) ("7" section (:members (("7.1" section nil nil [35130 35376]) ("7.2" section nil nil [35376 35623]) ("7.3" section nil nil [35623 35843]) ("7.4" section nil nil [35843 36087]) ("7.5" section nil nil [36087 36340]) ("7.6" section nil nil [36340 36587]) ("7.7" section nil nil [36587 37371]) ("7.8" section nil nil [37371 37740]))) nil [34964 37740]) ("8" section (:members (("8.1" section nil nil [37907 38475]) ("8.2" section (:members (("8.2.1" section nil nil [38650 38842]) ("8.2.2" section nil nil [38842 40039]) ("8.2.3" section nil nil [40039 45047]) ("8.2.4" section nil nil [45047 46915]) ("8.2.5" section nil nil [46915 47256]) ("8.2.6" section nil nil [47256 61762]) ("8.2.7" section nil nil [61762 80167]) ("8.2.8" section nil nil [80167 83103]))) nil [38475 83103]) ("8.3" section (:members (("8.3.1" section nil nil [83278 97777]))) nil [83103 97777]) ("8.4" section nil nil [97777 97960]))) nil [37740 97960]) ("9" section (:members (("9.1" section nil nil [98127 98881]) ("9.2" section (:members (("Org" section nil nil [100459 100515]) ("Emacs" section nil nil [100515 100585]) ("Validate XHTML 1.0" section nil nil [100585 100588]))) nil [98881 98885]))) nil [97960 97964]))) nil [3977 3981]))) nil [3921 3926]))
+    :file "jbpm.html"
+    :pointmax 100684
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0beta3"
+  :semanticdb-version "2.0beta3"
+  )
