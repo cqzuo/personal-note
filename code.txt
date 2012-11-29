@@ -7,3 +7,6 @@ guaiguailaopo
 taobao
 archlinu
 archlinux1978
+
+财付通二次
+un1980arch
