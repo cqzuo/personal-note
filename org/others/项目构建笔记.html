@@ -1,0 +1,887 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>项目构建笔记</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312"/>
+<meta name="title" content="项目构建笔记"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2012-11-27T11:24+0800"/>
+<meta name="author" content="emacsers"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">项目构建笔记</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 配置文件</a>
+<ul>
+<li><a href="#sec-1-1">1.1 web.xml 配置</a>
+<ul>
+<li><a href="#sec-1-1-1">1.1.1 log4j 日志配置</a></li>
+<li><a href="#sec-1-1-2">1.1.2 servlet 的编码</a></li>
+<li><a href="#sec-1-1-3">1.1.3 自定义的拦截器</a></li>
+<li><a href="#sec-1-1-4">1.1.4 spring 的配置文件</a></li>
+<li><a href="#sec-1-1-5">1.1.5 sping-mvc的配置</a></li>
+<li><a href="#sec-1-1-6">1.1.6 隐藏http方法的监听器</a></li>
+<li><a href="#sec-1-1-7">1.1.7 spring 的注册</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-2">1.2 数据库的配置</a>
+<ul>
+<li><a href="#sec-1-2-1">1.2.1 用 properties 文件来配置数据库相关信息</a></li>
+<li><a href="#sec-1-2-2">1.2.2 hibernate配置相关</a></li>
+<li><a href="#sec-1-2-3">1.2.3 数据库连接配置</a></li>
+<li><a href="#sec-1-2-4">1.2.4 连接池配置</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-3">1.3 日志配置</a>
+<ul>
+<li><a href="#sec-1-3-1">1.3.1 命令行中的日志配置</a></li>
+<li><a href="#sec-1-3-2">1.3.2 将日志输出到文件中</a></li>
+<li><a href="#sec-1-3-3">1.3.3 日志输出的级别</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4">1.4 spring的基本配置</a>
+<ul>
+<li><a href="#sec-1-4-1">1.4.1 注解扫描包</a></li>
+<li><a href="#sec-1-4-2">1.4.2 资源文件</a></li>
+<li><a href="#sec-1-4-3">1.4.3 国际化的消息资源文件</a></li>
+<li><a href="#sec-1-4-4">1.4.4 spring中数据源的配置</a></li>
+<li><a href="#sec-1-4-5">1.4.5 spring中session工厂的配置</a></li>
+<li><a href="#sec-1-4-6">1.4.6 开启aop的监听</a></li>
+<li><a href="#sec-1-4-7">1.4.7 开启aop的注解事务</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-5">1.5 spring-mvc配置</a>
+<ul>
+<li><a href="#sec-1-5-1">1.5.1 自定义类型绑定接口</a></li>
+<li><a href="#sec-1-5-2">1.5.2 开启springmvn的注解</a></li>
+<li><a href="#sec-1-5-3">1.5.3 视图配置</a></li>
+<li><a href="#sec-1-5-4">1.5.4 json视图</a></li>
+<li><a href="#sec-1-5-5">1.5.5 上传配置</a></li>
+<li><a href="#sec-1-5-6">1.5.6 异常控制</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 配置文件</h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> web.xml 配置</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+</div>
+
+<div id="outline-container-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> log4j 日志配置</h4>
+<div class="outline-text-4" id="text-1-1-1">
+
+
+
+
+<pre class="src src-xml"><span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> web.xml </span><span style="color: #b22222;">--&gt;</span>
+<span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> log4j &#37197;&#32622;  &#24320;&#22987; </span><span style="color: #b22222;">--&gt;</span>
+  &lt;<span style="color: #0000ff;">context-param</span>&gt;
+      &lt;<span style="color: #0000ff;">param-name</span>&gt;log4jConfigLocation&lt;/<span style="color: #0000ff;">param-name</span>&gt;
+      &lt;<span style="color: #0000ff;">param-value</span>&gt;/WEB-INF/classes/log4j.properties&lt;/<span style="color: #0000ff;">param-value</span>&gt;
+  &lt;/<span style="color: #0000ff;">context-param</span>&gt;
+  &lt;<span style="color: #0000ff;">context-param</span>&gt;
+      &lt;<span style="color: #0000ff;">param-name</span>&gt;log4jRefreshInterval&lt;/<span style="color: #0000ff;">param-name</span>&gt;
+      &lt;<span style="color: #0000ff;">param-value</span>&gt;600000&lt;/<span style="color: #0000ff;">param-value</span>&gt;
+  &lt;/<span style="color: #0000ff;">context-param</span>&gt;
+  &lt;<span style="color: #0000ff;">context-param</span>&gt;
+      &lt;<span style="color: #0000ff;">param-name</span>&gt;webAppRootKey&lt;/<span style="color: #0000ff;">param-name</span>&gt;
+      &lt;<span style="color: #0000ff;">param-value</span>&gt;javass.webapp.root&lt;/<span style="color: #0000ff;">param-value</span>&gt;
+  &lt;/<span style="color: #0000ff;">context-param</span>&gt;
+  &lt;<span style="color: #0000ff;">listener</span>&gt;
+      &lt;<span style="color: #0000ff;">listener-class</span>&gt;org.springframework.web.util.Log4jConfigListener&lt;/<span style="color: #0000ff;">listener-class</span>&gt;
+  &lt;/<span style="color: #0000ff;">listener</span>&gt;
+  <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> log4j &#37197;&#32622;  &#32467;&#26463; </span><span style="color: #b22222;">--&gt;</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> servlet 的编码</h4>
+<div class="outline-text-4" id="text-1-1-2">
+
+
+
+
+<pre class="src src-xml"><span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> web.xml </span><span style="color: #b22222;">--&gt;</span>
+ <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#35774;&#32622;servlet&#32534;&#30721;&#24320;&#22987; </span><span style="color: #b22222;">--&gt;</span>
+   &lt;<span style="color: #0000ff;">filter</span>&gt;
+       &lt;<span style="color: #0000ff;">filter-name</span>&gt;Set Character Encoding&lt;/<span style="color: #0000ff;">filter-name</span>&gt;
+       &lt;<span style="color: #0000ff;">filter-class</span>&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/<span style="color: #0000ff;">filter-class</span>&gt;
+       &lt;<span style="color: #0000ff;">init-param</span>&gt;
+           &lt;<span style="color: #0000ff;">param-name</span>&gt;encoding&lt;/<span style="color: #0000ff;">param-name</span>&gt;
+           &lt;<span style="color: #0000ff;">param-value</span>&gt;UTF-8&lt;/<span style="color: #0000ff;">param-value</span>&gt;
+       &lt;/<span style="color: #0000ff;">init-param</span>&gt;
+       &lt;<span style="color: #0000ff;">init-param</span>&gt;
+           &lt;<span style="color: #0000ff;">param-name</span>&gt;forceEncoding&lt;/<span style="color: #0000ff;">param-name</span>&gt;
+           &lt;<span style="color: #0000ff;">param-value</span>&gt;true&lt;/<span style="color: #0000ff;">param-value</span>&gt;
+       &lt;/<span style="color: #0000ff;">init-param</span>&gt;
+   &lt;/<span style="color: #0000ff;">filter</span>&gt;
+
+   &lt;<span style="color: #0000ff;">filter-mapping</span>&gt;
+       &lt;<span style="color: #0000ff;">filter-name</span>&gt;Set Character Encoding&lt;/<span style="color: #0000ff;">filter-name</span>&gt;
+       &lt;<span style="color: #0000ff;">url-pattern</span>&gt;/*&lt;/<span style="color: #0000ff;">url-pattern</span>&gt;
+   &lt;/<span style="color: #0000ff;">filter-mapping</span>&gt;
+   <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#35774;&#32622;servlet&#32534;&#30721;&#32467;&#26463; </span><span style="color: #b22222;">--&gt;</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-3" class="outline-4">
+<h4 id="sec-1-1-3"><span class="section-number-4">1.1.3</span> 自定义的拦截器</h4>
+<div class="outline-text-4" id="text-1-1-3">
+
+
+
+
+<pre class="src src-xml">     <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> web.xml </span><span style="color: #b22222;">--&gt;</span>
+  <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#35774;&#32622;BackURL&#24320;&#22987; </span><span style="color: #b22222;">--&gt;</span>    
+&lt;<span style="color: #0000ff;">filter</span>&gt;
+    &lt;<span style="color: #0000ff;">filter-name</span>&gt;BackURLFilter&lt;/<span style="color: #0000ff;">filter-name</span>&gt;
+    &lt;<span style="color: #0000ff;">filter-class</span>&gt;cn.javass.common.web.filter.BackURLFilter&lt;/<span style="color: #0000ff;">filter-class</span>&gt;
+&lt;/<span style="color: #0000ff;">filter</span>&gt;
+
+&lt;<span style="color: #0000ff;">filter-mapping</span>&gt;
+    &lt;<span style="color: #0000ff;">filter-name</span>&gt;BackURLFilter&lt;/<span style="color: #0000ff;">filter-name</span>&gt;
+    &lt;<span style="color: #0000ff;">url-pattern</span>&gt;/*&lt;/<span style="color: #0000ff;">url-pattern</span>&gt;
+&lt;/<span style="color: #0000ff;">filter-mapping</span>&gt;
+<span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#35774;&#32622;BackURL&#32467;&#26463; </span><span style="color: #b22222;">--&gt;</span> 
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-4" class="outline-4">
+<h4 id="sec-1-1-4"><span class="section-number-4">1.1.4</span> spring 的配置文件</h4>
+<div class="outline-text-4" id="text-1-1-4">
+
+
+
+
+<pre class="src src-xml"><span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> web.xml </span><span style="color: #b22222;">--&gt;</span>
+    <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> Spring&#37197;&#32622;&#25991;&#20214;&#24320;&#22987;  </span><span style="color: #b22222;">--&gt;</span>    
+       &lt;<span style="color: #0000ff;">context-param</span>&gt;
+           &lt;<span style="color: #0000ff;">param-name</span>&gt;contextConfigLocation&lt;/<span style="color: #0000ff;">param-name</span>&gt;
+           &lt;<span style="color: #0000ff;">param-value</span>&gt;
+               classpath:spring-config.xml
+           &lt;/<span style="color: #0000ff;">param-value</span>&gt;
+       &lt;/<span style="color: #0000ff;">context-param</span>&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-5" class="outline-4">
+<h4 id="sec-1-1-5"><span class="section-number-4">1.1.5</span> sping-mvc的配置</h4>
+<div class="outline-text-4" id="text-1-1-5">
+
+
+
+
+<pre class="src src-xml"><span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> web.xml </span><span style="color: #b22222;">--&gt;</span>
+           &lt;<span style="color: #0000ff;">listener</span>&gt;
+                &lt;<span style="color: #0000ff;">listener-class</span>&gt;
+                    org.springframework.web.context.ContextLoaderListener
+                &lt;/<span style="color: #0000ff;">listener-class</span>&gt;
+            &lt;/<span style="color: #0000ff;">listener</span>&gt;
+            <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> Spring&#37197;&#32622;&#25991;&#20214;&#32467;&#26463; </span><span style="color: #b22222;">--&gt;</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-6" class="outline-4">
+<h4 id="sec-1-1-6"><span class="section-number-4">1.1.6</span> 隐藏http方法的监听器</h4>
+<div class="outline-text-4" id="text-1-1-6">
+
+
+
+
+<pre class="src src-xml"><span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> web.xml </span><span style="color: #b22222;">--&gt;</span>
+               &lt;<span style="color: #0000ff;">filter</span>&gt;
+                  &lt;<span style="color: #0000ff;">filter-name</span>&gt;HiddenHttpMethodFilter&lt;/<span style="color: #0000ff;">filter-name</span>&gt;
+                  &lt;<span style="color: #0000ff;">filter-class</span>&gt;org.springframework.web.filter.HiddenHttpMethodFilter&lt;/<span style="color: #0000ff;">filter-class</span>&gt;
+              &lt;/<span style="color: #0000ff;">filter</span>&gt;
+              &lt;<span style="color: #0000ff;">filter-mapping</span>&gt;
+                  &lt;<span style="color: #0000ff;">filter-name</span>&gt;HiddenHttpMethodFilter&lt;/<span style="color: #0000ff;">filter-name</span>&gt;
+                  &lt;<span style="color: #0000ff;">servlet-name</span>&gt;spring&lt;/<span style="color: #0000ff;">servlet-name</span>&gt;
+              &lt;/<span style="color: #0000ff;">filter-mapping</span>&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-7" class="outline-4">
+<h4 id="sec-1-1-7"><span class="section-number-4">1.1.7</span> spring 的注册</h4>
+<div class="outline-text-4" id="text-1-1-7">
+
+
+
+
+<pre class="src src-xml"> <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> web.xml </span><span style="color: #b22222;">--&gt;</span>
+&lt;<span style="color: #0000ff;">servlet</span>&gt;
+       &lt;<span style="color: #0000ff;">servlet-name</span>&gt;spring&lt;/<span style="color: #0000ff;">servlet-name</span>&gt;
+       &lt;<span style="color: #0000ff;">servlet-class</span>&gt;org.springframework.web.servlet.DispatcherServlet&lt;/<span style="color: #0000ff;">servlet-class</span>&gt;
+       &lt;<span style="color: #0000ff;">init-param</span>&gt;
+           &lt;<span style="color: #0000ff;">param-name</span>&gt;contextConfigLocation&lt;/<span style="color: #0000ff;">param-name</span>&gt;
+           &lt;<span style="color: #0000ff;">param-value</span>&gt;classpath:spring-servlet.xml&lt;/<span style="color: #0000ff;">param-value</span>&gt;
+       &lt;/<span style="color: #0000ff;">init-param</span>&gt;
+       &lt;<span style="color: #0000ff;">load-on-startup</span>&gt;1&lt;/<span style="color: #0000ff;">load-on-startup</span>&gt;
+   &lt;/<span style="color: #0000ff;">servlet</span>&gt;
+
+   &lt;<span style="color: #0000ff;">servlet-mapping</span>&gt;
+       &lt;<span style="color: #0000ff;">servlet-name</span>&gt;spring&lt;/<span style="color: #0000ff;">servlet-name</span>&gt;
+       &lt;<span style="color: #0000ff;">url-pattern</span>&gt;/&lt;/<span style="color: #0000ff;">url-pattern</span>&gt;
+   &lt;/<span style="color: #0000ff;">servlet-mapping</span>&gt;
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 数据库的配置</h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+</div>
+
+<div id="outline-container-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> 用 properties 文件来配置数据库相关信息</h4>
+<div class="outline-text-4" id="text-1-2-1">
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2"><span class="section-number-4">1.2.2</span> hibernate配置相关</h4>
+<div class="outline-text-4" id="text-1-2-2">
+
+
+
+
+<pre class="src src-proerties"> # resources.properties
+ hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
+hibernate.hbm2ddl.auto=none
+hibernate.show_sql=false
+hibernate.query.substitutions=true 1, false 0
+hibernate.default_batch_fetch_size=16
+hibernate.max_fetch_depth=2
+hibernate.bytecode.use_reflection_optimizer=true
+hibernate.cache.use_second_level_cache=true
+hibernate.cache.use_query_cache=true
+hibernate.cache.region.factory_class=org.hibernate.cache.EhCacheRegionFactory
+net.sf.ehcache.configurationResourceName=/ehcache_hibernate.xml
+hibernate.cache.use_structured_entries=true
+hibernate.generate_statistics=true
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2-3" class="outline-4">
+<h4 id="sec-1-2-3"><span class="section-number-4">1.2.3</span> 数据库连接配置</h4>
+<div class="outline-text-4" id="text-1-2-3">
+
+
+
+
+<pre class="src src-proerties"> # resources.properties
+ connection.driver_class=com.mysql.jdbc.Driver
+connection.url=jdbc:mysql://localhost:3306/javassdb?useUnicode=true&amp;amp;characterEncoding=UTF-8
+connection.username=DECG
+connection.password=DECG
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2-4" class="outline-4">
+<h4 id="sec-1-2-4"><span class="section-number-4">1.2.4</span> 连接池配置</h4>
+<div class="outline-text-4" id="text-1-2-4">
+
+
+
+
+<pre class="src src-proerties"> # resources.properties
+ proxool.maximum.connection.count=40
+proxool.minimum.connection.count=5
+proxool.statistics=1m,15m,1h,1d
+proxool.simultaneous.build.throttle=30
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> 日志配置</h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+</div>
+
+<div id="outline-container-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> 命令行中的日志配置</h4>
+<div class="outline-text-4" id="text-1-3-1">
+
+
+
+
+<pre class="src src-proerties">  # log4j.properties
+ #console log
+log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender
+log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
+ # &#36755;&#20986;&#30340;&#26102;&#38388;&#26684;&#24335;
+log4j.appender.CONSOLE.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} [%t] %-5p %c - %m%n
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> 将日志输出到文件中</h4>
+<div class="outline-text-4" id="text-1-3-2">
+
+
+
+
+<pre class="src src-proerties">  # log4j.properties
+ #all log
+log4j.appender.DAILY_ALL=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.DAILY_ALL.layout=org.apache.log4j.PatternLayout
+log4j.appender.DAILY_ALL.layout.ConversionPattern=<span style="color: #bc8f8f;">"%p %d{yyyy-MM-dd HH:mm:ss} %-50.50c(%L) - %m%n</span>
+<span style="color: #bc8f8f;">log4j.appender.DAILY_ALL.File=D:/Backup/javass-all.log</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3"><span class="section-number-4">1.3.3</span> 日志输出的级别</h4>
+<div class="outline-text-4" id="text-1-3-3">
+
+
+
+
+<pre class="src src-proerties"> # log4j.properties
+log4j.rootLogger=INFO,CONSOLE
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> spring的基本配置</h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+</div>
+
+<div id="outline-container-1-4-1" class="outline-4">
+<h4 id="sec-1-4-1"><span class="section-number-4">1.4.1</span> 注解扫描包</h4>
+<div class="outline-text-4" id="text-1-4-1">
+
+
+
+
+<pre class="src src-xml"><span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> spring-config.xml </span><span style="color: #b22222;">--&gt;</span>
+ <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#25195;&#25551;&#27880;&#35299;Bean </span><span style="color: #b22222;">--&gt;</span>
+&lt;<span style="color: #da70d6;">context</span>:<span style="color: #0000ff;">component-scan</span> <span style="color: #b8860b;">base-package</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">cn.javass</span><span style="color: #bc8f8f;">"</span>&gt;
+    &lt;<span style="color: #da70d6;">context</span>:<span style="color: #0000ff;">exclude-filter</span> <span style="color: #b8860b;">type</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">annotation</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">expression</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.stereotype.Controller</span><span style="color: #bc8f8f;">"</span>/&gt;
+&lt;/<span style="color: #da70d6;">context</span>:<span style="color: #0000ff;">component-scan</span>&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4-2" class="outline-4">
+<h4 id="sec-1-4-2"><span class="section-number-4">1.4.2</span> 资源文件</h4>
+<div class="outline-text-4" id="text-1-4-2">
+
+
+
+
+<pre class="src src-xml"> <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> spring-config.xml </span><span style="color: #b22222;">--&gt;</span>
+&lt;<span style="color: #0000ff;">bean</span> <span style="color: #b8860b;">id</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">propertyConfigurer</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.beans.factory.config.PropertyPlaceholderConfigurer</span><span style="color: #bc8f8f;">"</span>&gt;
+        &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">locations</span><span style="color: #bc8f8f;">"</span>&gt;
+            &lt;<span style="color: #0000ff;">list</span>&gt;
+                <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#37197;&#32622;&#25991;&#20214;&#20026;&#19978;&#38754;&#25968;&#25454;&#24211;&#37197;&#32622;&#30340; properties &#25991;&#20214; </span><span style="color: #b22222;">--&gt;</span>
+                &lt;<span style="color: #0000ff;">value</span>&gt;classpath:resources.properties&lt;/<span style="color: #0000ff;">value</span>&gt;
+            &lt;/<span style="color: #0000ff;">list</span>&gt;
+        &lt;/<span style="color: #0000ff;">property</span>&gt;
+    &lt;/<span style="color: #0000ff;">bean</span>&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4-3" class="outline-4">
+<h4 id="sec-1-4-3"><span class="section-number-4">1.4.3</span> 国际化的消息资源文件</h4>
+<div class="outline-text-4" id="text-1-4-3">
+
+
+
+
+<pre class="src src-xml"><span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#22269;&#38469;&#21270;&#30340;&#28040;&#24687;&#36164;&#28304;&#25991;&#20214; </span><span style="color: #b22222;">--&gt;</span>
+  &lt;<span style="color: #0000ff;">bean</span> <span style="color: #b8860b;">id</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">messageSource</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.context.support.ReloadableResourceBundleMessageSource</span><span style="color: #bc8f8f;">"</span>&gt;
+      &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">basenames</span><span style="color: #bc8f8f;">"</span>&gt;
+          &lt;<span style="color: #0000ff;">list</span>&gt;
+              <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#22312;web&#29615;&#22659;&#20013;&#19968;&#23450;&#35201;&#23450;&#20301;&#21040;classpath &#21542;&#21017;&#40664;&#35748;&#21040;&#24403;&#21069;web&#24212;&#29992;&#19979;&#25214;  </span><span style="color: #b22222;">--&gt;</span>
+              &lt;<span style="color: #0000ff;">value</span>&gt;classpath:messages&lt;/<span style="color: #0000ff;">value</span>&gt;
+          &lt;/<span style="color: #0000ff;">list</span>&gt;
+      &lt;/<span style="color: #0000ff;">property</span>&gt;
+      &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">defaultEncoding</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">UTF-8</span><span style="color: #bc8f8f;">"</span>/&gt;
+      &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">cacheSeconds</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">60</span><span style="color: #bc8f8f;">"</span>/&gt;
+  &lt;/<span style="color: #0000ff;">bean</span>&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4-4" class="outline-4">
+<h4 id="sec-1-4-4"><span class="section-number-4">1.4.4</span> spring中数据源的配置</h4>
+<div class="outline-text-4" id="text-1-4-4">
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">bean</span> <span style="color: #b8860b;">id</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">dataSource</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.logicalcobwebs.proxool.ProxoolDataSource</span><span style="color: #bc8f8f;">"</span>&gt;
+               &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">alias</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">proxoolDataSource</span><span style="color: #bc8f8f;">"</span>/&gt;
+               &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">driver</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">${connection.driver_class}</span><span style="color: #bc8f8f;">"</span> /&gt;
+               &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">driverUrl</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">${connection.url}</span><span style="color: #bc8f8f;">"</span> /&gt;
+               &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">user</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">${connection.username}</span><span style="color: #bc8f8f;">"</span> /&gt;
+               &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">password</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">${connection.password}</span><span style="color: #bc8f8f;">"</span> /&gt;
+               &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">maximumConnectionCount</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">${proxool.maximum.connection.count}</span><span style="color: #bc8f8f;">"</span>/&gt;
+               &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">minimumConnectionCount</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">${proxool.minimum.connection.count}</span><span style="color: #bc8f8f;">"</span> /&gt;
+               &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">statistics</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">${proxool.statistics}</span><span style="color: #bc8f8f;">"</span> /&gt;
+               &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">simultaneousBuildThrottle</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">${proxool.simultaneous.build.throttle}</span><span style="color: #bc8f8f;">"</span>/&gt;
+       &lt;/<span style="color: #0000ff;">bean</span>&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4-5" class="outline-4">
+<h4 id="sec-1-4-5"><span class="section-number-4">1.4.5</span> spring中session工厂的配置</h4>
+<div class="outline-text-4" id="text-1-4-5">
+
+
+
+
+<pre class="src src-xml">&lt;<span style="color: #0000ff;">bean</span> <span style="color: #b8860b;">id</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">sessionFactory</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.orm.hibernate4.LocalSessionFactoryBean</span><span style="color: #bc8f8f;">"</span> &gt;
+      &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">dataSource</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">ref</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">dataSource</span><span style="color: #bc8f8f;">"</span>/&gt;
+      &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">packagesToScan</span><span style="color: #bc8f8f;">"</span>&gt;
+                      &lt;<span style="color: #0000ff;">list</span>&gt;
+                              &lt;<span style="color: #0000ff;">value</span>&gt;cn.javass&lt;/<span style="color: #0000ff;">value</span>&gt;
+                      &lt;/<span style="color: #0000ff;">list</span>&gt;
+              &lt;/<span style="color: #0000ff;">property</span>&gt;
+      &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">hibernateProperties</span><span style="color: #bc8f8f;">"</span>&gt;
+          &lt;<span style="color: #0000ff;">props</span>&gt;
+              &lt;<span style="color: #0000ff;">prop</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">hibernate.dialect</span><span style="color: #bc8f8f;">"</span>&gt;${hibernate.dialect}&lt;/<span style="color: #0000ff;">prop</span>&gt;
+              &lt;<span style="color: #0000ff;">prop</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">hibernate.show_sql</span><span style="color: #bc8f8f;">"</span>&gt;${hibernate.show_sql}&lt;/<span style="color: #0000ff;">prop</span>&gt;
+              &lt;<span style="color: #0000ff;">prop</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">hibernate.format_sql</span><span style="color: #bc8f8f;">"</span>&gt;true&lt;/<span style="color: #0000ff;">prop</span>&gt;
+              &lt;<span style="color: #0000ff;">prop</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">hibernate.query.substitutions</span><span style="color: #bc8f8f;">"</span>&gt;${hibernate.query.substitutions}&lt;/<span style="color: #0000ff;">prop</span>&gt;
+              &lt;<span style="color: #0000ff;">prop</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">hibernate.default_batch_fetch_size</span><span style="color: #bc8f8f;">"</span>&gt;${hibernate.default_batch_fetch_size}&lt;/<span style="color: #0000ff;">prop</span>&gt;
+              &lt;<span style="color: #0000ff;">prop</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">hibernate.max_fetch_depth</span><span style="color: #bc8f8f;">"</span>&gt;${hibernate.max_fetch_depth}&lt;/<span style="color: #0000ff;">prop</span>&gt;
+              &lt;<span style="color: #0000ff;">prop</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">hibernate.generate_statistics</span><span style="color: #bc8f8f;">"</span>&gt;${hibernate.generate_statistics}&lt;/<span style="color: #0000ff;">prop</span>&gt;
+              &lt;<span style="color: #0000ff;">prop</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">hibernate.bytecode.use_reflection_optimizer</span><span style="color: #bc8f8f;">"</span>&gt;${hibernate.bytecode.use_reflection_optimizer}&lt;/<span style="color: #0000ff;">prop</span>&gt;
+
+              &lt;<span style="color: #0000ff;">prop</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">hibernate.cache.use_second_level_cache</span><span style="color: #bc8f8f;">"</span>&gt;${hibernate.cache.use_second_level_cache}&lt;/<span style="color: #0000ff;">prop</span>&gt;
+              &lt;<span style="color: #0000ff;">prop</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">hibernate.cache.use_query_cache</span><span style="color: #bc8f8f;">"</span>&gt;${hibernate.cache.use_query_cache}&lt;/<span style="color: #0000ff;">prop</span>&gt;
+              &lt;<span style="color: #0000ff;">prop</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">hibernate.cache.region.factory_class</span><span style="color: #bc8f8f;">"</span>&gt;${hibernate.cache.region.factory_class}&lt;/<span style="color: #0000ff;">prop</span>&gt;
+              &lt;<span style="color: #0000ff;">prop</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">net.sf.ehcache.configurationResourceName</span><span style="color: #bc8f8f;">"</span>&gt;${net.sf.ehcache.configurationResourceName}&lt;/<span style="color: #0000ff;">prop</span>&gt;
+              &lt;<span style="color: #0000ff;">prop</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">hibernate.cache.use_structured_entries</span><span style="color: #bc8f8f;">"</span>&gt;${hibernate.cache.use_structured_entries}&lt;/<span style="color: #0000ff;">prop</span>&gt;
+          &lt;/<span style="color: #0000ff;">props</span>&gt;
+      &lt;/<span style="color: #0000ff;">property</span>&gt;
+      &lt;/<span style="color: #0000ff;">bean</span>&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4-6" class="outline-4">
+<h4 id="sec-1-4-6"><span class="section-number-4">1.4.6</span> 开启aop的监听</h4>
+<div class="outline-text-4" id="text-1-4-6">
+
+
+
+
+<pre class="src src-xml"><span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#24320;&#21551;AOP&#30417;&#21548; &#21482;&#23545;&#24403;&#21069;&#37197;&#32622;&#25991;&#20214;&#26377;&#25928; </span><span style="color: #b22222;">--&gt;</span>
+      &lt;<span style="color: #da70d6;">aop</span>:<span style="color: #0000ff;">aspectj-autoproxy</span> <span style="color: #b8860b;">expose-proxy</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">true</span><span style="color: #bc8f8f;">"</span>/&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4-7" class="outline-4">
+<h4 id="sec-1-4-7"><span class="section-number-4">1.4.7</span> 开启aop的注解事务</h4>
+<div class="outline-text-4" id="text-1-4-7">
+
+
+
+
+<pre class="src src-xml"><span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#24320;&#21551;&#27880;&#35299;&#20107;&#21153; &#21482;&#23545;&#24403;&#21069;&#37197;&#32622;&#25991;&#20214;&#26377;&#25928; </span><span style="color: #b22222;">--&gt;</span>
+      &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">annotation-driven</span> <span style="color: #b8860b;">transaction-manager</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">txManager</span><span style="color: #bc8f8f;">"</span>/&gt;
+
+  &lt;<span style="color: #0000ff;">bean</span> <span style="color: #b8860b;">id</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">txManager</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.orm.hibernate4.HibernateTransactionManager</span><span style="color: #bc8f8f;">"</span>&gt;
+      &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">sessionFactory</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">ref</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">sessionFactory</span><span style="color: #bc8f8f;">"</span>/&gt;
+  &lt;/<span style="color: #0000ff;">bean</span>&gt;
+
+  &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">advice</span> <span style="color: #b8860b;">id</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">txAdvice</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">transaction-manager</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">txManager</span><span style="color: #bc8f8f;">"</span>&gt;
+      &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">attributes</span>&gt;
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">save*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">propagation</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">REQUIRED</span><span style="color: #bc8f8f;">"</span> /&gt;
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">add*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">propagation</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">REQUIRED</span><span style="color: #bc8f8f;">"</span> /&gt;
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">create*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">propagation</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">REQUIRED</span><span style="color: #bc8f8f;">"</span> /&gt;
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">insert*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">propagation</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">REQUIRED</span><span style="color: #bc8f8f;">"</span> /&gt;
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">update*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">propagation</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">REQUIRED</span><span style="color: #bc8f8f;">"</span> /&gt;
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">merge*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">propagation</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">REQUIRED</span><span style="color: #bc8f8f;">"</span> /&gt;
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">del*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">propagation</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">REQUIRED</span><span style="color: #bc8f8f;">"</span> /&gt;
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">remove*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">propagation</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">REQUIRED</span><span style="color: #bc8f8f;">"</span> /&gt;
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">put*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">propagation</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">REQUIRED</span><span style="color: #bc8f8f;">"</span> /&gt;
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">use*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">propagation</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">REQUIRED</span><span style="color: #bc8f8f;">"</span>/&gt;
+          <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;">hibernate4&#24517;&#39035;&#37197;&#32622;&#20026;&#24320;&#21551;&#20107;&#21153; &#21542;&#21017; getCurrentSession()&#33719;&#21462;&#19981;&#21040;</span><span style="color: #b22222;">--&gt;</span>
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">get*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">propagation</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">REQUIRED</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">read-only</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">true</span><span style="color: #bc8f8f;">"</span> /&gt;
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">count*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">propagation</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">REQUIRED</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">read-only</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">true</span><span style="color: #bc8f8f;">"</span> /&gt;
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">find*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">propagation</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">REQUIRED</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">read-only</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">true</span><span style="color: #bc8f8f;">"</span> /&gt;
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">list*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">propagation</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">REQUIRED</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">read-only</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">true</span><span style="color: #bc8f8f;">"</span> /&gt;
+          &lt;<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">method</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">*</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">read-only</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">true</span><span style="color: #bc8f8f;">"</span> /&gt;
+      &lt;/<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">attributes</span>&gt;
+  &lt;/<span style="color: #da70d6;">tx</span>:<span style="color: #0000ff;">advice</span>&gt;
+  &lt;<span style="color: #da70d6;">aop</span>:<span style="color: #0000ff;">config</span> <span style="color: #b8860b;">expose-proxy</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">true</span><span style="color: #bc8f8f;">"</span>&gt;
+      <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#21482;&#23545;&#19994;&#21153;&#36923;&#36753;&#23618;&#23454;&#26045;&#20107;&#21153; </span><span style="color: #b22222;">--&gt;</span>
+      &lt;<span style="color: #da70d6;">aop</span>:<span style="color: #0000ff;">pointcut</span> <span style="color: #b8860b;">id</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">txPointcut</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">expression</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">execution(* cn.javass..service..*.*(..))</span><span style="color: #bc8f8f;">"</span> /&gt;
+      &lt;<span style="color: #da70d6;">aop</span>:<span style="color: #0000ff;">advisor</span> <span style="color: #b8860b;">advice-ref</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">txAdvice</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">pointcut-ref</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">txPointcut</span><span style="color: #bc8f8f;">"</span>/&gt;
+  &lt;/<span style="color: #da70d6;">aop</span>:<span style="color: #0000ff;">config</span>&gt;
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> spring-mvc配置</h3>
+<div class="outline-text-3" id="text-1-5">
+
+
+</div>
+
+<div id="outline-container-1-5-1" class="outline-4">
+<h4 id="sec-1-5-1"><span class="section-number-4">1.5.1</span> 自定义类型绑定接口</h4>
+<div class="outline-text-4" id="text-1-5-1">
+
+
+
+
+<pre class="src src-xml"> <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#20250;&#33258;&#21160;&#27880;&#20876;&#20102;validator  ConversionService  </span><span style="color: #b22222;">--&gt;</span>
+   &lt;<span style="color: #da70d6;">mvc</span>:<span style="color: #0000ff;">annotation-driven</span> <span style="color: #b8860b;">validator</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">validator</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">conversion-service</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">conversion-service</span><span style="color: #bc8f8f;">"</span>/&gt;
+<span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#20197;&#19979; validator  ConversionService &#22312;&#20351;&#29992; mvc:annotation-driven &#20250; &#33258;&#21160;&#27880;&#20876;</span><span style="color: #b22222;">--&gt;</span>
+   &lt;<span style="color: #0000ff;">bean</span> <span style="color: #b8860b;">id</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">validator</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.validation.beanvalidation.LocalValidatorFactoryBean</span><span style="color: #bc8f8f;">"</span>&gt;
+       &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">providerClass</span><span style="color: #bc8f8f;">"</span>  <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.hibernate.validator.HibernateValidator</span><span style="color: #bc8f8f;">"</span>/&gt;
+       <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#22914;&#26524;&#19981;&#21152;&#40664;&#35748;&#21040; &#20351;&#29992;classpath&#19979;&#30340; ValidationMessages.properties </span><span style="color: #b22222;">--&gt;</span>
+       &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">validationMessageSource</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">ref</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">messageSource</span><span style="color: #bc8f8f;">"</span>/&gt;
+   &lt;/<span style="color: #0000ff;">bean</span>&gt;
+    &lt;<span style="color: #0000ff;">bean</span> <span style="color: #b8860b;">id</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">conversion-service</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.format.support.FormattingConversionServiceFactoryBean</span><span style="color: #bc8f8f;">"</span>  /&gt; 
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-5-2" class="outline-4">
+<h4 id="sec-1-5-2"><span class="section-number-4">1.5.2</span> 开启springmvn的注解</h4>
+<div class="outline-text-4" id="text-1-5-2">
+
+
+
+
+<pre class="src src-xml"><span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#24320;&#21551;controller&#27880;&#35299;&#25903;&#25345; </span><span style="color: #b22222;">--&gt;</span>
+  <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#27880;&#65306;&#22914;&#26524;base-package=cn.javass &#21017;&#27880;&#35299;&#20107;&#21153;&#19981;&#36215;&#20316;&#29992; TODO &#35835;&#28304;&#30721; </span><span style="color: #b22222;">--&gt;</span>
+  &lt;<span style="color: #da70d6;">context</span>:<span style="color: #0000ff;">component-scan</span> <span style="color: #b8860b;">base-package</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">cn.javass.demo.web.controller</span><span style="color: #bc8f8f;">"</span>&gt;
+      &lt;<span style="color: #da70d6;">context</span>:<span style="color: #0000ff;">include-filter</span> <span style="color: #b8860b;">type</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">annotation</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">expression</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.stereotype.Controller</span><span style="color: #bc8f8f;">"</span>/&gt;
+  &lt;/<span style="color: #da70d6;">context</span>:<span style="color: #0000ff;">component-scan</span>&gt;
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-5-3" class="outline-4">
+<h4 id="sec-1-5-3"><span class="section-number-4">1.5.3</span> 视图配置</h4>
+<div class="outline-text-4" id="text-1-5-3">
+
+
+
+
+<pre class="src src-xml">  <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> ========================= VIEW&#23450;&#20041; ========================= </span><span style="color: #b22222;">--&gt;</span>
+    <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> bean name view resolver</span><span style="color: #b22222;">--&gt;</span>
+    &lt;<span style="color: #0000ff;">bean</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.web.servlet.view.BeanNameViewResolver</span><span style="color: #bc8f8f;">"</span> <span style="color: #da70d6;">p</span>:<span style="color: #b8860b;">order</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">0</span><span style="color: #bc8f8f;">"</span>/&gt;  
+
+    <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#26681;&#25454;&#23458;&#25143;&#31471;&#30340;&#19981;&#21516;&#30340;&#35831;&#27714;&#20915;&#23450;&#19981;&#21516;&#30340; view&#36827;&#34892;&#21709;&#24212;, &#22914; /blog/1.json /blog/1.xml </span><span style="color: #b22222;">--&gt;</span>  
+    &lt;<span style="color: #0000ff;">bean</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.web.servlet.view.ContentNegotiatingViewResolver</span><span style="color: #bc8f8f;">"</span> <span style="color: #da70d6;">p</span>:<span style="color: #b8860b;">order</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">1</span><span style="color: #bc8f8f;">"</span>&gt;  
+        <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#35774;&#32622;&#20026;true&#20197;&#24573;&#30053;&#23545;Accept Header&#30340;&#25903;&#25345;</span><span style="color: #b22222;">--&gt;</span>  
+        <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#25193;&#23637;&#21517;&#33267;mimeType&#30340;&#26144;&#23556;,&#21363; /user.json =&gt; application/json </span><span style="color: #b22222;">--&gt;</span>  
+        &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">favorPathExtension</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">false</span><span style="color: #bc8f8f;">"</span>/&gt;  
+
+         <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#29992;&#20110;&#24320;&#21551; /userinfo/123?format=json &#30340;&#25903;&#25345; </span><span style="color: #b22222;">--&gt;</span>  
+         &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">favorParameter</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">false</span><span style="color: #bc8f8f;">"</span>/&gt;  
+
+        &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">mediaTypes</span><span style="color: #bc8f8f;">"</span>&gt;  <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;">favorPathExtension, favorParameter&#26159;true&#26102;&#25165;&#36215;&#20316;&#29992;  </span><span style="color: #b22222;">--&gt;</span>
+            &lt;<span style="color: #0000ff;">map</span>&gt;  
+<span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;">                &lt;entry key="wml" value="text/vnd.wap.wml"/&gt;</span><span style="color: #b22222;">--&gt;</span>
+<span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;">                &lt;entry key="vnd" value="application/vnd.wap.xhtml+xml"/&gt;</span><span style="color: #b22222;">--&gt;</span>
+<span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;">                &lt;entry key="xhtml" value="application/xhtml+xml"/&gt;</span><span style="color: #b22222;">--&gt;</span>
+                &lt;<span style="color: #0000ff;">entry</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">html</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">*</span><span style="color: #bc8f8f;">"</span>/&gt;
+            &lt;/<span style="color: #0000ff;">map</span>&gt;  
+         &lt;/<span style="color: #0000ff;">property</span>&gt;  
+         &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">viewResolvers</span><span style="color: #bc8f8f;">"</span>&gt;  
+             &lt;<span style="color: #0000ff;">list</span>&gt;  
+                &lt;<span style="color: #0000ff;">bean</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.web.servlet.view.InternalResourceViewResolver</span><span style="color: #bc8f8f;">"</span>&gt;
+                    &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">viewClass</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.web.servlet.view.JstlView</span><span style="color: #bc8f8f;">"</span>/&gt;
+                    &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">contentType</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">text/html</span><span style="color: #bc8f8f;">"</span>/&gt;
+                    &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">prefix</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">/WEB-INF/jsp/</span><span style="color: #bc8f8f;">"</span>/&gt;
+                    &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">suffix</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">.jsp</span><span style="color: #bc8f8f;">"</span>/&gt;
+                &lt;/<span style="color: #0000ff;">bean</span>&gt;
+            &lt;/<span style="color: #0000ff;">list</span>&gt;  
+        &lt;/<span style="color: #0000ff;">property</span>&gt;  
+        <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#21487;&#37197;&#32622;Not Found url</span>
+<span style="color: #b22222;">        &lt;property name="defaultViews"&gt;</span>
+<span style="color: #b22222;">            &lt;list&gt;  </span>
+<span style="color: #b22222;">                 &lt;bean class="org.springframework.web.servlet.view.JstlView" p:url="/notfound"/&gt;  </span>
+<span style="color: #b22222;">            &lt;/list&gt;  </span>
+<span style="color: #b22222;">        &lt;/property&gt;  </span><span style="color: #b22222;">--&gt;</span> 
+    &lt;/<span style="color: #0000ff;">bean</span>&gt;  
+    <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#40664;&#35748;&#30340;&#35270;&#22270;&#35299;&#26512;&#22120; &#22312;&#19978;&#36793;&#30340;&#35299;&#26512;&#38169;&#35823;&#26102;&#20351;&#29992; (&#40664;&#35748;&#20351;&#29992;html)- </span><span style="color: #b22222;">--&gt;</span>
+    &lt;<span style="color: #0000ff;">bean</span> <span style="color: #b8860b;">id</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">defaultViewResolver</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.web.servlet.view.InternalResourceViewResolver</span><span style="color: #bc8f8f;">"</span> <span style="color: #da70d6;">p</span>:<span style="color: #b8860b;">order</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">3</span><span style="color: #bc8f8f;">"</span>&gt;
+        &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">viewClass</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.web.servlet.view.JstlView</span><span style="color: #bc8f8f;">"</span>/&gt;
+        &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">contentType</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">text/html</span><span style="color: #bc8f8f;">"</span>/&gt;        
+        &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">prefix</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">/WEB-INF/jsp/</span><span style="color: #bc8f8f;">"</span>/&gt;
+        &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">suffix</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">.jsp</span><span style="color: #bc8f8f;">"</span>/&gt;
+    &lt;/<span style="color: #0000ff;">bean</span>&gt;
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-5-4" class="outline-4">
+<h4 id="sec-1-5-4"><span class="section-number-4">1.5.4</span> json视图</h4>
+<div class="outline-text-4" id="text-1-5-4">
+
+
+
+
+<pre class="src src-xml"><span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> json view </span><span style="color: #b22222;">--&gt;</span>
+ &lt;<span style="color: #0000ff;">bean</span> <span style="color: #b8860b;">id</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">defaultJsonView</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.web.servlet.view.json.MappingJacksonJsonView</span><span style="color: #bc8f8f;">"</span>/&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-5-5" class="outline-4">
+<h4 id="sec-1-5-5"><span class="section-number-4">1.5.5</span> 上传配置</h4>
+<div class="outline-text-4" id="text-1-5-5">
+
+
+
+
+<pre class="src src-xml"><span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#25991;&#20214;&#19978;&#20256;&#30456;&#20851; </span><span style="color: #b22222;">--&gt;</span>
+ &lt;<span style="color: #0000ff;">bean</span> <span style="color: #b8860b;">id</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">multipartResolver</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.web.multipart.commons.CommonsMultipartResolver</span><span style="color: #bc8f8f;">"</span>&gt;
+     <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;">one of the properties available;the maximum file size in bytes</span><span style="color: #b22222;">--&gt;</span>
+     &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">maxUploadSize</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">value</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">100000</span><span style="color: #bc8f8f;">"</span>/&gt;
+ &lt;/<span style="color: #0000ff;">bean</span>&gt;
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-5-6" class="outline-4">
+<h4 id="sec-1-5-6"><span class="section-number-4">1.5.6</span> 异常控制</h4>
+<div class="outline-text-4" id="text-1-5-6">
+
+
+
+
+<pre class="src src-xml"><span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#25511;&#21046;&#22120;&#24322;&#24120;&#22788;&#29702; </span><span style="color: #b22222;">--&gt;</span>
+ &lt;<span style="color: #0000ff;">bean</span> <span style="color: #b8860b;">id</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">exceptionResolver</span><span style="color: #bc8f8f;">"</span> <span style="color: #b8860b;">class</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">org.springframework.web.servlet.handler.SimpleMappingExceptionResolver</span><span style="color: #bc8f8f;">"</span>&gt;
+     &lt;<span style="color: #0000ff;">property</span> <span style="color: #b8860b;">name</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">exceptionMappings</span><span style="color: #bc8f8f;">"</span>&gt;
+           &lt;<span style="color: #0000ff;">props</span>&gt;
+               &lt;<span style="color: #0000ff;">prop</span> <span style="color: #b8860b;">key</span>=<span style="color: #bc8f8f;">"</span><span style="color: #bc8f8f;">java.lang.Exception</span><span style="color: #bc8f8f;">"</span>&gt;
+                     error_all
+             &lt;/<span style="color: #0000ff;">prop</span>&gt;
+         &lt;/<span style="color: #0000ff;">props</span>&gt;
+     &lt;/<span style="color: #0000ff;">property</span>&gt;
+ &lt;/<span style="color: #0000ff;">bean</span>&gt;
+</pre>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2012-11-27T11:24+0800</p>
+<p class="author">Author: emacsers</p>
+<p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.2 with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

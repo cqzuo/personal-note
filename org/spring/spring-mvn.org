@@ -1,0 +1,265 @@
+spring mvc 
+* 简介
+** 优点
+ - 学习难度小
+ - 性能优秀
+ - 灵活
+
+* 核心与接口
+** DispatcherServlet - 前置控制器
+*** 在 web.xml 中配置的总控制器
+*** 在DispatcherServlet的初始化过程中，框架会在web应用的 WEB-INF文件夹下寻找名为[servlet-name]-servlet.xml 的配置文件，生成文件中定义的bean
+*** DispatcherServlet 和 ContextLoaderListener 加载配置文件时，只需要 DispatcherServlet 一种就够了
+*** 多个配置文件时用逗号分隔开
+ - 注意 classpath: 配置文件名称.xml
+** HandelMapping - 处理请求的映射接口
+** HandelMapping 接口实现类
+*** SimpleUrlHanderMapping 
+ - 通过配置文件，把一个URL映射到Controller
+*** DefaultAnnotationHanderMapping 
+ - 通过注解，把一个URL映射到Controller类上
+** HandlerAdapter -- 处理请求的映射接口
+*** AnnotationMethodHandlerAdapter
+ - 通过注解，把一个URL映射到Controller类的方法上
+** Controller -- 控制器接口
+ - 一般使用@Controller注解
+** HandlerInterceptor --拦截器接口
+ - 可自定义拦截器
+** ViewResolver 视图解析接口
+*** UrlBasedViewResolver
+ -  通过配置文件，把一个视图名交给到一个View来处理
+*** InternalResourceViewResolver
+ - 比上面的类，加入了JSTL的支持
+** View 视图接口
+*** JstlView
+*** ModelAndView
+** LocalResolver接口
+** HandlerExceptionResolver --异常处理接口
+*** SimpleMappingExceptionResolver实现类
+* 原理分析
+** 原理图
+    [[spring-mvc 原理图][spring-mvc01.jpg]]
+** 工作原理
+ - 启动服务器，根据web.xml 的配置加载前端控制器（也称总控制器） DispatcherServlet 。在加载时、会完成一系列的初始化动作。
+ - 调用相应处理器中的处理方法，处理该请求，处理器处理结束后会将一个ModelAndView类型的数据传给DispatcherServlet，这其中包含了处理结果的视图和视图中要使用的数据
+ - DispatcherServlet根据得到的ModelAndView中的视图对象，找到一个合适的ViewResolver（视图解析器），根据视图解析器的配置，DispatcherServlet将视图要显示的数据传给对应的视图，最后给浏览器构造一个HTTP响应
+** 配置详解
+*** mvc中 Controller注解的扫描包配置
+ #+BEGIN_SRC xml
+  <!-- 扫描注解Bean -->
+    <context:component-scan base-package="com.oa.*.web.controller,junit">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+ #+END_SRC
+
+*** 默认注解的支持
+ #+BEGIN_SRC xml
+  <!-- 默认的注解映射的支持 -->  
+   <mvc:annotation-driven />
+ #+END_SRC
+ - 自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 两个bean
+ - 提供了：数据绑定支持，@NumberFormatannotation支持，@DateTimeFormat支持，@Valid支持，读写XML的支持（JAXB），读写JSON的支持（Jackson）
+*** 视图解析
+ #+BEGIN_SRC xml
+  <!-- 根据客户端的不同的请求决定不同的 view进行响应, 如 /blog/1.json /blog/1.xml -->  
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver" p:order="1">  
+    
+    	<property name="defaultContentType" value="text/html" />
+     
+        <!-- 设置为true以忽略对Accept Header的支持-->  
+        <!-- 扩展名至mimeType的映射,即 /user.json => application/json -->  
+        <!-- 启动扩展名支持 -->
+        <property name="favorPathExtension" value="true"/>  
+         <!-- 用于开启 /userinfo/123?format=json 的支持 -->  
+         <!-- 启动参数支持 -->
+         <property name="favorParameter" value="true"/> 
+         <!-- 是否忽略  accept header-->
+         <property name="ignoreAcceptHeader" value="true"/>
+         
+        <property name="mediaTypes">  <!--favorPathExtension, favorParameter是true时才起作用  -->
+            <map>  
+                <entry key="json" value="application/json"/>
+                <entry key="html" value="text/html"/>
+            </map>  
+         </property>  
+         <property name="viewResolvers">  
+             <list>  
+                <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+                    <property name="contentType" value="text/html"/>
+                    <property name="prefix" value="/WEB-INF/jsp/"/>
+                    <property name="suffix" value=".jsp"/>
+                </bean>
+            </list>  
+        </property>  
+    </bean>  
+ #+END_SRC
+*** 自定义拦截器
+ #+BEGIN_SRC xml
+  <!-- 自定义拦截器 -->  
+	<mvc:interceptors>  
+	    <bean class="com.oa.base.web.inteceptor.MyInteceptor" />  
+	</mvc:interceptors>
+ #+END_SRC
+
+*** 静态资源映射
+ #+BEGIN_SRC xml
+  <!-- 静态资源映射 -->
+    <mvc:resources mapping="/images/**" location="/WEB-INF/images/" />
+    <mvc:resources mapping="/css/**" location="/WEB-INF/css/" />
+    <mvc:resources mapping="/js/**" location="/WEB-INF/js/" />
+ #+END_SRC
+ - /images/**映射到ResourceHttpRequestHandler进行处理
+ - location指定静态资源的位置.可以是web application根目录下、jar包里面，这样可以把静态资源压缩到jar包中
+ - 使用<mvc:resources/>元素,把mapping的URL注册到SimpleUrlHandlerMapping的urlMap中,key为mapping的URL pattern值,而value为ResourceHttpRequestHandler
+*** 常用注解
+ - @Controller 声明Action组件
+ - @Service    声明Service组件    @Service("myMovieLister") 
+ - @Repository 声明Dao组件
+ - @Component   泛指组件, 当不好归类时. 
+ - @RequestMapping("/menu")  请求映射
+ - @Resource  用于注入，( j2ee提供的 ) 默认按名称装配，@Resource(name="beanName") 
+ - @Autowired 用于注入，(srping提供的) 默认按类型装配 
+ - @Transactional( rollbackFor={Exception.class}) 事务管理
+ - @ResponseBody
+ - @Scope("prototype")   设定bean的作用域
+** 请求映射到方法
+ #+BEGIN_SRC java
+  @Controller
+  @RequestMapping("/user")
+  控制器的方法
+ #+END_SRC
+
+
+
+** 自定义拦截器
+*** 实现
+**** 接口实现类 org.springframework.web.servlet.HandlerInterceptor
+**** 继承父类 org.springframework.web.servlet.handler.HandlerInterceptorAdapter
+*** 方法
+**** 方法执行前
+ - 可进行安全控制
+ #+BEGIN_SRC java
+  public boolean preHandle(HttpServletRequest request,  HttpServletResponse response, Object handler);
+ #+END_SRC
+**** 生成视图前
+ - 修改视图
+ #+BEGIN_SRC java
+public void postHandle(HttpServletRequest request,   HttpServletResponse response, Object handler,   ModelAndView modelAndView);
+ #+END_SRC
+**** 最后执行，释放资源
+ - 根据异常对象来日志记录
+ #+BEGIN_SRC java
+public void afterCompletion(HttpServletRequest request,   HttpServletResponse response, Object handler, Exception ex)
+ #+END_SRC
+
+*** 配置
+**** 拦截所有的请求
+ #+BEGIN_SRC xml
+  <mvc:interceptors>  
+    <bean class="com.app.mvc.MyInteceptor" />  
+</mvc:interceptors>  
+ #+END_SRC
+**** 设置自动注解时
+     #+BEGIN_SRC xml
+  <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">       
+ <property name="interceptors">       
+     <list>       
+         <bean class="com.mvc.MyInteceptor"></bean>      
+     </list>       
+ </property>       
+</bean>
+     #+END_SRC
+**** 拦截指定包下的请求
+ #+BEGIN_SRC xml
+  <mvc:interceptors >    
+  <mvc:interceptor>    
+        <mvc:mapping path="/user/*" /> <!-- /user/*  -->    
+        <bean class="com.mvc.MyInteceptor"></bean>    
+    </mvc:interceptor>    
+</mvc:interceptors> 
+ #+END_SRC
+
+* 一般应用
+** 全局的异常处理
+*** 实现方法
+**** 接口实现
+  - HandlerExceptionResolver
+**** 使用已有的实现类
+  - AbstractHandlerExceptionResolver
+  - SimpleMappingExceptionResolver
+**** 配置
+  #+BEGIN_SRC xml
+   <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+         <property name="defaultErrorView">  
+             <value>common/defaultExceptionPage</value>  
+         </property>  
+         <property name="exceptionMappings">  
+             <props>  
+                 <prop key="java.io.IOException">common/ioExceptionPage</prop>  
+                 <prop key="jave.sql.SQLException">common/sqlExceptionPage</prop>                      
+                 <prop key="java.lang.Exception">common/exceptionPage</prop>               
+             </props>  
+         </property>
+     </bean>
+  #+END_SRC
+
+  - 可实现不同的异常类型返回到不同的页面中
+
+*** 记录到日志中
+  - 在 log4j的配置文件中添加
+   log4j.logger.org.springframework.web.servlet.handler.SimpleMappingExceptionResolver=WARN
+** 控制器的单元测试
+*** 定义一个测试类的父类
+ - 例子
+ #+BEGIN_SRC java
+   public class TestOrderAction extends JUnitActionBase {  
+    @Test  
+    public void testAdd() throws Exception {  
+    MockHttpServletRequest request = new MockHttpServletRequest();  
+        MockHttpServletResponse response = new MockHttpServletResponse();  
+        request.setRequestURI("/order/add");  
+        request.addParameter("id", "1002");  
+        request.addParameter("date", "2010-12-30");  
+        request.setMethod("POST");  
+        // 执行URI对应的action  
+        final ModelAndView mav = this.excuteAction(request, response);  
+        // Assert logic  
+        Assert.assertEquals("order/add", mav.getViewName());  
+        String msg=(String)request.getAttribute("msg");  
+        System.out.println(msg);  
+    }  
+}  
+ #+END_SRC
+
+** 转发和重定向
+*** 跳转到action
+  - return "forward:/order/add"
+*** 防止表单重复提交
+  - return "redirect:/index.jsp"
+** 处理ajax请求
+*** 引入jar包
+ - jackson-core-asl-1.7.2.jar 
+ - jackson-mapper-asl-1.7.2.jar
+
+*** spring配置
+ - <mvc:annotation-driven />
+*** 使用 @ResponseBody注解
+ - 例子
+ #+BEGIN_SRC java
+  @RequestMapping("/ajax")  
+@ResponseBody  
+public Object ajax(HttpServletRequest request){  
+    List<String> list=new ArrayList<String>();  
+    list.add("电视");  
+    list.add("洗衣机");  
+    list.add("冰箱");  
+    list.add("电脑");  
+    list.add("汽车");  
+    list.add("空调");  
+    list.add("自行车");  
+    list.add("饮水机");  
+    list.add("热水器");  
+    return list;  
+}  
+ #+END_SRC
