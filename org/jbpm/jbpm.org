@@ -843,5 +843,6 @@ Map<String,Object> variables = taskService.getVariables(taskId, variableNames);
 // 将参数更新后设置回任务中
 taskService.setVariables(taskId, variables);
 #+END_SRC
+ 
 
  

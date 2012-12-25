@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>springMVC</title>
+<meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
+<meta name="title" content="springMVC"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2012-12-20 07:04:45 中国标准时间"/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="org.css">
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">springMVC</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 问题</a>
+<ul>
+<li><a href="#sec-1-1">1.1 映射请求到spring控制器</a></li>
+<li><a href="#sec-1-2">1.2 透明绑定表单参数</a></li>
+<li><a href="#sec-1-3">1.3 验证表单提交项</a></li>
+<li><a href="#sec-1-4">1.4 映射希望的内容到视图</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 spring-mvc的原理</a>
+<ul>
+<li><a href="#sec-2-1">2.1 用户请求通过前端控制器 DispatcherServlet</a></li>
+<li><a href="#sec-2-2">2.2 DispatcherServlet 查询处理器映射来决定将请求发给 mvc 的控制器</a></li>
+<li><a href="#sec-2-3">2.3 将用户提交的信息交给控制器</a></li>
+<li><a href="#sec-2-4">2.4 控制器处理业务逻辑，返回模型</a></li>
+<li><a href="#sec-2-5">2.5 控制器将模型打包到MOdelAndView中发回给 DispatcherServlet</a></li>
+<li><a href="#sec-2-6">2.6 DispatcherServlet 根据视图解析器来决定返回到那个页面来渲染</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 springMvc简介</a>
+<ul>
+<li><a href="#sec-3-1">3.1 配置 DispatcherServlet</a>
+<ul>
+<li><a href="#sec-3-1-1">3.1.1 servlet的配置</a></li>
+<li><a href="#sec-3-1-2">3.1.2 映射后缀</a></li>
+<li><a href="#sec-3-1-3">3.1.3 分解应用上下文</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-2">3.2 开发流程</a>
+<ul>
+<li><a href="#sec-3-2-1">3.2.1 创建控制器</a></li>
+<li><a href="#sec-3-2-2">3.2.2 引入ModelAndView</a></li>
+<li><a href="#sec-3-2-3">3.2.3 配置控制器Bean</a></li>
+<li><a href="#sec-3-2-4">3.2.4 声明视图解析器</a></li>
+<li><a href="#sec-3-2-5">3.2.5 创建jsp</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-3">3.3 将请求映射到控制器</a>
+<ul>
+<li><a href="#sec-3-3-1">3.3.1 SimpleUrlHandlerMapping</a></li>
+<li><a href="#sec-3-3-2">3.3.2 ControllerClassNameHandlerMapping</a></li>
+<li><a href="#sec-3-3-3">3.3.3 CommonsPathMapHandlerMapping</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 问题</h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 映射请求到spring控制器</h3>
+<div class="outline-text-3" id="text-1-1">
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 透明绑定表单参数</h3>
+<div class="outline-text-3" id="text-1-2">
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> 验证表单提交项</h3>
+<div class="outline-text-3" id="text-1-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> 映射希望的内容到视图</h3>
+<div class="outline-text-3" id="text-1-4">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> spring-mvc的原理</h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 用户请求通过前端控制器 DispatcherServlet</h3>
+<div class="outline-text-3" id="text-2-1">
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> DispatcherServlet 查询处理器映射来决定将请求发给 mvc 的控制器</h3>
+<div class="outline-text-3" id="text-2-2">
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 将用户提交的信息交给控制器</h3>
+<div class="outline-text-3" id="text-2-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 控制器处理业务逻辑，返回模型</h3>
+<div class="outline-text-3" id="text-2-4">
+
+</div>
+
+</div>
+
+<div id="outline-container-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> 控制器将模型打包到MOdelAndView中发回给 DispatcherServlet</h3>
+<div class="outline-text-3" id="text-2-5">
+
+</div>
+
+</div>
+
+<div id="outline-container-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> DispatcherServlet 根据视图解析器来决定返回到那个页面来渲染</h3>
+<div class="outline-text-3" id="text-2-6">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> springMvc简介</h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 配置 DispatcherServlet</h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+</div>
+
+<div id="outline-container-3-1-1" class="outline-4">
+<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> servlet的配置</h4>
+<div class="outline-text-4" id="text-3-1-1">
+
+
+
+
+<pre class="src src-xml">     &lt;<span style="color: #87cefa;">servlet</span>&gt;
+         &lt;<span style="color: #87cefa;">servlet-name</span>&gt;dispatcherServlet&lt;/<span style="color: #87cefa;">servlet-name</span>&gt;
+        &lt;<span style="color: #87cefa;">servlet-class</span>&gt;org.springframework.web.servlet.
+DispatcherServlet&lt;/<span style="color: #87cefa;">servlet-class</span>&gt;
+         &lt;<span style="color: #87cefa;">load-up</span>&gt;1&lt;/<span style="color: #87cefa;">load-up</span>&gt;
+    &lt;/<span style="color: #87cefa;">servlet</span>&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-1-2" class="outline-4">
+<h4 id="sec-3-1-2"><span class="section-number-4">3.1.2</span> 映射后缀</h4>
+<div class="outline-text-4" id="text-3-1-2">
+
+
+
+
+<pre class="src src-xml"> &lt;<span style="color: #87cefa;">servlet-mapping</span>&gt;
+               &lt;<span style="color: #87cefa;">servlet-name</span>&gt;dispatcherServlet&lt;/<span style="color: #87cefa;">servlet-name</span>&gt;
+             <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#35813;Servlet&#20250;&#33258;&#21160;&#36807;&#28388;&#25152;&#26377;&#20197;htm&#20026;&#21518;&#32512;&#30340;&#35831;&#27714; </span><span style="color: #b22222;">--&gt;</span>
+             &lt;<span style="color: #87cefa;">url-pattern</span>&gt;*.htm&lt;/<span style="color: #87cefa;">url-pattern</span>&gt;
+&lt;/<span style="color: #87cefa;">servlet-mapping</span>&gt;
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-1-3" class="outline-4">
+<h4 id="sec-3-1-3"><span class="section-number-4">3.1.3</span> 分解应用上下文</h4>
+<div class="outline-text-4" id="text-3-1-3">
+
+<ul>
+<li>按功能将配置文件分布式配置
+</li>
+<li>每个配置文件只负责该层的配置
+</li>
+<li>多个配置文件时需要上下文载入器 ContextLoaderListerner
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">   &lt;<span style="color: #87cefa;">listerner</span>&gt;
+     &lt;<span style="color: #87cefa;">listerner-class</span>&gt;org.springframework.web.context.
+ContextLoaderListerner&lt;/<span style="color: #87cefa;">listerner-class</span>&gt;
+   &lt;/<span style="color: #87cefa;">listerner</span>&gt;
+    <span style="color: #b22222;">&lt;!--</span><span style="color: #b22222;"> &#22810;&#20010;&#37197;&#32622;&#25991;&#20214;&#30340;&#36733;&#20837;  </span><span style="color: #b22222;">--&gt;</span>
+  &lt;<span style="color: #87cefa;">context-param</span>&gt;
+      &lt;<span style="color: #87cefa;">param-name</span>&gt;contextConfigLocation&lt;/<span style="color: #87cefa;">param-name</span>&gt;
+      &lt;<span style="color: #87cefa;">param-value</span>&gt;
+      classpath: &#37197;&#32622;&#25991;&#20214;1,classpath:&#37197;&#32622;&#25991;&#20214;2
+     &lt;/<span style="color: #87cefa;">param-value</span>&gt;
+  &lt;/<span style="color: #87cefa;">context-param</span>&gt;
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 开发流程</h3>
+<div class="outline-text-3" id="text-3-2">
+
+<ul>
+<li>创建处理控制器
+</li>
+<li>在 DispatcherServlet 上下文配置文件
+</li>
+<li>配置视图解析器将控制器
+</li>
+<li>编写jsp
+</li>
+</ul>
+
+
+</div>
+
+<div id="outline-container-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> 创建控制器</h4>
+<div class="outline-text-4" id="text-3-2-1">
+
+<ul>
+<li>被配置为spring上下文中一个普通的javaBean
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-2" class="outline-4">
+<h4 id="sec-3-2-2"><span class="section-number-4">3.2.2</span> 引入ModelAndView</h4>
+<div class="outline-text-4" id="text-3-2-2">
+
+<ul>
+<li>控制器必须返回
+</li>
+<li>可传递参数
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-3" class="outline-4">
+<h4 id="sec-3-2-3"><span class="section-number-4">3.2.3</span> 配置控制器Bean</h4>
+<div class="outline-text-4" id="text-3-2-3">
+
+<ul>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">  &lt;<span style="color: #87cefa;">bean</span> <span style="color: #eedd82;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">/&#26144;&#23556;&#30340;&#35831;&#27714;&#22320;&#22336;</span><span style="color: #ffa07a;">"</span> <span style="color: #eedd82;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">&#25511;&#21046;&#22120;&#23436;&#25972;&#31867;&#21517;</span><span style="color: #ffa07a;">"</span>&gt;
+     &lt;<span style="color: #87cefa;">property</span> <span style="color: #eedd82;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">&#25511;&#21046;&#22120;&#20013;&#38656;&#35201;&#30340;serviceBean&#23545;&#35937;</span><span style="color: #ffa07a;">"</span>
+<span style="color: #eedd82;">ref</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">&#24050;&#32463;&#22768;&#26126;&#22909;&#30340;serviceBean id</span><span style="color: #ffa07a;">"</span>/&gt;
+  &lt;/<span style="color: #87cefa;">bean</span>&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-4" class="outline-4">
+<h4 id="sec-3-2-4"><span class="section-number-4">3.2.4</span> 声明视图解析器</h4>
+<div class="outline-text-4" id="text-3-2-4">
+
+<ul>
+<li>例子 - jsp
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">  &lt;<span style="color: #87cefa;">bean</span> <span style="color: #eedd82;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">viewResolver</span><span style="color: #ffa07a;">"</span> <span style="color: #eedd82;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">org.springframework.web.servlet.</span>
+<span style="color: #ffa07a;">view.InternalResourceViewResolver</span><span style="color: #ffa07a;">"</span>&gt;
+  &lt;<span style="color: #87cefa;">property</span> <span style="color: #eedd82;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">prefix</span><span style="color: #ffa07a;">"</span>&gt;
+     &lt;<span style="color: #87cefa;">value</span>&gt;/WEB-INF/jsp/&lt;/<span style="color: #87cefa;">value</span>&gt;
+  &lt;/<span style="color: #87cefa;">property</span>&gt;
+  &lt;<span style="color: #87cefa;">property</span> <span style="color: #eedd82;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">suffix</span><span style="color: #ffa07a;">"</span>&gt;
+   &lt;<span style="color: #87cefa;">value</span>&gt;.jsp&lt;/<span style="color: #87cefa;">value</span>&gt; 
+ &lt;/<span style="color: #87cefa;">property</span>&gt;
+ &lt;/<span style="color: #87cefa;">bean</span>&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-5" class="outline-4">
+<h4 id="sec-3-2-5"><span class="section-number-4">3.2.5</span> 创建jsp</h4>
+<div class="outline-text-4" id="text-3-2-5">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> 将请求映射到控制器</h3>
+<div class="outline-text-3" id="text-3-3">
+
+<ul>
+<li>四种 HandlerMapping 实现
+</li>
+</ul>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" />
+</colgroup>
+<tbody>
+<tr><td class="left">映射名称</td><td class="left">映射途径</td></tr>
+<tr><td class="left">BeanNameUrlHandelerMapping</td><td class="left">根据控制器名称映射</td></tr>
+<tr><td class="left">SimpleUrlHandlerMapping</td><td class="left">上下文中定义的映射</td></tr>
+<tr><td class="left">ControllerClassNameHandlerMapping</td><td class="left">控制器的类名称</td></tr>
+<tr><td class="left">CommonsPathMapHandlerMapping</td><td class="left">控制器代码中的元数据</td></tr>
+</tbody>
+</table>
+
+
+</div>
+
+<div id="outline-container-3-3-1" class="outline-4">
+<h4 id="sec-3-3-1"><span class="section-number-4">3.3.1</span> SimpleUrlHandlerMapping</h4>
+<div class="outline-text-4" id="text-3-3-1">
+
+<ul>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">   &lt;<span style="color: #87cefa;">bean</span> <span style="color: #eedd82;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">simpleUrlMapping</span><span style="color: #ffa07a;">"</span> <span style="color: #eedd82;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">org.springframework.web.servlet.handler.</span>
+<span style="color: #ffa07a;">SimpleUrlHandlerMapping</span><span style="color: #ffa07a;">"</span>&gt;
+       &lt;<span style="color: #87cefa;">property</span> <span style="color: #eedd82;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">mapping</span><span style="color: #ffa07a;">"</span>&gt;
+          &lt;<span style="color: #87cefa;">prop</span> <span style="color: #eedd82;">key</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">/home.htm</span><span style="color: #ffa07a;">"</span>&gt;homePageController&lt;/<span style="color: #87cefa;">prop</span>&gt;
+       &lt;/<span style="color: #87cefa;">propety</span>&gt;
+   &lt;/<span style="color: #87cefa;">bean</span>&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3-2" class="outline-4">
+<h4 id="sec-3-3-2"><span class="section-number-4">3.3.2</span> ControllerClassNameHandlerMapping</h4>
+<div class="outline-text-4" id="text-3-3-2">
+
+<ul>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">    &lt;<span style="color: #87cefa;">bean</span> <span style="color: #eedd82;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">urlMapping</span><span style="color: #ffa07a;">"</span> <span style="color: #eedd82;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">org.springframework.web.servlet.handler.</span>
+<span style="color: #ffa07a;">ControllerClassNameHandlerMapping</span><span style="color: #ffa07a;">"</span>/&gt;
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3-3" class="outline-4">
+<h4 id="sec-3-3-3"><span class="section-number-4">3.3.3</span> CommonsPathMapHandlerMapping</h4>
+<div class="outline-text-4" id="text-3-3-3">
+
+<ul>
+<li>例子
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml">    &lt;<span style="color: #87cefa;">bean</span> <span style="color: #eedd82;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">urlMapping</span><span style="color: #ffa07a;">"</span> <span style="color: #eedd82;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">org.springframework.web.servlet.handler.</span>
+<span style="color: #ffa07a;">CommonsPathMapHandlerMapping</span><span style="color: #ffa07a;">"</span>/&gt;
+</pre>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2012-12-20 07:04:45 中国标准时间</p>
+<p class="author">Author: </p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>
