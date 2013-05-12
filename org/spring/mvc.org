@@ -109,3 +109,29 @@ ControllerClassNameHandlerMapping"/>
     <bean id="urlMapping" class="org.springframework.web.servlet.handler.
 CommonsPathMapHandlerMapping"/>
  #+END_SRC
+
+*** 使用多映射处理器
+  - 使用 order 属性配置优先权
+ #+BEGIN_SRC xml
+ <bean id="beanNameUrlMapping" class="org.springframework.web.servlet.handler.
+BeanNameUrlHandlerMapping">
+   <property name="order"><value>1</value></propery>
+</bean>
+<bean id="urlMapping" class="org.springframework.web.servlet.handler.
+CommonsPathMapHandlerMapping">
+   <property name="order"><value>2</value></propery>
+</bean>
+    #+END_SRC
+  - order 越小,优先级越高
+** 用控制器处理请求
+*** 可选用的控制器
+| 类型   | 类                                                     | 适用于                     |
+|--------+--------------------------------------------------------+----------------------------|
+| 视图   | ParameterizableViewController/UrlFilenameViewContrller | 控制器之需要显示静态的视图 |
+| 简单   | Controller/AbstractController                          | 简单功能                   |
+| 一次性 | ThrowawayController                                    | 命令请求方式               |
+| 多动作 | MultiActionController                                  | 多动作处理                 |
+| 命令   | BaseCommandController/AbastractCommandController       | 接受多个参数并验证         |
+| 表单   | AbstractFormController/SimpleFormController            | 表单处理                   |
+| 向导   | AbstractWizardFormController                           | 复杂的多页面输入表单,最后一个提交          |
+

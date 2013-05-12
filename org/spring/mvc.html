@@ -7,8 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
 <meta name="title" content="springMVC"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2012-12-20 07:04:45 中国标准时间"/>
-<meta name="author" content=""/>
+<meta name="generated" content="2013-01-05 20:38:15 中国标准时间"/>
+<meta name="author" content="emacser"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
 <style type="text/css">
@@ -139,6 +139,12 @@
 <li><a href="#sec-3-3-1">3.3.1 SimpleUrlHandlerMapping</a></li>
 <li><a href="#sec-3-3-2">3.3.2 ControllerClassNameHandlerMapping</a></li>
 <li><a href="#sec-3-3-3">3.3.3 CommonsPathMapHandlerMapping</a></li>
+<li><a href="#sec-3-3-4">3.3.4 使用多映射处理器</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-4">3.4 用控制器处理请求</a>
+<ul>
+<li><a href="#sec-3-4-1">3.4.1 可选用的控制器</a></li>
 </ul>
 </li>
 </ul>
@@ -289,7 +295,6 @@ DispatcherServlet&lt;/<span style="color: #87cefa;">servlet-class</span>&gt;
              &lt;<span style="color: #87cefa;">url-pattern</span>&gt;*.htm&lt;/<span style="color: #87cefa;">url-pattern</span>&gt;
 &lt;/<span style="color: #87cefa;">servlet-mapping</span>&gt;
 </pre>
-
 
 </div>
 
@@ -518,6 +523,73 @@ ContextLoaderListerner&lt;/<span style="color: #87cefa;">listerner-class</span>&
 <span style="color: #ffa07a;">CommonsPathMapHandlerMapping</span><span style="color: #ffa07a;">"</span>/&gt;
 </pre>
 
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3-4" class="outline-4">
+<h4 id="sec-3-3-4"><span class="section-number-4">3.3.4</span> 使用多映射处理器</h4>
+<div class="outline-text-4" id="text-3-3-4">
+
+<ul>
+<li>使用 order 属性配置优先权
+</li>
+</ul>
+
+
+
+
+<pre class="src src-xml"> &lt;<span style="color: #87cefa;">bean</span> <span style="color: #eedd82;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">beanNameUrlMapping</span><span style="color: #ffa07a;">"</span> <span style="color: #eedd82;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">org.springframework.web.servlet.handler.</span>
+<span style="color: #ffa07a;">BeanNameUrlHandlerMapping</span><span style="color: #ffa07a;">"</span>&gt;
+   &lt;<span style="color: #87cefa;">property</span> <span style="color: #eedd82;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">order</span><span style="color: #ffa07a;">"</span>&gt;&lt;<span style="color: #87cefa;">value</span>&gt;1&lt;/<span style="color: #87cefa;">value</span>&gt;&lt;/<span style="color: #87cefa;">propery</span>&gt;
+&lt;/<span style="color: #87cefa;">bean</span>&gt;
+&lt;<span style="color: #87cefa;">bean</span> <span style="color: #eedd82;">id</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">urlMapping</span><span style="color: #ffa07a;">"</span> <span style="color: #eedd82;">class</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">org.springframework.web.servlet.handler.</span>
+<span style="color: #ffa07a;">CommonsPathMapHandlerMapping</span><span style="color: #ffa07a;">"</span>&gt;
+   &lt;<span style="color: #87cefa;">property</span> <span style="color: #eedd82;">name</span>=<span style="color: #ffa07a;">"</span><span style="color: #ffa07a;">order</span><span style="color: #ffa07a;">"</span>&gt;&lt;<span style="color: #87cefa;">value</span>&gt;2&lt;/<span style="color: #87cefa;">value</span>&gt;&lt;/<span style="color: #87cefa;">propery</span>&gt;
+&lt;/<span style="color: #87cefa;">bean</span>&gt;
+</pre>
+
+<ul>
+<li>order 越小,优先级越高
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> 用控制器处理请求</h3>
+<div class="outline-text-3" id="text-3-4">
+
+
+</div>
+
+<div id="outline-container-3-4-1" class="outline-4">
+<h4 id="sec-3-4-1"><span class="section-number-4">3.4.1</span> 可选用的控制器</h4>
+<div class="outline-text-4" id="text-3-4-1">
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">类型</th><th scope="col" class="left">类</th><th scope="col" class="left">适用于</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">视图</td><td class="left">ParameterizableViewController/UrlFilenameViewContrller</td><td class="left">控制器之需要显示静态的视图</td></tr>
+<tr><td class="left">简单</td><td class="left">Controller/AbstractController</td><td class="left">简单功能</td></tr>
+<tr><td class="left">一次性</td><td class="left">ThrowawayController</td><td class="left">命令请求方式</td></tr>
+<tr><td class="left">多动作</td><td class="left">MultiActionController</td><td class="left">多动作处理</td></tr>
+<tr><td class="left">命令</td><td class="left">BaseCommandController/AbastractCommandController</td><td class="left">接受多个参数并验证</td></tr>
+<tr><td class="left">表单</td><td class="left">AbstractFormController/SimpleFormController</td><td class="left">表单处理</td></tr>
+<tr><td class="left">向导</td><td class="left">AbstractWizardFormController</td><td class="left">复杂的多页面输入表单,最后一个提交</td></tr>
+</tbody>
+</table>
+
+
 </div>
 </div>
 </div>
@@ -525,8 +597,8 @@ ContextLoaderListerner&lt;/<span style="color: #87cefa;">listerner-class</span>&
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2012-12-20 07:04:45 中国标准时间</p>
-<p class="author">Author: </p>
+<p class="date">Date: 2013-01-05 20:38:15 中国标准时间</p>
+<p class="author">Author: emacser</p>
 <p class="creator">Org version 7.8.11 with Emacs version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
 
