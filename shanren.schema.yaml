@@ -1,0 +1,75 @@
+ascii_composer:
+  switch_key:
+    Control_R: inline_ascii
+    Shift_L: noop
+    Shift_R: noop
+customization: 3884036991
+engine:
+  filters:
+    - simplifier
+    - uniquifier
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - r10n_translator
+    - reverse_lookup_translator
+key_binder:
+  import_preset: default
+punctuator:
+  import_preset: default
+recognizer:
+  import_preset: default
+  patterns:
+    reverse_lookup: "`[a-z]*'?$"
+reverse_lookup:
+  dictionary: luna_pinyin
+  preedit_format:
+    - "xform/([nljqxy])v/$1ü/"
+  prefix: "`"
+  suffix: "'"
+  tips: "〔拼音〕"
+schema:
+  author:
+    - "谢振斌"
+#  dependencies:
+#    - luna_pinyin
+  description: "山人全息码\x0asunman.uueasy.com\x0a"
+  name: "山人"
+  schema_id: shanren
+  version: 0.9.custom.3884036991
+speller:
+#  algebra:
+#    - "abbrev/^([^z])\\w+(\\w)$/$1$2/"
+  alphabet: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " ;'"
+switches:
+  - name: ascii_mode
+    reset: 1
+    states:
+      - "中文"
+      - "西文"
+  - name: full_shape
+    states:
+      - "半角"
+      - "全角"
+  - name: simplification
+    states:
+      - "漢字"
+      - "汉字"
+translator:
+  dictionary: shanren
+  prism: shanren

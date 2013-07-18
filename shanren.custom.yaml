@@ -1,0 +1,7 @@
+patch:
+  punctuator/import_preset: alternative
+  key_binder/import_preset: default
+  ascii_composer/switch_key:
+    Control_R: inline_ascii
+    Shift_L: noop
+    Shift_R: noop

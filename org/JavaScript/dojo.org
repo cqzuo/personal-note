@@ -1,0 +1,201 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css" />
+* dojo初步
+** 结构
+ - 导入dojo库
+ - 运行在服务器上
+ - 页面html代码
+  + css
+    #+BEGIN_SRC html
+  <style type="text/css">
+  @import "dojo目录/themes/样式文件名称"
+  @import "dojo目录/themes/dojo.css"
+  </style>
+    #+END_SRC
+  + dojo.js的导入
+  #+BEGIN_SRC html
+  <script type="text/javascript" src="dojo目录/dojo.dojo.js" djConfig="parseOnLoad:true"></script>
+  #+END_SRC
+** 小部件的添加
+ -  脚本添加
+ #+BEGIN_SRC html
+ <script type="text/javacript"> 
+   dojo.require("dojo.form...dojo中对应的包名和部件名");
+ </script>
+ #+END_SRC
+ - html代码(比如按钮)
+ #+BEGIN_SRC html
+  <button data-dojo-type="dijit.form.Button" id="按钮的id">按钮上显示的名称</button>
+ #+END_SRC
+** 小部件与事件的关联
+ - 脚本标签
+ #+BEGIN_SRC html
+  <button do-jo-type="dijit.form.Button" id="按钮的id">
+  按钮的名称
+  <script type="dojo.method" event="onClick">
+    alert("You pressed the button!");
+  </script>
+ </button>
+  #+END_SRC
+** 获取服务器数据
+ - 回调函数处理数据
+ - 按钮触发请求
+ - 例子
+#+BEGIN_SRC html
+  <script>
+    function 成功方法();
+    function 失败方法(); 
+
+    dojo.xhrGet({
+     url: '访问地址',
+     load: 成功方法,
+     error:失败方法
+   });
+  </script>
+ #+END_SRC
+** get方法传送数据
+ - 参数的传递
+ #+BEGIN_SRC javascript
+   dojo.xhrGet({
+     url: "服务器地址",
+     load: 成功方法,
+     error: 失败方法,
+     content:{参数名称:参数值}
+   });
+ #+END_SRC       
+** 通过id获取表单元素值的方法
+ - dojo.byId(id名称).value;
+** post方法提交
+ - 提交方法 xhrPost()
+ - 参数为form属性
+ - 例子
+ #+BEGIN_SRC javascript
+   dojo.xhrPost({
+    url: "服务器地址",
+    load:成功方法,
+    error:失败方法,
+    form:"formid"
+   });
+ #+END_SRC
+* dijit小部件库
+** 实现方式
+ - html标签使用特殊属性的声明
+ - js
+** 属性 方法 扩展点
+*** 属性
+ - 是用来控制显示或行为的数据元素
+ - 只能在创建的时候设置一次
+*** 方法
+ - 控制某些事情的函数
+*** 扩展点
+ - 可重构的函数
+*** 例子
+ #+BEGIN_SRC html
+   <div data-dojo-type="dijit.form.ValidatingTextBox" isValid="my.form.isValid"...>
+      <script type="dojo/method" event="isValid">
+       扩展的方法
+     </script>
+   <div>
+   <!-- 通用方法 -->
+  my.form.isValid = function(isFocused){
+     扩展方法 
+  }
+ #+END_SRC
+** 复选框
+ - 代码
+ #+BEGIN_SRC html
+  <script type="text/javascript" src="dojo.js完整路径">
+    dojo.require("dojo.parser");
+    dojo.require("dijit.form.CheckBox"); 
+  </script>
+
+<input id="cb" data-dojo-type="dijit.form.CheckBox" name="developer" value="on" type="checkbox"/>
+  <label for="cb">你是程序员吗?</label>
+<input id="cb1" data-dojo-type="dijit.form.CheckBox" name="developer" value="on" type="checkbox"/>
+ <label for="cb1">你是医生吗?</label>
+ <input id="cb2" data-dojo-type="dijit.form.CheckBox" name="developer" value="on" type="checkbox"/>
+<label for="cb2">你是主席吗?</label>
+ <input id="cb3" data-dojo-type="dijit.form.CheckBox" name="developer"  value="on" type="checkbox"/>
+ <label for="cb3">你是中国人吗?</label>
+ #+END_SRC
+** 单选框
+ - 代码
+ #+BEGIN_SRC html
+    <script type="text/javascript" src="dojo.js完整路径">
+    dojo.require("dojo.parser");
+    dojo.require("dijit.form.CheckBox"); 
+  </script>
+ <input data-dojo-type="dijit.form.RadioButton" id="sum1" name="album"    checked="checked" value="metallica" type="radio" />  <label for="sum1"> Metallica </label> 
+ <input data-dojo-type="dijit.form.RadioButton" id="sum2"  name="album"   value="Extreme" type="radio" /> <label for="sum2"> Extreme </label> 
+ <input data-dojo-type="dijit.form.RadioButton" id="sum3"  name="album"   value="Slayer" type="radio" /> <label for="sum3"> Slayer </label> 
+ #+END_SRC
+** 标签
+ - 代码
+ #+BEGIN_SRC html
+ <script type="text/javascript" src="dojo.js完整路径">
+    dojo.require("dojo.parser");
+   
+dojo.require("dijit.layout.TabContainer");
+    dojo.require("dijit.form.CheckBox"); 
+  </script>
+
+   <div id="mainTabContainer" data-dojo-type="dijit.layout.TabContainer" style="width:500px;height:100px">
+      <div id="LittleRed" data-dojo-type="dijit.layout.ContentPane" title="Little Red Cap">
+      Once upon a time there was a dear little girl who was loved by
+      every one who looked at her, but most of all by her grandmother,
+      and there was nothing that she would not have given to the child.
+      </div>
+      <div id="HanselGretel" data-dojo-type="dijit.layout.ContentPane" title="Hansel and Gretel" closable="true" selected="true">
+      Hard by a great forest dwelt a poor wood-cutter with his wife
+      and his two children. The boy was called Hansel and the girl Gretel.
+      He had little to bite and to break, and once when great dearth fell
+      on the land, he could no longer procure even daily bread.
+      </div>
+   </div>
+ #+END_SRC
+** 表格
+ - 代码
+ #+BEGIN_SRC html
+  <style type="text/css">
+     @import "${pageContext.request.contextPath}/dojo/dojox/grid/resources/claroGrid.css";
+  </style>
+  <script type="text/javacript">
+      dojo.require("dojo.data.ItemFileReadStore");
+      dojo.require("dojox.grid.Grid");
+      dojo.require("dojox.grid._data.model");
+      dojo.require("dojo.parser");
+ </script>
+ #+END_SRC
+* 与javaScipt的协作
+** 基本函数
+*** dojo.require
+ - 加载除了dojo.js以外的其它功能包
+*** dojo.addOnLoad
+ - 页面加载完毕后调用的函数
+*** dojo.byId dijit.byId
+ - 根据表单元素id获取元素
+*** dojo.query
+ - 返回节点列表
+*** dojo.connect
+ - 监听Dijit小部件
+*** dojo.forEach
+ -  遍历
+ - 例子
+ #+BEGIN_SRC javascript  
+dojo.query("select").forEach(
+  function(selectTag) {
+      selectTag.disabled = true;
+  }
+);
+<!-- 简写 -->
+dojo.query("select", document).forEach("item.disabled = true;");
+  #+END_SRC
+
+* dom
+** dojo DOM工具函数
+ - dojo.hasClass dojo.addClass dojo.removeClass dojo.toggleClass
+  + 对class的操作
+ - dojo.style
+  + 设置结点样式
+ - dojo.attr dojo.hasAttr dojo.removeAttr
+  + 对结点属性的操作
+ - 

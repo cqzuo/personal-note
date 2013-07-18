@@ -1,34 +1,31 @@
 ﻿digraph G {
-edge [fontname="FangSong"];
-node [shape=box, fontname="Microsoft YaHei" size="20,20"];
-{
-qkbhsq [label="情况变化申请"];
-bmsp [label="部门审批"  ];
-fwsp [label="法务审批"   ];
-fssp [label="复审审批" ];
-ywfgldsp [label="业务分管领导审批"   ];
-fkjlsp [label="风控经理审批" ];
-shlc[label="重新进入上会流程"];
-sbwysp[label="审保委员审批"];
-zjl[label="总经理"];
-fkfg[label="风控分管领导"];
-bghms[label="办公会秘书"];
-xgzxd[label="审保会秘书修改执行单"];
-bgtjjg[label="变更结果统计"];
-hqyj[label="审保主任汇签意见"];
-zxd[label="生成执行单"];
-}
-sbzrsp [label="审保主任选择项目审批流向"  ];
-node[shape="plaintext",fontname="FangSong" size="20,20"];
-{
-	start[label="情况变化开始"];
-	end[label="情况变化结束"];
-}
-start->qkbhsq->bmsp->fwsp->fssp->ywfgldsp->fkjlsp->sbzrsp;
-sbzrsp->qkbhsq[label="退回"];
-sbzrsp->shlc[label="上会"];
-sbzrsp->sbwysp[label="汇签"];
-sbwysp->bgtjjg->hqyj->fkfg->bghms->zjl;
-sbzrsp->zjl[label="总经理"];
-zjl->xgzxd->zxd->end;
+    graph [rankdir=LR];
+ 
+    subgraph cluster_Actor2 {
+        a2;
+        label = "Actor2";
+        labelloc = b;
+        color = white;
+    }
+    a2 [color=white, label="", shape=box, image="stick.png"];
+ 
+    a2 -> Case2;
+    Case2 -> { Case21 Case22 } [style=dashed, label="<<extends>>", dir=back];
+ 
+    subgraph cluster_Actor1 {
+        a1;
+        label = "Actor1";
+        labelloc = b;
+        color = white;
+    }
+    a1 [color=white, label="", shape=box, shapefile="stick.png"];
+ 
+    a1 -> Case1;
+ 
+    Case1 -> Case11 [style=dashed, label="<<include>>"];
+    Case1 -> { Case12 Case13 } [style=dashed, label="<<extends>>", dir=back];
+ 
+    a1 -> a2[arrowtail = empty, dir=back];
+ 
+    { rank = same; a1; a2; }
 }
