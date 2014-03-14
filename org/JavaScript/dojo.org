@@ -198,4 +198,78 @@ dojo.query("select", document).forEach("item.disabled = true;");
   + 设置结点样式
  - dojo.attr dojo.hasAttr dojo.removeAttr
   + 对结点属性的操作
- - 
+ 
+* grid网格
+** grid的特性
+ - 可以跨多行或多列
+ - 行可以包含多个子行
+ - 高性能
+ - 有多种扩展点供开发者关联自己的代码
+ - 支持富数据编辑器
+ - 支持所有绑定的dojo.data驱动
+** 网格显示和设计
+ - store
+  + 连接网格与它的存储
+ - query/queryOptions
+  + 确定了哪些元素会在初始化时被注入网格
+ - sortFields
+  + 初始化排序顺序
+*** 一种网格的显示方法
+ #+BEGIN_SRC js
+  // grid的数据  grid/datastore/ice_cream.json
+ {
+    identifier: "name",
+     label: "name",
+     items: [
+      ......
+     ]
+  }
+
+  // 页面中的代码
+ <span dojotype="dojo.data.ItemFileReadStore" jsId="icStore" url="datastores/ice_cream.json"></span>
+
+// 网格内容
+ <table id="grid" dojoType="dojox.grid.Grid" store="icScore" clientSort:"true" style="width: 35em; heigth: 15em;">
+  <thead>
+    <tr>
+      // 表头内容
+   </tr> 
+ </thead>
+ </table>
+ #+END_SRC
+*** 子行
+ - 表头部分
+*** 视图
+ - colgroup标签
+    设置视图的行数
+ #+BEGIN_SRC js
+   <table id="grid" dojoType="dojox.grid.Grid" store="icScore" clientSort:"true" style="width: 35em; heigth: 15em;">
+  // 这里设置视图
+ <colgroup span='1' noscroll='true'/>
+ <colgroup span='4'/>
+  <thead>
+    <tr>
+      // 表头内容
+   </tr> 
+ </thead>
+ </table>
+ #+END_SRC
+ #+END_SRC
+** 编程式创建结构
+*** JS中网格结构的定义
+ - 一个结构就是一个视图数组
+ - 一个视图就是一个单元数组
+ #+BEGIN_SRC js
+  var s = [
+    {
+       cells: [
+          {
+             name: '列的名称',
+             field: '数据存储器中的字段',
+             其它属性
+          },
+       其它单元
+       ]
+    }
+   ];
+ #+END_SRC 
